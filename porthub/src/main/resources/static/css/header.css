@@ -1,111 +1,137 @@
-.container {
-    width: 95%;
-    height: 100%;
-    padding: 20px 59px;
-    background: white;
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  
-  .top-bar {
-    align-self: stretch;
-    display: inline-flex;
+.frame {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
+    position: relative;
   }
   
-  .navigation {
-    display: flex;
+  .frame .frame-wrapper {
     justify-content: flex-end;
-    align-items: center;
     gap: 20px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    flex: 0 0 auto;
   }
   
-  .nav-items {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  .frame .div {
     gap: 40px;
-  }
-  
-  .nav-item {
-    color: #1E1E1E;
-    font-size: 14px;
-    font-family: Poppins;
-    font-weight: 400;
-    word-wrap: break-word;
-  }
-  
-  .portfolio-dropdown {
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
-    gap: 5px;
+    position: relative;
+    flex: 0 0 auto;
   }
   
-  .portfolio-dropdown-icon {
+  .frame .text-wrapper {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--ocean-dark);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .frame .div-2 {
+    display: inline-flex;
+    justify-content: center;
+    gap: 5px;
+    flex: 0 0 auto;
+    align-items: center;
+    position: relative;
+  }
+  
+  .frame .vector {
+    position: relative;
     width: 9px;
     height: 5px;
-    background: #1E1E1E;
   }
   
-  .logo {
-    color: #1E1E1E;
-    font-size: 40px;
-    font-family: "Baloo Paaji 2";
+  .frame .text-wrapper-2 {
+    position: relative;
+    width: fit-content;
+    -webkit-text-stroke: 1px #1e1e1e;
+    font-family: "Baloo Paaji 2-Regular", Helvetica;
     font-weight: 400;
+    color: #1e1e1e;
+    font-size: 40px;
+    letter-spacing: 0;
     line-height: 34px;
-    word-wrap: break-word;
+    white-space: nowrap;
+    border-color: var(--ocean-dark);
   }
   
-  .auth-buttons {
+  .frame .div-3 {
+    display: flex;
     width: 264px;
     height: 51px;
-    display: flex;
     justify-content: flex-end;
-    align-items: center;
     gap: 15px;
+    align-items: center;
+    position: relative;
   }
   
-  .auth-button {
+  .frame .button-fill-rounded {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     padding: 10px 20px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: var(--ocean-dark);
     border-radius: 30px;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
+  }
+  
+  .frame .button {
+    all: unset;
+    box-sizing: border-box;
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: var(--label-label-1-semibold-font-family);
+    font-weight: var(--label-label-1-semibold-font-weight);
+    color: var(--font-colorpure-white);
+    font-size: var(--label-label-1-semibold-font-size);
+    text-align: center;
+    letter-spacing: var(--label-label-1-semibold-letter-spacing);
+    line-height: var(--label-label-1-semibold-line-height);
+    white-space: nowrap;
+    font-style: var(--label-label-1-semibold-font-style);
+  }
+  
+  .frame .button-outline-sm {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
+    padding: 10px 20px;
+    position: relative;
+    flex: 0 0 auto;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 2px solid;
+    border-color: var(--ocean-dark);
+    background-color: var(--transparent);
   }
   
-  .register-button {
-    background: #1E1E1E;
-  }
-  
-  .register-button-text {
+  .frame .contact {
+    position: relative;
+    width: fit-content;
+    margin-top: -2px;
+    font-family: var(--label-label-1-semibold-font-family);
+    font-weight: var(--label-label-1-semibold-font-weight);
+    color: var(--ocean-dark);
+    font-size: var(--label-label-1-semibold-font-size);
     text-align: center;
-    color: white;
-    font-size: 16px;
-    font-family: Raleway;
-    font-weight: 600;
-    line-height: 24px;
-    word-wrap: break-word;
-  }
-  
-  .signin-button {
-    background: rgba(255, 255, 255, 0);
-    border: 2px #1E1E1E solid;
-  }
-  
-  .signin-button-text {
-    text-align: center;
-    color: #1E1E1E;
-    font-size: 16px;
-    font-family: Raleway;
-    font-weight: 600;
-    line-height: 24px;
-    word-wrap: break-word;
+    letter-spacing: var(--label-label-1-semibold-letter-spacing);
+    line-height: var(--label-label-1-semibold-line-height);
+    white-space: nowrap;
+    font-style: var(--label-label-1-semibold-font-style);
   }
   

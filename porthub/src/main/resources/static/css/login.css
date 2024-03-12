@@ -1,0 +1,260 @@
+.login {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.login .group-wrapper {
+  background-color: #ffffff;
+  width: 1440px;
+  height: 900px;
+}
+
+.login .group {
+  position: relative;
+  width: 505px;
+  height: 701px;
+  top: 99px;
+  left: 468px;
+}
+
+.login .div-wrapper {
+  height: 701px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 0.5px solid;
+  border-color: #868686;
+  box-shadow: 0px 4px 64px #0000000d;
+}
+
+.login .div {
+  position: relative;
+  width: 427px;
+  height: 625px;
+  top: 36px;
+  left: 34px;
+}
+
+.login .overlap-group-wrapper {
+  position: absolute;
+  width: 167px;
+  height: 81px;
+  top: 67px;
+  left: 0;
+}
+
+.login .overlap-group {
+  position: relative;
+  width: 163px;
+  height: 80px;
+  left: -2px;
+}
+
+.login .text-wrapper {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 31px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .text-wrapper-2 {
+  position: absolute;
+  top: 46px;
+  left: 0;
+  -webkit-text-stroke: 1.5px #1e1e1e;
+  font-family: "Poppins-Thin", Helvetica;
+  font-weight: 100;
+  color: #1e1e1e;
+  font-size: 40px;
+  letter-spacing: 2px;
+  line-height: 34px;
+  white-space: nowrap;
+}
+
+.login .text-wrapper-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Poppins-Light", Helvetica;
+  font-weight: 300;
+  color: #000000;
+  font-size: 25px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .group-2 {
+  position: absolute;
+  width: 423px;
+  height: 358px;
+  top: 187px;
+  left: 0;
+}
+
+.login .group-3 {
+  position: absolute;
+  width: 423px;
+  height: 92px;
+  top: 0;
+  left: 0;
+}
+
+.login .text-wrapper-4 {
+  position: absolute;
+  width: 390px;
+  top: -1px;
+  left: 0;
+  font-family: "Poppins-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .group-4 {
+  position: absolute;
+  width: 423px;
+  height: 59px;
+  top: 33px;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 0.6px solid;
+  border-color: #282828;
+}
+
+.login .text-wrapper-5 {
+  position: absolute;
+  top: 17px;
+  left: 26px;
+  font-family: "Poppins-Light", Helvetica;
+  font-weight: 300;
+  color: #ababab;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .group-5 {
+  position: absolute;
+  width: 423px;
+  height: 92px;
+  top: 130px;
+  left: 0;
+}
+
+.login .overlap-group-2 {
+  position: relative;
+  height: 92px;
+}
+
+.login .invisible {
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  top: 52px;
+  left: 374px;
+}
+
+.login .group-6 {
+  position: absolute;
+  width: 427px;
+  height: 18px;
+  top: 245px;
+  left: 0;
+}
+
+.login .rectangle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 1px;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 0.8px solid;
+  border-color: #282828;
+}
+
+.login .text-wrapper-6 {
+  position: absolute;
+  top: 0;
+  left: 22px;
+  font-family: "Poppins-Light", Helvetica;
+  font-weight: 300;
+  color: #000000;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .text-wrapper-7 {
+  position: absolute;
+  top: 0;
+  left: 315px;
+  font-family: "Poppins-Light", Helvetica;
+  font-weight: 300;
+  color: #4c4c4c;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .overlap-wrapper {
+  position: absolute;
+  width: 425px;
+  height: 57px;
+  top: 301px;
+  left: 0;
+}
+
+.login .overlap {
+  position: relative;
+  width: 423px;
+  height: 57px;
+  background-color: #000000;
+  border-radius: 6px;
+}
+
+.login .text-wrapper-8 {
+  position: absolute;
+  top: 17px;
+  left: 190px;
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .don-y-have-an {
+  position: absolute;
+  top: 601px;
+  left: 77px;
+  font-family: "Poppins-Light", Helvetica;
+  font-weight: 400;
+  color: transparent;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .span {
+  font-weight: 300;
+  color: #7d7d7d;
+}
+
+.login .text-wrapper-9 {
+  font-family: "Poppins-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #000000;
+}
