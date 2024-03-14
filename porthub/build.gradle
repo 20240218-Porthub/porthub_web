@@ -32,6 +32,7 @@ dependencies {
 //	testImplementation 'org.springframework.securigty:spring-security-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.2'
 }
 //
 //tas4ks.named('test') {

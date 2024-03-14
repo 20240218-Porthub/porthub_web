@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="/static/css/login.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 <body>
-<div class="login">
+
+    <header th:replace="~{fragments/header::headerFragment}"></header>
+
+    <div class="login">
     <div class="group-wrapper">
         <div class="group">
             <div class="div-wrapper">
@@ -50,5 +55,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

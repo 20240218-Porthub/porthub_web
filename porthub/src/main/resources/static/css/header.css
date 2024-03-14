@@ -1,137 +1,310 @@
-.frame {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-  }
-  
-  .frame .frame-wrapper {
-    justify-content: flex-end;
-    gap: 20px;
-    display: inline-flex;
-    align-items: center;
-    position: relative;
-    flex: 0 0 auto;
-  }
-  
-  .frame .div {
-    gap: 40px;
-    display: inline-flex;
-    align-items: center;
-    position: relative;
-    flex: 0 0 auto;
-  }
-  
-  .frame .text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1px;
-    font-family: "Poppins-Regular", Helvetica;
-    font-weight: 400;
-    color: var(--ocean-dark);
-    font-size: 14px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  
-  .frame .div-2 {
-    display: inline-flex;
-    justify-content: center;
-    gap: 5px;
-    flex: 0 0 auto;
-    align-items: center;
-    position: relative;
-  }
-  
-  .frame .vector {
-    position: relative;
-    width: 9px;
-    height: 5px;
-  }
-  
-  .frame .text-wrapper-2 {
-    position: relative;
-    width: fit-content;
-    -webkit-text-stroke: 1px #1e1e1e;
-    font-family: "Baloo Paaji 2-Regular", Helvetica;
-    font-weight: 400;
-    color: #1e1e1e;
-    font-size: 40px;
-    letter-spacing: 0;
-    line-height: 34px;
-    white-space: nowrap;
-    border-color: var(--ocean-dark);
-  }
-  
-  .frame .div-3 {
-    display: flex;
-    width: 264px;
-    height: 51px;
-    justify-content: flex-end;
-    gap: 15px;
-    align-items: center;
-    position: relative;
-  }
-  
-  .frame .button-fill-rounded {
-    all: unset;
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px 20px;
-    position: relative;
-    flex: 0 0 auto;
-    background-color: var(--ocean-dark);
-    border-radius: 30px;
-    overflow: hidden;
-  }
-  
-  .frame .button {
-    all: unset;
-    box-sizing: border-box;
-    position: relative;
-    width: fit-content;
-    margin-top: -1px;
-    font-family: var(--label-label-1-semibold-font-family);
-    font-weight: var(--label-label-1-semibold-font-weight);
-    color: var(--font-colorpure-white);
-    font-size: var(--label-label-1-semibold-font-size);
-    text-align: center;
-    letter-spacing: var(--label-label-1-semibold-letter-spacing);
-    line-height: var(--label-label-1-semibold-line-height);
-    white-space: nowrap;
-    font-style: var(--label-label-1-semibold-font-style);
-  }
-  
-  .frame .button-outline-sm {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px 20px;
-    position: relative;
-    flex: 0 0 auto;
-    border-radius: 30px;
-    overflow: hidden;
-    border: 2px solid;
-    border-color: var(--ocean-dark);
-    background-color: var(--transparent);
-  }
-  
-  .frame .contact {
-    position: relative;
-    width: fit-content;
-    margin-top: -2px;
-    font-family: var(--label-label-1-semibold-font-family);
-    font-weight: var(--label-label-1-semibold-font-weight);
-    color: var(--ocean-dark);
-    font-size: var(--label-label-1-semibold-font-size);
-    text-align: center;
-    letter-spacing: var(--label-label-1-semibold-letter-spacing);
-    line-height: var(--label-label-1-semibold-line-height);
-    white-space: nowrap;
-    font-style: var(--label-label-1-semibold-font-style);
-  }
-  
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /*background: url("../images/background.jpeg") no-repeat;*/
+  background-size: cover;
+  background-position: center;
+  background-color: white;
+}
+
+#wrap {
+  height: auto;
+  margin-top: 100px;
+  min-height: 100%;
+  padding-bottom: 5rem;
+}
+
+#login {
+
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+footer {
+  font-size: 14px;
+  bottom: 0;
+  height: 5rem;
+  position: relative;
+  transform: translateY(-100%);
+  background-color: lavenderblush;
+  width: 100%;
+  text-align: center;
+  color: black;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  padding: 20px 100px;
+  background: lavenderblush;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 99;
+
+}
+.left-menu {
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  cursor: pointer;
+}
+
+nav .sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  width: 260px;
+  padding: 20px 0;
+  background-color: white;
+  box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease;
+}
+nav.open .sidebar{
+  left: 0;
+}
+.sidebar .sidebar-content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 16px;
+}
+.sidebar-content .list {
+  list-style: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  height: 1000vh;
+  width: 200%;
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+nav.open ~ .sidebar{
+  opacity: 1;
+  left: 260px;
+  pointer-events: auto;
+}
+
+.list .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 14px 12px;
+  border-radius: 8px;
+  color: #4070f4;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  background-color: #4070f4;
+}
+.nav-link .icon{
+  margin-right: 14px;
+  font-size: 20px;
+  color: #707070;
+}
+.nav-link .link {
+  font-size: 16px;
+  color: #707070;
+  font-weight: 400;
+}
+
+.nav-link:hover .icon,
+.nav-link:hover .link {
+  color: white;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  margin: 0 24px;
+}
+.logo .menu-icon {
+  color: #333333;
+  font-size: 2em;
+  margin-right: 14px;
+  cursor: pointer;
+}
+.logo .logo-name {
+  color: #333333;
+  font-size: 22px;
+  font-weight: 500;
+}
+.navigation a{
+  position: relative;
+  font-size: 1.1em;
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 40px;
+}
+.navigation a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 3px;
+  background: black;
+  border-radius: 5px;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .5s;
+}
+.navigation a:hover::after {
+  transform-origin: right;
+  transform: scaleX(1);
+}
+
+.navigation .btnLogin-popup {
+  width: 130px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid black;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-left: 40px;
+  transition: .5s;
+}
+
+.navigation .btnLogin-popup:hover {
+  background: lightgray;
+  color: white;
+}
+
+
+.form-box h2 {
+  font-size: 2em;
+  color: #162938;
+  text-align: center;
+}
+
+
+
+
+
+.loginTitle {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.loginGuide {
+  margin-top: 0;
+  padding: 0 0 5px 50px;
+}
+
+.idBox {
+  width: 400px;
+  position: relative;
+  margin-top: 0;
+}
+
+.pwBox {
+  width: 400px;
+  position: relative;
+  margin-top: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 20px 10px 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 18px;
+  outline: none;
+}
+
+input:focus+label,
+input:valid+label {
+  top: -2px;
+  font-size: 12px;
+  color: #166caa;
+}
+
+label {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  font-size: 18px;
+  transition: top 0.3s ease;
+}
+
+label.check {
+  color: red !important;
+  animation: 0.3s ease;
+  animation-iteration-count: 3;
+}
+
+.loginButtonBox {
+  margin-top: 30px;
+}
+
+#loginButton {
+  width: 400px;
+  height: 50px;
+  margin: 0px 10px;
+  color: #fff;
+  background: #166caa;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.subBox {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.subBox p {
+  margin: 10px 0 5px 0;
+}
+
+.subBox a {
+  text-decoration: none;
+  color: #166caa;
+  font-size: 18px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+#content-wrap {
+  text-align: center;
+}
+#signButton {
+  width: 400px;
+  height: 50px;
+  margin: 0px 10px;
+  color: #fff;
+  background: #166caa;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
