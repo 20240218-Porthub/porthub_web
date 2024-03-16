@@ -24,32 +24,34 @@
                     <div class="text-wrapper-3">Welcome !</div>
                     <div class="group-2">
 
-                        <div class="input-box">
-                            <span class="icon"><ion-icon name="mail-outline" role="img" class="md hydrated"></ion-icon></span>
-                            <input type="email" required="">
-                            <label>ID</label>
-                        </div>
-                        <div class="input-box">
-                            <span class="icon"><ion-icon name="lock-closed-outline" role="img" class="md hydrated"></ion-icon></span>
-                            <input type="password" required="">
-                            <label>Password</label>
-                        </div>
+<!--                        전송-->
+                        <form action="/login" method="post">
+                            <div class="input-box">
+                                <span class="icon"><ion-icon name="mail-outline" role="img" class="md hydrated"></ion-icon></span>
+                                <input type="email" required="">
+                                <label>Email</label>
+                            </div>
+                            <div class="input-box">
+                                <span class="icon"><ion-icon name="lock-closed-outline" role="img" class="md hydrated"></ion-icon></span>
+                                <input type="password" required="">
+                                <label>Password</label>
+                            </div>
+                            <div class="remember-forgot">
+                                <label><input type="checkbox">
+                                    Rememebr me</label>
+                            </div>
+                            <div class="overlap-wrapper">
+                                <a href="#">
+                                    <div class="overlap"></div>
+                                    <div class="text-wrapper-8">Login</div></a>
+                            </div>
+                        </form>
 
-                        <div class="remember-forgot">
-                            <label><input type="checkbox">
-                                Rememebr me</label>
-                        </div>
 
-
-                        <div class="overlap-wrapper">
-                            <a href="#">
-                                <div class="overlap"></div>
-                                <div class="text-wrapper-8">Login</div></a>
-                        </div>
                     </div>
                     <p class="don-y-have-an">
                         <span class="span">Don’y have an Account ?</span>
-                        <a href="#"><span class="text-wrapper-9">&nbsp;&nbsp;Register</span></a>
+                        <a href="register"><span class="text-wrapper-9">&nbsp;&nbsp;Register</span></a>
                     </p>
                 </div>
             </div>
