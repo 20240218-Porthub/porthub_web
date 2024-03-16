@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="../css/header.css">
+<div th:fragment="headerFragment" class="header navbar-fixed-top">
+
+  <header>
+    <nav>
+      <div class="logo">
+        <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
+        <h2 class="logo-name">PortHub</h2>
+      </div>
+
+      <div class="sidebar">
+        <div class="logo">
+          <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
+          <h2 class="logo-name">PortHub</h2>
+        </div>
+
+        <div class="sidebar-content">
+          <ul class="lists">
+            <li class="list">
+              <a href="main.html" class="nav-link">
+                <ion-icon name="home-outline" class="icon"></ion-icon>
+                <span class="link">Home</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="board.html" class="nav-link">
+                <ion-icon name="clipboard-outline" class="icon"></ion-icon>
+                <span class="link">게시판</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <ion-icon name="stats-chart-outline" class="icon"></ion-icon>
+                <span class="link">Revenue</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <ion-icon name="notifications-outline" class="icon"></ion-icon>
+                <span class="link">Notifications</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <ion-icon name="mail-outline" class="icon"></ion-icon>
+                <span class="link">Messages</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <ion-icon name="analytics-outline" class="icon"></ion-icon>
+                <span class="link">Analytics</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <ion-icon name="folder-outline" class="icon"></ion-icon>
+                <span class="link">Files</span>
+              </a>
+            </li>
+          </ul>
+          <div class="bottom-content">
+            <li class="list">
+              <a href="#" class="nav-link">
+                <ion-icon name="settings-outline" class="icon"></ion-icon>
+                <span class="link">Settings</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <ion-icon name="bag-outline" class="icon"></ion-icon>
+                <span class="link">Logout</span>
+              </a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="overlay"></section>
+    <script>
+      const navBar = document.querySelector("nav"),
+              menuBtns = document.querySelectorAll(".menu-icon"),
+              overlay = document.querySelector(".overlay");
+
+      menuBtns.forEach((menuBtn) => {
+        menuBtn.addEventListener("click", () => {
+          navBar.classList.toggle("open");
+        });
+      });
+
+      overlay.addEventListener("click", () => {
+        navBar.classList.remove("open");
+      });
+
+      // Close the navigation bar when clicking outside of it
+      document.body.addEventListener("click", (event) => {
+        const isClickInsideNavBar = navBar.contains(event.target);
+        const isClickInsideMenuBtn = Array.from(menuBtns).some((menuBtn) =>
+                menuBtn.contains(event.target)
+        );
+
+        if (!isClickInsideNavBar && !isClickInsideMenuBtn) {
+          navBar.classList.remove("open");
+        }
+      });
+    </script>
+
+    <nav class="navigation">
+      <a href="main">Home</a>
+      <a href="#">Mentoring</a>
+      <a href="#">About</a>
+      <a href="#">Chatting</a>
+      <button type="button" onclick="location.href='/login'" class="btnLogin-popup">Login</button>
+    </nav>
+  </header>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+</div>
+</html>

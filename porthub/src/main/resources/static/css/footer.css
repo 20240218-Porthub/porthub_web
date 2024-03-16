@@ -1,0 +1,21 @@
+
+.wrap-container{
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 60px;
+}
+
+.home-container {
+    min-height: 800px;
+}
+
+footer {
+    font-size: 14px;
+    height: 60px;
+    position: relative;
+    transform: translateY(0%);
+    background-color: lavenderblush;
+
+    text-align: center;
+    color: black;
+}
