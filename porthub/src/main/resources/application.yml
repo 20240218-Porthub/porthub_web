@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mysql://database-2.czqsyq4cefmv.ap-northeast-2.rds.amazonaws.com:3306/Porthub?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mariadb://database-2.czqsyq4cefmv.ap-northeast-2.rds.amazonaws.com:3306/porthub?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: admin
     password: porthub24
 

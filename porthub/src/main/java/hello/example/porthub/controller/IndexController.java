@@ -23,6 +23,12 @@ public class IndexController {
     }
 
 
+    @GetMapping(value = {"/login2"})
+    public String login2() {
+        return "register/login2";
+    }
+
+
     @GetMapping(value = {"/register"})
     public String register() {
         return "register/register";
