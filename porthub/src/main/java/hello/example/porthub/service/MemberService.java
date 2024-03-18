@@ -15,4 +15,20 @@ public class MemberService {
     public int save(MemberDto memberDto) {
         return memberRepository.save(memberDto);
     }
+
+
+    private MemberDto findByEmail(String Email) {
+        return memberRepository.findByEmail(Email);
+    }
+
+    public String emailCheck(String Email) {
+        MemberDto memberDto = memberRepository.findByEmail(Email);
+        if (memberDto == null) {
+            return "ok";
+        } else {
+            return "no";
+        }
+    }
+
+
 }

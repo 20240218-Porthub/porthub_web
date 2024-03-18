@@ -6,6 +6,10 @@
     <title>Project</title>
     <link th:href="@{/css/register/register.css}" rel="stylesheet">
     <link th:href="@{/css/register/registerguide.css}" rel="stylesheet">
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -33,7 +37,8 @@
                 </div>
                 <div class="text-field">
                     <div class="frame-3"><div class="label">What’s your email?</div></div>
-                    <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email">
+                    <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email" onblur="emailCheck()">
+                    <p id="check-result"></p>
 
                 </div>
                 <div class="text-field">
@@ -49,7 +54,7 @@
                 </div>
                 <div class="text-field">
                     <div class="frame-3"><div class="label">verify password</div></div>
-<!--                    <input type="password" class="text-field-2" placeholder="verify password">-->
+                    <input type="password" class="text-field-2" placeholder="verify password">
                 </div>
                 <div class="frame-4">
                     <div class="link-text">
@@ -82,4 +87,35 @@
     </div>
 </div>
 </body>
+<script>
+//ajax 이메일 중복 처리
+
+    const emailCheck = () => {
+        const email = document.getElementById("Email").value;
+        const checkResult = document.getElementById("check-result");
+        console.log("입력한 이메일", email);
+        $.ajax({
+            type: "post",
+            url: "/register/email-check",
+            data: {
+                "Email": email
+            },
+            success: function (res) {
+                console.log("요청 성공", res);
+                if (res == "ok") {
+                    console.log("사용 가능한 이메일 입니다.");
+                    checkResult.style.color = "blue";
+                    checkResult.innerHTML = "사용 가능 이메일 입니다.";
+                } else {
+                    console.log("이미 사용중인 이메일 입니다.");
+                    checkResult.style.color = "red";
+                    checkResult.innerHTML = "이미 사용중인 이메일 입니다.";
+                }
+            },
+            error: function (err) {
+                console.log("error", err);
+            },
+        })
+    }
+</script>
 </html>
