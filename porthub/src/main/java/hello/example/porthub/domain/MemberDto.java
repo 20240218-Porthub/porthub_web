@@ -13,10 +13,10 @@ public class MemberDto {
     private String UserName;
     private String Email;
     private String PasswordHash;
-//    private String ProfileImage;
+//    private String ProfileImage = null;
 //    private String RegisterationDate;
-//    private String AdditionalInfo;
-//    private boolean IsAdmin;
-//    private boolean IsMento;
+//    private String AdditionalInfo = null;
+//    private boolean IsAdmin = false;
+//    private boolean IsMento = false;
 
 }

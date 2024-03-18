@@ -23,6 +23,8 @@ public class MemberController {
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDto memberDto) {
         int saveResult = memberService.save(memberDto);
+
+//        예제입니다.
         if (saveResult > 0) {
             return "register/login"; //가입 성공
         } else {
