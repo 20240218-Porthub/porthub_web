@@ -315,3 +315,41 @@
     background-color: var(--ocean-blue);
     border-radius: 3px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.formControl {
+    width: 480px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.formControl.success input {
+    border-color: #2ecc71;
+}
+
+.formControl.error input {
+    border-color: #e74c3c;
+}
+
+.formControl small {
+    color: #e74c3c;
+    position: absolute;
+    top: 1;
+    left: 0;
+    visibility: hidden;
+}
+
+.formControl.error small {
+    visibility: visible;
+}

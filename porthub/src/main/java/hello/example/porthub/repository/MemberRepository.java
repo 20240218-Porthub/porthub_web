@@ -18,9 +18,8 @@ public class MemberRepository {
     }
 
 
-    public MemberDto findByEmail(String Email) {
-        return sql.selectOne("Member.findByEmail", Email);
-
+    public MemberDto findByUserName(String UserName) {
+        return sql.selectOne("Member.findByUserName", UserName);
     }
 
 }

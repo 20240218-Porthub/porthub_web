@@ -17,12 +17,12 @@ public class MemberService {
     }
 
 
-    private MemberDto findByEmail(String Email) {
-        return memberRepository.findByEmail(Email);
+    private MemberDto findByUserName(String UserName) {
+        return memberRepository.findByUserName(UserName);
     }
 
-    public String emailCheck(String Email) {
-        MemberDto memberDto = memberRepository.findByEmail(Email);
+    public String UserNameCheck(String UserName) {
+        MemberDto memberDto = memberRepository.findByUserName(UserName);
         if (memberDto == null) {
             return "ok";
         } else {

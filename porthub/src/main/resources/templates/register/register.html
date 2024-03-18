@@ -33,29 +33,30 @@
                 <div class="frame-2">
                 <div class="text-field">
                     <div class="frame-3"><div class="label">UserName</div></div>
-                    <input type="text" class="text-field-2" placeholder="Enter your profile name" name="UserName">
+                    <input type="text" class="text-field-2" placeholder="Enter your profile name" name="UserName" id="UserName" onblur="userCheck()">
+                    <p id="check-result"></p>
                 </div>
                 <div class="text-field">
                     <div class="frame-3"><div class="label">What’s your email?</div></div>
-                    <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email" onblur="emailCheck()">
-                    <p id="check-result"></p>
+                    <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email">
 
                 </div>
-                <div class="text-field">
-                    <div class="frame-3">
-                        <div class="label">Create a password</div>
-                        <div class="password-hide-see">
-                            <img class="icon" src="/images/hideeye.svg" />
-                            <div class="text-wrapper-4">Hide</div>
+                    <div class="text-field">
+                        <div class="frame-3">
+                            <div class="label">Create a password</div>
+                            <div class="password-hide-see">
+                                <img class="icon" src="/images/hideeye.svg" />
+                                <div class="text-wrapper-4">Hide</div>
+                            </div>
                         </div>
+                        <input type="password" class="text-field-2" placeholder="Enter your password" name="PasswordHash" id="pw">
+                        <small id="password-error-message" class="error-message">Use 8 or more characters with a mix of letters, numbers &amp; symbols</small>
                     </div>
-                    <input type="password" class="text-field-2" placeholder="Enter your password" name="PasswordHash">
-                    <p class="error-message">Use 8 or more characters with a mix of letters, numbers &amp; symbols</p>
-                </div>
-                <div class="text-field">
-                    <div class="frame-3"><div class="label">verify password</div></div>
-                    <input type="password" class="text-field-2" placeholder="verify password">
-                </div>
+                    <div class="text-field">
+                        <div class="frame-3"><div class="label">Verify password</div></div>
+                        <input type="password" class="text-field-2" placeholder="Verify password" id="pwCheck">
+                        <small id="password-match-error" class="error-message" style="display:none;">Passwords do not match</small>
+                    </div>
                 <div class="frame-4">
                     <div class="link-text">
                         <p class="p">
@@ -90,26 +91,26 @@
 <script>
 //ajax 이메일 중복 처리
 
-    const emailCheck = () => {
-        const email = document.getElementById("Email").value;
+    const userCheck = () => {
+        const username = document.getElementById("UserName").value;
         const checkResult = document.getElementById("check-result");
-        console.log("입력한 이메일", email);
+        console.log("입력한 UserName", UserName);
         $.ajax({
             type: "post",
-            url: "/register/email-check",
+            url: "/register/username-check",
             data: {
-                "Email": email
+                "UserName": username
             },
             success: function (res) {
                 console.log("요청 성공", res);
                 if (res == "ok") {
-                    console.log("사용 가능한 이메일 입니다.");
+                    console.log("사용 가능한 UserName 입니다.");
                     checkResult.style.color = "blue";
-                    checkResult.innerHTML = "사용 가능 이메일 입니다.";
+                    checkResult.innerHTML = "사용 가능 UserName 입니다.";
                 } else {
-                    console.log("이미 사용중인 이메일 입니다.");
+                    console.log("이미 사용중인 UserName 입니다.");
                     checkResult.style.color = "red";
-                    checkResult.innerHTML = "이미 사용중인 이메일 입니다.";
+                    checkResult.innerHTML = "이미 사용중인 UserName 입니다.";
                 }
             },
             error: function (err) {
@@ -118,4 +119,7 @@
         })
     }
 </script>
+<script th:src="@{/js/sign.js}"></script>
+<script src="/static/js/sign.js"></script>
+
 </html>

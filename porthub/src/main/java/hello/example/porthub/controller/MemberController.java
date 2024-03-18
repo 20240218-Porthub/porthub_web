@@ -2,7 +2,6 @@ package hello.example.porthub.controller;
 
 import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +30,10 @@ public class MemberController {
 
     }
 
-    @PostMapping("/email-check")
-    public @ResponseBody String emailCheck(@RequestParam("Email") String Email) {
-        System.out.println("Email" + Email);
-        String checkResult = memberService.emailCheck(Email);
+    @PostMapping("/username-check")
+    public @ResponseBody String userCheck(@RequestParam("UserName") String UserName) {
+        System.out.println("UserName" + UserName);
+        String checkResult = memberService.UserNameCheck(UserName);
         return checkResult;
     }
 }
