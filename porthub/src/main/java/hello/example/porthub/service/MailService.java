@@ -24,7 +24,7 @@ public class MailService {
         try {
             message.setFrom(senderEmail);
             message.setRecipients(MimeMessage.RecipientType.TO, mail);
-            message.setSubject("Vertification Email");
+            message.setSubject("[Porthub] Vertification Email");
             String body = "";
             body += "<h3>" + "인증 번호: " + "</h3>";
             body += "<h1>" + number + "</h1>";
