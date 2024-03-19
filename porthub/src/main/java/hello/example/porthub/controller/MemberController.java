@@ -23,7 +23,7 @@ public class MemberController {
         int saveResult = memberService.save(memberDto);
 //        예제입니다.
         if (saveResult > 0) {
-            return "register/login"; //가입 성공
+            return "redirect:/login"; //가입 성공
         } else {
             return "register/register"; //가입 실패
         }
@@ -36,4 +36,7 @@ public class MemberController {
         String checkResult = memberService.UserNameCheck(UserName);
         return checkResult;
     }
+
+
+
 }

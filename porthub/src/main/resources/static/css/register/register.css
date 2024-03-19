@@ -39,7 +39,6 @@
     position: relative;
     width: fit-content;
     margin-top: -1px;
-    font-family: "Poppins-Medium", Helvetica;
     font-weight: 500;
     color: #333333;
     font-size: 32px;
@@ -301,7 +300,6 @@
     height: 4px;
     top: 14px;
     left: -4px;
-    background-color: var(--ocean-blue);
     border-radius: 3px;
 }
 
@@ -312,7 +310,6 @@
     height: 4px;
     top: 14px;
     left: -4px;
-    background-color: var(--ocean-blue);
     border-radius: 3px;
 }
 
@@ -325,6 +322,9 @@
 
 
 
+
+
+/*생성되는 error code message css*/
 
 
 
@@ -345,7 +345,6 @@
 .formControl small {
     color: #e74c3c;
     position: absolute;
-    top: 1;
     left: 0;
     visibility: hidden;
 }

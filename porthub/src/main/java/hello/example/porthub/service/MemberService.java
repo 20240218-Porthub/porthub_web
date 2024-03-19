@@ -16,10 +16,10 @@ public class MemberService {
         return memberRepository.save(memberDto);
     }
 
-
-    private MemberDto findByUserName(String UserName) {
-        return memberRepository.findByUserName(UserName);
-    }
+//
+//    private MemberDto findByUserName(String UserName) {
+//        return memberRepository.findByUserName(UserName);
+//    }
 
     public String UserNameCheck(String UserName) {
         MemberDto memberDto = memberRepository.findByUserName(UserName);
@@ -29,6 +29,5 @@ public class MemberService {
             return "no";
         }
     }
-
 
 }

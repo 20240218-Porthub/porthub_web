@@ -8,9 +8,25 @@ spring:
     username: admin
     password: porthub24
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: wjdgusdlekd3@yonsei.ac.kr
+    password: scmf alhv vzev uxdp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+#            required: true
+#          connectiontimeout: 5000
+#          timeout: 5000
+#          writetimeout: 5000
+#    auth-code-expiration-millis: 300000
+
 
 # mybatis
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   config-location: classpath:mybatis-config.xml
-

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link th:href="@{/css/register/register.css}" rel="stylesheet">
+    <link th:href="@{/css/register/register.css}" href="/static/css/register/register.css" rel="stylesheet">
     <link th:href="@{/css/register/registerguide.css}" rel="stylesheet">
     <script
             src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -34,11 +34,20 @@
                 <div class="text-field">
                     <div class="frame-3"><div class="label">UserName</div></div>
                     <input type="text" class="text-field-2" placeholder="Enter your profile name" name="UserName" id="UserName" onblur="userCheck()">
-                    <p id="check-result"></p>
+                    <small id="check-result"></small>
                 </div>
+
+
                 <div class="text-field">
+
                     <div class="frame-3"><div class="label">What’s your email?</div></div>
                     <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email">
+                    <button class="verification-request-btn" id="RequestBtn" onclick="sendNumber()">Verify Request</button>
+                    <div id="VertifyEmail" name="VertifyEmail">
+                        <input type="text" class="text-field-2" placeholder="verification code" name="EmailCode" id="EmailCode">
+                        <button class="verification-btn" id="VertifyCode" onclick="confirmNumber()">Verify Code</button>
+                        <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+                    </div>
 
                 </div>
                     <div class="text-field">
@@ -88,38 +97,10 @@
     </div>
 </div>
 </body>
-<script>
-//ajax 이메일 중복 처리
+<script type="text/javascript">
 
-    const userCheck = () => {
-        const username = document.getElementById("UserName").value;
-        const checkResult = document.getElementById("check-result");
-        console.log("입력한 UserName", UserName);
-        $.ajax({
-            type: "post",
-            url: "/register/username-check",
-            data: {
-                "UserName": username
-            },
-            success: function (res) {
-                console.log("요청 성공", res);
-                if (res == "ok") {
-                    console.log("사용 가능한 UserName 입니다.");
-                    checkResult.style.color = "blue";
-                    checkResult.innerHTML = "사용 가능 UserName 입니다.";
-                } else {
-                    console.log("이미 사용중인 UserName 입니다.");
-                    checkResult.style.color = "red";
-                    checkResult.innerHTML = "이미 사용중인 UserName 입니다.";
-                }
-            },
-            error: function (err) {
-                console.log("error", err);
-            },
-        })
-    }
 </script>
-<script th:src="@{/js/sign.js}"></script>
-<script src="/static/js/sign.js"></script>
+
+<script th:src="@{/js/sign.js}" src="/static/js/sign.js"></script>
 
 </html>
