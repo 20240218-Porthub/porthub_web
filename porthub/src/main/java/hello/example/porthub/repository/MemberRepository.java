@@ -14,7 +14,12 @@ public class MemberRepository {
 
     public int save(MemberDto memberDto) {
         System.out.println("memberDto= " + memberDto);
-//        return 0;
         return sql.insert("Member.save", memberDto);
     }
+
+
+    public MemberDto findByUserName(String UserName) {
+        return sql.selectOne("Member.findByUserName", UserName);
+    }
+
 }

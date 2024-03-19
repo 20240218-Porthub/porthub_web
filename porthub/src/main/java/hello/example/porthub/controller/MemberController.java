@@ -4,10 +4,7 @@ import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
     //dependency injection
     private final MemberService memberService;
+
     @GetMapping("/save")
     public String saveForm() {
         return "register/register";
@@ -23,13 +21,22 @@ public class MemberController {
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDto memberDto) {
         int saveResult = memberService.save(memberDto);
-
 //        예제입니다.
         if (saveResult > 0) {
-            return "register/login"; //가입 성공
+            return "redirect:/login"; //가입 성공
         } else {
             return "register/register"; //가입 실패
         }
 
     }
+
+    @PostMapping("/username-check")
+    public @ResponseBody String userCheck(@RequestParam("UserName") String UserName) {
+        System.out.println("UserName" + UserName);
+        String checkResult = memberService.UserNameCheck(UserName);
+        return checkResult;
+    }
+
+
+
 }

@@ -1,0 +1,32 @@
+:root {
+    --ocean-dark: rgba(30, 30, 30, 1);
+    --font-colorpure-white: rgba(255, 255, 255, 1);
+    --black: rgba(45, 45, 45, 1);
+    --transparent: rgba(255, 255, 255, 0);
+    --white: rgba(255, 255, 255, 1);
+    --google-blue: rgba(66, 133, 244, 1);
+    --h2-font-family: "Epilogue", Helvetica;
+    --h2-font-weight: 600;
+    --h2-font-size: 32px;
+    --h2-letter-spacing: 0px;
+    --h2-line-height: 42px;
+    --h2-font-style: normal;
+    --subtitle-font-family: "Epilogue", Helvetica;
+    --subtitle-font-weight: 600;
+    --subtitle-font-size: 20px;
+    --subtitle-letter-spacing: 0px;
+    --subtitle-line-height: 30px;
+    --subtitle-font-style: normal;
+    --body-text-font-family: "Epilogue", Helvetica;
+    --body-text-font-weight: 400;
+    --body-text-font-size: 17px;
+    --body-text-letter-spacing: 0px;
+    --body-text-line-height: 27px;
+    --body-text-font-style: normal;
+    --label-label-1-semibold-font-family: "Raleway", Helvetica;
+    --label-label-1-semibold-font-weight: 600;
+    --label-label-1-semibold-font-size: 16px;
+    --label-label-1-semibold-letter-spacing: 0px;
+    --label-label-1-semibold-line-height: 24px;
+    --label-label-1-semibold-font-style: normal;
+}

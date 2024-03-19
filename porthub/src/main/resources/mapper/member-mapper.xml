@@ -11,4 +11,12 @@
         insert into Users(UserName, Email, PasswordHash,RegistrationDate)
         values (#{UserName}, #{Email}, #{PasswordHash}, NOW())
     </insert>
+    <select id="findByUserName" parameterType="String" resultType="member">
+        select * from Users where UserName=#{UserName}
+    </select>
+    <delete id="delete" parameterType="Member">
+        DELETE FROM Users;
+    </delete>
+
+
 </mapper>

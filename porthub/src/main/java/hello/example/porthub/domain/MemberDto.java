@@ -9,14 +9,8 @@ import lombok.ToString;
 @ToString
 public class MemberDto {
 
-//    private Long UserID;
     private String UserName;
     private String Email;
     private String PasswordHash;
-//    private String ProfileImage = null;
-//    private String RegisterationDate;
-//    private String AdditionalInfo = null;
-//    private boolean IsAdmin = false;
-//    private boolean IsMento = false;
 
 }

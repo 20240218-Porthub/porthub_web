@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link th:href="@{/css/register/register.css}" rel="stylesheet">
+    <link th:href="@{/css/register/register.css}" href="/static/css/register/register.css" rel="stylesheet">
     <link th:href="@{/css/register/registerguide.css}" rel="stylesheet">
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -29,28 +33,36 @@
                 <div class="frame-2">
                 <div class="text-field">
                     <div class="frame-3"><div class="label">UserName</div></div>
-                    <input type="text" class="text-field-2" placeholder="Enter your profile name" name="UserName">
+                    <input type="text" class="text-field-2" placeholder="Enter your profile name" name="UserName" id="UserName" onblur="userCheck()">
+                    <small id="check-result"></small>
                 </div>
+
                 <div class="text-field">
                     <div class="frame-3"><div class="label">What’s your email?</div></div>
-                    <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email">
-
-                </div>
-                <div class="text-field">
-                    <div class="frame-3">
-                        <div class="label">Create a password</div>
-                        <div class="password-hide-see">
-                            <img class="icon" src="/images/hideeye.svg" />
-                            <div class="text-wrapper-4">Hide</div>
-                        </div>
+                    <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email">
+                    <button class="verification-request-btn" id="RequestBtn" onclick="sendNumber()">Verify Request</button>
+                    <div id="VertifyEmail" name="VertifyEmail" style="display: none">
+                        <input type="text" class="text-field-2" placeholder="verification code" name="EmailCode" id="EmailCode">
+                        <button class="verification-btn" id="VertifyCode" onclick="confirmNumber()">Verify Code</button>
+                        <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
                     </div>
-                    <input type="password" class="text-field-2" placeholder="Enter your password" name="PasswordHash">
-                    <p class="error-message">Use 8 or more characters with a mix of letters, numbers &amp; symbols</p>
                 </div>
-                <div class="text-field">
-                    <div class="frame-3"><div class="label">verify password</div></div>
-<!--                    <input type="password" class="text-field-2" placeholder="verify password">-->
-                </div>
+                    <div class="text-field">
+                        <div class="frame-3">
+                            <div class="label">Create a password</div>
+                            <div class="password-hide-see" id="togglePasswordBtn" onclick="togglePasswordVisibility()">
+                                <img class="icon" src="/images/hideeye.svg" />
+                                <div class="text-wrapper-4">Hide</div>
+                            </div>
+                        </div>
+                        <input type="password" class="text-field-2" placeholder="Enter your password" name="PasswordHash" id="pw">
+                        <small id="password-error-message" class="error-message">Use 8 or more characters with a mix of letters, numbers &amp; symbols</small>
+                    </div>
+                    <div class="text-field">
+                        <div class="frame-3"><div class="label">Verify password</div></div>
+                        <input type="password" class="text-field-2" placeholder="Verify password" id="pwCheck">
+                        <small id="password-match-error" class="error-message" style="display:none;">Passwords do not match</small>
+                    </div>
                 <div class="frame-4">
                     <div class="link-text">
                         <p class="p">
@@ -70,8 +82,6 @@
                 </div>
             </form>
 
-
-
         </div>
         <div class="bar-rounded">
             <div class="overlap-group">
@@ -82,4 +92,10 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+
+</script>
+
+<script th:src="@{/js/sign.js}" src="/static/js/sign.js"></script>
+
 </html>

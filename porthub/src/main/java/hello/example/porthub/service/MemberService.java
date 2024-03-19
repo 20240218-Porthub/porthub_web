@@ -15,4 +15,19 @@ public class MemberService {
     public int save(MemberDto memberDto) {
         return memberRepository.save(memberDto);
     }
+
+//
+//    private MemberDto findByUserName(String UserName) {
+//        return memberRepository.findByUserName(UserName);
+//    }
+
+    public String UserNameCheck(String UserName) {
+        MemberDto memberDto = memberRepository.findByUserName(UserName);
+        if (memberDto == null) {
+            return "ok";
+        } else {
+            return "no";
+        }
+    }
+
 }
