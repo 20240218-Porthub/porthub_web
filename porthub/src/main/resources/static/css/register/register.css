@@ -352,3 +352,41 @@
 .formControl.error small {
     visibility: visible;
 }
+
+
+
+
+/* Style for the verification-request-btn */
+.verification-request-btn {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make inline */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Style for the verification-btn */
+.verification-btn {
+    background-color: #008CBA; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make inline */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Hover effect for both buttons */
+.verification-request-btn:hover, .verification-btn:hover {
+    background-color: #45a049; /* Darker green/blue */
+}

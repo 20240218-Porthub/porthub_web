@@ -13,6 +13,7 @@ const checkPasswordMatch = () => {
         return true;
     }
 }
+
 const validatePassword = (errorElement) => { // errorElement를 함수의 매개변수로 추가
     const password = document.getElementById("pw").value;
     const passwordError = document.getElementById("password-error-message");
@@ -39,7 +40,7 @@ form.addEventListener('submit', (event) => {
 
     if (!matchValid || !passwordValid || !vertifyCode) {
         if(!vertifyCode) {
-            alert("인증번호를 다시 진행하세요.")
+            alert("인증번호를 다시 진행.")
         }
         event.preventDefault(); // 폼 제출을 막습니다.
     }
@@ -97,14 +98,12 @@ function sendNumber(){
     });
 }
 
+
 function confirmNumber(){
     var number1 = $("#EmailCode").val();
     var number2 = $("#Confirm").val();
     const $resultMsg = $('#mail-check-warn');
 
-    // if(number1 === undefined || number1 === null || number1 === '') {
-    //     alert("인증 번호를 입력해주세요!")
-    // }
 
     if(number1 == number2 && number1 !== null && number1 !== ''){
         alert("인증 성공되었습니다.")
@@ -117,3 +116,14 @@ function confirmNumber(){
     }
 }
 
+function togglePasswordVisibility() {
+    var pwInput = document.getElementById("pw");
+    var pwInput2 = document.getElementById("pwCheck");
+    if (pwInput.type === "password") {
+        pwInput.type = "text";
+        pwInput2.type = "text";
+    } else {
+        pwInput.type = "password";
+        pwInput2.type = "password";
+    }
+}

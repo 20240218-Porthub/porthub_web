@@ -37,23 +37,20 @@
                     <small id="check-result"></small>
                 </div>
 
-
                 <div class="text-field">
-
                     <div class="frame-3"><div class="label">What’s your email?</div></div>
                     <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email">
                     <button class="verification-request-btn" id="RequestBtn" onclick="sendNumber()">Verify Request</button>
-                    <div id="VertifyEmail" name="VertifyEmail">
+                    <div id="VertifyEmail" name="VertifyEmail" style="display: none">
                         <input type="text" class="text-field-2" placeholder="verification code" name="EmailCode" id="EmailCode">
                         <button class="verification-btn" id="VertifyCode" onclick="confirmNumber()">Verify Code</button>
                         <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
                     </div>
-
                 </div>
                     <div class="text-field">
                         <div class="frame-3">
                             <div class="label">Create a password</div>
-                            <div class="password-hide-see">
+                            <div class="password-hide-see" id="togglePasswordBtn" onclick="togglePasswordVisibility()">
                                 <img class="icon" src="/images/hideeye.svg" />
                                 <div class="text-wrapper-4">Hide</div>
                             </div>
@@ -84,8 +81,6 @@
                     </div>
                 </div>
             </form>
-
-
 
         </div>
         <div class="bar-rounded">
