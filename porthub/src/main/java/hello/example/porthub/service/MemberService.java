@@ -3,6 +3,7 @@ package hello.example.porthub.service;
 import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,8 +12,10 @@ public class MemberService {
 
     //의존성 주입을 받음. 생성자 주입
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public int save(MemberDto memberDto) {
+        memberDto.setPasswordHash(bCryptPasswordEncoder.encode(memberDto.getPasswordHash()));
         return memberRepository.save(memberDto);
     }
 
