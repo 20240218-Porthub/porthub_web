@@ -39,9 +39,6 @@ form.addEventListener('submit', (event) => {
 
 
     if (!matchValid || !passwordValid || !vertifyCode) {
-        if(!vertifyCode) {
-            alert("인증번호를 다시 진행.")
-        }
         event.preventDefault(); // 폼 제출을 막습니다.
     }
 });
