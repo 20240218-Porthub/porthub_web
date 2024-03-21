@@ -41,6 +41,7 @@ form.addEventListener('submit', (event) => {
     if (!matchValid || !passwordValid || !vertifyCode) {
         event.preventDefault(); // 폼 제출을 막습니다.
     }
+
 });
 
 
@@ -99,16 +100,16 @@ function sendNumber(){
 function confirmNumber(){
     var number1 = $("#EmailCode").val();
     var number2 = $("#Confirm").val();
-    const $resultMsg = $('#mail-check-warn');
+    var checkResult2 = $("#VerifyBtn");
 
 
     if(number1 == number2 && number1 !== null && number1 !== ''){
         alert("인증 성공되었습니다.")
-        $resultMsg.css('color','green');
+        checkResult2.css("background-color", "blueviolet");
         return isCertification = true;
     }else{
         alert("인증 불일치")
-        $resultMsg.css('color','red');
+        checkResult2.css("background-color", "red");
         return isCertification = false;
     }
 }
