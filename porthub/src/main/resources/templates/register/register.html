@@ -6,12 +6,19 @@
     <title>Project</title>
     <link th:href="@{/css/register/register.css}" href="/static/css/register/register.css" rel="stylesheet">
     <link th:href="@{/css/register/registerguide.css}" rel="stylesheet">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <script
             src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
             crossorigin="anonymous"></script>
 </head>
 <body>
+
 
 <div class="create-an-account">
     <div class="div">
@@ -37,16 +44,20 @@
                     <small id="check-result"></small>
                 </div>
 
-                <div class="text-field">
-                    <div class="frame-3"><div class="label">What’s your email?</div></div>
-                    <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email">
-                    <button class="verification-request-btn" id="RequestBtn" onclick="sendNumber()">Verify Request</button>
-                    <div id="VertifyEmail" name="VertifyEmail" style="display: none">
-                        <input type="text" class="text-field-2" placeholder="verification code" name="EmailCode" id="EmailCode">
-                        <button class="verification-btn" id="VertifyCode" onclick="confirmNumber()">Verify Code</button>
-                        <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+                    <div class="text-field">
+                        <div class="frame-3">
+                            <div class="label">What’s your email?</div>
+                        </div>
+                        <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email">
+                        <button class="verification-request-btn" id="RequestBtn" onclick="sendNumber()">Verify Request</button>
+                        <div id="VertifyEmail" name="VertifyEmail" style="display: none">
+                            <input type="text" class="text-field-2" placeholder="verification code" name="EmailCode" id="EmailCode">
+                            <button class="verification-btn" id="VerifyBtn" onclick="confirmNumber()">Verify Code</button>
+                            <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+                        </div>
                     </div>
-                </div>
+
+
                     <div class="text-field">
                         <div class="frame-3">
                             <div class="label">Create a password</div>
@@ -55,12 +66,12 @@
                                 <div class="text-wrapper-4">Hide</div>
                             </div>
                         </div>
-                        <input type="password" class="text-field-2" placeholder="Enter your password" name="PasswordHash" id="pw">
+                        <label for="pw"></label><input type="password" class="text-field-2" placeholder="Enter your password" name="PasswordHash" id="pw">
                         <small id="password-error-message" class="error-message">Use 8 or more characters with a mix of letters, numbers &amp; symbols</small>
                     </div>
                     <div class="text-field">
                         <div class="frame-3"><div class="label">Verify password</div></div>
-                        <input type="password" class="text-field-2" placeholder="Verify password" id="pwCheck">
+                        <label for="pwCheck"></label><input type="password" class="text-field-2" placeholder="Verify password" id="pwCheck">
                         <small id="password-match-error" class="error-message" style="display:none;">Passwords do not match</small>
                     </div>
                 <div class="frame-4">
@@ -74,8 +85,9 @@
                             <span class="text-wrapper-3">Privacy Policy.</span>
                             <span class="text-wrapper-5">&nbsp;</span>
                         </p>
+
                     </div>
-                        <button class="button" type="submit">
+                        <button class="button" type="submit" id="SubmitCheck">
                             <div class="frame-5"><div class="sign-up">Create an account</div></div>
                         </button>
                     </div>
@@ -92,9 +104,6 @@
     </div>
 </div>
 </body>
-<script type="text/javascript">
-
-</script>
 
 <script th:src="@{/js/sign.js}" src="/static/js/sign.js"></script>
 
