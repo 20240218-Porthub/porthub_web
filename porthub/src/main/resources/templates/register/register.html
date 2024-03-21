@@ -48,7 +48,7 @@
                         <div class="frame-3">
                             <div class="label">What’s your email?</div>
                         </div>
-                        <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email">
+                        <input type="email" class="text-field-2" placeholder="Enter your email address" name="Email" id="Email" onblur="emailCheck()">
                         <button class="verification-request-btn" id="RequestBtn" onclick="sendNumber()">Verify Request</button>
                         <div id="VertifyEmail" name="VertifyEmail" style="display: none">
                             <input type="text" class="text-field-2" placeholder="verification code" name="EmailCode" id="EmailCode">

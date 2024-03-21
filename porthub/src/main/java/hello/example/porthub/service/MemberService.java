@@ -33,4 +33,14 @@ public class MemberService {
         }
     }
 
+    public boolean EmailDuplicateCheck(String Email) {
+        MemberDto memberDto = memberRepository.findByEmail(Email);
+
+        if (memberDto == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -37,6 +37,10 @@ public class MemberController {
         return checkResult;
     }
 
-
-
+    @PostMapping("/email-check")
+    public @ResponseBody String emailCheck(@RequestParam("Email") String Email) {
+        System.out.println("Email" + Email);
+        String checkDuplelicateEmail = memberService.UserNameCheck(Email);
+        return checkDuplelicateEmail;
+    }
 }

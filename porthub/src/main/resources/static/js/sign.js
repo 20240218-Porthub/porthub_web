@@ -46,11 +46,32 @@ form.addEventListener('submit', (event) => {
 
 
 //ajax 이메일 중복 처리
+const emailCheck = () => {
+    const email = document.getElementById("Email").value;
+    console.log("입력한 email", email);
+    $.ajax({
+        type: "post",
+        url: "/register/email-check",
+        data: {
+            "Email": email,
+        },
+        success: function (res) {
+            console.log("요청 성공", res);
+            if (res == true) {
+            } else {
+                alert("duplicated Email");
+            }
+        },
+        error: function (err) {
+            console.log("error", err);
+        },
+    })
+}
 
 const userCheck = () => {
     const username = document.getElementById("UserName").value;
     const checkResult = document.getElementById("check-result");
-    console.log("입력한 UserName", UserName);
+    console.log("입력한 UserName", username);
     $.ajax({
         type: "post",
         url: "/register/username-check",
@@ -74,6 +95,7 @@ const userCheck = () => {
         },
     })
 }
+
 var isCertification = false;
 
 function sendNumber(){
