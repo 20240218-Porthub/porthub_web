@@ -22,4 +22,7 @@ public class MemberRepository {
         return sql.selectOne("Member.findByUserName", UserName);
     }
 
+    public MemberDto findByEmail(String Email) {
+        return sql.selectOne("Member.findByEmail", Email);
+    }
 }
