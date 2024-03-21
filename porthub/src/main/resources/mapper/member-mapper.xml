@@ -7,16 +7,19 @@
 <!--    insert into Users(UserName, Email, PasswordHash, ProfileImage, AdditionalInfo, IsAdmin, IsMento)-->
 <!--    values (#{UserName}, #{Email}, #{PasswordHash}, #{ProfileImage}, #{AdditionalInfo}, #{IsAdmin}, #{IsMento})-->
 <!--    </insert>-->
+
     <insert id="save" parameterType="Member">
         insert into Users(UserName, Email, PasswordHash,RegistrationDate)
         values (#{UserName}, #{Email}, #{PasswordHash}, NOW())
     </insert>
+
     <select id="findByUserName" parameterType="String" resultType="member">
         select * from Users where UserName=#{UserName}
     </select>
-    <delete id="delete" parameterType="Member">
-        DELETE FROM Users;
-    </delete>
+
+    <select id="findByEmail" parameterType="String" resultType="member">
+        select * from Users where Email=#{Email}
+    </select>
 
 
 </mapper>
