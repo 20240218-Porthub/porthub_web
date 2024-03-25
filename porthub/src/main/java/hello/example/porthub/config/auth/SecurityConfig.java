@@ -29,18 +29,22 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/main").permitAll()
-                        .requestMatchers("/login", "/register").permitAll()
+                        .requestMatchers("/mentoring/**").hasRole("MENTO")
                         .requestMatchers("/admin").hasRole("ADMIN")
-                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
-                        .anyRequest().authenticated() //전체 권한 열어놓고 특정 경로들을 요청받음 -> 자잘한 기능도 막힘
+                        .requestMatchers("/login2").authenticated()
+                        .anyRequest().permitAll() //전체 권한 열어놓고 특정 경로들을 요청받음 -> 자잘한 기능도 막힘
                 );
 
 
         http
                 .formLogin((auth) -> auth.loginPage("/login")
-                        .loginProcessingUrl("/loginProcess") //spring security가 앞단에 로그인 데이타를 넘기면 로그인 처리 진행
+                        .defaultSuccessUrl("/main", true)//spring security가 앞단에 로그인 데이타를 넘기면 로그인 처리 진행
                         .permitAll());
+
+        http
+                .logout((logout) -> logout
+                        .permitAll());
+
 
         http
                 .csrf((auth) -> auth.disable());// token 잠깐 꺼두기

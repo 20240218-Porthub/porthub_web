@@ -12,5 +12,6 @@ public class MemberDto {
     private String UserName;
     private String Email;
     private String PasswordHash;
+    private String Role;
 
 }

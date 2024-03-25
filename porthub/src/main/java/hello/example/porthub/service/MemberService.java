@@ -15,6 +15,7 @@ public class MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public int save(MemberDto memberDto) {
+        memberDto.setRole("USER");
         memberDto.setPasswordHash(bCryptPasswordEncoder.encode(memberDto.getPasswordHash()));
         return memberRepository.save(memberDto);
     }

@@ -38,7 +38,7 @@ form.addEventListener('submit', (event) => {
     const passwordValid = validatePassword(document.getElementById("password-error-message")); // validatePassword에 errorElement 전달
 
 
-    if (!matchValid || !passwordValid || !vertifyCode || !checkName) {
+    if (!matchValid || !passwordValid || !vertifyCode || !checkName || !checkemail) {
         event.preventDefault(); // 폼 제출을 막습니다.
     }
 
