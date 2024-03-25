@@ -9,10 +9,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    final private AuthenticationFailureHandler failureHandler;
+
+    public SecurityConfig(AuthenticationFailureHandler failureHandler) {
+        this.failureHandler = failureHandler;
+    }
 
     //회원 암호화 진행
     @Bean
@@ -38,12 +44,14 @@ public class SecurityConfig {
 
         http
                 .formLogin((auth) -> auth.loginPage("/login")
+                        .failureHandler(failureHandler)
                         .defaultSuccessUrl("/main", true)//spring security가 앞단에 로그인 데이타를 넘기면 로그인 처리 진행
                         .permitAll());
 
         http
                 .logout((logout) -> logout
                         .permitAll());
+
 
 
         http
