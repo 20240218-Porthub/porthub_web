@@ -28,12 +28,12 @@
                         <form action="/login" method="post">
                             <div class="input-box">
                                 <span class="icon"><ion-icon name="mail-outline" role="img" class="md hydrated"></ion-icon></span>
-                                <input type="email" required="">
+                                <input type="email" name="username" id="email" required>
                                 <label>Email</label>
                             </div>
                             <div class="input-box">
                                 <span class="icon"><ion-icon name="lock-closed-outline" role="img" class="md hydrated"></ion-icon></span>
-                                <input type="password" required="">
+                                <input type="password" name="password" id="password" required>
                                 <label>Password</label>
                             </div>
                             <div class="remember-forgot">
@@ -41,9 +41,9 @@
                                     Rememebr me</label>
                             </div>
                             <div class="overlap-wrapper">
-                                <a href="#">
+                                <button type="submit" style="cursor: pointer">
                                     <div class="overlap"></div>
-                                    <div class="text-wrapper-8">Login</div></a>
+                                    <div class="text-wrapper-8">Login</div></button>
                             </div>
                         </form>
                     </div>
