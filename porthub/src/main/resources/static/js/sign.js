@@ -38,7 +38,7 @@ form.addEventListener('submit', (event) => {
     const passwordValid = validatePassword(document.getElementById("password-error-message")); // validatePassword에 errorElement 전달
 
 
-    if (!matchValid || !passwordValid || !vertifyCode) {
+    if (!matchValid || !passwordValid || !vertifyCode || !checkName || !checkemail) {
         event.preventDefault(); // 폼 제출을 막습니다.
     }
 
@@ -58,7 +58,12 @@ const emailCheck = () => {
         success: function (res) {
             console.log("요청 성공", res);
             if (res == true) {
+                $("#VertifyEmail").css("display","block");
+                checkemail = true;
+
             } else {
+                $("#VertifyEmail").css("display","none");
+                checkemail = false;
                 alert("duplicated Email");
             }
         },
@@ -84,10 +89,12 @@ const userCheck = () => {
                 console.log("사용 가능한 UserName 입니다.");
                 checkResult.style.color = "blue";
                 checkResult.innerHTML = "사용 가능 UserName 입니다.";
+                checkName = true;
             } else {
                 console.log("이미 사용중인 UserName 입니다.");
                 checkResult.style.color = "red";
                 checkResult.innerHTML = "이미 사용중인 UserName 입니다.";
+                checkName = false;
             }
         },
         error: function (err) {
@@ -95,27 +102,31 @@ const userCheck = () => {
         },
     })
 }
-
+var checkemail = false;
+var checkName = false;
 var isCertification = false;
 
 function sendNumber(){
-    $("#VertifyEmail").css("display","block");
-    $.ajax({
-        url:"/Email",
-        type:"post",
-        crossDomain: true,
-        headers: {  'Access-Control-Allow-Origin': 'http://The web site allowed to access' },
-        dataType:"json",
-        data:{"Email" : $("#Email").val()},
-        success: function(data){
-            alert("인증번호 발송");
-            $("#Confirm").attr("value",data);
-            isCertification=false;
-        },
-        error:function(request, status, error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-    });
+    if (checkemail == true) {
+        $.ajax({
+            url: "/Email",
+            type: "post",
+            crossDomain: true,
+            headers: {'Access-Control-Allow-Origin': 'http://The web site allowed to access'},
+            dataType: "json",
+            data: {"Email": $("#Email").val()},
+            success: function (data) {
+                alert("인증번호 발송");
+                $("#Confirm").attr("value", data);
+                isCertification = false;
+            },
+            error: function (request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    } else {
+        alert("duplicated Email")
+    }
 }
 
 

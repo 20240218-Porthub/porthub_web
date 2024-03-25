@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="/static/css/header.css">
 <div th:fragment="headerFragment" class="header navbar-fixed-top">
 
   <header>
@@ -113,7 +113,12 @@
       <a href="#">Mentoring</a>
       <a href="#">About</a>
       <a href="/login2">Chatting</a>
-      <button type="button" onclick="location.href='/login'" class="btnLogin-popup">Login</button>
+
+      <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'" class="btnLogin-popup">Logout</button>
+
+      <!-- 로그인이 되어 있지 않을 때 -->
+      <button th:unless="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/login'" class="btnLogin-popup">Login</button>
+
     </nav>
   </header>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
