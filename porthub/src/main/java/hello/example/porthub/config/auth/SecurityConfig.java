@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/register").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated() //전체 권한 열어놓고 특정 경로들을 요청받음 -> 자잘한 기능도 막힘
                 );
 
 
@@ -51,6 +51,7 @@ public class SecurityConfig {
 
 
     //security로 인해 css 적용 안되는 부분이 있을 경우 해제 시킴
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
@@ -58,4 +59,5 @@ public class SecurityConfig {
                         .toStaticResources()
                         .atCommonLocations());
     }
+
 }
