@@ -63,15 +63,16 @@
           </ul>
           <div class="bottom-content">
             <li class="list">
-              <a href="setting" class="nav-link">
+              <a href="profile" class="nav-link">
                 <ion-icon name="settings-outline" class="icon"></ion-icon>
-                <span class="link">Settings</span>
+                <span class="link">Profile</span>
               </a>
             </li>
             <li class="list">
               <a href="#" class="nav-link">
                 <ion-icon name="bag-outline" class="icon"></ion-icon>
-                <span class="link">Logout</span>
+                <span th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'"class="link">Logout</span>
+                <span th:unless="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/login'" class="link">Login</span>
               </a>
             </li>
           </div>
@@ -112,7 +113,7 @@
       <a href="main">Home</a>
       <a href="mentoring">Mentoring</a>
       <a href="#">About</a>
-      <a href="/login2">Chatting</a>
+      <a href="login2">Chatting</a>
 
       <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'" class="btnLogin-popup">Logout</button>
 

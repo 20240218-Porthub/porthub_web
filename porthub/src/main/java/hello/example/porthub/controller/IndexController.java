@@ -37,6 +37,10 @@ public class IndexController {
         return "register/login2";
     }
 
+    @GetMapping("/profile")
+    public String profile() {
+        return "user/profile";
+    }
 
     @GetMapping(value = {"/register"})
     public String register() {
