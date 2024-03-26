@@ -41,16 +41,27 @@
                                     Rememebr me</label>
                             </div>
                             <div class="overlap-wrapper">
+
                                 <button type="submit" style="cursor: pointer">
                                     <div class="overlap"></div>
                                     <div class="text-wrapper-8">Login</div></button>
                             </div>
                         </form>
+
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            var error = /*[[${error}]]*/ '';
+                            if (error) {
+                                alert(decodeURIComponent(error));
+                            }
+                            /*]]>*/
+                        </script>
                     </div>
                     <p class="don-y-have-an">
                         <span class="span">Don’y have an Account ?</span>
                         <a href="register"><span class="text-wrapper-9">&nbsp;&nbsp;Register</span></a>
                     </p>
+
                 </div>
             </div>
         </div>
