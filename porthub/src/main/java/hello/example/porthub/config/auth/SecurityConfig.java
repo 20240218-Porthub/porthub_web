@@ -35,7 +35,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/mentoring/**").hasRole("MENTO")
+                        .requestMatchers("/mentoring/MentoAuth").hasRole("MENTO")
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/login2").authenticated()
                         .anyRequest().permitAll() //전체 권한 열어놓고 특정 경로들을 요청받음 -> 자잘한 기능도 막힘

@@ -27,6 +27,10 @@ public class IndexController {
         return "register/login";
     }
 
+    @GetMapping("/mentoring")
+    public String Mento() {
+        return "mentoring/mentoring";
+    }
 
     @GetMapping(value = {"/login2"})
     public String login2() {
