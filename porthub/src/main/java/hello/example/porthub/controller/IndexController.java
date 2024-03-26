@@ -27,12 +27,20 @@ public class IndexController {
         return "register/login";
     }
 
+    @GetMapping("/mentoring")
+    public String Mento() {
+        return "mentoring/mentoring";
+    }
 
     @GetMapping(value = {"/login2"})
     public String login2() {
         return "register/login2";
     }
 
+    @GetMapping("/profile")
+    public String profile() {
+        return "user/profile";
+    }
 
     @GetMapping(value = {"/register"})
     public String register() {
