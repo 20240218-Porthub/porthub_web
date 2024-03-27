@@ -65,10 +65,10 @@
         .fixed-section > div:last-child {
             border-bottom: none; /* 맨 아래 섹션은 선 제거 */
         }
-        .wrap-container {
+        .desktop {
             height: 100%; /* 전체 화면 높이 설정 */
         }
-        .home-container {
+        .port {
             height: 100%; /* 전체 화면 높이 설정 */
             margin-right: 25%; /* 오른쪽 고정된 섹션의 너비만큼 왼쪽 여백 추가 */
         }
@@ -78,16 +78,59 @@
 
 <header th:replace="~{fragments/header::headerFragment}"></header>
 
-<div class="wrap-container">
-    <div class="home-container">
+<div class="desktop">
+    <div class="port">
         <div class="container">
             <div class="scroll-section">
                 <br><br>
-                <!-- 스크롤 가능한 영역 -->
-                <h2>Scroll Section</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet est non eros molestie elementum. Pellentesque eget sapien et quam varius scelerisque.</p>
-                <p>...</p>
 
+                <div class="gallery-section">
+                    <div class="latest-work">Latest Work</div>
+                    <div class="cards-section">
+                        <div class="port-2">
+                            <img class="image" src="img/image-2.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-5">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="port-2">
+                            <img class="image" src="img/image-6.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="port-2">
+                            <img class="image" src="img/image-3.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="port-2">
+                            <img class="image" src="img/image.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="port-2">
+                            <img class="image" src="img/image-4.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="port-2">
+                            <img class="image" src="img/image-5.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
@@ -111,7 +154,7 @@
     </div>
 </div>
 
-<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+<!--<footer th:replace="~{fragments/footer::footerFragment}"></footer>-->
 
 </body>
 </html>
