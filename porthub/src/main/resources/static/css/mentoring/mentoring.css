@@ -1,6 +1,5 @@
 .desktop {
     background-color: #ffffff;
-    display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
@@ -281,36 +280,7 @@ body, html {
     overflow-y: auto; /* 스크롤 가능하도록 설정 */
     padding: 20px;
 }
-.fixed-section {
-    width: 25%; /* 고정된(Fixed) 너비 */
-    padding: 20px;
-    background-color: #fff; /* 오른쪽 영역 배경색 */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: fixed; /* 고정 위치로 설정 */
-    top: 0; /* 화면 상단에 고정 */
-    right: 0; /* 화면 우측에 고정 */
-    bottom: 0; /* 화면 하단까지 고정 */
-    border-left: 1px solid #ccc; /* 왼쪽 섹션과 구분을 위한 선 */
-}
-.fixed-section > div {
-    border-bottom: 1px solid #ccc; /* 위아래 섹션과 구분을 위한 선 */
-    padding: 20px 0;
-    text-align: center;
-}
-.fixed-section > .fixed-up {
-    height: 40%; /* 위쪽 섹션의 높이를 40%로 설정 */
-    overflow-y: auto; /* 섹션의 내용이 넘칠 경우 스크롤 허용 */
-}
-.fixed-section > .fixed-down {
-    height: 60%; /* 아래쪽 섹션의 높이를 60%로 설정 */
-    overflow-y: auto; /* 섹션의 내용이 넘칠 경우 스크롤 허용 */
-}
-.fixed-section > div:last-child {
-    border-bottom: none; /* 맨 아래 섹션은 선 제거 */
-}
+
 .port {
     height: 100%; /* 전체 화면 높이 설정 */
     margin-right: 25%; /* 오른쪽 고정된 섹션의 너비만큼 왼쪽 여백 추가 */
@@ -322,20 +292,14 @@ body, html {
     border: 1px solid #ccc; /* 박스의 테두리 스타일 */
     padding: 4px; /* 내부 여백 조정 */
     margin-bottom: 20px; /* .port-2 요소들 사이 간격 조정 */
-    width: calc(25% - 30px); /* 너비를 25%로 설정하고 마진을 고려하여 조정합니다. */
+    width: calc(20% - 30px); /* 너비를 25%로 설정하고 마진을 고려하여 조정합니다. */
     margin: 0 4px; /* 가운데 정렬 */
     float: left; /* 좌측 정렬 */
     border-radius: 5%;
 }
-
-/* 마지막 .port-wrapper의 margin-bottom 제거 */
-.port-wrapper:last-child {
-    margin-bottom: 0;
-}
-
 .profile-wrapper {
     width: 30px; /* Adjust the size of the circular profile image */
-    /*height: 30px;*/
+    height: 30px;
     border-radius: 50%; /* Makes the image circular */
     overflow: hidden; /* Hides any image overflow */
     margin-right: 4px; /* Adjust spacing between profile image and text */
@@ -346,8 +310,4 @@ body, html {
     width: 100%; /* Ensures the image takes up the full space of its container */
     height: auto;
     display: block;
-}
-
-img {
-    border-radius: 5%;
 }

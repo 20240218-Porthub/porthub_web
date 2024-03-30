@@ -4,5 +4,6 @@
 <configuration>
     <typeAliases>
         <typeAlias type="hello.example.porthub.domain.MemberDto" alias="Member"></typeAlias>
+        <typeAlias type="hello.example.porthub.domain.CategoryDto" alias="portfolio"/>
     </typeAliases>
 </configuration>
