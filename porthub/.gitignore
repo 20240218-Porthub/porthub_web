@@ -19,7 +19,6 @@ bin/
 
 ### yml, properties
 *.yml
-*.properties
 
 ### IntelliJ IDEA ###
 .idea
