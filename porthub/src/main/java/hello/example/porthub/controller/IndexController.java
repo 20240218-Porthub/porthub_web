@@ -36,14 +36,22 @@ public class IndexController {
     }
 
     @GetMapping("/mentoring")
-    public String Mento() {
+    public String Mento(Model model) {
+        List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        model.addAttribute("Category", categoryDtoList);
         return "mentoring/mentoring";
     }
 
-    @GetMapping(value = {"/login2"})
-    public String login2() {
-        return "register/login2";
+    @GetMapping(value = {"/chat"})
+    public String chat() {
+        return "user/chat";
     }
+
+    @GetMapping(value = {"/about"})
+    public String about() {
+        return "user/about";
+    }
+
 
     @GetMapping("/profile")
     public String profile() {

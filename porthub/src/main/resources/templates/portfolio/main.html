@@ -8,146 +8,50 @@
     <link rel="stylesheet" th:href="@{css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 
-    <style>/* CSS 스타일링 */
 
-    .top-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-        width: 100%;
-    }
-
-    .button-container {
-        display: flex;
-        margin-bottom: 10px;
-        width: 100%;
-        justify-content: center;
-    }
-
-    .button-container button {
-        margin-right: 10px;
-    }
-
-    .second-container {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-    }
-    .search-bar {
-        display: flex;
-        align-items: center;
-        margin-left: auto; /* 왼쪽 여백을 자동으로 조정하여 가운데 정렬 */
-        margin-right: auto; /* 오른쪽 여백을 자동으로 조정하여 가운데 정렬 */
-    }
-
-
-    .search-bar input[type="text"] {
-        padding: 15px;
-        width: 600px; /* 원하는 너비 설정 */
-    }
-
-    .left-btn {
-        margin-right: auto;
-        align-content: center;
-    }
-
-
-    @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
-
-    button {
-        margin: 20px;
-    }
-    a {
-        font-size: 12px;
-        color: black;
-    }
-
-    .w-btn {
-        position: relative;
-        border: none;
-        display: inline-block;
-        padding: 15px 30px;
-        border-radius: 15px;
-        font-family: "paybooc-Light", sans-serif;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        text-decoration: none;
-        font-weight: 600;
-        transition: 0.25s;
-    }
-
-
-    .w-btn:hover {
-        letter-spacing: 1px;
-        transform: scale(1.1);
-        cursor: pointer;
-    }
-
-
-    .w-btn:active {
-        transform: scale(1.3);
-    }
-    .search-btn {
-        position: relative;
-        border: none;
-        display: inline-block;
-        padding: 15px 30px;
-        border-radius: 15px;
-        font-family: "paybooc-Light", sans-serif;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        text-decoration: none;
-        font-weight: 600;
-        transition: 0.25s;
-    }
-
-    .search-btn:hover {
-        letter-spacing: 1px;
-        transform: scale(1.1);
-        cursor: pointer;
-    }
-
-    </style>
-    <style>
-        .port-wrapper {
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            transition: 0.25s;
-        }
-        .port-wrapper:hover {
-            letter-spacing: 2px;
-            transform: scale(1.1);
-            cursor: pointer;
-        }
-
-        .Popularity {
-            display: flex; /* Flexbox를 사용하여 요소들을 한 줄로 정렬합니다. */
-            align-items: center; /* 세로 방향 가운데 정렬합니다. */
-            margin-bottom: 10px; /* 요소들 사이의 간격을 설정합니다. */
-            justify-content: center;
-        }
-        .follow-btn {
-            background-color: black;
-            color: white;
-            border-radius: 20%;
-        }
-    </style>
 </head>
+
+<style>
+
+    /* 페이지 상단 이미지를 위한 스타일 */
+    .header-image-container {
+        text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
+        position: relative;
+    }
+    .header-image {
+        width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
+        height: auto;
+        display: block;
+    }
+    .centered-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px; /* 원하는 글꼴 크기로 조정하세요 */
+        color: black; /* 글꼴 색상 설정 */
+    }
+
+</style>
 <body>
 
 <header th:replace="~{fragments/header::headerFragment}"></header>
-
+<div class="header-image-container">
+    <img class="header-image" src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg" alt="Main Page Header Image">
+    <!-- 이미지 가운데 텍스트 -->
+    <div class="centered-text">여러분의 포트폴리오를 뽑내보세요!</div>
+</div>
 <div class="desktop">
     <div class="port">
         <div class="container">
             <div class="scroll-section">
-                <br><br>
-
                 <!-- 상단 섹션 -->
                 <div class="top-section">
                     <!-- 상단 섹션 -->
                     <div class="top-section">
                         <!-- 버튼 6개 -->
                         <div class="button-container">
-<!--                            <button class="w-btn w-btn-indigo">버튼 1</button>-->
+                            <!--                            <button class="w-btn w-btn-indigo">버튼 1</button>-->
                             <button th:each="Category : ${Category}" th:text="${Category.CategoryName}" class="w-btn w-btn-indigo"></button>
                         </div>
                         <!-- 버튼 + 검색바-->
@@ -161,26 +65,21 @@
                             </div>
 
                             <div class="search-bar">
-                                <input class="search-btn" type="text" placeholder="검색어를 입력하세요">
+                                <input class="w-btn" type="text" placeholder="검색어를 입력하세요">
                             </div>
                             <div class="right-btn">
                                 <a href="ports/create" class="w-btn w-btn-indigo">
                                     포트폴리오 올리기
                                 </a>
                             </div>
-
                         </div>
-
-
                     </div>
-
-
                 </div>
 
                 <div class="gallery-section">
                     <div class="cards-section">
                         <!-- 반복되는 요소 -->
-                        <div th:each="idx : ${#numbers.sequence(1, 16)}"  class="port-wrapper">
+                        <div th:each="idx : ${#numbers.sequence(1, 18)}"  class="port-wrapper">
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5">
@@ -204,30 +103,11 @@
 
 <div class="fixed-section">
     <div class="fixed-up">
-        <br>
-        <h2>Popularity</h2>
-        <div class="Popularity">
-            <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
-            </div>
-            <div>UserName</div>
-            <button class="follow-btn">follow</button>
+        <br><br>
+        <div>
+            <h2 style="font-size: 1em; margin-bottom: 0.1em;">Popularity</h2>
         </div>
-        <div class="Popularity">
-            <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
-            </div>
-            <div>UserName</div>
-            <button class="follow-btn">follow</button>
-        </div>
-        <div class="Popularity">
-            <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
-            </div>
-            <div>UserName</div>
-            <button class="follow-btn">follow</button>
-        </div>
-        <div class="Popularity">
+        <div th:each="idx : ${#numbers.sequence(1, 4)}" class="Popularity">
             <div class="profile-wrapper">
                 <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
             </div>
@@ -237,12 +117,20 @@
 
     </div>
     <div class="fixed-down">
-        <!-- 아래쪽 고정 섹션 -->
-        <div class="gallery-section">
-            <div class="cards-section">
-                <!-- 반복되는 요소 -->
-            </div>
+        <div>
+            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History</h2>
         </div>
+
+        <div class="history_section">
+            <div th:each="idx : ${#numbers.sequence(1, 4)}" class="port-3">
+                <div class="history-description">
+                    <div class="history-image">
+                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
+                    </div>
+                </div>
+            </div>
+</div>
+
     </div>
 </div>
 
