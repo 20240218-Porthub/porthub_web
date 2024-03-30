@@ -16,12 +16,20 @@ public class PortDetails implements UserDetails {
         this.memberDto = memberDto;
     }
 
+    //권한별 페이지 접근 설정
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(memberDto.getRole()));
+        if (memberDto != null && memberDto.getRole() != null) {
+            String role = memberDto.getRole();
+            if (!role.startsWith("ROLE_")) {
+                role = "ROLE_" + role;
+            }
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
         return authorities;
     }
+
     @Override
     public String getPassword() {
         return memberDto.getPasswordHash();

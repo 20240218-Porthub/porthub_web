@@ -4,73 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <style>
-        body {
-            /*background: url("/images/iim.png") no-repeat;*/
-            background-size: cover;
-            margin: 0; /* body 마진 제거 */
-            padding: 0; /* body 패딩 제거 */
-        }
-    </style>
-
     <link rel="stylesheet" th:href="@{css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
     <link rel="stylesheet" th:href="@{css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 
+    <style>/* CSS 스타일링 */
+
+    .top-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .button-container {
+        display: flex;
+        margin-bottom: 10px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .button-container button {
+        margin-right: 10px;
+    }
+
+    .second-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    .search-bar {
+        display: flex;
+        align-items: center;
+        margin-left: auto; /* 왼쪽 여백을 자동으로 조정하여 가운데 정렬 */
+        margin-right: auto; /* 오른쪽 여백을 자동으로 조정하여 가운데 정렬 */
+    }
+
+
+    .search-bar input[type="text"] {
+        padding: 15px;
+        width: 600px; /* 원하는 너비 설정 */
+    }
+
+    .left-btn {
+        margin-right: auto;
+        align-content: center;
+    }
+
+
+    @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+    button {
+        margin: 20px;
+    }
+    a {
+        font-size: 12px;
+        color: black;
+    }
+
+    .w-btn {
+        position: relative;
+        border: none;
+        display: inline-block;
+        padding: 15px 30px;
+        border-radius: 15px;
+        font-family: "paybooc-Light", sans-serif;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.25s;
+    }
+
+
+    .w-btn:hover {
+        letter-spacing: 1px;
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+
+    .w-btn:active {
+        transform: scale(1.3);
+    }
+    .search-btn {
+        position: relative;
+        border: none;
+        display: inline-block;
+        padding: 15px 30px;
+        border-radius: 15px;
+        font-family: "paybooc-Light", sans-serif;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.25s;
+    }
+
+    .search-btn:hover {
+        letter-spacing: 1px;
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+    </style>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
+        .port-wrapper {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: 0.25s;
         }
-        .container {
-            display: flex;
-            height: 100%;
-            flex-wrap: nowrap; /* 내용이 넘치지 않고 한 줄에 표시되도록 설정 */
-            margin: 0; /* container 마진 제거 */
+        .port-wrapper:hover {
+            letter-spacing: 2px;
+            transform: scale(1.1);
+            cursor: pointer;
         }
-        .scroll-section {
-            flex: 1;
-            overflow-y: auto; /* 스크롤 가능하도록 설정 */
-            padding: 20px;
+
+        .Popularity {
+            display: flex; /* Flexbox를 사용하여 요소들을 한 줄로 정렬합니다. */
+            align-items: center; /* 세로 방향 가운데 정렬합니다. */
+            margin-bottom: 10px; /* 요소들 사이의 간격을 설정합니다. */
+            justify-content: center;
         }
-        .fixed-section {
-            width: 25%; /* 고정된(Fixed) 너비 */
-            padding: 20px;
-            background-color: #fff; /* 오른쪽 영역 배경색 */
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: fixed; /* 고정 위치로 설정 */
-            top: 0; /* 화면 상단에 고정 */
-            right: 0; /* 화면 우측에 고정 */
-            bottom: 0; /* 화면 하단까지 고정 */
-            border-left: 1px solid #ccc; /* 왼쪽 섹션과 구분을 위한 선 */
-        }
-        .fixed-section > div {
-            border-bottom: 1px solid #ccc; /* 위아래 섹션과 구분을 위한 선 */
-            padding: 20px 0;
-            text-align: center;
-        }
-        .fixed-section > .fixed-up {
-            height: 40%; /* 위쪽 섹션의 높이를 40%로 설정 */
-            overflow-y: auto; /* 섹션의 내용이 넘칠 경우 스크롤 허용 */
-        }
-        .fixed-section > .fixed-down {
-            height: 60%; /* 아래쪽 섹션의 높이를 60%로 설정 */
-            overflow-y: auto; /* 섹션의 내용이 넘칠 경우 스크롤 허용 */
-        }
-        .fixed-section > div:last-child {
-            border-bottom: none; /* 맨 아래 섹션은 선 제거 */
-        }
-        .wrap-container {
-            height: 100%; /* 전체 화면 높이 설정 */
-        }
-        .home-container {
-            height: 100%; /* 전체 화면 높이 설정 */
-            margin-right: 25%; /* 오른쪽 고정된 섹션의 너비만큼 왼쪽 여백 추가 */
+        .follow-btn {
+            background-color: black;
+            color: white;
+            border-radius: 20%;
         }
     </style>
 </head>
@@ -78,17 +135,67 @@
 
 <header th:replace="~{fragments/header::headerFragment}"></header>
 
-<div class="wrap-container">
-    <div class="home-container">
+<div class="desktop">
+    <div class="port">
         <div class="container">
             <div class="scroll-section">
                 <br><br>
-                <!-- 스크롤 가능한 영역 -->
-                <h2>Scroll Section</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet est non eros molestie elementum. Pellentesque eget sapien et quam varius scelerisque.</p>
-                <p>...</p>
+
+                <!-- 상단 섹션 -->
+                <div class="top-section">
+                    <!-- 상단 섹션 -->
+                    <div class="top-section">
+                        <!-- 버튼 6개 -->
+                        <div class="button-container">
+<!--                            <button class="w-btn w-btn-indigo">버튼 1</button>-->
+                            <button th:each="Category : ${Category}" th:text="${Category.CategoryName}" class="w-btn w-btn-indigo"></button>
+                        </div>
+                        <!-- 버튼 + 검색바-->
+                        <div class="second-container">
+                            <div class="left-btn">
+                                <select class="w-btn w-btn-indigo" id="sort-options">
+                                    <option value="popularity">인기순</option>
+                                    <option value="recommendation">추천순</option>
+                                    <option value="latest">최신순</option>
+                                </select>
+                            </div>
+
+                            <div class="search-bar">
+                                <input class="search-btn" type="text" placeholder="검색어를 입력하세요">
+                            </div>
+                            <div class="right-btn">
+                                <a href="ports/create" class="w-btn w-btn-indigo">
+                                    포트폴리오 올리기
+                                </a>
+                            </div>
+
+                        </div>
 
 
+                    </div>
+
+
+                </div>
+
+                <div class="gallery-section">
+                    <div class="cards-section">
+                        <!-- 반복되는 요소 -->
+                        <div th:each="idx : ${#numbers.sequence(1, 16)}"  class="port-wrapper">
+                            <div class="port-2">
+                                <div class="title-description">
+                                    <div class="text-wrapper-5">
+                                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
+                                        <div class="profile-wrapper">
+                                            <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+                                        </div>
+                                        <div>UserName</div>
+                                        <div class="text-wrapper-6">Project title</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -97,17 +204,45 @@
 
 <div class="fixed-section">
     <div class="fixed-up">
-        <!-- 위쪽 고정 섹션 -->
-        <br><br>
-        <h2>Fixed Up Section</h2>
-        <p>이 곳은 위쪽 고정 섹션입니다.</p>
-        <!-- 내용이 넘칠 경우를 대비하여 스크롤을 허용합니다. -->
+        <br>
+        <h2>Popularity</h2>
+        <div class="Popularity">
+            <div class="profile-wrapper">
+                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+            </div>
+            <div>UserName</div>
+            <button class="follow-btn">follow</button>
+        </div>
+        <div class="Popularity">
+            <div class="profile-wrapper">
+                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+            </div>
+            <div>UserName</div>
+            <button class="follow-btn">follow</button>
+        </div>
+        <div class="Popularity">
+            <div class="profile-wrapper">
+                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+            </div>
+            <div>UserName</div>
+            <button class="follow-btn">follow</button>
+        </div>
+        <div class="Popularity">
+            <div class="profile-wrapper">
+                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+            </div>
+            <div>UserName</div>
+            <button class="follow-btn">follow</button>
+        </div>
+
     </div>
     <div class="fixed-down">
         <!-- 아래쪽 고정 섹션 -->
-        <h2>Fixed Down Section</h2>
-        <p>이 곳은 아래쪽 고정 섹션입니다.</p>
-        <!-- 내용이 넘칠 경우를 대비하여 스크롤을 허용합니다. -->
+        <div class="gallery-section">
+            <div class="cards-section">
+                <!-- 반복되는 요소 -->
+            </div>
+        </div>
     </div>
 </div>
 

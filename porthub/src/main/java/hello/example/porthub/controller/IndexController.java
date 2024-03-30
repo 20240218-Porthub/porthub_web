@@ -1,5 +1,7 @@
 package hello.example.porthub.controller;
 
+import hello.example.porthub.domain.CategoryDto;
+import hello.example.porthub.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,17 +9,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping
 @RequiredArgsConstructor
 public class IndexController {
 
+    private final PortfolioService portfolioService;
+
+
     @GetMapping(value = {"/", "/main"})
-    public String index() {
+    public String index(Model model) {
+        List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        model.addAttribute("Category", categoryDtoList);
         return "portfolio/main";
     }
-
 
     @GetMapping(value = {"/login"})
     public String login(@RequestParam(value = "error", required = false) String error,
