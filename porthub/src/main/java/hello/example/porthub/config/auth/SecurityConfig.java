@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/mentoring/MentoAuth").hasRole("MENTO")
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/profile").hasRole("USER")
-                        .requestMatchers("/chat","/ports/create").authenticated()
+//                        .requestMatchers("/chat","/ports/create").authenticated()
                         .anyRequest().permitAll() //전체 권한 열어놓고 특정 경로들을 요청받음 -> 자잘한 기능도 막힘
                 );
 
