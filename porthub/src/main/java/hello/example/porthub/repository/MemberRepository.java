@@ -1,6 +1,7 @@
 package hello.example.porthub.repository;
 
 import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.domain.ProfileDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -25,4 +26,6 @@ public class MemberRepository {
     public MemberDto findByEmail(String Email) {
         return sql.selectOne("Member.findByEmail", Email);
     }
+
+    public ProfileDto findByUserID(int UserID){ return sql.selectOne("Member.findByUserID", UserID); }
 }

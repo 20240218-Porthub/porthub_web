@@ -1,6 +1,7 @@
 package hello.example.porthub.service;
 
 import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.domain.ProfileDto;
 import hello.example.porthub.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,4 +45,15 @@ public class MemberService {
         }
     }
 
+    public MemberDto getMemberByEmail(String Email){
+        return memberRepository.findByEmail(Email);
+    }
+
+    public MemberDto getMemberByUserName(String UserName){
+        return memberRepository.findByUserName(UserName);
+    }
+
+    public ProfileDto getUsermetaByUserID(int UserID){
+        return memberRepository.findByUserID(UserID);
+    }
 }
