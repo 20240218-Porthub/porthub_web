@@ -1,3 +1,6 @@
+
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
 .desktop {
     background-color: #ffffff;
     display: flex;
@@ -6,10 +9,10 @@
     width: 100%;
 }
 
-.desktop .div {
+.desktop .port {
     background-color: #ffffff;
-    width: 1440px;
-    height: 2219px;
+    width: 100%;
+    height: 100%;
     position: relative;
 }
 
@@ -178,28 +181,12 @@
 .desktop .gallery-section {
     display: flex;
     flex-direction: column;
-    width: 1280px;
     align-items: center;
     gap: 42px;
-    padding: 42px 24px;
-    position: absolute;
+    padding: 20px 24px;
     top: 153px;
     left: 80px;
     background-color: #ffffff;
-}
-
-.desktop .latest-work {
-    position: relative;
-    width: fit-content;
-    margin-top: -1px;
-    font-family: "Poppins-Regular", Helvetica;
-    font-weight: 400;
-    color: var(--black);
-    font-size: 32px;
-    text-align: center;
-    letter-spacing: 0;
-    line-height: 42px;
-    white-space: nowrap;
 }
 
 .desktop .cards-section {
@@ -213,10 +200,10 @@
     flex: 0 0 auto;
 }
 
-.desktop .div-2 {
+.desktop .port-2 {
     display: flex;
     flex-direction: column;
-    min-width: 320px;
+    min-width: 20%;
     align-items: flex-start;
     gap: 24px;
     position: relative;
@@ -228,7 +215,7 @@
     position: relative;
     align-self: stretch;
     width: 100%;
-    height: 330px;
+    height: 160px;
     object-fit: cover;
 }
 
@@ -276,4 +263,214 @@
     font-size: 20px;
     letter-spacing: 0;
     line-height: 30px;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+.container {
+    display: flex;
+    height: 100%;
+    flex-wrap: nowrap; /* 내용이 넘치지 않고 한 줄에 표시되도록 설정 */
+    margin: 0; /* container 마진 제거 */
+}
+.scroll-section {
+    flex: 1;
+    overflow-y: auto; /* 스크롤 가능하도록 설정 */
+    padding: 20px;
+}
+.fixed-section {
+    width: 25%; /* 고정된(Fixed) 너비 */
+    padding: 20px;
+    background-color: #fff; /* 오른쪽 영역 배경색 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed; /* 고정 위치로 설정 */
+    top: 0; /* 화면 상단에 고정 */
+    right: 0; /* 화면 우측에 고정 */
+    bottom: 0; /* 화면 하단까지 고정 */
+    border-left: 1px solid #ccc; /* 왼쪽 섹션과 구분을 위한 선 */
+}
+.fixed-section > div {
+    border-bottom: 1px solid #ccc; /* 위아래 섹션과 구분을 위한 선 */
+    text-align: left;
+}
+.fixed-section > .fixed-up {
+    height: 40%; /* 위쪽 섹션의 높이를 40%로 설정 */
+    overflow-y: auto; /* 섹션의 내용이 넘칠 경우 스크롤 허용 */
+}
+.fixed-section > .fixed-down {
+    height: 60%; /* 아래쪽 섹션의 높이를 60%로 설정 */
+    overflow-y: auto; /* 섹션의 내용이 넘칠 경우 스크롤 허용 */
+}
+.fixed-section > div:last-child {
+    border-bottom: none; /* 맨 아래 섹션은 선 제거 */
+}
+.port {
+    height: 100%; /* 전체 화면 높이 설정 */
+    margin-right: 25%; /* 오른쪽 고정된 섹션의 너비만큼 왼쪽 여백 추가 */
+}
+
+
+/* .port-2 요소를 감싸는 박스 스타일 */
+.port-wrapper {
+    border: 1px solid #ccc; /* 박스의 테두리 스타일 */
+    padding: 4px; /* 내부 여백 조정 */
+    margin-bottom: 20px; /* .port-2 요소들 사이 간격 조정 */
+    width: calc(25% - 30px); /* 너비를 25%로 설정하고 마진을 고려하여 조정합니다. */
+    margin: 0 4px; /* 가운데 정렬 */
+    float: left; /* 좌측 정렬 */
+    border-radius: 5%;
+}
+
+/* 마지막 .port-wrapper의 margin-bottom 제거 */
+.port-wrapper:last-child {
+    margin-bottom: 0;
+}
+
+.profile-wrapper {
+    width: 30px; /* Adjust the size of the circular profile image */
+    /*height: 30px;*/
+    border-radius: 50%; /* Makes the image circular */
+    overflow: hidden; /* Hides any image overflow */
+    margin-right: 4px; /* Adjust spacing between profile image and text */
+    float: left; /* Float the profile image to the left */
+}
+
+.profile-image {
+    width: 100%; /* Ensures the image takes up the full space of its container */
+    height: auto;
+    display: block;
+}
+
+img {
+    border-radius: 5%;
+}
+
+
+.top-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.button-container button {
+    margin-right: 10px;
+}
+
+.second-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* 왼쪽 여백을 자동으로 조정하여 가운데 정렬 */
+    margin-right: auto; /* 오른쪽 여백을 자동으로 조정하여 가운데 정렬 */
+}
+
+.search-bar input[type="text"] {
+    padding: 15px;
+    width: 600px; /* 원하는 너비 설정 */
+}
+.left-btn {
+    margin-right: auto;
+    align-content: center;
+}
+
+button {
+    margin: 20px;
+}
+
+a {
+    font-size: 12px;
+    color: black;
+}
+
+.w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+
+.w-btn:hover {
+    letter-spacing: 1px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+.w-btn:active {
+    transform: scale(1.3);
+}
+
+.search-btn:hover {
+    letter-spacing: 1px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.port-wrapper {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transition: 0.25s;
+}
+.port-wrapper:hover {
+    letter-spacing: 2px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.Popularity {
+    display: flex; /* Flexbox를 사용하여 요소들을 한 줄로 정렬합니다. */
+    align-items: center; /* 세로 방향 가운데 정렬합니다. */
+    margin-bottom: 10px; /* 요소들 사이의 간격을 설정합니다. */
+    justify-content: center;
+}
+.follow-btn {
+    background-color: #334155;
+    color: white;
+    border-radius: .25rem;
+    margin: 10px;
+    font-size: .75rem;
+    /* height: 26px; */
+    font: revert;
+    font-size: small;
+    padding: .1rem;
+}
+
+.history_section img {
+    max-width: 20rem; /* 원하는 최대 너비 설정 */
+    max-height: 13rem; /* 원하는 최대 높이 설정 */
+}
+.history-image img{
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    padding: 5px;
+    float: left;
+    border-radius: 5%;
+    margin: 0 4px 1rem;
 }

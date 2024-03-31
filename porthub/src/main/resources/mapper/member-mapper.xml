@@ -20,6 +20,5 @@
     <select id="findByEmail" parameterType="String" resultType="member">
         select * from Users where Email=#{Email}
     </select>
-
-
 </mapper>
+

@@ -65,7 +65,7 @@
             <li class="list">
               <a href="profile" class="nav-link">
                 <ion-icon name="settings-outline" class="icon"></ion-icon>
-                <span class="link">Profile</span>
+                <span class="link">Profile Setting</span>
               </a>
             </li>
             <li class="list">
@@ -112,8 +112,8 @@
     <nav class="navigation">
       <a href="main">Home</a>
       <a href="mentoring">Mentoring</a>
-      <a href="#">About</a>
-      <a href="login2">Chatting</a>
+      <a href="about">About</a>
+      <a href="chat">Chatting</a>
 
       <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'" class="btnLogin-popup">Logout</button>
 
