@@ -6,29 +6,133 @@
     <title>Project</title>
     <style>
         body {
-            /*background: url("/images/iim.png") no-repeat;*/
             background-size: cover;
+            margin: 0; /* body 마진 제거 */
+            padding: 0; /* body 패딩 제거 */
         }
+        .mento-wrapper {
+            border: 1px solid #ccc;
+            padding: 4px;
+            width: calc(20% - 30px);
+            margin: 0 4px;
+            float: left;
+            border-radius: 5%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: 0.25s;
+        }
+
+        .mento-wrapper:hover {
+            letter-spacing: 2px;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        .third-container {
+            display: flex;
+            width: 100%;
+        }
+        .mento-btn-container {
+            margin-right: 10px;
+        }
+        .mento-btn {
+            background: #Efffff;
+        }
+
     </style>
 
     <link rel="stylesheet" th:href="@{css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
+
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+
+
 </head>
 <body>
 
 <header th:replace="~{fragments/header::headerFragment}"></header>
 
-<div class="wrap-container">
-    <div class="home-container">
-        <h1>Mentoring.html 입니다.</h1>
-        <h1>Mentoring.html 입니다.</h1>
-        <h1>Mentoring.html 입니다.</h1>
-        <h1>Mentoring.html 입니다.</h1>
+
+<div class="desktop">
+    <div class="Mentor">
+        <div class="container">
+            <div class="scroll-section">
+                <br><br>
+
+                <!-- 상단 섹션 -->
+                <div class="top-section">
+                    <!-- 상단 섹션 -->
+                    <div class="top-section">
+                        <!-- 버튼 6개 -->
+                        <div class="button-container">
+                            <button th:each="Category : ${Category}" th:text="${Category.CategoryName}" class="w-btn w-btn-indigo"></button>
+                        </div>
+                        <!-- 버튼 + 검색바-->
+                        <div class="second-container">
+                            <div class="left-btn">
+                                <select class="w-btn w-btn-indigo" id="sort-options">
+                                    <option value="popularity">인기순</option>
+                                    <option value="recommendation">추천순</option>
+                                    <option value="latest">최신순</option>
+                                </select>
+                            </div>
+
+                            <div class="search-bar">
+                                <input class="w-btn" type="text" placeholder="검색어를 입력하세요">
+                                <div style="width: 70px"></div>
+                            </div>
+                            <div class="right-btn">
+                                <a href="ports/create" class="w-btn w-btn-indigo">
+                                    활동 관리하기
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <div class="third-container">
+                            <div class="mento-btn-container">
+                                <a href="" class="w-btn w-btn-indigo mento-btn">
+                                    멘토 등록하기
+                                </a>
+                            </div>
+                            <div class="mento-btn-container">
+                                <a href="" class="w-btn w-btn-indigo mento-btn">
+                                    활동 등록하기
+                                </a>
+                            </div>
+                        </div>
 
 
+                    </div>
+
+
+                </div>
+
+                <div class="gallery-section">
+                    <div class="cards-section">
+                        <!-- 반복되는 요소 -->
+                        <div th:each="idx : ${#numbers.sequence(1, 18)}"  class="mento-wrapper">
+                            <div class="port-2">
+                                <div class="title-description">
+                                    <div class="text-wrapper-5">
+                                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
+                                        <div class="profile-wrapper">
+                                            <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+                                        </div>
+                                        <div>UserName</div>
+                                        <div class="text-wrapper-6">Project title</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
+
+
+
 
 <footer th:replace="~{fragments/footer::footerFragment}"></footer>
 

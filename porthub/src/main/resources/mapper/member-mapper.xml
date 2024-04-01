@@ -21,9 +21,11 @@
         select * from Users where Email=#{Email}
     </select>
 
+
     <select id="findByUserID" parameterType="int" resultType="User">
         select * from Usermeta where UserID=#{UserID}
     </select>
 
 
 </mapper>
+

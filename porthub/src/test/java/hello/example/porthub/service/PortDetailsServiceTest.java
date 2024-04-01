@@ -8,8 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,5 +56,22 @@ public class PortDetailsServiceTest {
             assertEquals("해당 유저를 찾을 수 없습니다.", e.getMessage());
             verify(memberRepository, times(1)).findByEmail(email);
         }
+    }
+
+    @Test
+    public void testGetAuthorities() {
+        // 테스트할 MemberDto 생성
+        MemberDto memberDto = new MemberDto();
+        memberDto.setRole("USER"); // 예시로 "USER" 역할 설정
+
+        // MemberDto를 가진 PortDetails 객체 생성
+        PortDetails portDetails = new PortDetails(memberDto);
+
+        // getAuthorities() 메서드 호출
+        Collection<? extends GrantedAuthority> authorities = portDetails.getAuthorities();
+
+        // 결과 확인
+        assertEquals(1, authorities.size()); // 권한이 하나인지 확인
+        assertEquals("USER", authorities.iterator().next().getAuthority()); // 권한이 "USER"인지 확인
     }
 }
