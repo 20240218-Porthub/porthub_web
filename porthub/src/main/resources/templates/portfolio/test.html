@@ -4,139 +4,428 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
-    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+
+    <!--    <link rel="stylesheet" th:href="@{css/portfolio/create.css}" href="/static/css/portfolio/create.css" />-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px; /* 최대 너비 설정 */
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[name="thumbnail"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[class="input-file"] {
+            width: 48%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 90%;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        @media screen and (max-width: 600px) {
+            .section-first, .section-second, .section-third, .section-forth, .second-fifth {
+                flex-direction: column;
+            }
+
+            .thumb-nail, .category-btn, .port-title, .write-style, .left-section, .right-section {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .port-btn-container {
+                flex-direction: column;
+            }
+
+            .select-file {
+                top: auto;
+                margin-top: 20px;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .write-container {
+                flex-direction: column;
+            }
+            .left-section,
+            .right-section {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* 추가한 스타일 */
+        .port-write {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-first {
+            display: flex;
+        }
+
+        .thumb-nail {
+            flex-grow: 2;
+            flex-basis: 0;
+            margin-right: 30px;
+        }
+
+        .category-btn {
+            flex-grow: 5;
+            flex-basis: 0;
+            height: 5rem;
+        }
+
+        .left-section {
+            flex-grow: 3;
+            flex-basis: 0;
+            margin-right: 30px;
+            height: 600px;
+        }
+
+        .right-section {
+            flex-grow: 5;
+            flex-basis: 0;
+
+            position: relative;
+        }
+
+        #file {
+            width: calc(100% - 20px); /* 부모 요소의 너비에서 마진값을 제외한 크기로 설정 */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .fraged {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .port-btn-container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .write-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .left-section,
+        .right-section {
+            width: calc(50% - 5px); /* 우측 여백을 고려하여 너비 설정 */
+        }
+
+        .select-file {
+            position: relative;
+            max-width: 100%;
+            max-height: 80%;
+            display: none;
+        }
+
+        .select-thumbnail {
+            position: relative;
+            max-width: 100%;
+            display: none;
+        }
+        .select-thumbnail,
+        .thumb-nail {
+            max-height: 80%;
+        }
+
+        .delete-button-wrapper {
+            display: flex;
+            justify-content: right;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .delete-button {
+
+        }
 
 
+        .w-btn {
+            position: relative;
+            border: none;
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-family: "paybooc-Light", sans-serif;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+
+        .w-btn:hover {
+            letter-spacing: 1px;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+
+        .w-btn:active {
+            transform: scale(1.3);
+        }
+
+
+    </style>
 </head>
-<style>
-
-    /* 페이지 상단 이미지를 위한 스타일 */
-    .header-image-container {
-        text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
-        position: relative;
-    }
-    .header-image {
-        width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
-        height: auto;
-        display: block;
-    }
-    .centered-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 24px; /* 원하는 글꼴 크기로 조정하세요 */
-        color: black; /* 글꼴 색상 설정 */
-    }
-
-</style>
 <body>
+<script>
+    function addNewSection() {
+        var writeContainer = document.querySelector('.port-write');
 
-<header th:replace="~{fragments/header::headerFragment}"></header>
-<div class="header-image-container">
-    <img class="header-image" src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg" alt="Main Page Header Image">
-    <!-- 이미지 가운데 텍스트 -->
-    <div class="centered-text">여러분의 포트폴리오를 뽑내보세요!</div>
-</div>
+        // Create new section container
+        var newSection = document.createElement('div');
+        newSection.classList.add('section', 'section-forth');
 
-<div class="desktop">
-    <div class="port">
-        <div class="container">
-            <div class="scroll-section">
-                <br><br>
+        // Create new write container
+        var newWriteContainer = document.createElement('div');
+        newWriteContainer.classList.add('write-container');
 
-                <!-- 상단 섹션 -->
-                <div class="top-section">
-                    <!-- 상단 섹션 -->
-                    <div class="top-section">
-                        <!-- 버튼 6개 -->
-                        <div class="button-container">
-                            <!--                            <button class="w-btn w-btn-indigo">버튼 1</button>-->
-                            <button th:each="Category : ${Category}" th:text="${Category.CategoryName}" class="w-btn w-btn-indigo"></button>
-                        </div>
-                        <!-- 버튼 + 검색바-->
-                        <div class="second-container">
-                            <div class="left-btn">
-                                <select class="w-btn w-btn-indigo" id="sort-options">
-                                    <option value="popularity">인기순</option>
-                                    <option value="recommendation">추천순</option>
-                                    <option value="latest">최신순</option>
-                                </select>
-                            </div>
+        // Create new left section
+        var newLeftSection = document.createElement('div');
+        newLeftSection.classList.add('fraged', 'left-section');
+        newLeftSection.innerHTML = `
+        <label for="content">내용:</label>
+        <textarea class="content" name="content" required></textarea>
+    `;
 
-                            <div class="search-bar">
-                                <input class="w-btn" type="text" placeholder="검색어를 입력하세요">
-                            </div>
-                            <div class="right-btn">
-                                <a href="ports/create" class="w-btn w-btn-indigo">
-                                    포트폴리오 올리기
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+        // Create new right section
+        var newRightSection = document.createElement('div');
+        newRightSection.classList.add('fraged', 'right-section');
+        newRightSection.innerHTML = `
+        <label for="file">파일 선택:</label>
+        <input type="file" id="file" class="input-file" name="file" required accept="image/*" onchange="previewImage(event)">
+        <img class="select-file" id="preview" src="#" alt="미리보기 이미지">
+    `;
+
+        // Create delete button wrapper
+        var deleteButtonWrapper = document.createElement('div');
+        deleteButtonWrapper.classList.add('delete-button-wrapper');
+        // Create delete button
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = '삭제';
+        deleteButton.classList.add('delete-button'); // Add class
+        deleteButton.classList.add('w-btn');
+        deleteButton.addEventListener('click', function() {
+            writeContainer.removeChild(newSection);
+        });
+        // Append delete button to delete button wrapper
+        deleteButtonWrapper.appendChild(deleteButton);
+
+        // Append delete button wrapper to newSection
+        newSection.appendChild(deleteButtonWrapper);
+
+        // Append new sections to newWriteContainer
+        newWriteContainer.appendChild(newLeftSection);
+        newWriteContainer.appendChild(newRightSection);
+
+        // Append new write container to newSection container
+        newSection.appendChild(newWriteContainer);
+
+        // Find the reference element
+        var referenceElement = document.querySelector('.second-fifth');
+
+        // Insert the new section before the reference element
+        writeContainer.insertBefore(newSection, referenceElement);
+    }
+
+
+    function previewImage(event) {
+        var input = event.target;
+        var preview = input.nextElementSibling;
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '#';
+            preview.style.display = 'none';
+        }
+    }
+    function previewFile(event) {
+        var input = event.target;
+        var preview = document.getElementById('prevthumb');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                if (input.files[0].type.startsWith('image/')) {
+                    preview.innerHTML = '<img src="' + e.target.result + '" alt="미리보기 이미지" style="\n' +
+                        '    display: block;\n' +
+                        '    max-height: 80%;\n' +
+                        '    position: relative;\n' +
+                        '    max-width: 100%;" >';
+                } else if (input.files[0].type.startsWith('video/')) {
+                    preview.innerHTML = '<video src="' + e.target.result + '" controls style="\n' +
+                        '    display: block;\n' +
+                        '    max-height: 80%;\n' +
+                        '    position: relative;\n' +
+                        '    max-width: 100%;"></video>';
+                } else if (input.files[0].type.startsWith('audio/')) {
+                    preview.innerHTML = '<audio src="' + e.target.result + '" controls style="\n' +
+                        '    display: block;\n' +
+                        '    max-height: 80%;\n' +
+                        '    position: relative;\n' +
+                        '    max-width: 100%;"></audio>';
+                }
+
+                preview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+</script>
+
+<div class="container">
+    <h2>포트폴리오 등록</h2>
+    <div class="port-write">
+        <div class="section section-first">
+            <div class="fraged thumb-nail">
+                <!-- 썸네일 사진을 등록하는 공간 -->
+
+                <label for="thumbnail">썸네일 선택:</label>
+                <input type="file" id="thumbnail" name="thumbnail" accept="image/*, video/*, audio/*" onchange="previewFile(event)">
+                <div class="select-thumbnail" id="prevthumb" style="display: none;"></div>
+
+            </div>
+            <div class="fraged category-btn">
+                <!-- 카테고리 선택 버튼 -->
+                <label for="category">카테고리:</label>
+                <select id="category" name="category" required>
+                    <option value="">카테고리 선택</option>
+                    <option value="Development">Development</option>
+                    <option value="Music">Music</option>
+                    <option value="Design">Design</option>
+                    <option value="Editing">Editing</option>
+                    <option value="Film">Film</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section section-second">
+            <div class="fraged port-title">
+                <!-- 제목 입력 영역 -->
+                <label for="title">제목:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+        </div>
+
+        <div class="section section-third">
+            <div class="fraged write-style">
+                <!-- 글 작성 영역의 스타일 변경 영역 -->
+                글 작성 영역의 스타일을 변경하는 영역
+            </div>
+        </div>
+
+        <div class="section section-forth">
+            <div class="write-container">
+                <div class="fraged left-section">
+                    <!-- 글 작성 영역 -->
+                    <label for="content">내용:</label>
+                    <textarea id="content" name="content" required></textarea>
                 </div>
-
-                <div class="gallery-section">
-                    <div class="cards-section">
-                        <!-- 반복되는 요소 -->
-                        <div th:each="idx : ${#numbers.sequence(1, 18)}"  class="port-wrapper">
-                            <div class="port-2">
-                                <div class="title-description">
-                                    <div class="text-wrapper-5">
-                                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
-                                        <div class="profile-wrapper">
-                                            <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
-                                        </div>
-                                        <div>UserName</div>
-                                        <div class="text-wrapper-6">Project title</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="fraged right-section">
+                    <!-- 파일 업로드 영역 -->
+                    <label for="file">파일 선택:</label>
+                    <input type="file" id="file" class="input-file" name="file" required accept="image/*" onchange="previewImage(event)">
+                    <img class="select-file" id="preview" src="#" alt="미리보기 이미지">
                 </div>
+            </div>
+        </div>
 
+        <div class="section second-fifth">
+            <div class="fraged port-btn-container">
+                <!-- 버튼 영역 -->
+                <input class="w-btn" type="button" value="나가기">
+                <input class="w-btn" type="button" value="생성" onclick="addNewSection()">
+                <input class="w-btn" type="button" value="전송">
             </div>
         </div>
     </div>
 </div>
-
-<div class="fixed-section">
-    <div class="fixed-up">
-        <br><br>
-        <div>
-            <h2 style="font-size: 1em; margin-bottom: 0.1em;">Popularity</h2>
-        </div>
-        <div th:each="idx : ${#numbers.sequence(1, 4)}" class="Popularity">
-            <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
-            </div>
-            <div>UserName</div>
-            <button class="follow-btn">follow</button>
-        </div>
-
-    </div>
-    <div class="fixed-down">
-        <div>
-            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History</h2>
-        </div>
-
-        <div class="history_section">
-            <div th:each="idx : ${#numbers.sequence(1, 4)}" class="port-3">
-                <div class="history-description">
-                    <div class="history-image">
-                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<footer th:replace="~{fragments/footer::footerFragment}"></footer>
 
 </body>
 </html>
