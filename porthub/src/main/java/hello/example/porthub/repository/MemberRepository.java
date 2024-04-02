@@ -28,5 +28,5 @@ public class MemberRepository {
     }
 
     //public MemberDto findmemberByUserID(int UserID){ return sql.selectOne("Member.findByUserID", UserID); }
-    public ProfileDto findByUserID(int UserID){ return sql.selectOne("Member.findByUserID", UserID); }
+
 }

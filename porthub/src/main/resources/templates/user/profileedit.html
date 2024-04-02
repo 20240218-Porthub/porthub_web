@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <style>
+        body {
+            /*background: url("/images/iim.png") no-repeat;*/
+            background-size: cover;
+        }
+    </style>
+
+    <link rel="stylesheet" th:href="@{/css/profile/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profile/profileguide.css}" />
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+</head>
+<body>
+
+<header th:replace="~{fragments/header::headerFragment}"></header>
+
+<div class="wrap-container">
+    <div class="home-container">
+        <div class="main">
+            <div class="page-header">
+                <div class="image-wrap-outer">
+                    <div class="image-wrap-inner"><div class="image" th:style="'background-image:url('+${member.backImage}+')'"></div></div>
+                </div>
+                <div class="container">
+                    <div class="avatar-profile-photo" th:style="'background-image:url('+${member.ProfileImage}+')'"></div>
+                    <div class="content">
+                        <div class="heading">
+                            <div class="text-and-supporting">
+                                <div class="text col-2">
+                                    <div th:text="${member.UserName}"></div>
+                                </div>
+                                <div class="olivia-untitledui">
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button onclick="metacancle()" class="button-base"><div class="text-wrapper">Cancel</div></button>
+                                <button onclick="metasave()" class="div-wrapper"><div class="div">Save</div></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-wrapper">
+                    <div class="section-2">
+                        <div class="div-2">
+                            <div class="content-2">
+                                <div class="input-fields">
+                                    <div class="input-field">
+                                        <div class="div-3">
+                                            <div class="div-3">
+                                                <div class="label">Name</div>
+                                                <input type="text" class="input" th:value="${member.userName}" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="content-2">
+                                <div class="input-fields">
+                                    <div class="input-field">
+                                        <div class="div-3">
+                                            <div class="div-3">
+                                                <div class="label">Email</div>
+                                                <input type="text" class="input" th:value="${member.email}" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <form id="metadata" th:action="@{'/profile/'+${member.userName}+'/edit/save'}" method="post">
+                                <div class="content-2">
+                                    <div class="toolbar-and-text">
+                                        <div class="div-5">
+                                            <div class="textarea-input-field">
+                                                <div class="input-with-label">
+                                                    <div class="label">자기소개</div>
+                                                    <textarea name="intro" class="input-3" th:text="${UserMeta.intro}"></textarea>
+                                                </div>
+                                                <div class="text-wrapper-2">275 characters left</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="content-2">
+                                    <div class="input-field-base-wrapper">
+                                        <div class="div-3">
+                                            <div class="div-3">
+                                                <div class="label">소속</div>
+                                                <input name="aff" type="text" class="input" th:value="${UserMeta.aff}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="content-2">
+                                    <div class="input-field-base-wrapper">
+                                        <div class="div-3">
+                                            <div class="div-3">
+                                                <div class="label">링크</div>
+                                                <input name="link" type="text" class="input" th:value="${UserMeta.link}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="content-2">
+                                    <div class="input-field-base-wrapper">
+                                        <div class="div-3">
+                                            <div class="div-3">
+                                                <div class="label">경력</div>
+                                                <input name="career" class="input" th:value="${UserMeta.career}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="div-2">
+                            <div class="actions-2">
+                                <button onclick="metacancle()" class="button-base"><div class="text-8">Cancel</div></button>
+                                <button onclick="metasave()" class="div-wrapper"><div class="div">Save</div></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+
+</body>
+
+<script th:src="@{/js/profileedit.js}"></script>
+</html>

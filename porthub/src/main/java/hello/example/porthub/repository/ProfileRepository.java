@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 public class ProfileRepository {
     private final SqlSessionTemplate sql;
 
-    public ProfileDto getUsrinfo(String Email) {
-        return sql.selectOne("User.findByEmail", Email);
-    }
+    public int newmeta(int UserID){ return sql.insert("Member.newmeta", UserID);}
+
+    public int metasave(ProfileDto profiledto){ return sql.update("Member.metaupdate", profiledto);}
+
+    public ProfileDto findByUserID(int UserID){ return sql.selectOne("Member.findByUserID", UserID); }
 }

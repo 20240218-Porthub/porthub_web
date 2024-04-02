@@ -1282,7 +1282,7 @@
     </schema>
     <schema id="514" parent="1" name="porthub">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-03-31.00:36:18</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-02.20:27:15</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_unicode_520_ci</CollationName>
     </schema>
     <user id="515" parent="1" name="mariadb.sys">
@@ -1788,7 +1788,7 @@
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="622" parent="529" name="MetaID">
-      <AutoIncrement>2</AutoIncrement>
+      <AutoIncrement>5</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1802,7 +1802,7 @@
       <DasType>longtext|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="625" parent="529" name="group">
+    <column id="625" parent="529" name="aff">
       <DasType>longtext|0s</DasType>
       <Position>4</Position>
     </column>
@@ -1825,7 +1825,7 @@
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="630" parent="530" name="UserID">
-      <AutoIncrement>69</AutoIncrement>
+      <AutoIncrement>71</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
