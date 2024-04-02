@@ -11,8 +11,8 @@
         }
     </style>
 
-    <link rel="stylesheet" th:href="@{/css/profile/profile.css}"/>
-    <link rel="stylesheet" th:href="@{/css/profile/profileguide.css}" />
+    <link rel="stylesheet" th:href="@{css/profile/profile.css}"/>
+    <link rel="stylesheet" th:href="@{css/profile/profileguide.css}" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 </head>
 <body>
@@ -24,7 +24,7 @@
         <div class="main">
             <div class="page-header">
                 <div class="image-wrap-outer">
-                    <div class="image-wrap-inner"><div class="image" th:style="'background-image:url('+${member.backImage}+')'"></div></div>
+                    <div class="image-wrap-inner"><div class="image" ></div></div>
                 </div>
                 <div class="container">
                     <div class="avatar-profile-photo" th:style="'background-image:url('+${member.ProfileImage}+')'"></div>

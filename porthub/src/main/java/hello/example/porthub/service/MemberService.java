@@ -48,6 +48,10 @@ public class MemberService {
         return memberRepository.findByUserName(UserName);
     }
 
+//    public MemberDto getMemberByUserID(int UserID){
+//        return memberRepository.findmemberByUserID(UserID);
+//    }
+
     public ProfileDto getUsermetaByUserID(int UserID){
         return memberRepository.findByUserID(UserID);
     }

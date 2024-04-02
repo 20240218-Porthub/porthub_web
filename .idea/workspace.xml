@@ -5,40 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/CategoryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/mentoring.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/images/profiletest.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/portfolio/create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/about.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/portfolio.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/test/java/hello/example/porthub/repository/PortfolioRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/config/PortDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/config/PortDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/config/auth/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/config/auth/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/IndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/PortfolioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/PortfolioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/PortfolioDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/PortfolioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/PortfolioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/Impl/PortfolioServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MemberRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/PortfolioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/PortfolioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mapper/member-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mapper/member-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mapper/port-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mapper/port-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolio.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolio.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/html/portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/html/portfolio.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/html/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/html/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/fragments/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/fragments/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/fragments/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/mentoring.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/mentoring.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/portfolio/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/portfolio/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/portfolio/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/portfolio/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/register/login2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/test/java/hello/example/porthub/service/PortDetailsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/test/java/hello/example/porthub/service/PortDetailsServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/profile/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/profile/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,12 +25,20 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/porthub">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="porthub" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="porthub" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
             </expand>
             <select />
@@ -132,7 +112,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.PorthubApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop 병합 중&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/hong/Desktop/proker&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -193,7 +173,8 @@
       <workItem from="1711713474429" duration="369000" />
       <workItem from="1711799670169" duration="32671000" />
       <workItem from="1711858331720" duration="11436000" />
-      <workItem from="1711950536851" duration="1176000" />
+      <workItem from="1711950536851" duration="8116000" />
+      <workItem from="1712037617921" duration="664000" />
     </task>
     <servers />
   </component>
