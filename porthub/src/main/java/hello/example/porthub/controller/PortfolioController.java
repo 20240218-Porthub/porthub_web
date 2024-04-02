@@ -18,19 +18,22 @@ import java.security.Principal;
 @RequestMapping("/ports")
 public class PortfolioController {
 
-    private final MemberRepository memberRepository;
-    @GetMapping("/{userName}")
-    public String create(Principal principal, ModelMap modelMap) {
-        String loginId = principal.getName();
-        MemberDto member = memberRepository.findByEmail(loginId);
-        return "redirect:/portfolio/create/" + member.getUserName();
-    }
+//    private final MemberRepository memberRepository;
+//    @GetMapping("/create")
+//    public String create(Principal principal, ModelMap modelMap) {
+//        String loginId = principal.getName();
+//        MemberDto member = memberRepository.findByEmail(loginId);
+//        return "redirect:/portfolio/create/" + member.getUserName();
+//    }
+//
+//    @GetMapping("/create/{userName}")
+//    public String showPortfolioCreateForm(@PathVariable String userName, ModelMap modelMap) {
+//
+//        return "portfolio/create";
+//    }
 
-    @GetMapping("/portfolio/create/{userName}")
-    public String showPortfolioCreateForm(@PathVariable String userName, ModelMap modelMap) {
-        // 여기에 포트폴리오 생성 폼을 보여주는 로직을 구현하세요.
-        // 예를 들어, 모델에 필요한 데이터를 추가하고, 포트폴리오 생성 페이지의 뷰 이름을 반환합니다.
+    @GetMapping("/create")
+    public String create() {
         return "portfolio/create";
     }
-
 }
