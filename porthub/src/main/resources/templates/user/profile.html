@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="olivia-untitledui">
                                     <div>
-                                        <span>소속 </span><span th:text="${UserMeta.group}">group</span>
+                                        <span>소속 </span><span th:text="${UserMeta.aff}">aff</span>
                                     </div>
                                     <div>
                                         <span>링크 </span><span th:text="${UserMeta.link}">link</span>
@@ -55,12 +55,10 @@
                                 </div>
                             </div>
                             <div class="actions">
-                                <button class="button">
-                                    <button class="button-base"><div class="text-wrapper">Cancel</div></button>
-                                </button>
-                                <button class="button">
-                                    <button class="div-wrapper"><div class="div">Save</div></button>
-                                </button>
+                                <a th:if="${#authentication.name==member.email}" th:href="@{'/profile/'+${member.userName}+'/edit'}">
+                                    <ion-icon name="settings-outline"></ion-icon>
+                                </a>
+
                             </div>
                         </div>
                     </div>

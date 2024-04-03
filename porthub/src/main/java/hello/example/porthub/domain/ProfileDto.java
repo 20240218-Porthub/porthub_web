@@ -10,7 +10,7 @@ import lombok.ToString;
 public class ProfileDto {
     private int UserID;
     private String intro;
-    private String group;
+    private String aff;
     private String link;
     private String career;
 }

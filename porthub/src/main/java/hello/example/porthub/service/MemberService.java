@@ -3,6 +3,7 @@ package hello.example.porthub.service;
 import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.ProfileDto;
 import hello.example.porthub.repository.MemberRepository;
+import hello.example.porthub.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,20 @@ public class MemberService {
 
     //의존성 주입을 받음. 생성자 주입
     private final MemberRepository memberRepository;
+    private final ProfileRepository profileRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public int save(MemberDto memberDto) {
         memberDto.setRole("USER");
         memberDto.setPasswordHash(bCryptPasswordEncoder.encode(memberDto.getPasswordHash()));
-        return memberRepository.save(memberDto);
+        if(memberRepository.save(memberDto)>0){
+            memberDto=memberRepository.findByUserName(memberDto.getUserName());
+            profileRepository.newmeta(memberDto.getUserID());
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 
     public String UserNameCheck(String UserName) {
@@ -38,21 +47,5 @@ public class MemberService {
         } else {
             return false;
         }
-    }
-
-    public MemberDto getMemberByEmail(String Email){
-        return memberRepository.findByEmail(Email);
-    }
-
-    public MemberDto getMemberByUserName(String UserName){
-        return memberRepository.findByUserName(UserName);
-    }
-
-//    public MemberDto getMemberByUserID(int UserID){
-//        return memberRepository.findmemberByUserID(UserID);
-//    }
-
-    public ProfileDto getUsermetaByUserID(int UserID){
-        return memberRepository.findByUserID(UserID);
     }
 }

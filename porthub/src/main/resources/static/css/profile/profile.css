@@ -173,6 +173,10 @@
     flex: 0 0 auto;
 }
 
+.button-base:hover{
+    cursor:pointer;
+}
+
 .text-wrapper {
     position: relative;
     width: fit-content;
@@ -201,6 +205,10 @@
     display: inline-flex;
     position: relative;
     flex: 0 0 auto;
+}
+
+.div-wrapper:hover{
+    cursor:pointer;
 }
 
 .div {
@@ -324,7 +332,6 @@
     align-self: stretch;
     width: 100%;
     flex: 0 0 auto;
-    background-color: var(--white);
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid;
@@ -339,6 +346,8 @@
     flex-grow: 1;
     display: flex;
     position: relative;
+    outline:none;
+    border:none;
 }
 
 .text-2 {
@@ -649,6 +658,7 @@
 }
 
 .input-3 {
+    resize:none;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -660,7 +670,7 @@
     flex-grow: 1;
     background-color: var(--white);
     border-radius: 8px;
-    overflow: hidden;
+    overflow-y: scroll;
     border: 1px solid;
     border-color: var(--gray-300);
     box-shadow: var(--shadow-xs);
