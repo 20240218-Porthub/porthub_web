@@ -1,3 +1,48 @@
+
+function previewFile(event) {
+    var input = event.target;
+    var preview = input.nextElementSibling;
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            if (input.files[0].type.startsWith('image/')) {
+                preview.innerHTML = '<img src="' + e.target.result + '" alt="미리보기 이미지" style="\n' +
+                    '    display: block;\n' +
+                    '    max-height: 80%;\n' +
+                    '    position: relative;\n' +
+                    '    max-width: 100%;" >';
+            } else if (input.files[0].type.startsWith('video/')) {
+                preview.innerHTML = '<video src="' + e.target.result + '" controls style="\n' +
+                    '    display: block;\n' +
+                    '    max-height: 80%;\n' +
+                    '    position: relative;\n' +
+                    '    max-width: 100%;"></video>';
+            } else if (input.files[0].type.startsWith('audio/')) {
+                preview.innerHTML = '<audio src="' + e.target.result + '" controls style="\n' +
+                    '    display: block;\n' +
+                    '    max-height: 80%;\n' +
+                    '    position: relative;\n' +
+                    '    max-width: 100%;"></audio>';
+            }
+
+            preview.style.display = 'block';
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.style.display = 'none';
+    }
+}
+document.querySelectorAll('.content-input').forEach(function(textarea) {
+    textarea.addEventListener('input', function() {
+        var markdown = this.value;
+        var html = marked(markdown);
+        this.parentElement.querySelector('.markdown').innerHTML = html;
+    });
+});
+
 function addNewSection() {
     var writeContainer = document.querySelector('.port-write');
 
@@ -15,16 +60,16 @@ function addNewSection() {
     newLeftSection.innerHTML = `
         <label for="content">내용:</label>
         <div class="markdown-container">
-            <button class="markdown-btn" onclick="insertMarkdown('# ')" title="H1">#</button>
-            <button class="markdown-btn" onclick="insertMarkdown('## ')" title="H2">##</button>
-            <button class="markdown-btn" onclick="insertMarkdown('### ')" title="H3">###</button>
-            <button class="markdown-btn" onclick="insertMarkdown('#### ')" title="H4">####</button>
-            <button class="markdown-btn" onclick="insertMarkdown('**')" title="Bold">Bold</button>
-            <button class="markdown-btn" onclick="insertMarkdown('_')" title="Italic">Italic</button>
-            <button class="markdown-btn" onclick="insertMarkdown('~~')" title="Strikethrough">Strikethrough</button>
-            <button class="markdown-btn" onclick="insertMarkdown('> ')" title="Blockquote">Quote</button>
-            <button class="markdown-btn" onclick="insertMarkdown('[링크텍스트](링크 등록)')" title="Link">Link</button>
-            <button class="markdown-btn" onclick="insertMarkdown('\`\`\`\n\n\`\`\`')" title="Code Block">Code Block</button>
+            <button class="markdown-btn" data-action="# " title="H1">#</button>
+            <button class="markdown-btn" data-action="## " title="H2">##</button>
+            <button class="markdown-btn" data-action="### " title="H3">###</button>
+            <button class="markdown-btn" data-action="#### " title="H4">####</button>
+            <button class="markdown-btn" data-action="**" title="Bold">Bold</button>
+            <button class="markdown-btn" data-action="_" title="Italic">Italic</button>
+            <button class="markdown-btn" data-action="~~" title="Strikethrough">Strikethrough</button>
+            <button class="markdown-btn" data-action="> " title="Blockquote">Quote</button>
+            <button class="markdown-btn" data-action="[링크텍스트](링크 등록)" title="Link">Link</button>
+            <button class="markdown-btn" data-action="\`\`\`\n\n\`\`\`" title="Code Block">Code Block</button>
         </div>
         <div class="left-section-container">
             <textarea class="content-input" id="content" name="content" required></textarea>
@@ -81,53 +126,17 @@ function addNewSection() {
     newLeftSection.querySelector('.content-input').addEventListener('mouseenter', function() {
         this.parentElement.nextElementSibling.style.display = 'flex';
     });
-}
-function previewFile(event) {
-    var input = event.target;
-    var preview = input.nextElementSibling;
 
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            if (input.files[0].type.startsWith('image/')) {
-                preview.innerHTML = '<img src="' + e.target.result + '" alt="미리보기 이미지" style="\n' +
-                    '    display: block;\n' +
-                    '    max-height: 80%;\n' +
-                    '    position: relative;\n' +
-                    '    max-width: 100%;" >';
-            } else if (input.files[0].type.startsWith('video/')) {
-                preview.innerHTML = '<video src="' + e.target.result + '" controls style="\n' +
-                    '    display: block;\n' +
-                    '    max-height: 80%;\n' +
-                    '    position: relative;\n' +
-                    '    max-width: 100%;"></video>';
-            } else if (input.files[0].type.startsWith('audio/')) {
-                preview.innerHTML = '<audio src="' + e.target.result + '" controls style="\n' +
-                    '    display: block;\n' +
-                    '    max-height: 80%;\n' +
-                    '    position: relative;\n' +
-                    '    max-width: 100%;"></audio>';
-            }
-
-            preview.style.display = 'block';
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        preview.style.display = 'none';
-    }
-}
-document.querySelectorAll('.content-input').forEach(function(textarea) {
-    textarea.addEventListener('input', function() {
-        var markdown = this.value;
-        var html = marked(markdown);
-        this.parentElement.querySelector('.markdown').innerHTML = html;
+    // Bind click event to markdown buttons in the new section
+    newLeftSection.querySelectorAll('.markdown-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var textarea = btn.closest('.left-section').querySelector('.content-input');
+            var action = btn.getAttribute('data-action');
+            insertMarkdown(action, textarea);
+        });
     });
-});
-
-function insertMarkdown(button, text) {
-    var textarea = button.parentElement.nextElementSibling.querySelector('.content-input');
+}
+function insertMarkdown(text, textarea) {
     var start = textarea.selectionStart;
     var end = textarea.selectionEnd;
     var selectedText = textarea.value.substring(start, end);

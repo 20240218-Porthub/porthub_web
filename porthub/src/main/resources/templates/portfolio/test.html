@@ -1,0 +1,285 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+
+    <link rel="stylesheet" th:href="@{/css/portfolio/create.css}" href="/static/css/portfolio/create.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>포트폴리오 등록</h1>
+    <div class="port-write">
+        <div class="section section-first">
+            <div class="fraged thumb-nail">
+                <!-- 썸네일 사진을 등록하는 공간 -->
+
+                <label for="thumbnail">썸네일 선택:</label>
+                <input type="file" id="thumbnail" name="thumbnail" accept="image/*, video/*, audio/*" onchange="previewFile(event)">
+                <div class="select-thumbnail" id="prevthumb" style="display: none;"></div>
+
+            </div>
+            <div class="fraged category-btn">
+                <!-- 카테고리 선택 버튼 -->
+                <label for="category">카테고리:</label>
+                <select id="category" name="category" required>
+                    <option value="">카테고리 선택</option>
+                    <option value="Development">Development</option>
+                    <option value="Music">Music</option>
+                    <option value="Design">Design</option>
+                    <option value="Editing">Editing</option>
+                    <option value="Film">Film</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section section-second">
+            <div class="fraged port-title">
+                <!-- 제목 입력 영역 -->
+                <label for="title">제목:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+        </div>
+
+        <div class="section section-forth">
+            <div class="write-container">
+<!--                <div class="fraged right-section">-->
+<!--                    &lt;!&ndash; 파일 업로드 영역 &ndash;&gt;-->
+<!--                    <label for="file">파일 선택:</label>-->
+<!--                    <input type="file" id="file" class="input-file" name="file" required accept="image/*, video/*, audio/*" onchange="previewFile(event)">-->
+<!--                    <div class="select-file" id="prevfile" style="display: none;"></div>-->
+<!--                </div>-->
+<!--                <div class="fraged left-section">-->
+<!--                    <label for="content">내용:</label>-->
+<!--                    <div class="markdown-container">-->
+<!--                        <button class="markdown-btn" data-action="# " title="H1">#</button>-->
+<!--                        <button class="markdown-btn" data-action="## " title="H2">##</button>-->
+<!--                        <button class="markdown-btn" data-action="### " title="H3">###</button>-->
+<!--                        <button class="markdown-btn" data-action="#### " title="H4">####</button>-->
+<!--                        <button class="markdown-btn" data-action="**" title="Bold">Bold</button>-->
+<!--                        <button class="markdown-btn" data-action="_" title="Italic">Italic</button>-->
+<!--                        <button class="markdown-btn" data-action="~~" title="Strikethrough">Strikethrough</button>-->
+<!--                        <button class="markdown-btn" data-action="> " title="Blockquote">Quote</button>-->
+<!--                        <button class="markdown-btn" data-action="[링크텍스트](링크 등록)" title="Link">Link</button>-->
+<!--                        <button class="markdown-btn" data-action="```\n\n```" title="Code Block">Code Block</button>-->
+<!--                    </div>-->
+<!--                    <div class="left-section-container">-->
+<!--                        <textarea class="content-input" id="content" name="content" required></textarea>-->
+<!--                        <div class="markdown-text-container">-->
+<!--                            <div class="markdown"></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </div>
+        </div>
+
+        <div class="section second-fifth">
+            <div class="fraged port-btn-container">
+                <!-- 버튼 영역 -->
+
+                <a class="w-btn" type="button" th:href="@{/main}">나가기</a>
+                <input class="w-btn" type="button" value="생성" onclick="addNewSection()">
+                <input class="w-btn" type="form" value="전송" style="width: 83px">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+
+    function previewFile(event) {
+        var input = event.target;
+        var preview = input.nextElementSibling;
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                if (input.files[0].type.startsWith('image/')) {
+                    preview.innerHTML = '<img src="' + e.target.result + '" alt="미리보기 이미지" style="\n' +
+                        '    display: block;\n' +
+                        '    max-height: 80%;\n' +
+                        '    position: relative;\n' +
+                        '    max-width: 100%;" >';
+                } else if (input.files[0].type.startsWith('video/')) {
+                    preview.innerHTML = '<video src="' + e.target.result + '" controls style="\n' +
+                        '    display: block;\n' +
+                        '    max-height: 80%;\n' +
+                        '    position: relative;\n' +
+                        '    max-width: 100%;"></video>';
+                } else if (input.files[0].type.startsWith('audio/')) {
+                    preview.innerHTML = '<audio src="' + e.target.result + '" controls style="\n' +
+                        '    display: block;\n' +
+                        '    max-height: 80%;\n' +
+                        '    position: relative;\n' +
+                        '    max-width: 100%;"></audio>';
+                }
+
+                preview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+    document.querySelectorAll('.content-input').forEach(function(textarea) {
+        textarea.addEventListener('input', function() {
+            var markdown = this.value;
+            var html = marked(markdown);
+            this.parentElement.querySelector('.markdown').innerHTML = html;
+        });
+    });
+
+    // function insertMarkdown(button, text) {
+    //     var textarea = button.parentElement.nextElementSibling.querySelector('.content-input');
+    //     var start = textarea.selectionStart;
+    //     var end = textarea.selectionEnd;
+    //     var selectedText = textarea.value.substring(start, end);
+    //     var replacement = text + selectedText + text;
+    //     if (start === end) {
+    //         replacement = text;
+    //     }
+    //     textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
+    //     textarea.focus();
+    //     textarea.setSelectionRange(start + replacement.length, start + replacement.length);
+    //
+    //     // Update markdown preview
+    //     var markdown = textarea.value;
+    //     var html = marked(markdown);
+    //     textarea.parentElement.nextElementSibling.querySelector('.markdown').innerHTML = html;
+    // }
+
+    function addNewSection() {
+        var writeContainer = document.querySelector('.port-write');
+
+        // Create new section container
+        var newSection = document.createElement('div');
+        newSection.classList.add('section', 'section-forth');
+
+        // Create new write container
+        var newWriteContainer = document.createElement('div');
+        newWriteContainer.classList.add('write-container');
+
+        // Create new left section
+        var newLeftSection = document.createElement('div');
+        newLeftSection.classList.add('fraged', 'left-section');
+        newLeftSection.innerHTML = `
+        <label for="content">내용:</label>
+        <div class="markdown-container">
+            <button class="markdown-btn" data-action="# " title="H1">#</button>
+            <button class="markdown-btn" data-action="## " title="H2">##</button>
+            <button class="markdown-btn" data-action="### " title="H3">###</button>
+            <button class="markdown-btn" data-action="#### " title="H4">####</button>
+            <button class="markdown-btn" data-action="**" title="Bold">Bold</button>
+            <button class="markdown-btn" data-action="_" title="Italic">Italic</button>
+            <button class="markdown-btn" data-action="~~" title="Strikethrough">Strikethrough</button>
+            <button class="markdown-btn" data-action="> " title="Blockquote">Quote</button>
+            <button class="markdown-btn" data-action="[링크텍스트](링크 등록)" title="Link">Link</button>
+            <button class="markdown-btn" data-action="\`\`\`\n\n\`\`\`" title="Code Block">Code Block</button>
+        </div>
+        <div class="left-section-container">
+            <textarea class="content-input" id="content" name="content" required></textarea>
+            <div class="markdown-text-container">
+                <div class="markdown"></div>
+            </div>
+        </div>
+    `;
+
+        // Create new right section
+        var newRightSection = document.createElement('div');
+        newRightSection.classList.add('fraged', 'right-section');
+        newRightSection.innerHTML = `
+        <label for="file">파일 선택:</label>
+        <input type="file" class="input-file" name="file" required accept="image/*, video/*, audio/*" onchange="previewFile(event)">
+        <div class="select-file" style="display: none;"></div>
+    `;
+
+        // Create delete button wrapper
+        var deleteButtonWrapper = document.createElement('div');
+        deleteButtonWrapper.classList.add('delete-button-wrapper');
+        // Create delete button
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = '삭제';
+        deleteButton.classList.add('delete-button'); // Add class
+        deleteButton.classList.add('w-btn');
+        deleteButton.addEventListener('click', function() {
+            writeContainer.removeChild(newSection);
+        });
+        // Append delete button to delete button wrapper
+        deleteButtonWrapper.appendChild(deleteButton);
+
+        // Append delete button wrapper to newSection
+        newSection.appendChild(deleteButtonWrapper);
+
+        // Append new sections to newWriteContainer
+        newWriteContainer.appendChild(newRightSection);
+        newWriteContainer.appendChild(newLeftSection);
+
+        // Append new write container to newSection container
+        newSection.appendChild(newWriteContainer);
+
+        // Find the reference element
+        var referenceElement = document.querySelector('.second-fifth');
+
+        // Insert the new section before the reference element
+        writeContainer.insertBefore(newSection, referenceElement);
+        newLeftSection.querySelector('.content-input').addEventListener('input', function() {
+            var markdown = this.value;
+            var html = marked(markdown);
+            this.parentElement.querySelector('.markdown').innerHTML = html;
+        });
+
+        newLeftSection.querySelector('.content-input').addEventListener('mouseenter', function() {
+            this.parentElement.nextElementSibling.style.display = 'flex';
+        });
+
+        // Bind click event to markdown buttons in the new section
+        newLeftSection.querySelectorAll('.markdown-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var textarea = btn.closest('.left-section').querySelector('.content-input');
+                var action = btn.getAttribute('data-action');
+                insertMarkdown(action, textarea);
+            });
+        });
+    }
+    function insertMarkdown(text, textarea) {
+        var start = textarea.selectionStart;
+        var end = textarea.selectionEnd;
+        var selectedText = textarea.value.substring(start, end);
+        var replacement = text + selectedText + text;
+        if (start === end) {
+            replacement = text;
+        }
+        textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
+        textarea.focus();
+        textarea.setSelectionRange(start + replacement.length, start + replacement.length);
+
+        // Update markdown preview
+        var markdown = textarea.value;
+        var html = marked(markdown);
+        textarea.parentElement.nextElementSibling.querySelector('.markdown').innerHTML = html;
+    }
+
+    var markdownContainers = document.querySelectorAll('.markdown-text-container');
+
+    document.querySelectorAll('.content-input').forEach(function(textarea) {
+        textarea.addEventListener('mouseenter', function() {
+            this.parentElement.nextElementSibling.style.display = 'flex';
+        });
+    });
+
+</script>
+<!--<script th:src="@{/js/create.js}" src="/static/js/create.js"></script>-->
+
+</html>
