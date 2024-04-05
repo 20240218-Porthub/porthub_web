@@ -44,7 +44,7 @@ document.querySelectorAll('.content-input').forEach(function(textarea) {
 });
 
 function addNewSection() {
-    var writeContainer = document.querySelector('.port-write');
+    var writeContainer = document.querySelector('.port-write-form');
 
     // Create new section container
     var newSection = document.createElement('div');
@@ -60,19 +60,19 @@ function addNewSection() {
     newLeftSection.innerHTML = `
         <label for="content">내용:</label>
         <div class="markdown-container">
-            <button class="markdown-btn" data-action="# " title="H1">#</button>
-            <button class="markdown-btn" data-action="## " title="H2">##</button>
-            <button class="markdown-btn" data-action="### " title="H3">###</button>
-            <button class="markdown-btn" data-action="#### " title="H4">####</button>
-            <button class="markdown-btn" data-action="**" title="Bold">Bold</button>
-            <button class="markdown-btn" data-action="_" title="Italic">Italic</button>
-            <button class="markdown-btn" data-action="~~" title="Strikethrough">Strikethrough</button>
-            <button class="markdown-btn" data-action="> " title="Blockquote">Quote</button>
-            <button class="markdown-btn" data-action="[링크텍스트](링크 등록)" title="Link">Link</button>
-            <button class="markdown-btn" data-action="\`\`\`\n\n\`\`\`" title="Code Block">Code Block</button>
+            <button class="markdown-btn" type="button" data-action="# " title="H1">#</button>
+            <button class="markdown-btn" type="button" data-action="## " title="H2">##</button>
+            <button class="markdown-btn" type="button" data-action="### " title="H3">###</button>
+            <button class="markdown-btn" type="button" data-action="#### " title="H4">####</button>
+            <button class="markdown-btn" type="button" data-action="**" title="Bold">Bold</button>
+            <button class="markdown-btn" type="button" data-action="_" title="Italic">Italic</button>
+            <button class="markdown-btn" type="button" data-action="~~" title="Strikethrough">Strikethrough</button>
+            <button class="markdown-btn" type="button" data-action="> " title="Blockquote">Quote</button>
+            <button class="markdown-btn" type="button" data-action="[링크텍스트](링크 등록)" title="Link">Link</button>
+            <button class="markdown-btn" type="button" data-action="\`\`\`\n\n\`\`\`" title="Code Block">Code Block</button>
         </div>
         <div class="left-section-container">
-            <textarea class="content-input" id="content" name="content" required></textarea>
+            <textarea class="content-input" id="content" name="content[]" required></textarea>
             <div class="markdown-text-container">
                 <div class="markdown"></div>
             </div>
@@ -84,7 +84,7 @@ function addNewSection() {
     newRightSection.classList.add('fraged', 'right-section');
     newRightSection.innerHTML = `
         <label for="file">파일 선택:</label>
-        <input type="file" class="input-file" name="file" required accept="image/*, video/*, audio/*" onchange="previewFile(event)">
+        <input type="file" class="input-file" name="file[]" required accept="image/*, video/*, audio/*" onchange="previewFile(event)">
         <div class="select-file" style="display: none;"></div>
     `;
 
@@ -155,3 +155,16 @@ function insertMarkdown(text, textarea) {
     textarea.parentElement.nextElementSibling.querySelector('.markdown').innerHTML = html;
 }
 
+document.getElementById('portfolioForm').addEventListener('submit', function(event) {
+    var confirmation = confirm("전송하시겠습니까?");
+    if (!confirmation) {
+        event.preventDefault(); // 전송 취소
+    }
+});
+
+document.querySelector('.w-btn').addEventListener('click', function(event) {
+    var confirmation = confirm("나가시겠습니까?");
+    if (!confirmation) {
+        event.preventDefault(); // 링크 이동 취소
+    }
+});
