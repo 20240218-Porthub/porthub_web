@@ -55,13 +55,18 @@
             </div>
         </div>
 
+        <div class="section section-link">
+            <div>
+                <label for="title">link</label>
+                <input type="text" id="link" name="link">
+            </div>
+        </div>
+
         <div class="section second-fifth">
             <div class="fraged port-btn-container">
-                <!-- 버튼 영역 -->
-
                 <a class="w-btn" type="button" th:href="@{/main}">나가기</a>
                 <input class="w-btn" type="button" value="생성" onclick="addNewSection()">
-                <input class="w-btn" type="form" value="전송" style="width: 83px">
+                <button class="w-btn" type="submit" value="전송">전송</button>
             </div>
         </div>
     </div>

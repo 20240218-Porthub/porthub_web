@@ -113,7 +113,7 @@ function addNewSection() {
     newSection.appendChild(newWriteContainer);
 
     // Find the reference element
-    var referenceElement = document.querySelector('.second-fifth');
+    var referenceElement = document.querySelector('.section-link');
 
     // Insert the new section before the reference element
     writeContainer.insertBefore(newSection, referenceElement);
@@ -136,6 +136,7 @@ function addNewSection() {
         });
     });
 }
+
 function insertMarkdown(text, textarea) {
     var start = textarea.selectionStart;
     var end = textarea.selectionEnd;
@@ -154,10 +155,3 @@ function insertMarkdown(text, textarea) {
     textarea.parentElement.nextElementSibling.querySelector('.markdown').innerHTML = html;
 }
 
-var markdownContainers = document.querySelectorAll('.markdown-text-container');
-
-document.querySelectorAll('.content-input').forEach(function(textarea) {
-    textarea.addEventListener('mouseenter', function() {
-        this.parentElement.nextElementSibling.style.display = 'flex';
-    });
-});
