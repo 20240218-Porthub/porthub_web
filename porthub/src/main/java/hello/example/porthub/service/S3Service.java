@@ -20,7 +20,7 @@ public class S3Service {
         this.amazonS3Client = amazonS3Client;
     }
 
-    public String uploadThumbnail(MultipartFile file) throws IOException {
+    public String uploadFiles(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("File is null or empty");
         }
