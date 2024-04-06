@@ -1,142 +1,85 @@
-<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
-    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+
+    <link rel="stylesheet" th:href="@{/css/portfolio/create.css}" href="/static/css/portfolio/create.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
 
 
 </head>
-<style>
 
-    /* 페이지 상단 이미지를 위한 스타일 */
-    .header-image-container {
-        text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
-        position: relative;
-    }
-    .header-image {
-        width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
-        height: auto;
-        display: block;
-    }
-    .centered-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 24px; /* 원하는 글꼴 크기로 조정하세요 */
-        color: black; /* 글꼴 색상 설정 */
-    }
-
-</style>
 <body>
 
-<header th:replace="~{fragments/header::headerFragment}"></header>
-<div class="header-image-container">
-    <img class="header-image" src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg" alt="Main Page Header Image">
-    <!-- 이미지 가운데 텍스트 -->
-    <div class="centered-text">여러분의 포트폴리오를 뽑내보세요!</div>
-</div>
 
-<div class="desktop">
-    <div class="port">
-        <div class="container">
-            <div class="scroll-section">
-                <br><br>
+<div class="container">
+    <h1>포트폴리오 등록</h1>
+    <div class="port-write">
+        <!--        <form id="portfolioForm" action="/upload" method="post" enctype="multipart/form-data">-->
+        <div class="section section-first">
+            <div class="fraged thumb-nail">
+                <!-- 썸네일 사진을 등록하는 공간 -->
 
-                <!-- 상단 섹션 -->
-                <div class="top-section">
-                    <!-- 상단 섹션 -->
-                    <div class="top-section">
-                        <!-- 버튼 6개 -->
-                        <div class="button-container">
-                            <!--                            <button class="w-btn w-btn-indigo">버튼 1</button>-->
-                            <button th:each="Category : ${Category}" th:text="${Category.CategoryName}" class="w-btn w-btn-indigo"></button>
-                        </div>
-                        <!-- 버튼 + 검색바-->
-                        <div class="second-container">
-                            <div class="left-btn">
-                                <select class="w-btn w-btn-indigo" id="sort-options">
-                                    <option value="popularity">인기순</option>
-                                    <option value="recommendation">추천순</option>
-                                    <option value="latest">최신순</option>
-                                </select>
-                            </div>
-
-                            <div class="search-bar">
-                                <input class="w-btn" type="text" placeholder="검색어를 입력하세요">
-                            </div>
-                            <div class="right-btn">
-                                <a href="ports/create" class="w-btn w-btn-indigo">
-                                    포트폴리오 올리기
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-section">
-                    <div class="cards-section">
-                        <!-- 반복되는 요소 -->
-                        <div th:each="idx : ${#numbers.sequence(1, 18)}"  class="port-wrapper">
-                            <div class="port-2">
-                                <div class="title-description">
-                                    <div class="text-wrapper-5">
-                                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
-                                        <div class="profile-wrapper">
-                                            <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
-                                        </div>
-                                        <div>UserName</div>
-                                        <div class="text-wrapper-6">Project title</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <label for="thumbnail">썸네일 선택:</label>
+                <input type="file" id="thumbnail" name="thumbnail" accept="image/*, video/*, audio/*" onchange="previewFile(event)">
+                <div class="select-thumbnail" id="prevthumb" style="display: none;"></div>
 
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="fixed-section">
-    <div class="fixed-up">
-        <br><br>
-        <div>
-            <h2 style="font-size: 1em; margin-bottom: 0.1em;">Popularity</h2>
-        </div>
-        <div th:each="idx : ${#numbers.sequence(1, 4)}" class="Popularity">
-            <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
-            </div>
-            <div>UserName</div>
-            <button class="follow-btn">follow</button>
-        </div>
-
-    </div>
-    <div class="fixed-down">
-        <div>
-            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History</h2>
-        </div>
-
-        <div class="history_section">
-            <div th:each="idx : ${#numbers.sequence(1, 4)}" class="port-3">
-                <div class="history-description">
-                    <div class="history-image">
-                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
-                    </div>
-                </div>
+            <div class="fraged category-btn">
+                <!-- 카테고리 선택 버튼 -->
+                <label for="category">카테고리:</label>
+                <select id="category" name="category" required>
+                    <option value="">카테고리 선택</option>
+                    <option value="Development">Development</option>
+                    <option value="Music">Music</option>
+                    <option value="Design">Design</option>
+                    <option value="Editing">Editing</option>
+                    <option value="Film">Film</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
         </div>
 
+        <div class="section section-second">
+            <div class="fraged port-title">
+                <!-- 제목 입력 영역 -->
+                <label for="title">제목:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+        </div>
+
+        <div class="section section-forth">
+            <div class="write-container">
+            </div>
+        </div>
+
+        <div class="section section-link">
+            <div>
+                <label for="title">link</label>
+                <input type="text" id="link" name="link">
+            </div>
+        </div>
+
+        <div class="section second-fifth">
+            <div class="fraged port-btn-container">
+                <a class="w-btn" type="button" th:href="@{/main}">나가기</a>
+                <input class="w-btn" type="button" value="생성" id="createButton">
+                <button class="w-btn" type="submit" value="전송">전송</button>
+            </div>
+        </div>
+        <!--        </form>-->
     </div>
 </div>
-
-<footer th:replace="~{fragments/footer::footerFragment}"></footer>
 
 </body>
+
+<script th:src="@{/js/create.js}" src="/static/js/create.js"></script>
+<script>
+    document.getElementById('createButton').addEventListener('click', function() {
+        addNewSection();
+    });
+</script>
 </html>

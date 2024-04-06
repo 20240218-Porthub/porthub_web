@@ -19,13 +19,13 @@
         <div class="sidebar-content">
           <ul class="lists">
             <li class="list">
-              <a href="main" class="nav-link">
+              <a href="/main" class="nav-link">
                 <ion-icon name="home-outline" class="icon"></ion-icon>
                 <span class="link">Portfolio</span>
               </a>
             </li>
             <li class="list">
-              <a href="mentoring" class="nav-link">
+              <a href="/mentoring" class="nav-link">
                 <ion-icon name="clipboard-outline" class="icon"></ion-icon>
                 <span class="link">Mentoring</span>
               </a>
@@ -69,7 +69,7 @@
               </a>
             </li>
             <li class="list">
-              <a href="#" class="nav-link">
+              <a href="/login" class="nav-link">
                 <ion-icon name="bag-outline" class="icon"></ion-icon>
                 <span th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'"class="link">Logout</span>
                 <span th:unless="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/login'" class="link">Login</span>
@@ -110,10 +110,10 @@
     </script>
 
     <nav class="navigation">
-      <a href="main">Home</a>
-      <a href="mentoring">Mentoring</a>
-      <a href="about">About</a>
-      <a href="chat">Chatting</a>
+      <a href="/main">Home</a>
+      <a href="/mentoring">Mentoring</a>
+      <a href="/about">About</a>
+      <a href="/chat">Chatting</a>
 
       <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'" class="btnLogin-popup">Logout</button>
 

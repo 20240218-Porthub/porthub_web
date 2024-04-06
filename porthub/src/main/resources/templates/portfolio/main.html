@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
-
 
 </head>
 
@@ -83,9 +82,9 @@
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5">
-                                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
+                                        <img class="image" th:src="@{/images/iim.png}" src="/static/images/iim.png" />
                                         <div class="profile-wrapper">
-                                            <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+                                            <img class="profile-image" th:src="@{/images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
                                         </div>
                                         <div>UserName</div>
                                         <div class="text-wrapper-6">Project title</div>
@@ -109,7 +108,7 @@
         </div>
         <div th:each="idx : ${#numbers.sequence(1, 4)}" class="Popularity">
             <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+                <img class="profile-image" th:src="@{/images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
             </div>
             <div>UserName</div>
             <button class="follow-btn">follow</button>
@@ -125,7 +124,7 @@
             <div th:each="idx : ${#numbers.sequence(1, 4)}" class="port-3">
                 <div class="history-description">
                     <div class="history-image">
-                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
+                        <img class="image" th:src="@{/images/iim.png}" src="/static/images/iim.png" />
                     </div>
                 </div>
             </div>
