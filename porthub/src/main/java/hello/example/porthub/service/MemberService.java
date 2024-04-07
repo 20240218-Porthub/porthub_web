@@ -5,6 +5,9 @@ import hello.example.porthub.domain.ProfileDto;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,4 +51,14 @@ public class MemberService {
             return false;
         }
     }
+
+    public String getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            return userDetails.getUsername(); // 이메일을 반환하는 것으로 가정
+        }
+        return null; // 인증된 사용자가 없는 경우 또는 사용자 정보를 가져올 수 없는 경우
+    }
+
 }

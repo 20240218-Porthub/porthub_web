@@ -8,8 +8,16 @@
     </select>
 
     <insert id="insertPortfolio" parameterType="portfolio">
-        insert into Portfolios (AuthorID, Thumbnail_url, Title, ImageID, Hearts_count, Views_count, CreationDate, CategoryID, AttachmentsOrLinks)
-        values (#{AuthorID}, #{Thumbnail_url}, #{Title}, #{ImageID}, #{Hearts_count}, #{Views_count}, #{CreationDate}, #{CategoryID}, #{AttachmentsOrLinks})
+        insert into Portfolios (AuthorID, Thumbnail_url, Title, Hearts_count , Views_count,CreationDate, CategoryID, AttachmentsOrLinks)
+        values (#{AuthorID}, #{Thumbnail_url}, #{Title}, #{Hearts_count}, #{Views_count} , NOW(), #{CategoryID}, #{AttachmentsOrLinks})
+        <selectKey keyProperty="PortfolioID" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID() AS PortfolioID
+        </selectKey>
+    </insert>
+
+    <insert id="insertPortImages" parameterType="portfolio">
+        insert into Images (PortfolioID, Image_url, contents)
+        values (#{PortfolioID}, #{Image_url}, #{contents})
     </insert>
 
 </mapper>

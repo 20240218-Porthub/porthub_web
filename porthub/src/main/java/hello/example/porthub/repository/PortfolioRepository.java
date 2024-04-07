@@ -2,6 +2,7 @@ package hello.example.porthub.repository;
 
 
 import hello.example.porthub.domain.CategoryDto;
+import hello.example.porthub.domain.ImagesDto;
 import hello.example.porthub.domain.PortfolioDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -28,12 +29,15 @@ public class PortfolioRepository {
         return sql.selectList("Portfolio.findByCategory");
     }
 
-//    public int findCategoryIdByName(String categoryName) {
-//        return sql.selectOne("Portfolio.findCategoryIdByName", categoryName);
-//    }
 
-//    public void save(PortfolioDto portfolioDto) {
-//        sql.insert("Portfolio.insertPortfolio", portfolioDto);
-//    }
+    public int PortUpload(PortfolioDto portfolioDto) {
+        return sql.insert("Portfolio.insertPortfolio", portfolioDto);
+    }
+
+    public void ContentUpload(ImagesDto imagesDto) {
+        sql.insert("Portfolio.insertPortImages", imagesDto);
+    }
+
+
 
 }

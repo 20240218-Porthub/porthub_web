@@ -12,11 +12,18 @@ import java.util.List;
 @Setter
 @ToString
 public class PortfolioDto {
-    private MultipartFile Thumbnail_url;
-    private String CategoryID;
+    private int PortfolioID;
+    private int AuthorID;
+    private String Thumbnail_url;
+    private MultipartFile Thumbnail_cast;
+    private int CategoryID;
+    private String CategoryString;
     private String Title;
+    private int Hearts_count = 0;
+    private int Views_count = 0;
     private List<MultipartFile> file;
+    private List<String> multipleFiles;
     private List<String> content;
-    private String AttachmentsOr;
+    private String AttachmentsOrLinks;
 
 }
