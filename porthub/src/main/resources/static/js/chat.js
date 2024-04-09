@@ -6,6 +6,14 @@ $(document).ready(function () {
         send();
     });
 
+    // Add keypress event listener to the input field
+    $("#msg").keypress(function (e) {
+        if (e.which == 13) { // 13 is the keycode for Enter
+            send();
+            return false; // Prevent form submission if it's part of a form
+        }
+    });
+
     const websocket = new WebSocket("ws://localhost:8080/ws/chat");
 
     websocket.onmessage = onMessage;
