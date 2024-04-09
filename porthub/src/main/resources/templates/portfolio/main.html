@@ -78,16 +78,16 @@
                 <div class="gallery-section">
                     <div class="cards-section">
                         <!-- 반복되는 요소 -->
-                        <div th:each="idx : ${#numbers.sequence(1, 18)}"  class="port-wrapper">
+                        <div th:each="mainPortViewDtoList: ${mainPortViewDtoList}"  class="port-wrapper">
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5">
-                                        <img class="image" th:src="@{/images/iim.png}" src="/static/images/iim.png" />
+                                        <img class="image" th:src="${mainPortViewDtoList.Thumbnail_url}" src="/static/images/iim.png" />
                                         <div class="profile-wrapper">
-                                            <img class="profile-image" th:src="@{/images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+                                            <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}" src="/static/images/profiletest.jpeg" />
                                         </div>
-                                        <div>UserName</div>
-                                        <div class="text-wrapper-6">Project title</div>
+                                        <div th:text="${mainPortViewDtoList.UserName}"></div>
+                                        <div class="text-wrapper-6" th:text="${mainPortViewDtoList.Title}"></div>
                                     </div>
                                 </div>
                             </div>

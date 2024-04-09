@@ -1,9 +1,6 @@
 package hello.example.porthub.service;
 
-import hello.example.porthub.domain.CategoryDto;
-import hello.example.porthub.domain.ImagesDto;
-import hello.example.porthub.domain.MemberDto;
-import hello.example.porthub.domain.PortfolioDto;
+import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
@@ -98,4 +95,8 @@ public class PortfolioService {
         return portfolioRepository.findByCategory();
     }
 
+
+    public List<MainPortViewDto> findAllPorts() {
+        return portfolioRepository.findAllPorts();
+    }
 }

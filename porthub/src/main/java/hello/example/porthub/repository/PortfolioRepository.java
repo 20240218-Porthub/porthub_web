@@ -3,6 +3,7 @@ package hello.example.porthub.repository;
 
 import hello.example.porthub.domain.CategoryDto;
 import hello.example.porthub.domain.ImagesDto;
+import hello.example.porthub.domain.MainPortViewDto;
 import hello.example.porthub.domain.PortfolioDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -42,4 +43,7 @@ public class PortfolioRepository {
         return sql.selectOne("Portfolio.selectPortfolioID");
     }
 
+    public List<MainPortViewDto> findAllPorts() {
+        return sql.selectList("Portfolio.findAllPorts");
+    }
 }

@@ -23,4 +23,19 @@
         ORDER BY PortfolioID DESC
             LIMIT 1;
     </select>
+
+    <select id="findAllPorts" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT
+            p.PortfolioID,
+            p.AuthorID AS UserID,
+            p.Thumbnail_url,
+            p.Title,
+            u.UserName,
+            u.ProfileImage
+        FROM
+            Portfolios p
+                JOIN
+            Users u ON p.AuthorID = u.UserID
+        ORDER BY p.PortfolioID DESC;
+    </select>
 </mapper>
