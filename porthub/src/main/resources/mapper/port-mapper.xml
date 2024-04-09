@@ -10,9 +10,6 @@
     <insert id="insertPortfolio" parameterType="portfolio">
         insert into Portfolios (AuthorID, Thumbnail_url, Title, Hearts_count , Views_count,CreationDate, CategoryID, AttachmentsOrLinks)
         values (#{AuthorID}, #{Thumbnail_url}, #{Title}, #{Hearts_count}, #{Views_count} , NOW(), #{CategoryID}, #{AttachmentsOrLinks})
-        <selectKey keyProperty="PortfolioID" order="AFTER" resultType="int">
-            SELECT LAST_INSERT_ID() AS PortfolioID
-        </selectKey>
     </insert>
 
     <insert id="insertPortImages" parameterType="portfolio">
@@ -20,4 +17,10 @@
         values (#{PortfolioID}, #{Image_url}, #{contents})
     </insert>
 
+    <select id="selectPortfolioID" resultType="int">
+        SELECT PortfolioID
+        FROM Portfolios
+        ORDER BY PortfolioID DESC
+            LIMIT 1;
+    </select>
 </mapper>

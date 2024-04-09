@@ -30,14 +30,16 @@ public class PortfolioRepository {
     }
 
 
-    public int PortUpload(PortfolioDto portfolioDto) {
-        return sql.insert("Portfolio.insertPortfolio", portfolioDto);
+    public void PortUpload(PortfolioDto portfolioDto) {
+        sql.insert("Portfolio.insertPortfolio", portfolioDto);
     }
 
     public void ContentUpload(ImagesDto imagesDto) {
         sql.insert("Portfolio.insertPortImages", imagesDto);
     }
 
-
+    public int PortID() {
+        return sql.selectOne("Portfolio.selectPortfolioID");
+    }
 
 }

@@ -58,7 +58,9 @@ public class PortfolioService {
             portfolioDto.setCategoryID(CategoryID);
 
             // portfolioID를 가져옴 Images Table에 넣어주기 위함
-            int PortfolioID = portfolioRepository.PortUpload(portfolioDto);
+            portfolioRepository.PortUpload(portfolioDto);
+            int PortfolioID = portfolioRepository.PortID();
+
             imagesDto.setPortfolioID(PortfolioID);
 
             List<String> multipleFiles = new ArrayList<>();
