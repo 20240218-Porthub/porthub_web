@@ -39,8 +39,9 @@
         }
 
     </style>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
+    <link rel="stylesheet" th:href="@{css/mentoring/mentoring.css}" href="/static/css/mentoring/mentoring.css" />
 
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 
@@ -80,7 +81,7 @@
                                 <div style="width: 70px"></div>
                             </div>
                             <div class="right-btn">
-                                <a href="ports/create" class="w-btn w-btn-indigo">
+                                <a href="mentoring/activity" class="w-btn w-btn-indigo">
                                     활동 관리하기
                                 </a>
                             </div>
@@ -89,12 +90,12 @@
 
                         <div class="third-container">
                             <div class="mento-btn-container">
-                                <a href="" class="w-btn w-btn-indigo mento-btn">
+                                <a href="mentoring/registermento" class="w-btn w-btn-indigo mento-btn">
                                     멘토 등록하기
                                 </a>
                             </div>
                             <div class="mento-btn-container">
-                                <a href="" class="w-btn w-btn-indigo mento-btn">
+                                <a href="mentoring/createmento" class="w-btn w-btn-indigo mento-btn">
                                     활동 등록하기
                                 </a>
                             </div>
@@ -109,7 +110,7 @@
                 <div class="gallery-section">
                     <div class="cards-section">
                         <!-- 반복되는 요소 -->
-                        <div th:each="idx : ${#numbers.sequence(1, 18)}"  class="mento-wrapper">
+                        <div id="1" onclick="mentorpopup(this)" th:each="idx : ${#numbers.sequence(1, 18)}"  class="mento-wrapper pop">
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5">
@@ -131,10 +132,36 @@
     </div>
 </div>
 
+<div class="layer1">
+    <div class="layer2">
+        <div class="layer_con">
+            <div class="mento-header">
+                <div class="mentoprofile">
+                    <div class="mentoimg"></div>
+                    <div class="mentoname">이름</div>
+                    <div class="follow-btn">팔로우</div>
+                </div>
+                <div class="close">X</div>
+            </div>
+            <div class="postname">[백엔드] Spring boot 백 엔드 공부 방향 잡아드립니다.</div>
+            <div class="mentospc">
+               <div><span>직무 </span><span>백엔드/서버개발자</span></div>
+                <div><span>경력 </span><span>미들(4-8년)</span></div>
+                <div><span>현직 </span><span>배달의 백성</span></div>
+            </div>
+            <div class="post-con">내용 내용 내용내용</div>
+            <div class="mentoapply">
+                <button type="button">신청하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
 <footer th:replace="~{fragments/footer::footerFragment}"></footer>
 
 </body>
+<script th:src="@{/js/mentoring.js}" src="/static/js/mentoring.js"></script>
 </html>

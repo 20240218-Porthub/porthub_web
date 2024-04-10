@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <link th:href="@{/css/mentoring/registermento.css}" href="/static/css/mentoring/registermento.css" rel="stylesheet">
+    <link th:href="@{/css/register/registerguide.css}" rel="stylesheet">
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<header th:replace="~{fragments/header::headerFragment}"></header>
+
+<div class="main">
+    <div class="div">
+        <div class="content">
+            <div class="frame">
+                <div class="text-wrapper">멘토 등록하기</div>
+            </div>
+            <form class="mentoform" action="registermento/apply" method="post" enctype="multipart/form-data">
+                <div class="frame-2">
+                    <div class="text-field">
+                        <div class="frame-3"><div class="label">자기소개</div></div>
+                        <input type="text" name="Introduction" class="text-field-2">
+                    </div>
+                    <div class="text-field">
+                        <div class="frame-3"><div class="label">보유 기술</div></div>
+                        <input type="text" name="Ability" class="text-field-2">
+                    </div>
+                    <div class="text-field">
+                        <div class="frame-3"><div class="label">경력</div></div>
+                        <input type="file" name="CareerCertification" class="text-field-2">
+                    </div>
+                    <div class="text-field">
+                        <div class="frame-3"><div class="label">학력</div></div>
+                        <input type="file" name="UnivCertification" class="text-field-2">
+                    </div>
+                    <div class="text-field">
+                        <div class="frame-3"><div class="label">자격증</div></div>
+                        <input type="file" name="IssueCertification" class="text-field-2">
+                    </div>
+                    <div class="frame-3">
+                        <div>자신의 경력/학력/자격증 을 증명 할 수 있는 사진/문서(재학증명서, 졸업증, 자격증, 경력 증명서, etc)을 첨부</div>
+                    </div>
+                    <div class="frame-4">
+                        <button class="button" type="submit" id="SubmitCheck">
+                            <div class="frame-5"><div class="sign-up">멘토 신청</div></div>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+</body>
+
+<script th:src="@{/js/registermento.js}" src="/static/js/registermento.js"></script>
+
+</html>
