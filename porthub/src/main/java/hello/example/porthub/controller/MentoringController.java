@@ -1,4 +1,107 @@
 package hello.example.porthub.controller;
 
+import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.domain.PortfolioDto;
+import hello.example.porthub.repository.MemberRepository;
+import hello.example.porthub.service.S3Service;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import hello.example.porthub.domain.MentoDto;
+import hello.example.porthub.domain.MentoringDto;
+import hello.example.porthub.service.MentoService;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/mentoring")
 public class MentoringController {
+    private final MemberRepository memberRepository;
+    private final MentoService mentoService;
+    private final S3Service s3Service;
+
+    @GetMapping("/activity")
+    public String MentorActivity(){
+        return "mentoring/activitymanage";
+    }
+
+    @GetMapping("/registermento")
+    public String RegisterMento(){
+        return "mentoring/registermento";
+    }
+
+    @PostMapping("/registermento/apply")
+    public String MentoApply(@ModelAttribute MentoDto mentoDto, Principal principal) throws IOException {
+        if(!mentoDto.getCareerCertification().isEmpty()) {
+            String CareerUrl = s3Service.uploadFiles(mentoDto.getCareerCertification());
+            mentoDto.setCareerUrl(CareerUrl);
+        }
+        if(!mentoDto.getUnivCertification().isEmpty()) {
+            String UnivUrl = s3Service.uploadFiles(mentoDto.getUnivCertification());
+            mentoDto.setUnivUrl(UnivUrl);
+        }
+        if(!mentoDto.getIssueCertification().isEmpty()) {
+            String IssueUrl = s3Service.uploadFiles(mentoDto.getIssueCertification());
+            mentoDto.setIssueUrl(IssueUrl);
+        }
+
+        String loginId = principal.getName();
+        MemberDto member = memberRepository.findByEmail(loginId);
+
+        mentoDto.setUserID(member.getUserID());
+
+
+        int ApplyResult = mentoService.apply(mentoDto);
+//        예제입니다.
+        if (ApplyResult > 0) {
+            return "redirect:/mentoring/activity"; //가입 성공
+        } else {
+            return "redirect:/mentoring/registermento"; //가입 실패
+        }
+    }
+
+    @GetMapping("/createmento")
+    public String CreateMento(){
+        return "mentoring/createmento";
+    }
+
+    @PostMapping("/createmento/upload")
+    public String uploadMentoring(@ModelAttribute MentoringDto mentoringDto, Principal principal) throws IOException {
+        int cnt=0;
+        mentoringDto.setThumbnailurl(s3Service.uploadFiles(mentoringDto.getThumbnail()));
+        String fileurls=null;
+
+        String loginId = principal.getName();
+        MemberDto member = memberRepository.findByEmail(loginId);
+
+        mentoringDto.setMentoID(member.getUserID());
+
+        for (MultipartFile file : mentoringDto.getMentofile()) {
+            if(cnt==0) {
+                String multipleFile = s3Service.uploadFiles(file);
+                fileurls=multipleFile;
+                cnt=1;
+            }
+            if(cnt==1) {
+                String multipleFile = s3Service.uploadFiles(file);
+                fileurls = fileurls + ',' + multipleFile;
+            }
+        }
+        mentoringDto.setFileurls(fileurls);
+        int uploadResult = mentoService.upload(mentoringDto);
+
+        if (uploadResult > 0) {
+            return "redirect:/mentoring";
+        } else {
+            return "redirect:/mentoring/createmento";
+        }
+    }
+
 }

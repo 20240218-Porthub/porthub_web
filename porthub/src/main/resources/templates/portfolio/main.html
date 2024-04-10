@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
-
 
 </head>
 
@@ -79,20 +78,21 @@
                 <div class="gallery-section">
                     <div class="cards-section">
                         <!-- 반복되는 요소 -->
-                        <div th:each="idx : ${#numbers.sequence(1, 18)}"  class="port-wrapper">
+                        <div th:each="mainPortViewDtoList: ${mainPortViewDtoList}"  class="port-wrapper">
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5">
-                                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
+                                        <img class="image" th:src="${mainPortViewDtoList.Thumbnail_url}" src="/static/images/iim.png" th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"/>
                                         <div class="profile-wrapper">
-                                            <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+                                            <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}" src="/static/images/profiletest.jpeg" th:attr="data-user-name=${mainPortViewDtoList.UserName}" onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
                                         </div>
-                                        <div>UserName</div>
-                                        <div class="text-wrapper-6">Project title</div>
+                                        <div th:text="${mainPortViewDtoList.UserName}"></div>
+                                        <div class="text-wrapper-6" th:text="${mainPortViewDtoList.Title}"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -109,7 +109,7 @@
         </div>
         <div th:each="idx : ${#numbers.sequence(1, 4)}" class="Popularity">
             <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+                <img class="profile-image" th:src="@{/images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
             </div>
             <div>UserName</div>
             <button class="follow-btn">follow</button>
@@ -125,7 +125,7 @@
             <div th:each="idx : ${#numbers.sequence(1, 4)}" class="port-3">
                 <div class="history-description">
                     <div class="history-image">
-                        <img class="image" th:src="@{images/iim.png}" src="/static/images/iim.png" />
+                        <img class="image" th:src="@{/images/iim.png}" src="/static/images/iim.png" />
                     </div>
                 </div>
             </div>
@@ -133,7 +133,16 @@
 
     </div>
 </div>
+<script>
+    function goToDetailPage(portfolioId) {
+    // 클릭된 이미지의 포트폴리오 ID를 사용하여 상세 페이지로 이동
+        window.location.href = '/ports/views/' + portfolioId;
+}
 
+    function goToProfilePage(UserName) {
+        window.location.href = '/profile/' + UserName;
+    }
+</script>
 <footer th:replace="~{fragments/footer::footerFragment}"></footer>
 
 </body>
