@@ -1,6 +1,8 @@
 package hello.example.porthub.controller;
 
 import hello.example.porthub.domain.CategoryDto;
+import hello.example.porthub.domain.MainPortViewDto;
+import hello.example.porthub.domain.PortfolioDto;
 import hello.example.porthub.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,9 @@ public class IndexController {
     @GetMapping(value = {"/", "/main"})
     public String index(Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
+        System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
         return "portfolio/main";
     }

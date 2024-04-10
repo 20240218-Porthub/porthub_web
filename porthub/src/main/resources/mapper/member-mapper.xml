@@ -21,6 +21,12 @@
         select * from Users where Email=#{Email}
     </select>
 
+    <select id="findByUserIDtoEmail" parameterType="String" resultType="member">
+        SELECT UserID
+        FROM Users
+        WHERE Email = #{Email}
+    </select>
+
 
     <select id="findByUserID" parameterType="int" resultType="User">
         select * from Usermeta where UserID=#{UserID}

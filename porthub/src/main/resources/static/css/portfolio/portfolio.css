@@ -235,9 +235,9 @@
     align-self: stretch;
     margin-top: -1px;
     font-family: "Poppins-SemiBold", Helvetica;
-    font-weight: 600;
+    font-weight: bolder;
     color: var(--black);
-    font-size: 20px;
+    font-size: 16px;
     letter-spacing: 0;
     line-height: 27px;
 }
@@ -248,7 +248,7 @@
     font-family: "Poppins-Regular", Helvetica;
     font-weight: 400;
     color: var(--black);
-    font-size: 17px;
+    font-size: 14px;
     letter-spacing: 0;
     line-height: 27px;
 }

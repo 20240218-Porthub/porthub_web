@@ -1,0 +1,137 @@
+.div-section {
+    margin-bottom: 20px; /* 추가: 섹션 아래 여백 조정 */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: rgba(255, 230, 230, 0.1);
+    margin-left: 10%;
+    margin-right: 10%;
+    overflow-x: auto; /* 가로 스크롤을 위한 설정 */
+    white-space: nowrap; /* 가로 스크롤을 위한 설정 */
+}
+
+.title-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.PortTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc; /* Placeholder color */
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+    background: white;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.follow-btn {
+    background-color: black;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.report-container {
+    text-align: right;
+    margin-right: 10%;
+    margin-bottom: 10px;
+}
+.view-all{
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.report {
+    color: #dc3545;
+    text-decoration: none;
+}
+
+.portfolio-container {
+    display: flex;
+    justify-content: space-between; /* 가로 중앙 정렬 */
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.content-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 30px;
+    flex-basis: 40%;
+    margin-right: 30px;
+}
+.markdown-view {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+}
+.user-portfolio-container {
+    flex: 1; /* 좌우로 나누어 배치 */
+}
+
+.user-portfolio {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 10px; /* 추가: Project Title 아래 여백 조정 */
+    flex-direction: column;
+}
+
+.thumb-nail-container {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc; /* Placeholder color */
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.portcolio-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px; /* 추가: Project Title 위 여백 조정 */
+}
+.File-container {
+    width: 100%;
+    overflow: hidden; /* 스크롤 숨김 */
+    text-align: center; /* 가운데 정렬 */
+    flex-basis: 60%;
+}
+.File-container img {
+    max-width: 100%; /* 이미지 너비를 부모 요소에 맞게 조정 */
+    height: auto; /* 이미지 비율 유지 */
+}
+
+.date-container {
+    text-align: right;
+    margin-right: 10%;
+}
+
+.date {
+    font-size: 10px;
+}

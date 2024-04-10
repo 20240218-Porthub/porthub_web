@@ -13,4 +13,5 @@ public class ProfileDto {
     private String aff;
     private String link;
     private String career;
+
 }

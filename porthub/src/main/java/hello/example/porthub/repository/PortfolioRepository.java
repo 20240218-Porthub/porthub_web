@@ -1,16 +1,12 @@
 package hello.example.porthub.repository;
 
 
-import hello.example.porthub.domain.CategoryDto;
-import hello.example.porthub.domain.PortfolioDto;
+import hello.example.porthub.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 @RequiredArgsConstructor
@@ -28,12 +24,32 @@ public class PortfolioRepository {
         return sql.selectList("Portfolio.findByCategory");
     }
 
-//    public int findCategoryIdByName(String categoryName) {
-//        return sql.selectOne("Portfolio.findCategoryIdByName", categoryName);
-//    }
 
-//    public void save(PortfolioDto portfolioDto) {
-//        sql.insert("Portfolio.insertPortfolio", portfolioDto);
-//    }
+    public void PortUpload(PortfolioDto portfolioDto) {
+        sql.insert("Portfolio.insertPortfolio", portfolioDto);
+    }
 
+    public void ContentUpload(ImagesDto imagesDto) {
+        sql.insert("Portfolio.insertPortImages", imagesDto);
+    }
+
+    public int PortID() {
+        return sql.selectOne("Portfolio.selectPortfolioID");
+    }
+
+    public List<MainPortViewDto> findAllPorts() {
+        return sql.selectList("Portfolio.findAllPorts");
+    }
+
+    public PortViewDto findportview(int portfolioID) {
+        return sql.selectOne("Portfolio.findPortfolioByPortfolioID", portfolioID);
+    }
+
+    public List<ImagesDto> findFileviews(int portfolioID) {
+        return sql.selectList("Portfolio.findPortFilesByPortfolioID", portfolioID);
+    }
+
+    public List<PortViewDto> finduserport(int portfolioID) {
+        return sql.selectList("Portfolio.finduserport", portfolioID);
+    }
 }

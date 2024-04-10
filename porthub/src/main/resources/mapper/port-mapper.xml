@@ -4,12 +4,76 @@
 
 <mapper namespace="Portfolio">
     <select id="findByCategory" resultType="portfolio">
-        select CategoryName from Categories
+        select CategoryName
+        from Categories
     </select>
 
     <insert id="insertPortfolio" parameterType="portfolio">
-        insert into Portfolios (AuthorID, Thumbnail_url, Title, ImageID, Hearts_count, Views_count, CreationDate, CategoryID, AttachmentsOrLinks)
-        values (#{AuthorID}, #{Thumbnail_url}, #{Title}, #{ImageID}, #{Hearts_count}, #{Views_count}, #{CreationDate}, #{CategoryID}, #{AttachmentsOrLinks})
+        insert into Portfolios (AuthorID, Thumbnail_url, Title, Hearts_count, Views_count, CreationDate, CategoryID,
+                                AttachmentsOrLinks)
+        values (#{AuthorID}, #{Thumbnail_url}, #{Title}, #{Hearts_count}, #{Views_count}, NOW(), #{CategoryID},
+                #{AttachmentsOrLinks})
     </insert>
+
+    <insert id="insertPortImages" parameterType="portfolio">
+        insert into Images (PortfolioID, Image_url, contents)
+        values (#{PortfolioID}, #{Image_url}, #{contents})
+    </insert>
+
+    <select id="selectPortfolioID" resultType="int">
+        SELECT PortfolioID
+        FROM Portfolios
+        ORDER BY PortfolioID DESC LIMIT 1;
+    </select>
+
+    <select id="findAllPorts" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN
+             Users u ON p.AuthorID = u.UserID
+        ORDER BY p.PortfolioID DESC;
+    </select>
+    <select id="findPortfolioByPortfolioID" resultType="hello.example.porthub.domain.PortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.AuthorID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.CreationDate,
+               p.AttachmentsOrLinks,
+               u.UserName,
+               u.ProfileImage,
+               u.backImage
+        FROM Portfolios p
+                 JOIN
+             Users u ON p.AuthorID = u.UserID
+        WHERE p.PortfolioID = #{portfolioID};
+    </select>
+    <select id="findPortFilesByPortfolioID" resultType="hello.example.porthub.domain.ImagesDto">
+        SELECT PortfolioID, Image_url, contents
+        FROM Images
+        WHERE PortfolioID = #{portfolioID};
+    </select>
+    <select id="finduserport" resultType="hello.example.porthub.domain.PortViewDto">
+        SELECT
+            PortfolioID, Thumbnail_url, Title
+        FROM
+            Portfolios
+        WHERE
+                AuthorID = (
+                SELECT
+                    AuthorID
+                FROM
+                    Portfolios
+                WHERE
+                    PortfolioID = #{portfolioID}
+            );
+    </select>
 
 </mapper>
