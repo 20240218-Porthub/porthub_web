@@ -6,8 +6,169 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <style>
+        /* Additional Styles */
+        .div-section {
+            margin-bottom: 20px; /* 추가: 섹션 아래 여백 조정 */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: rgba(255, 230, 230, 0.1);
+            margin-left: 10%;
+            margin-right: 10%;
+            overflow-x: auto; /* 가로 스크롤을 위한 설정 */
+            white-space: nowrap; /* 가로 스크롤을 위한 설정 */
+        }
+
+        .title-container {
+            text-align: center;
+        }
+
+        .PortTitle {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .user-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile {
+            width: 100px;
+            height: 100px;
+            background-color: #ccc; /* Placeholder color */
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 10px; /* 추가: UserName 오른쪽에 마진 추가 */
+        }
+
+        .follow-btn {
+            background-color: black;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .report-container {
+            text-align: right;
+            margin-right: 10%;
+            margin-bottom: 10px;
+        }
+
+        .report {
+            color: #dc3545;
+            text-decoration: none;
+        }
+
+        .portfolio-container {
+
+        }
+
+        .user-portfolio {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 10px; /* 추가: Project Title 아래 여백 조정 */
+        }
+        .thumb-nail-container {
+            width: 100px;
+            height: 100px;
+            background-color: #ccc; /* Placeholder color */
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        .portcolio-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px; /* 추가: Project Title 위 여백 조정 */
+        }
+    </style>
 </head>
 <body>
 
+<header th:replace="~{fragments/header::headerFragment}"></header>
+
+
+<div class="wrap-container">
+    <div class="home-container">
+        <br><br><br>
+        <div class="title-container div-section" >
+            <div class="PortTitle">Portfolio Title</div>
+        </div>
+
+        <div class="user-container div-section" >
+            <div class="user-profile"></div>
+            <div class="user-info">
+                <div class="user-name">John Doe</div>
+                <a href="#" class="follow-btn">Follow</a>
+            </div>
+            <div class="user-background-image"></div>
+        </div>
+
+        <div class="report-container">
+            <a href="#" class="report">Report Copyright</a>
+        </div>
+
+        <!-- 반복되는 내용 -->
+        <div class="portfolio-container div-section">
+            <div class="thumb-nail-container"></div>
+            <div class="content-container">
+                <textarea name="d" id="d" cols="30" rows="10"></textarea>
+            </div>
+        </div>
+
+        <div class="user-portfolio-container div-section">
+            <div class="port-text">
+                <label>Other Portfolios by this User</label>
+            </div>
+            <div>
+                <a href="#">View All</a>
+            </div>
+            <!-- 반복되는 내용 -->
+            <div class="user-portfolio">
+                <div class="thumb-nail-container"></div>
+                <div class="portcolio-title">Project Title</div>
+            </div>
+            <!-- 추가: 반복되는 내용 -->
+            <div class="user-portfolio">
+                <div class="thumb-nail-container"></div>
+                <div class="portcolio-title">Project Title</div>
+            </div>
+            <!-- 추가: 반복되는 내용 -->
+            <div class="user-portfolio">
+                <div class="thumb-nail-container"></div>
+                <div class="portcolio-title">Project Title</div>
+            </div>
+            <!-- 추가: 반복되는 내용 -->
+            <div class="user-portfolio">
+                <div class="thumb-nail-container"></div>
+                <div class="portcolio-title">Project Title</div>
+            </div>
+            <!-- 추가: 반복되는 내용 -->
+            <div class="user-portfolio">
+                <div class="thumb-nail-container"></div>
+                <div class="portcolio-title">Project Title</div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer th:replace="~{fragments/footer::footerFragment}"></footer>
+</div>
 </body>
 </html>

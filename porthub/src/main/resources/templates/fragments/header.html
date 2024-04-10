@@ -71,9 +71,9 @@
             <li class="list">
               <a href="/login" class="nav-link">
                 <ion-icon name="bag-outline" class="icon"></ion-icon>
-<!--                <span th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'"class="link">Logout</span>-->
-                <span th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="confirmLogout()" class="link">Logout</span>
-                <span th:unless="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/login'" class="link">Login</span>
+                <span th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'"class="link">Logout</span>
+                <span th:unless="${#authorization.expression('isAuthenticated()')}" onclick="location.href='/login'" class="link">Login</span>
+
               </a>
             </li>
           </div>

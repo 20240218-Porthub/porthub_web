@@ -3,6 +3,7 @@ import hello.example.porthub.domain.PortfolioDto;
 import hello.example.porthub.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -34,6 +35,13 @@ public class PortfolioController {
     @GetMapping("/create")
     public String create() {
         return "portfolio/create";
+    }
+
+
+    @GetMapping("/views/{PortfolioID}")
+    public String portfolioDetail(@PathVariable(name = "PortfolioID") int PortfolioID, Model model) {
+
+        return "portfolio/portview"; // 포트폴리오 상세 페이지 템플릿 이름을 반환합니다.
     }
 
 }

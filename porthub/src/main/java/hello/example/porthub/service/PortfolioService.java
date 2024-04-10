@@ -22,6 +22,7 @@ public class PortfolioService {
     private final S3Service s3Service;
     private final MemberService memberService;
     private final ImagesDto imagesDto;
+    private final MainPortViewDto mainPortViewDto;
 
     public int upload(PortfolioDto portfolioDto) {
         try {
