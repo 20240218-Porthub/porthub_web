@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,15 +21,12 @@ public class PortfolioService {
     private final S3Service s3Service;
     private final MemberService memberService;
     private final ImagesDto imagesDto;
-    private final MainPortViewDto mainPortViewDto;
 
     public int upload(PortfolioDto portfolioDto) {
         try {
             String Category = portfolioDto.getCategoryString();
             String thumbnailUrl = s3Service.uploadFiles(portfolioDto.getThumbnail_cast());
-
             portfolioDto.setThumbnail_url(thumbnailUrl);
-
             // UserID 가져오기
             String Email = memberService.getCurrentUserId();
             MemberDto member = memberRepository.findByUserIDtoEmail(Email);
@@ -99,5 +95,17 @@ public class PortfolioService {
 
     public List<MainPortViewDto> findAllPorts() {
         return portfolioRepository.findAllPorts();
+    }
+
+    public PortViewDto findportview(int portfolioID) {
+        return portfolioRepository.findportview(portfolioID);
+    }
+
+    public List<ImagesDto> findportFiles(int portfolioID) {
+        return portfolioRepository.findFileviews(portfolioID);
+    }
+
+    public List<PortViewDto> finduserport(int portfolioID) {
+        return portfolioRepository.finduserport(portfolioID);
     }
 }
