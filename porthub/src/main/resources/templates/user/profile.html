@@ -11,8 +11,8 @@
         }
     </style>
 
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
-    <link rel="stylesheet" th:href="@{css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
+    <link rel="stylesheet" th:href="@{/css/profile/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profile/profileguide.css}" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 </head>
 <body>
@@ -21,10 +21,103 @@
 
 <div class="wrap-container">
     <div class="home-container">
-        <h1>Profile.html입니다.</h1>
-        <h1>Profile.html입니다.</h1>
-        <h1>Profile.html입니다.</h1>
-        <h1>Profile.html입니다.</h1>
+        <div class="main">
+            <div class="page-header">
+                <div class="image-wrap-outer">
+                    <div class="image-wrap-inner"><div class="image" th:style="'background-image:url('+${member.backImage}+')'"></div></div>
+                </div>
+                <div class="container">
+                    <div class="avatar-profile-photo" th:style="'background-image:url('+${member.ProfileImage}+')'"></div>
+                    <div class="content">
+                        <div class="heading">
+                            <div class="text-and-supporting">
+                                <div class="text col-2">
+                                    <div th:text="${member.UserName}"></div>
+                                    <div class="col-2">
+                                        <div class="follow">
+                                            <span>팔로워</span><span>nn</span>
+                                        </div>
+                                        <div class="follow">
+                                            <span>팔로잉</span><span>nn</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="olivia-untitledui">
+                                    <div>
+                                        <span>소속 </span><span th:text="${UserMeta.aff}">aff</span>
+                                    </div>
+                                    <div>
+                                        <span>링크 </span><span th:text="${UserMeta.link}">link</span>
+                                    </div>
+                                    <div>
+                                        <span>경력 </span><span th:text="${UserMeta.career}">career</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <a th:if="${#authentication.name==member.email}" th:href="@{'/profile/'+${member.userName}+'/edit'}">
+                                    <ion-icon name="settings-outline"></ion-icon>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div>
+                    <div>자기소개</div>
+                    <div th:text="${UserMeta.intro}"></div>
+                </div>
+                <div class="container">
+                    <div>포트폴리오</div>
+                    <div class="cards-section">
+                        <div class="div-2">
+                            <img class="image" src="img/image-2.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-5">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="div-2">
+                            <img class="image" src="img/image-6.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="div-2">
+                            <img class="image" src="img/image-3.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="div-2">
+                            <img class="image" src="img/image.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="div-2">
+                            <img class="image" src="img/image-4.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                        <div class="div-2">
+                            <img class="image" src="img/image-5.png" />
+                            <div class="title-description">
+                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-6">UI, Art drection</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

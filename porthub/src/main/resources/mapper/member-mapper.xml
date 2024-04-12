@@ -20,5 +20,30 @@
     <select id="findByEmail" parameterType="String" resultType="member">
         select * from Users where Email=#{Email}
     </select>
-</mapper>
 
+    <select id="findByUserIDtoEmail" parameterType="String" resultType="member">
+        SELECT UserID
+        FROM Users
+        WHERE Email = #{Email}
+    </select>
+
+
+    <select id="findByUserID" parameterType="int" resultType="User">
+        select * from Usermeta where UserID=#{UserID}
+    </select>
+
+    <insert id="newmeta" parameterType="int">
+        insert into Usermeta(UserID) values(#{UserID})
+    </insert>
+
+    <update id="metaupdate" parameterType="User">
+        update Usermeta set
+                            intro = #{intro},
+                            aff = #{aff},
+                            link = #{link},
+                            career = #{career}
+                        where UserID = #{UserID}
+    </update>
+
+
+</mapper>

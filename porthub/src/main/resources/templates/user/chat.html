@@ -1,13 +1,52 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <link th:href="@{/css/chat/chat.css}" href="/static/css/chat/chat.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Chatting page입니다.</h1>
+<div class="container">
+    <div class="sidebar">
+        <div class="header">
+            <h3>ChatApp</h3>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="User Avatar">
+                <span th:text="${username}">Username</span>
+            </div>
+        </div>
+        <div class="search-bar">
+            <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Search messages...">
+        </div>
+        <div class="message-list">
+            <!-- ... (past messages) ... -->
+        </div>
+    </div>
+    <div class="chat-area">
+        <div class="header">
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="User Avatar">
+                <div>
+                    <span class="username">John Doe</span>
+                    <span class="status">Online</span>
+                </div>
+            </div>
+        </div>
+        <div class="messages" id="msgArea">
+            <!-- ... (chat messages) ... -->
+        </div>
+        <div class="input-area">
+            <label for="msg"></label><input type="text" id="msg" placeholder="Type a message...">
+            <button id="button-send">Send</button>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/chat.js}"></script>
+
 </body>
 </html>

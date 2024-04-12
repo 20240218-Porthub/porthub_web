@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioview.css}" href="/static/css/portfolio/portfolioview.css" />
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+
+</head>
+<body>
+
+<header th:replace="~{fragments/header::headerFragment}"></header>
+
+
+<div class="wrap-container">
+    <div class="home-container">
+        <br><br><br>
+
+
+        <div class="title-container" >
+            <div class="PortTitle" th:text="${PortViewDtoList.Title}"></div>
+        </div>
+        <div class="date-container" >
+            <div class="date" th:text="${PortViewDtoList.CreationDate}"></div>
+        </div>
+        <div class="user-container div-section" th:style="'background-image: url('+${PortViewDtoList.backImage} + '); background-position: center;'">
+            <div class="user-profile">
+                <img th:src="${PortViewDtoList.profileImage}" src="/static/images/iim.png" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; ">
+            </div>
+            <div class="user-info">
+                <div class="user-name" th:text="${PortViewDtoList.UserName}"></div>
+                <a href="#" class="follow-btn">Follow</a>
+            </div>
+        </div>
+
+        <div class="report-container">
+            <a href="#" class="report">Report Copyright</a>
+        </div>
+
+        <!-- 반복되는 내용 -->
+        <div class="portfolio-container div-section" th:each="FileViewDtoList: ${FileViewDtoList}">
+            <div class="content-container">
+                <div class="markdown-view" th:text="${FileViewDtoList.contents}"></div>
+            </div>
+            <div class="File-container">
+                <img src="/static/images/back_Image.png" th:src="${FileViewDtoList.Image_url}">
+            </div>
+        </div>
+
+        <div class="link-container div-section">
+            <label>Link: </label>
+            <a th:href="${PortViewDtoList.AttachmentsOrLinks}" th:text="${PortViewDtoList.AttachmentsOrLinks}"></a>
+        </div>
+
+        <div class="user-portfolio-container div-section">
+            <div class="port-text">
+                <label>Other Portfolios by this User</label>
+            </div>
+            <div class="view-all">
+                <a href="#" th:href="${'/profile/' + PortViewDtoList.UserName}" style="color: black">View Alls</a>
+            </div>
+            <!-- 반복되는 내용portuserList -->
+            <div class="user-portfolio" th:each="portuserList: ${portuserList}">
+                <div class="thumb-nail">
+                    <img th:src="${portuserList.Thumbnail_url}" class="thumb-nail-container" th:onclick="'redirectToPortfolio(\'' + ${portuserList.PortfolioID} + '\')'">
+                    <img src="/static/images/iim.png" class="thumb-nail-container" >
+                </div>
+                <div class="portcolio-title" th:text="${portuserList.Title}"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+    function redirectToPortfolio(portfolioID) {
+        window.location.href = '/ports/views/' + portfolioID;
+    }
+
+</script>
+</html>

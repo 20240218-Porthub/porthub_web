@@ -1,8 +1,11 @@
 package hello.example.porthub.controller;
 
 import hello.example.porthub.domain.CategoryDto;
+import hello.example.porthub.domain.MainPortViewDto;
+import hello.example.porthub.domain.PortfolioDto;
 import hello.example.porthub.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
+@Slf4j
 @Controller
 @RequestMapping
 @RequiredArgsConstructor
@@ -23,6 +27,9 @@ public class IndexController {
     @GetMapping(value = {"/", "/main"})
     public String index(Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
+        System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
         return "portfolio/main";
     }
@@ -47,16 +54,14 @@ public class IndexController {
         return "user/chat";
     }
 
+    @GetMapping(value={"/profile"})
+    public String profile() { return "user/profile"; }
+
     @GetMapping(value = {"/about"})
     public String about() {
         return "user/about";
     }
 
-
-    @GetMapping("/profile")
-    public String profile() {
-        return "user/profile";
-    }
 
     @GetMapping(value = {"/register"})
     public String register() {
