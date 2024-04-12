@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-        <link rel="stylesheet" th:href="@{/css/portfolio/portfolioview.css}" href="/static/css/portfolio/portfolioview.css" />
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioview.css}" href="/static/css/portfolio/portfolioview.css" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 
 </head>
@@ -60,21 +60,25 @@
                 <label>Other Portfolios by this User</label>
             </div>
             <div class="view-all">
-                <a href="#" style="color: black">View Alls</a>
+                <a href="#" th:href="${'/profile/' + PortViewDtoList.UserName}" style="color: black">View Alls</a>
             </div>
-            <!-- 반복되는 내용 -->
-            <div class="user-portfolio">
+            <!-- 반복되는 내용portuserList -->
+            <div class="user-portfolio" th:each="portuserList: ${portuserList}">
                 <div class="thumb-nail">
-                    <img src="/static/images/back_Image.png" class="thumb-nail-container">
+                    <img th:src="${portuserList.Thumbnail_url}" class="thumb-nail-container" th:onclick="'redirectToPortfolio(\'' + ${portuserList.PortfolioID} + '\')'">
+                    <img src="/static/images/iim.png" class="thumb-nail-container" >
                 </div>
-                <div class="portcolio-title">Project Title</div>
+                <div class="portcolio-title" th:text="${portuserList.Title}"></div>
             </div>
-
         </div>
     </div>
 
-
-    <footer th:replace="~{fragments/footer::footerFragment}"></footer>
 </div>
 </body>
+<script type="text/javascript">
+    function redirectToPortfolio(portfolioID) {
+        window.location.href = '/ports/views/' + portfolioID;
+    }
+
+</script>
 </html>
