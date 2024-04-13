@@ -39,5 +39,12 @@
                         where UserID = #{UserID}
     </update>
 
+    <update id="imageupdate" parameterType="member">
+        update Users set
+                         ProfileImage=#{ProfileImage},
+                         backimage=#{backImage}
+        where UserID=#{UserID}
+    </update>
+
 
 </mapper>

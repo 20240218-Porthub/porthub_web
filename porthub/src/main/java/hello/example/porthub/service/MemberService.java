@@ -48,4 +48,13 @@ public class MemberService {
             return false;
         }
     }
+
+    public int ImageSave(MemberDto memberDto){
+        if(memberRepository.imagesave(memberDto)>0){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
 }

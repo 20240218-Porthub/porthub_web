@@ -5,27 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/MentoDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/MentoringDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MentoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/MentoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/mapper/Mento-mapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/mapper/Mentoring-mapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/createmento.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/registermento.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/createmento.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/mentoring.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/activitymanage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/createmento.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/registermento.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c6febfd1-709e-4868-bef1-2c404256a214.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c6febfd1-709e-4868-bef1-2c404256a214.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2024-04-06__4_31_________Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2024-04-06_오후_4_31,_업데이트_전에_커밋되지_않은_변경_내용_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/MentoringController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/MentoringController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/mentoring.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/mentoring.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolio.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolio.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/mentoring.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/mentoring.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/ProfileDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/ProfileDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mapper/member-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mapper/member-mapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/profile/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/profile/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/js/profileedit.js" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/profileedit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/createmento.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/createmento.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profileedit.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profileedit.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,9 +59,9 @@
       <list>
         <option value="spring-beans.schema" />
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -116,35 +108,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Gradle.porthub 빌드.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.PorthubApplication.executor": "Run",
-    "git-widget-placeholder": "feature/kim2",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/hong/Desktop/proker",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "전역 라이브러리",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Gradle.porthub 빌드.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.PorthubApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/kim2&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hong/Desktop/proker&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;전역 라이브러리&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hong\IdeaProjects\porthub_web\porthub\src\main\resources\static\css" />
@@ -201,7 +193,8 @@
       <workItem from="1712592990880" duration="713000" />
       <workItem from="1712645595798" duration="18464000" />
       <workItem from="1712685650137" duration="3663000" />
-      <workItem from="1712767747657" duration="16380000" />
+      <workItem from="1712767747657" duration="19244000" />
+      <workItem from="1712996787790" duration="9772000" />
     </task>
     <servers />
   </component>

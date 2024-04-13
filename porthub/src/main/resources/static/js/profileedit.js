@@ -11,3 +11,15 @@ function metacancle(){
         location.href="/profile/index";
     }
 }
+
+function previewimg(param){
+    if (param.files && param.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            param.nextElementSibling.src = e.target.result;
+        };
+        reader.readAsDataURL(param.files[0]);
+    } else {
+        param.nextElementSibling.src = "";
+    }
+}
