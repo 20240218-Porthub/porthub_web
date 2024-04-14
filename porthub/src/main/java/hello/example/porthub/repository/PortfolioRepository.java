@@ -52,4 +52,8 @@ public class PortfolioRepository {
     public List<PortViewDto> finduserport(int portfolioID) {
         return sql.selectList("Portfolio.finduserport", portfolioID);
     }
+
+    public void insertCopyRightReportDto(CopyrightReportDto copyrightReportDto) {
+        sql.insert("Portfolio.insertCopyrightDto", copyrightReportDto);
+    }
 }

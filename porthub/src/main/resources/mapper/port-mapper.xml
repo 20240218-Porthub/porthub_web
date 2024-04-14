@@ -73,7 +73,15 @@
                     Portfolios
                 WHERE
                     PortfolioID = #{portfolioID}
-            );
+            )
+        ORDER BY PortfolioID DESC  -- PortfolioID를 역순으로 정렬
+            LIMIT 6;
     </select>
+
+
+    <insert id="insertCopyrightDto" parameterType="hello.example.porthub.domain.CopyrightReportDto">
+        INSERT INTO CopyrightReport (PortfolioID, Contents, ReporterEmail, ReportedID)
+        VALUES (#{PortfolioID}, #{Contents}, #{ReporterEmail}, #{ReportedID});
+    </insert>
 
 </mapper>

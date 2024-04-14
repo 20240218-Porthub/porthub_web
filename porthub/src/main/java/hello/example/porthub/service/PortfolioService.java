@@ -25,7 +25,12 @@ public class PortfolioService {
     public int upload(PortfolioDto portfolioDto) {
         try {
             String Category = portfolioDto.getCategoryString();
-            String thumbnailUrl = s3Service.uploadFiles(portfolioDto.getThumbnail_cast());
+            String thumbnailUrl;
+            if (portfolioDto.getThumbnail_cast() == null) {
+                thumbnailUrl = "https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg";
+            } else {
+                thumbnailUrl = s3Service.uploadFiles(portfolioDto.getThumbnail_cast());
+            }
             portfolioDto.setThumbnail_url(thumbnailUrl);
             // UserID 가져오기
             String Email = memberService.getCurrentUserId();
@@ -92,7 +97,6 @@ public class PortfolioService {
         return portfolioRepository.findByCategory();
     }
 
-
     public List<MainPortViewDto> findAllPorts() {
         return portfolioRepository.findAllPorts();
     }
@@ -108,4 +112,9 @@ public class PortfolioService {
     public List<PortViewDto> finduserport(int portfolioID) {
         return portfolioRepository.finduserport(portfolioID);
     }
+
+    public void postReportdata(CopyrightReportDto copyrightReportDto) {
+        portfolioRepository.insertCopyRightReportDto(copyrightReportDto);
+    }
+
 }
