@@ -88,7 +88,6 @@
     margin-right: 30px;
 }
 .markdown-view {
-    display: flex;
     border: 1px solid #ccc;
     padding: 10px;
     width: 100%;
@@ -137,6 +136,8 @@
 .date {
     font-size: 10px;
 }
+
+/* 팝업 스타일 */
 .popup {
     display: none;
     position: fixed;
@@ -170,4 +171,9 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
 }

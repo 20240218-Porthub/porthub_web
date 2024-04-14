@@ -8,48 +8,8 @@
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/portfolio/portfolioview.css}" href="/static/css/portfolio/portfolioview.css" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
-    <style>
-        /* 팝업 스타일 */
-        .popup {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
-        }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
 
-        .popup-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        /* 닫기 버튼 스타일 */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .image {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
 </head>
 <body>
 
@@ -202,6 +162,8 @@
 
     window.onload = function() {
         // div 요소 가져오기
+
+        renderMarkdown();
         var divElements = document.querySelectorAll('.File-container');
 
         // 각 div 요소에 대해 실행
@@ -239,5 +201,23 @@
         });
     };
 
+    // 마크다운을 HTML로 변환하여 보여주는 함수
+    function renderMarkdown() {
+        var markdownElements = document.querySelectorAll('.markdown-view');
+        markdownElements.forEach(function(element) {
+            var markdownText = element.textContent; // 마크다운 텍스트 가져오기
+            var html = marked(markdownText); // 마크다운을 HTML로 변환
+
+            // 줄 바꿈을 <br> 태그로 대체
+            html = html.replace(/\n/g, '<br>');
+
+            element.innerHTML = html; // HTML로 변환된 내용으로 대체
+        });
+    }
+
+
+
 </script>
+
+<script th:src="@{/js/portview.js}" src="/static/js/portview.js"></script>
 </html>

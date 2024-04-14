@@ -229,6 +229,10 @@
     flex: 0 0 auto;
 }
 
+.title-deco {
+    font-weight: bold;
+}
+
 .desktop .text-wrapper-5 {
     position: relative;
     align-self: stretch;
@@ -410,7 +414,7 @@ a {
     font-family: "paybooc-Light", sans-serif;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 800;
     transition: 0.25s;
 }
 
@@ -449,15 +453,13 @@ a {
     justify-content: center;
 }
 .follow-btn {
-    background-color: #334155;
+    background-color: black;
     color: white;
     border-radius: .25rem;
     margin: 10px;
-    font-size: .75rem;
-    /* height: 26px; */
     font: revert;
     font-size: small;
-    padding: .1rem;
+    padding: 4px 2px;
 }
 
 .history_section img {

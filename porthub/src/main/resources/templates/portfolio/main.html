@@ -30,7 +30,16 @@
         font-size: 24px; /* 원하는 글꼴 크기로 조정하세요 */
         color: black; /* 글꼴 색상 설정 */
     }
-
+    .profile-wrapper:hover {
+        /* 이미지 요소에 대한 부모 요소의 hover 효과 */
+        /* 이미지 요소가 부모 요소의 hover 상태일 때의 스타일을 지정합니다. */
+        transform: scale(1.4); /* 이미지를 1.1배 확대합니다. */
+        transition: transform 0.3s ease; /* 확대 효과를 부드럽게 적용합니다. */
+    }
+    .text-wrapper-5:hover {
+        transform: scale(1.1); /* 이미지를 1.1배 확대합니다. */
+        transition: transform 0.3s ease; /* 확대 효과를 부드럽게 적용합니다. */
+    }
 </style>
 <body>
 
@@ -85,7 +94,7 @@
                                     <div class="profile-wrapper">
                                         <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}" src="/static/images/profiletest.jpeg" th:attr="data-user-name=${mainPortViewDtoList.UserName}" onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
                                     </div>
-                                    <div th:text="${mainPortViewDtoList.UserName}"></div>
+                                    <div class="title-deco" th:text="${mainPortViewDtoList.UserName}"></div>
                                     <div class="text-wrapper-6" th:text="${mainPortViewDtoList.Title}"></div>
                                 </div>
                             </div>
