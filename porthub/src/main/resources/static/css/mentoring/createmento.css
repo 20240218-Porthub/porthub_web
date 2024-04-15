@@ -1,0 +1,33 @@
+.layer1{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:88888;
+    background:white;
+    top:0;
+    left:0;
+    display:none;
+}
+
+.layer2{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:99999;
+    background:white;
+    top:0;
+    left:0;
+    display:none;
+}
+
+.center{
+    display:flex;
+    justify-content: center;
+    gap:20px;
+}
+
+.chapter{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mento">
+
+    <insert id="apply" parameterType="Mento">
+        insert into Mento(UserID, Introduction, Ability, CareerCertification, UnivCertification, IssueCertification)
+        values (#{UserID}, #{Introduction}, #{Ability}, #{CareerUrl}, #{UnivUrl}, #{IssueUrl})
+    </insert>
+
+    <insert id="upload" parameterType="Mentoring">
+        insert into Mentoring(MentoID, Title, Content, Price, Thumbnail, file_urls)
+        values (#{MentoID}, #{Title}, #{contents}, #{Price}, #{Thumbnailurl}, #{fileurls})
+    </insert>
+
+</mapper>

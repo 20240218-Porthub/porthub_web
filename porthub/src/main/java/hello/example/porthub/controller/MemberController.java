@@ -1,11 +1,13 @@
 package hello.example.porthub.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/register")
@@ -43,4 +45,5 @@ public class MemberController {
         boolean checkDuplelicateEmail = memberService.EmailDuplicateCheck(Email);
         return checkDuplelicateEmail;
     }
+
 }

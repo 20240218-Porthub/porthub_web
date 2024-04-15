@@ -6,46 +6,16 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <!--    <link rel="stylesheet" th:href="@{/css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />-->
+    <!--    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />-->
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 </head>
-<style>
-    @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
-
-
-    button {
-        margin: 20px;
-    }
-
-    .w-btn {
-        position: relative;
-        border: none;
-        display: inline-block;
-        padding: 15px 30px;
-        border-radius: 15px;
-        font-family: "paybooc-Light", sans-serif;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        text-decoration: none;
-        font-weight: 600;
-        transition: 0.25s;
-    }
-
-
-    .w-btn:hover {
-        letter-spacing: 2px;
-        transform: scale(1.2);
-        cursor: pointer;
-    }
-
-
-    .w-btn:active {
-        transform: scale(1.5);
-    }
-
-
-
-</style>
 <body>
-<button class="w-btn w-btn-indigo" type="button">
-    BUTTON
-</button>
+
+<header th:replace="~{fragments/header::headerFragment}"></header>
+
+
+    <footer th:replace="~{fragments/footer::footerFragment}"></footer>
+</div>
 </body>
 </html>

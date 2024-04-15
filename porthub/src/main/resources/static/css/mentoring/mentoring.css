@@ -1,0 +1,71 @@
+.layer1{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:99999;
+    background:rgba(0,0,0,0.6);
+    top:0;
+    left:0;
+    display:none;
+}
+
+.layer2{
+    position:absolute;
+    margin:0 auto;
+    width:60%;
+    height: 90%;
+    background-color: white;
+    top:5%;
+    left:20%;
+}
+
+.layer_con{
+    display:flex;
+    flex-direction: column;
+    padding:50px;
+    gap:10px;
+}
+
+.mento-header{
+    display:flex;
+    justify-content: space-between;
+    padding:10px;
+    align-items: center;
+}
+
+.mentoprofile{
+    display:flex;
+    gap:10px;
+    align-items: center;
+}
+.mentoimg{
+    border:solid 1px;
+    border-radius:1rem;
+    width:30px;
+    height:30px;
+}
+
+.postname{
+    border:solid 1px;
+    padding: 20px 10px;
+}
+
+.mentospc{
+    border:solid 1px;
+    padding: 20px 10px;
+}
+
+.post-con{
+    border:solid 1px;
+    padding:20px 10px;
+}
+
+.mentoapply{
+    width:100%;
+    display:flex;
+    justify-content: flex-end;
+}
+
+.mentoapply button{
+    margin:0;
+}
