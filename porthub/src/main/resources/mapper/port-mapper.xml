@@ -95,4 +95,24 @@
     ) AS Heart_Check
     </select>
 
+    <select id="ifnullHeartdata" parameterType="hello.example.porthub.domain.PortLikeDto" resultType="boolean">
+        SELECT IF(EXISTS(
+                          SELECT 1
+                          FROM PortfolioLikes
+                          WHERE PortfolioID = #{PortfolioID} AND Email = #{Email}
+                      ), true, false) AS Heart_Check;
+
+    </select>
+
+    <insert id="insertPortLikes" parameterType="hello.example.porthub.domain.PortLikeDto">
+        insert into PortfolioLikes (portfolioID, Email, Heart_Check)
+        values (#{portfolioID}, #{Email}, #{Heart_Check})
+    </insert>
+
+    <update id="updatePortLikes" parameterType="hello.example.porthub.domain.PortLikeDto">
+        update PortfolioLikes
+        set Heart_Check = #{Heart_Check}
+        where PortfolioID = #{PortfolioID} AND Email = #{Email}
+    </update>
+
 </mapper>

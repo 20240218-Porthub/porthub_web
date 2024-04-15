@@ -65,4 +65,15 @@ public class PortfolioRepository {
         params.put("authorID", authorID);
         return sql.selectOne("Portfolio.findBycheckHeart", params);
     }
+
+    public boolean ifnullHeartdata(PortLikeDto portLikeDto) {
+        return sql.selectOne("Portfolio.ifnullHeartdata", portLikeDto);
+    }
+
+    public void createLikedata(PortLikeDto portLikeDto) {
+        sql.insert("Portfolio.insertPortLikes", portLikeDto);
+    }
+    public void updateLikedate(PortLikeDto portLikeDto) {
+        sql.update("Portfolio.updatePortLikes", portLikeDto);
+    }
 }

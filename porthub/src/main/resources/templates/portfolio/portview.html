@@ -41,17 +41,23 @@
         <div class="report-container">
             <div class="left-icons">
                 <!-- heart icon -->
-                <a th:if="${#authorization.expression('isAuthenticated()')}">
-                    <ion-icon th:if="${heartCheck == null or !heartCheck}" class="heart" name="heart-outline" onclick="checkLogin('heart')"></ion-icon>
-                    <ion-icon th:if="${heartCheck != null and heartCheck}" class="heart" name="heart" onclick="checkLogin('heart')"></ion-icon>
-                </a>
-                <a th:unless="${#authorization.expression('isAuthenticated()')}"><ion-icon class="heart" name="heart-outline" onclick="checkLogin('heart')"></ion-icon></a>
+                <div th:if="${#authorization.expression('isAuthenticated()')}">
+
+                    <a th:if="${heartCheck}" onclick="checkHeart(true)">
+                        <ion-icon class="heart" name="heart"></ion-icon>
+                    </a>
+
+                    <a th:unless="${heartCheck}" onclick="checkHeart(false)">
+                        <ion-icon class="heart" name="heart-outline"></ion-icon>
+                    </a>
+
+                </div>
+                <div th:unless="${#authorization.expression('isAuthenticated()')}"><ion-icon class="heart" name="heart-outline" onclick="checkLogin('heart')"></ion-icon></div>
             </div>
 
             <div class="right-content">
                 <!-- report link -->
-                <a class="report" onclick="checkLogin('report')
-                checkHeart();">Report Copyright</a>
+                <a class="report" onclick="checkLogin('report')">Report Copyright</a>
             </div>
 
             <div id="reportPopup" class="popup">
@@ -125,6 +131,9 @@
         if (isLoggedIn) {
             if (check === "report") {
                 showReportPopup();
+            } else if (check === "heart") {
+                clickHeart();
+                // 하트 관련 동작 수행
             } else if (check === "follow") {
                 // 팔로우 관련 동작 수행
             }
@@ -186,7 +195,6 @@
         // div 요소 가져오기
 
         renderMarkdown();
-        checkHeart();
 
         var divElements = document.querySelectorAll('.File-container');
 
@@ -225,6 +233,7 @@
         });
     };
 
+
     // 마크다운을 HTML로 변환하여 보여주는 함수
     function renderMarkdown() {
         var markdownElements = document.querySelectorAll('.markdown-view');
@@ -239,32 +248,26 @@
         });
     }
 
-    // function checkHeart() {
-    //     var portfolioID = sessionStorage.getItem("portfolioID"); // 세션에서 포트폴리오 ID 가져오기
-    //     var authorID = sessionStorage.getItem("authorID"); // 세션에서 작성자 ID(이메일) 가져오기
-    //
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "/checkHeart/" + portfolioID + "/" + authorID, // 서버로 보낼 URL
-    //         success: function (response) {
-    //             // 서버에서 반환한 데이터를 기반으로 UI 업데이트
-    //             var heartCheck = response.heartCheck;
-    //             if (heartCheck) {
-    //                 // 좋아요를 이미 누른 상태
-    //                 console.log("좋아요를 이미 누른 상태입니다.");
-    //                 // 여기에서 좋아요 아이콘 등 UI를 변경하거나 추가적인 동작을 수행할 수 있습니다.
-    //             } else {
-    //                 // 아직 좋아요를 누르지 않은 상태
-    //                 console.log("아직 좋아요를 누르지 않은 상태입니다.");
-    //                 // 여기에서 좋아요 아이콘 등 UI를 변경하거나 추가적인 동작을 수행할 수 있습니다.
-    //             }
-    //         },
-    //         error: function (xhr, status, error) {
-    //             // 오류 처리
-    //             console.error("오류 발생:", error);
-    //         }
-    //     });
-    // }
+    function checkHeart(checkesHeart) {
+        var url = "/ports/views/like";
+        if (checkesHeart) {
+            var result = confirm("좋아요를 취소합니다.");
+            if (!result) {
+                // 사용자가 확인을 취소한 경우 아무런 동작도 하지 않음
+                return;
+            }
+        } else {
+            var result = confirm("좋아요를 누르시겠습니까?");
+            if (!result) {
+                // 사용자가 확인을 취소한 경우 아무런 동작도 하지 않음
+                return;
+            }
+        }
+
+        window.location.href = url;
+    }
+
+
 
 </script>
 

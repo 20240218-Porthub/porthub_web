@@ -66,7 +66,12 @@ public class PortfolioController {
             //not login not session
         }
 
+        boolean heartCheck = portfolioService.checkHeart(PortfolioID, SessionUtils.getCurrentUsername());
+        model.addAttribute("heartCheck", heartCheck);
+
+
         //session에 필요한 저보 저장
+        session.setAttribute("heartCheck", heartCheck);
         session.setAttribute("portfolioID", portViewDto.getPortfolioID());
         session.setAttribute("authorID", portViewDto.getAuthorID());
 
@@ -75,6 +80,7 @@ public class PortfolioController {
 
     @PostMapping("/views/report")
     public String postReport(@RequestBody CopyrightReportDto copyrightReportDto, HttpSession session) {
+
         int portfolioID = (int) session.getAttribute("portfolioID");
         int authorID = (int) session.getAttribute("authorID");
         String email = SessionUtils.getCurrentUsername();
@@ -93,19 +99,33 @@ public class PortfolioController {
         return "redirect:/ports/views/" + portfolioID;
     }
 
-    @GetMapping("/checkHeart/{portfolioID}/{authorID}")
-    @ResponseBody
-    public Map<String, Boolean> checkHeart(@PathVariable int portfolioID, @PathVariable String authorID) {
-        Map<String, Boolean> response = new HashMap<>();
+    @GetMapping("/views/like")
+    public String postLikes(PortLikeDto portLikeDto, HttpSession session) {
 
-        // Heart_Check 확인
-        boolean heartCheck = portfolioService.checkHeart(portfolioID, authorID);
+        int portfolioID = (int) session.getAttribute("portfolioID");
+        String email = SessionUtils.getCurrentUsername();
+        boolean heartCheck = (boolean) session.getAttribute("heartCheck");
 
-        heartCheck = true;
-        response.put("heartCheck", heartCheck);
+        // 위에서 이미 요청 본문의 JSON 데이터를 CopyrightReportDto 객체로 변환했으므로
+        // 따로 contents를 추출할 필요가 없습니다.
 
-        return response;
+        portLikeDto.setPortfolioID(portfolioID);
+        portLikeDto.setEmail(email);
+        if (heartCheck) {
+            portLikeDto.setHeart_Check(false);
+        } else {
+            portLikeDto.setHeart_Check(true);
+        }
+        //db에서 데이터 없을 경우 default = 0으로 insert하고 데이터 존재하는 경우 Check_Heart 역전 시키기
+//        설정값대로
+        portfolioService.convertLikes(portLikeDto);
+
+        System.out.println(portLikeDto);
+
+
+        return "redirect:/ports/views/" + portfolioID;
     }
+
 
 
 }

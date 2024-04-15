@@ -184,9 +184,11 @@
 }
 
 .heart {
-    cursor: pointer;
     width: 1.5em;
     height: 1.5em;
+}
+.left-icons {
+    cursor: pointer;
 }
 
 h1 {

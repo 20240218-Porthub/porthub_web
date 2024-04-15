@@ -121,4 +121,14 @@ public class PortfolioService {
         return portfolioRepository.checkHeart(portfolioID, authorID);
     }
 
+    public void convertLikes(PortLikeDto portLikeDto) {
+        if (portfolioRepository.ifnullHeartdata(portLikeDto)) {
+            portfolioRepository.updateLikedate(portLikeDto);
+        } else {
+            portLikeDto.setHeart_Check(true);
+            portfolioRepository.createLikedata(portLikeDto);
+        }
+
+    }
+
 }
