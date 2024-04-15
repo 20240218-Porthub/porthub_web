@@ -7,6 +7,25 @@ body {
     height: 100vh;
 }
 
+/* 페이지 상단 이미지를 위한 스타일 */
+.header-image-container {
+    text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
+    position: relative;
+}
+.header-image {
+    width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
+    height: auto;
+    display: block;
+}
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px; /* 원하는 글꼴 크기로 조정하세요 */
+    color: black; /* 글꼴 색상 설정 */
+}
+
 .container {
     display: flex;
     width: 100%;
@@ -125,6 +144,7 @@ body {
     cursor: pointer;
 }
 
+
 .message-item {
     display: flex;
     margin-bottom: 1rem;
@@ -166,4 +186,11 @@ body {
     background: #ffffff;
     border: 0.0625rem solid #dddddd;
     outline: none;
+}
+
+/* Apply Poppins font to all placeholders within the application */
+::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
 }

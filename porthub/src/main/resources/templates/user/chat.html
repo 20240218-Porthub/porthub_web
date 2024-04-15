@@ -9,8 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 </head>
 <body>
+<header th:replace="~{fragments/header::headerFragment}"></header>
+<div class="header-image-container">
+    <img class="header-image" src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg" alt="Main Page Header Image">
+    <!-- 이미지 가운데 텍스트 -->
+    <div class="centered-text">여러분의 포트폴리오를 뽑내보세요!</div>
+</div>
 <div class="container">
     <div class="sidebar">
         <div class="header">
@@ -46,6 +53,7 @@
         </div>
     </div>
 </div>
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
 <script th:src="@{/js/chat.js}"></script>
 
 </body>

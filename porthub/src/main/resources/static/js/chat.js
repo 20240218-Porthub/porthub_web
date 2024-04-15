@@ -32,8 +32,8 @@ $(document).ready(function () {
         var arr = data.split(":");
         var sessionId = arr[0];
         var message = arr.slice(1).join(":");
-
         var messageDiv = "<div class='message-item'><div class='message-content'>" + message + "</div></div>";
+
         if (sessionId === loggedInUsername) {
             messageDiv = "<div class='message-item sent'>" + messageDiv + "</div>";
         } else {
