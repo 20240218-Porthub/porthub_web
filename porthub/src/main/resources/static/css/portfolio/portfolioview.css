@@ -57,10 +57,13 @@
 }
 
 .report-container {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10px;
 }
+
 .view-all{
     margin-bottom: 10px;
     text-align: right;
@@ -133,9 +136,11 @@
     margin-right: 10%;
 }
 
-.date {
-    font-size: 10px;
+.date,
+.views_count{
+    font-size: 13px;
 }
+
 
 /* 팝업 스타일 */
 .popup {
@@ -176,4 +181,26 @@
 .image {
     max-width: 100%;
     height: auto;
+}
+
+.heart {
+    cursor: pointer;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+pre {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: whitesmoke;
+    padding: 10px;
+}
+
+code {
+    font-family: monospace;
 }

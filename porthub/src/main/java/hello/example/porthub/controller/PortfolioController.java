@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,12 +86,26 @@ public class PortfolioController {
         copyrightReportDto.setReportedID(authorID);
         copyrightReportDto.setReporterEmail(email);
 
-        // 작업 수행 및 반환할 URL을 처리합니다.
-        // ...
+
         System.out.println(copyrightReportDto);
         portfolioService.postReportdata(copyrightReportDto);
 
         return "redirect:/ports/views/" + portfolioID;
     }
+
+    @GetMapping("/checkHeart/{portfolioID}/{authorID}")
+    @ResponseBody
+    public Map<String, Boolean> checkHeart(@PathVariable int portfolioID, @PathVariable String authorID) {
+        Map<String, Boolean> response = new HashMap<>();
+
+        // Heart_Check 확인
+        boolean heartCheck = portfolioService.checkHeart(portfolioID, authorID);
+
+        heartCheck = true;
+        response.put("heartCheck", heartCheck);
+
+        return response;
+    }
+
 
 }

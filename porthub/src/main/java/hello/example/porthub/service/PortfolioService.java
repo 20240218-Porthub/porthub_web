@@ -117,4 +117,8 @@ public class PortfolioService {
         portfolioRepository.insertCopyRightReportDto(copyrightReportDto);
     }
 
+    public boolean checkHeart(int portfolioID, String authorID) {
+        return portfolioRepository.checkHeart(portfolioID, authorID);
+    }
+
 }

@@ -44,6 +44,7 @@
                p.AuthorID,
                p.Thumbnail_url,
                p.Title,
+               p.Views_count,
                p.CategoryID,
                p.CreationDate,
                p.AttachmentsOrLinks,
@@ -83,5 +84,15 @@
         INSERT INTO CopyrightReport (PortfolioID, Contents, ReporterEmail, ReportedID)
         VALUES (#{PortfolioID}, #{Contents}, #{ReporterEmail}, #{ReportedID});
     </insert>
+
+    <select id="findBycheckHeart" parameterType="map" resultType="boolean">
+        SELECT IFNULL(
+                       (SELECT Heart_Check
+                        FROM PortfolioLikes
+                        WHERE PortfolioID = #{portfolioID} AND Email = #{authorID}
+                           LIMIT 1),
+        false
+    ) AS Heart_Check
+    </select>
 
 </mapper>

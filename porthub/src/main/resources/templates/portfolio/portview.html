@@ -24,7 +24,8 @@
             <div class="PortTitle" th:text="${PortViewDtoList.Title}"></div>
         </div>
         <div class="date-container">
-            <div class="date" th:text="${PortViewDtoList.CreationDate}"></div>
+            <div class="views_count" th:text="'조회수: '+${PortViewDtoList.Views_count}"></div>
+            <div class="date" th:text="'작성날짜:' + ${PortViewDtoList.CreationDate}"></div>
         </div>
         <div class="user-container div-section" th:style="'background-image: url('+${PortViewDtoList.backImage} + '); background-position: center;'">
             <div class="user-profile">
@@ -32,12 +33,27 @@
             </div>
             <div class="user-info">
                 <div class="user-name" th:text="${PortViewDtoList.UserName}"></div>
-                <a href="#" class="follow-btn">Follow</a>
+                <a href="#" class="follow-btn" onclick="checkLogin('follow')">Follow</a>
             </div>
         </div>
 
+
         <div class="report-container">
-            <a class="report" onclick="checkLogin()">Report Copyright</a>
+            <div class="left-icons">
+                <!-- heart icon -->
+                <a th:if="${#authorization.expression('isAuthenticated()')}">
+                    <ion-icon th:if="${heartCheck == null or !heartCheck}" class="heart" name="heart-outline" onclick="checkLogin('heart')"></ion-icon>
+                    <ion-icon th:if="${heartCheck != null and heartCheck}" class="heart" name="heart" onclick="checkLogin('heart')"></ion-icon>
+                </a>
+                <a th:unless="${#authorization.expression('isAuthenticated()')}"><ion-icon class="heart" name="heart-outline" onclick="checkLogin('heart')"></ion-icon></a>
+            </div>
+
+            <div class="right-content">
+                <!-- report link -->
+                <a class="report" onclick="checkLogin('report')
+                checkHeart();">Report Copyright</a>
+            </div>
+
             <div id="reportPopup" class="popup">
                 <div class="popup-content">
                     <!-- 팝업 내용 -->
@@ -48,7 +64,6 @@
                     <button onclick="confirmCancel()" class="w-btn">Cancel</button>
                 </div>
             </div>
-
         </div>
 
         <!-- 반복되는 내용 -->
@@ -90,6 +105,9 @@
     </div>
 
 </div>
+
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+
 </body>
 <script type="text/javascript">
     function redirectToPortfolio(portfolioID) {
@@ -101,11 +119,15 @@
         window.location.href = '/profile/' + userName;
     }
 
-    function checkLogin() {
+    function checkLogin(check) {
         var isLoggedIn = false; // 로그인 상태를 나타내는 변수 (임시로 false로 설정)
         isLoggedIn = [[${isLoggedIn}]];
         if (isLoggedIn) {
-            showReportPopup();
+            if (check === "report") {
+                showReportPopup();
+            } else if (check === "follow") {
+                // 팔로우 관련 동작 수행
+            }
         } else {
             // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
             var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
@@ -164,6 +186,8 @@
         // div 요소 가져오기
 
         renderMarkdown();
+        checkHeart();
+
         var divElements = document.querySelectorAll('.File-container');
 
         // 각 div 요소에 대해 실행
@@ -215,9 +239,35 @@
         });
     }
 
-
+    // function checkHeart() {
+    //     var portfolioID = sessionStorage.getItem("portfolioID"); // 세션에서 포트폴리오 ID 가져오기
+    //     var authorID = sessionStorage.getItem("authorID"); // 세션에서 작성자 ID(이메일) 가져오기
+    //
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/checkHeart/" + portfolioID + "/" + authorID, // 서버로 보낼 URL
+    //         success: function (response) {
+    //             // 서버에서 반환한 데이터를 기반으로 UI 업데이트
+    //             var heartCheck = response.heartCheck;
+    //             if (heartCheck) {
+    //                 // 좋아요를 이미 누른 상태
+    //                 console.log("좋아요를 이미 누른 상태입니다.");
+    //                 // 여기에서 좋아요 아이콘 등 UI를 변경하거나 추가적인 동작을 수행할 수 있습니다.
+    //             } else {
+    //                 // 아직 좋아요를 누르지 않은 상태
+    //                 console.log("아직 좋아요를 누르지 않은 상태입니다.");
+    //                 // 여기에서 좋아요 아이콘 등 UI를 변경하거나 추가적인 동작을 수행할 수 있습니다.
+    //             }
+    //         },
+    //         error: function (xhr, status, error) {
+    //             // 오류 처리
+    //             console.error("오류 발생:", error);
+    //         }
+    //     });
+    // }
 
 </script>
 
 <script th:src="@{/js/portview.js}" src="/static/js/portview.js"></script>
+
 </html>

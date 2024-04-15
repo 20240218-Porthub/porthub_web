@@ -28,6 +28,17 @@ h1 {
     margin-bottom: 20px;
 }
 
+pre {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: whitesmoke;
+    padding: 10px;
+}
+
+code {
+    font-family: monospace;
+}
+
 label {
     display: block;
     margin-bottom: 5px;

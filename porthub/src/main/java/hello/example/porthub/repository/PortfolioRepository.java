@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -55,5 +57,12 @@ public class PortfolioRepository {
 
     public void insertCopyRightReportDto(CopyrightReportDto copyrightReportDto) {
         sql.insert("Portfolio.insertCopyrightDto", copyrightReportDto);
+    }
+
+    public boolean checkHeart(int portfolioID, String authorID) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("portfolioID", portfolioID);
+        params.put("authorID", authorID);
+        return sql.selectOne("Portfolio.findBycheckHeart", params);
     }
 }
