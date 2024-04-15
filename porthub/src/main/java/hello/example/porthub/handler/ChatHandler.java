@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Component
-public class ChattingHandler extends TextWebSocketHandler {
+public class ChatHandler extends TextWebSocketHandler {
     private static final List<WebSocketSession> sessions = new ArrayList<>();
 
     @Override
