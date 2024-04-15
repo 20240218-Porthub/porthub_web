@@ -13,7 +13,7 @@
 .title-container {
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .PortTitle {
@@ -49,8 +49,7 @@
 }
 
 .follow-btn {
-    background-color: black;
-    color: #fff;
+    cursor: pointer;
     padding: 5px 10px;
     border-radius: 5px;
     text-decoration: none;
@@ -205,4 +204,12 @@ pre {
 
 code {
     font-family: monospace;
+}
+
+button.follow-btn {
+    all: unset;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
 }

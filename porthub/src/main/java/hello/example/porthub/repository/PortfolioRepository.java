@@ -76,4 +76,30 @@ public class PortfolioRepository {
     public void updateLikedate(PortLikeDto portLikeDto) {
         sql.update("Portfolio.updatePortLikes", portLikeDto);
     }
+
+    public boolean checkFollow(int authorID, int currentID) {
+        Map<String, Object> checkFollow = new HashMap<>();
+        checkFollow.put("authorID", authorID);
+        checkFollow.put("currentID", currentID);
+        return sql.selectOne("Portfolio.findByCheckFollow", checkFollow);
+    }
+
+    public int findByUserIDtoEmailcheck(String currentEmail) {
+        return sql.selectOne("Member.findByUserIDtoEmailcheck", currentEmail);
+    }
+
+    public void following(int authorID, int currentID) {
+        Map<String, Object> FollowData = new HashMap<>();
+        FollowData.put("authorID", authorID);
+        FollowData.put("currentID", currentID);
+        sql.insert("Portfolio.followInsert", FollowData);
+    }
+
+    public void unfollow(int authorID, int currentID) {
+        Map<String, Object> FollowData = new HashMap<>();
+        FollowData.put("authorID", authorID);
+        FollowData.put("currentID", currentID);
+        sql.delete("Portfolio.unfollowDelete", FollowData);
+    }
+
 }

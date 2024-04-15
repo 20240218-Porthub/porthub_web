@@ -49,6 +49,7 @@
                p.CreationDate,
                p.AttachmentsOrLinks,
                u.UserName,
+               u.Email,
                u.ProfileImage,
                u.backImage
         FROM Portfolios p
@@ -94,6 +95,14 @@
         false
     ) AS Heart_Check
     </select>
+    <select id="findByCheckFollow" parameterType="map" resultType="boolean">
+        SELECT EXISTS (
+                       SELECT 1
+                       FROM Follows
+                       WHERE FollowerID = #{currentID} AND FollowingID = #{authorID}
+                   ) AS exists_follow;
+
+    </select>
 
     <select id="ifnullHeartdata" parameterType="hello.example.porthub.domain.PortLikeDto" resultType="boolean">
         SELECT IF(EXISTS(
@@ -114,5 +123,16 @@
         set Heart_Check = #{Heart_Check}
         where PortfolioID = #{PortfolioID} AND Email = #{Email}
     </update>
+
+    <insert id="followInsert" parameterType="map">
+        INSERT INTO Follows (FollowerID, FollowingID)
+        VALUES (#{currentID}, #{authorID})
+    </insert>
+
+    <delete id="unfollowDelete" parameterType="map">
+        DELETE FROM Follows
+        WHERE FollowerID = #{currentID} AND FollowingID = #{authorID}
+
+    </delete>
 
 </mapper>

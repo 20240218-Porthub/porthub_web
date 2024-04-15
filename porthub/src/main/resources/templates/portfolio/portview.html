@@ -33,10 +33,20 @@
             </div>
             <div class="user-info">
                 <div class="user-name" th:text="${PortViewDtoList.UserName}"></div>
-                <a href="#" class="follow-btn" onclick="checkLogin('follow')">Follow</a>
+                <div th:if="${isLoggedIn}">
+                    <form action="unfollow" th:method="post" th:if="${followCheck}">
+                        <button class="follow-btn" onclick="checkLogin('follow')" style="background-color: #e2e8f0; color: #64748b;">Following</button>
+                    </form>
+                    <form action="follow" th:method="post" th:unless="${followCheck}">
+                        <button class="follow-btn" onclick="checkLogin('follow')" style="background-color: black; color: #fff;">Follow</button>
+                    </form>
+                </div>
+                <div th:unless="${isLoggedIn}">
+                    <a class="follow-btn" onclick="checkLogin('follow')" style="background-color: black; color: #fff;">Follow</a>
+                </div>
+
             </div>
         </div>
-
 
         <div class="report-container">
             <div class="left-icons">
@@ -131,12 +141,14 @@
         if (isLoggedIn) {
             if (check === "report") {
                 showReportPopup();
-            } else if (check === "heart") {
-                clickHeart();
-                // 하트 관련 동작 수행
-            } else if (check === "follow") {
-                // 팔로우 관련 동작 수행
             }
+            // else if (check === "follow") {
+            //     // 팔로우인 경우 insert url 요청을 Post로
+            //     window.location.href = "/ports/views/follow";
+            // } else if (check === "following") {
+            //     // 팔로잉인 경우 delete url 요청을 delete로
+            //     window.location.href = "/ports/views/follow";
+            // }
         } else {
             // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
             var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");

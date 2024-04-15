@@ -22,6 +22,7 @@ public class PortViewDto {
     private String CreationDate;
     private String AttachmentsOrLinks;
     private String UserName;
+    private String Email;
     private String ProfileImage;
     private String backImage;
 

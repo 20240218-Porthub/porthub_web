@@ -59,6 +59,8 @@ public class PortfolioController {
         if (SessionUtils.isLoggedIn()) {
             System.out.println("login되었음");
             model.addAttribute("isLoggedIn", true);
+            boolean followCheck = portfolioService.checkFollow(portViewDto.getAuthorID(), SessionUtils.getCurrentUsername());
+            model.addAttribute("followCheck", followCheck);
             //로그인 되어있는 경우 사용자 아이디
         } else {
             System.out.println("logout되어있음");
@@ -66,9 +68,15 @@ public class PortfolioController {
             //not login not session
         }
 
+        if (portViewDto.getEmail() == SessionUtils.getCurrentUsername()) {
+            model.addAttribute("myPort", true);
+        } else {
+
+            model.addAttribute("myPort", false);
+        }
+
         boolean heartCheck = portfolioService.checkHeart(PortfolioID, SessionUtils.getCurrentUsername());
         model.addAttribute("heartCheck", heartCheck);
-
 
         //session에 필요한 저보 저장
         session.setAttribute("heartCheck", heartCheck);
@@ -121,11 +129,27 @@ public class PortfolioController {
         portfolioService.convertLikes(portLikeDto);
 
         System.out.println(portLikeDto);
+        return "redirect:/ports/views/" + portfolioID;
+    }
 
+    @PostMapping("/views/follow")
+    public String portsFollowInsert(HttpSession session) {
+        int portfolioID = (int) session.getAttribute("portfolioID");
+        int authorID = (int) session.getAttribute("authorID");
+        String CurrentUseremail = SessionUtils.getCurrentUsername();
+        portfolioService.following(authorID, CurrentUseremail);
 
         return "redirect:/ports/views/" + portfolioID;
     }
 
+    @PostMapping("/views/unfollow")
+    public String portsFollowDelete(HttpSession session) {
+        int portfolioID = (int) session.getAttribute("portfolioID");
+        int authorID = (int) session.getAttribute("authorID");
+        String CurrentUseremail = SessionUtils.getCurrentUsername();
+        portfolioService.unfollow(authorID, CurrentUseremail);
 
+        return "redirect:/ports/views/" + portfolioID;
+    }
 
 }

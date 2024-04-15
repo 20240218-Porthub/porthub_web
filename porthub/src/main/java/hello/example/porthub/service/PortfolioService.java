@@ -131,4 +131,20 @@ public class PortfolioService {
 
     }
 
+    public boolean checkFollow(int authorID, String currentEmail) {
+        int CurrentID = portfolioRepository.findByUserIDtoEmailcheck(currentEmail);
+        System.out.println("authorID: " + authorID + "currentID: " + currentEmail);
+
+        return portfolioRepository.checkFollow(authorID, CurrentID);
+    }
+
+    public void following(int authorID, String currentUseremail) {
+        int CurrentID = portfolioRepository.findByUserIDtoEmailcheck(currentUseremail);
+        portfolioRepository.following(authorID, CurrentID);
+    }
+
+    public void unfollow(int authorID, String currentUseremail) {
+        int CurrentID = portfolioRepository.findByUserIDtoEmailcheck(currentUseremail);
+        portfolioRepository.unfollow(authorID, CurrentID);
+    }
 }
