@@ -102,4 +102,7 @@ public class PortfolioRepository {
         sql.delete("Portfolio.unfollowDelete", FollowData);
     }
 
+    public void updateViewsCount(int portfolioID) {
+        sql.update("Portfolio.updateViewsCount", portfolioID);
+    }
 }

@@ -46,6 +46,28 @@ public class PortfolioController {
     @GetMapping("/views/{PortfolioID}")
     public String portfolioDetail(@PathVariable(name = "PortfolioID") int PortfolioID, Model model, HttpSession session) {
 
+        String viewsPort = (String) session.getAttribute("viewsPort");
+        if (viewsPort == null || viewsPort.isEmpty()) {
+            // 새로운 포트폴리오를 조회한 경우이므로, 해당 포트폴리오의 ID를 viewsPort에 추가하고 조회수를 증가시킵니다.
+            viewsPort = String.valueOf(PortfolioID);
+            session.setAttribute("viewsPort", viewsPort); // 세션에 업데이트된 viewsPort를 저장합니다.
+            portfolioService.updateViewsCount(PortfolioID); // 조회수를 증가시킵니다.
+        } else {
+            // 이미 조회한 포트폴리오의 ID가 포함되어 있는지 확인합니다.
+            if (!viewsPort.contains(String.valueOf(PortfolioID))) {
+                // 그렇지 않은 경우, 현재 조회한 포트폴리오의 ID를 viewsPort에 추가하고 조회수를 증가시킵니다.
+                viewsPort += "," + PortfolioID;
+                session.setAttribute("viewsPort", viewsPort); // 세션에 업데이트된 viewsPort를 저장합니다.
+                portfolioService.updateViewsCount(PortfolioID); // 조회수를 증가시킵니다.
+            }
+            // 이미 조회한 포트폴리오의 ID가 포함되어 있다면, 중복 조회이므로 추가적인 처리를 하지 않습니다.
+        }
+
+        // 포트폴리오 조회수 증가 로직을 수행합니다.
+
+        // 세션에 업데이트된 viewedPortfolios를 다시 저장합니다.
+        session.setAttribute("viewedPortfolios", viewsPort);
+
 
         PortViewDto portViewDto = portfolioService.findportview(PortfolioID);
         model.addAttribute("PortViewDtoList", portViewDto);

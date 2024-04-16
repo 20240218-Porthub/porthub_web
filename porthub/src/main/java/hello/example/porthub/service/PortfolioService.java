@@ -147,4 +147,8 @@ public class PortfolioService {
         int CurrentID = portfolioRepository.findByUserIDtoEmailcheck(currentUseremail);
         portfolioRepository.unfollow(authorID, CurrentID);
     }
+
+    public void updateViewsCount(int portfolioID) {
+        portfolioRepository.updateViewsCount(portfolioID);
+    }
 }

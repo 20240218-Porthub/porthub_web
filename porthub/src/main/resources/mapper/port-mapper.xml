@@ -63,20 +63,14 @@
         WHERE PortfolioID = #{portfolioID};
     </select>
     <select id="finduserport" resultType="hello.example.porthub.domain.PortViewDto">
-        SELECT
-            PortfolioID, Thumbnail_url, Title
-        FROM
-            Portfolios
-        WHERE
-                AuthorID = (
-                SELECT
-                    AuthorID
-                FROM
-                    Portfolios
-                WHERE
-                    PortfolioID = #{portfolioID}
-            )
-        ORDER BY PortfolioID DESC  -- PortfolioID를 역순으로 정렬
+        SELECT PortfolioID,
+               Thumbnail_url,
+               Title
+        FROM Portfolios
+        WHERE AuthorID = (SELECT AuthorID
+                          FROM Portfolios
+                          WHERE PortfolioID = #{portfolioID})
+        ORDER BY PortfolioID DESC -- PortfolioID를 역순으로 정렬
             LIMIT 6;
     </select>
 
@@ -90,16 +84,18 @@
         SELECT IFNULL(
                        (SELECT Heart_Check
                         FROM PortfolioLikes
-                        WHERE PortfolioID = #{portfolioID} AND Email = #{authorID}
+                        WHERE PortfolioID = #{portfolioID}
+                          AND Email = #{authorID}
                            LIMIT 1),
         false
     ) AS Heart_Check
     </select>
     <select id="findByCheckFollow" parameterType="map" resultType="boolean">
-        SELECT EXISTS (
+        SELECT EXISTS(
                        SELECT 1
                        FROM Follows
-                       WHERE FollowerID = #{currentID} AND FollowingID = #{authorID}
+                       WHERE FollowerID = #{currentID}
+                         AND FollowingID = #{authorID}
                    ) AS exists_follow;
 
     </select>
@@ -108,7 +104,8 @@
         SELECT IF(EXISTS(
                           SELECT 1
                           FROM PortfolioLikes
-                          WHERE PortfolioID = #{PortfolioID} AND Email = #{Email}
+                          WHERE PortfolioID = #{PortfolioID}
+                            AND Email = #{Email}
                       ), true, false) AS Heart_Check;
 
     </select>
@@ -121,7 +118,8 @@
     <update id="updatePortLikes" parameterType="hello.example.porthub.domain.PortLikeDto">
         update PortfolioLikes
         set Heart_Check = #{Heart_Check}
-        where PortfolioID = #{PortfolioID} AND Email = #{Email}
+        where PortfolioID = #{PortfolioID}
+          AND Email = #{Email}
     </update>
 
     <insert id="followInsert" parameterType="map">
@@ -130,9 +128,15 @@
     </insert>
 
     <delete id="unfollowDelete" parameterType="map">
-        DELETE FROM Follows
-        WHERE FollowerID = #{currentID} AND FollowingID = #{authorID}
+        DELETE
+        FROM Follows
+        WHERE FollowerID = #{currentID}
+          AND FollowingID = #{authorID}
 
     </delete>
-
+    <update id="updateViewsCount" parameterType="int">
+        UPDATE Portfolios
+        SET Views_count = Views_count + 1
+        WHERE PortfolioID = #{portfolioID};
+    </update>
 </mapper>

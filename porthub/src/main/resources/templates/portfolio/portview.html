@@ -142,13 +142,6 @@
             if (check === "report") {
                 showReportPopup();
             }
-            // else if (check === "follow") {
-            //     // 팔로우인 경우 insert url 요청을 Post로
-            //     window.location.href = "/ports/views/follow";
-            // } else if (check === "following") {
-            //     // 팔로잉인 경우 delete url 요청을 delete로
-            //     window.location.href = "/ports/views/follow";
-            // }
         } else {
             // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
             var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
@@ -275,7 +268,6 @@
                 return;
             }
         }
-
         window.location.href = url;
     }
 
