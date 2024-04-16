@@ -217,17 +217,20 @@
     width: 100%;
     height: 160px;
     object-fit: cover;
+    border-radius: 5%;
 }
 
 .desktop .title-description {
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
     position: relative;
     align-self: stretch;
     width: 100%;
     flex: 0 0 auto;
+}
+
+.title-deco {
+    font-weight: bold;
 }
 
 .desktop .text-wrapper-5 {
@@ -239,18 +242,16 @@
     color: var(--black);
     font-size: 16px;
     letter-spacing: 0;
-    line-height: 27px;
 }
 
 .desktop .text-wrapper-6 {
     position: relative;
     align-self: stretch;
     font-family: "Poppins-Regular", Helvetica;
-    font-weight: 400;
+    font-weight: 600;
     color: var(--black);
     font-size: 14px;
     letter-spacing: 0;
-    line-height: 27px;
 }
 
 .desktop .text-wrapper-7 {
@@ -326,6 +327,7 @@ body, html {
     margin: 0 4px; /* 가운데 정렬 */
     float: left; /* 좌측 정렬 */
     border-radius: 5%;
+    height: 230px;
 }
 
 /* 마지막 .port-wrapper의 margin-bottom 제거 */
@@ -412,7 +414,7 @@ a {
     font-family: "paybooc-Light", sans-serif;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 800;
     transition: 0.25s;
 }
 
@@ -451,15 +453,13 @@ a {
     justify-content: center;
 }
 .follow-btn {
-    background-color: #334155;
+    background-color: black;
     color: white;
     border-radius: .25rem;
     margin: 10px;
-    font-size: .75rem;
-    /* height: 26px; */
     font: revert;
     font-size: small;
-    padding: .1rem;
+    padding: 4px 2px;
 }
 
 .history_section img {
@@ -475,3 +475,38 @@ a {
     margin: 0 4px 1rem;
 }
 
+
+/* 페이지 상단 이미지를 위한 스타일 */
+.header-image-container {
+    text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
+    position: relative;
+}
+.header-image {
+    width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
+    height: auto;
+    display: block;
+}
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px; /* 원하는 글꼴 크기로 조정하세요 */
+    color: black; /* 글꼴 색상 설정 */
+}
+.profile-wrapper:hover {
+    /* 이미지 요소에 대한 부모 요소의 hover 효과 */
+    /* 이미지 요소가 부모 요소의 hover 상태일 때의 스타일을 지정합니다. */
+    transform: scale(1.4); /* 이미지를 1.1배 확대합니다. */
+    transition: transform 0.3s ease; /* 확대 효과를 부드럽게 적용합니다. */
+}
+.text-wrapper-5:hover {
+    transform: scale(1.1); /* 이미지를 1.1배 확대합니다. */
+    transition: transform 0.3s ease; /* 확대 효과를 부드럽게 적용합니다. */
+}
+.history-image {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: center;
+}

@@ -18,9 +18,11 @@ public class PortViewDto {
     private String Thumbnail_url;
     private int CategoryID;
     private String Title;
+    private int Views_count;
     private String CreationDate;
     private String AttachmentsOrLinks;
     private String UserName;
+    private String Email;
     private String ProfileImage;
     private String backImage;
 

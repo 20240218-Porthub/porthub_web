@@ -22,7 +22,8 @@ public class S3Service {
 
     public String uploadFiles(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) {
-            throw new IllegalArgumentException("File is null or empty");
+//            throw new IllegalArgumentException("File is null or empty");
+            return null;
         }
 
         String fileName = file.getOriginalFilename();
