@@ -26,6 +26,10 @@
         select * from Usermeta where UserID=#{UserID}
     </select>
 
+    <select id="findmemberByUserID" parameterType="int" resultType="member">
+        select * from Users where UserID=#{UserID}
+    </select>
+
     <insert id="newmeta" parameterType="int">
         insert into Usermeta(UserID) values(#{UserID})
     </insert>
