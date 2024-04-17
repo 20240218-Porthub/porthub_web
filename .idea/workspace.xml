@@ -5,25 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/MentoViewDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/payment.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/Payment.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/activitymanage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/IndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/MentoringController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/MentoringController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/MentoringDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/domain/MentoringDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MemberRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MentoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MentoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/ProfileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/ProfileRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/MentoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/MentoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mapper/Mento-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mapper/Mento-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mapper/Mentoring-mapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mapper/member-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mapper/member-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/mentoring.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/mentoring/mentoring.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolio.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolio.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/js/mentoring.js" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/mentoring.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/createmento.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/createmento.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/ProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/ProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/mapper/port-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/mapper/port-mapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/activitymanage.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/activitymanage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/mentoring.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/mentoring/mentoring.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +58,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="spring-beans.schema" />
-        <option value="JavaScript File" />
         <option value="Class" />
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -203,7 +197,9 @@
       <workItem from="1712996787790" duration="13374000" />
       <workItem from="1713085185866" duration="3314000" />
       <workItem from="1713153697847" duration="15280000" />
-      <workItem from="1713255435728" duration="14336000" />
+      <workItem from="1713255435728" duration="14562000" />
+      <workItem from="1713323007854" duration="7272000" />
+      <workItem from="1713346784250" duration="2994000" />
     </task>
     <servers />
   </component>
