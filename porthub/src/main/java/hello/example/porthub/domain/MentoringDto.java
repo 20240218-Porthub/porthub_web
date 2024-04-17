@@ -14,10 +14,10 @@ public class MentoringDto {
     private int MentoID;
     private String Title;
     private float Price;
-    private MultipartFile Thumbnail;
-    private String Thumbnailurl;
+    private MultipartFile Thumbnailfile;
+    private String Thumbnail;
     private List<MultipartFile> mentofile;
-    private String contents;
-    private String fileurls;
+    private String Content;
+    private String file_urls;
 
 }

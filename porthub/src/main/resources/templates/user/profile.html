@@ -24,10 +24,16 @@
         <div class="main">
             <div class="page-header">
                 <div class="image-wrap-outer">
-                    <div class="image-wrap-inner"><div class="image" th:style="'background-image:url('+${member.backImage}+')'"></div></div>
+                    <div class="image-wrap-inner">
+                        <div class="image">
+                            <img th:src="${member.backImage}">
+                        </div>
+                    </div>
                 </div>
                 <div class="container">
-                    <div class="avatar-profile-photo" th:style="'background-image:url('+${member.ProfileImage}+')'"></div>
+                    <div class="avatar-profile-photo">
+                        <img th:src="${member.profileImage}">
+                    </div>
                     <div class="content">
                         <div class="heading">
                             <div class="text-and-supporting">

@@ -52,6 +52,15 @@ public class MemberService {
         }
     }
 
+    public int ImageSave(MemberDto memberDto){
+        if(memberRepository.imagesave(memberDto)>0){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+  
     public String getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
@@ -61,4 +70,5 @@ public class MemberService {
         return null; // 인증된 사용자가 없는 경우 또는 사용자 정보를 가져올 수 없는 경우
     }
 
+  
 }
