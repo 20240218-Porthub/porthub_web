@@ -1,6 +1,6 @@
 package hello.example.porthub.config;
 
-import hello.example.porthub.handler.ChattingHandler;
+import hello.example.porthub.handler.ChatHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -12,7 +12,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    private final ChattingHandler chatHandler;
+    private final ChatHandler chatHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
