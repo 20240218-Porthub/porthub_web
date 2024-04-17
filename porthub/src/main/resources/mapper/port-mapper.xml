@@ -38,6 +38,21 @@
              Users u ON p.AuthorID = u.UserID
         ORDER BY p.PortfolioID DESC;
     </select>
+
+    <select id="findPortsByUserID" parameterType="int" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN
+             Users u ON p.AuthorID = u.UserID
+        where u.UserID=#{UserID}
+        ORDER BY p.PortfolioID DESC;
+    </select>
+
     <select id="findPortfolioByPortfolioID" resultType="hello.example.porthub.domain.PortViewDto">
         SELECT p.PortfolioID,
                p.AuthorID AS UserID,
@@ -57,6 +72,7 @@
              Users u ON p.AuthorID = u.UserID
         WHERE p.PortfolioID = #{portfolioID};
     </select>
+
     <select id="findPortFilesByPortfolioID" resultType="hello.example.porthub.domain.ImagesDto">
         SELECT PortfolioID, Image_url, contents
         FROM Images

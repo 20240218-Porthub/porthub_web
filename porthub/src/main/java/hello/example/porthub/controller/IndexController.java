@@ -2,6 +2,7 @@ package hello.example.porthub.controller;
 
 import hello.example.porthub.domain.CategoryDto;
 import hello.example.porthub.domain.MentoViewDto;
+import hello.example.porthub.domain.MainPortViewDto;
 import hello.example.porthub.domain.MentoringDto;
 import hello.example.porthub.service.MentoService;
 import hello.example.porthub.service.PortfolioService;

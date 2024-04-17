@@ -1,9 +1,11 @@
 package hello.example.porthub.controller;
 
+import hello.example.porthub.domain.MainPortViewDto;
 import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.ProfileDto;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.ProfileRepository;
+import hello.example.porthub.service.ProfileService;
 import hello.example.porthub.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -20,6 +23,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @RequestMapping("/profile")
 public class ProfileController {
+    private final ProfileService profileService;
     private final MemberRepository memberRepository;
     private final ProfileRepository profileRepository;
     private final S3Service s3Service;
@@ -36,7 +40,9 @@ public class ProfileController {
         MemberDto member = memberRepository.findByUserName(name);
         int userid=member.getUserID();
         ProfileDto UserMeta=profileRepository.findByUserID(userid);
-        log.info("meta="+UserMeta);
+        List<MainPortViewDto> mainPortView=profileService.findPortByUserID(userid);
+        log.info("MainPortView="+mainPortView);
+        modelMap.addAttribute("mainPortView", mainPortView);
         modelMap.addAttribute("member", member);
         modelMap.addAttribute("UserMeta",UserMeta);
 
@@ -54,8 +60,6 @@ public class ProfileController {
         else{
             int userid=member.getUserID();
             ProfileDto UserMeta=profileRepository.findByUserID(userid);
-            log.info("member="+member);
-            log.info("meta="+UserMeta);
             modelMap.addAttribute("member", member);
             modelMap.addAttribute("UserMeta",UserMeta);
             return "user/profileedit";
@@ -66,7 +70,6 @@ public class ProfileController {
     public String saveProfile(@PathVariable("name") String name, @ModelAttribute ProfileDto profiledto) throws IOException {
         MemberDto memberDto=memberRepository.findByUserName(name);
         profiledto.setUserID(memberDto.getUserID());
-        log.info("formdata="+profiledto);
         memberDto.setUserID(memberDto.getUserID());
 
         if(!profiledto.getProfileimage().isEmpty()) {
