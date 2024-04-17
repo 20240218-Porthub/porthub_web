@@ -21,6 +21,12 @@
         select * from Users where Email=#{Email}
     </select>
 
+    <select id="findByUserIDtoEmail" parameterType="String" resultType="member">
+        SELECT UserID
+        FROM Users
+        WHERE Email = #{Email}
+    </select>
+
 
     <select id="findByUserID" parameterType="int" resultType="User">
         select * from Usermeta where UserID=#{UserID}
@@ -50,5 +56,10 @@
         where UserID=#{UserID}
     </update>
 
+    <select id="findByUserIDtoEmailcheck" parameterType="String" resultType="int">
+        SELECT UserID
+        FROM Users
+        WHERE Email = #{currentEmail}
+    </select>
 
 </mapper>

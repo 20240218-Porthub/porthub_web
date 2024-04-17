@@ -58,7 +58,6 @@ public class ProfileController {
             log.info("meta="+UserMeta);
             modelMap.addAttribute("member", member);
             modelMap.addAttribute("UserMeta",UserMeta);
-
             return "user/profileedit";
         }
     }

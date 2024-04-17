@@ -17,20 +17,19 @@
 <div class="container">
     <h1>포트폴리오 등록</h1>
     <div class="port-write">
-
-        <form id="portfolioForm" class="port-write-form" action="upload" method="post" enctype="multipart/form-data">
+        <form id="portfolioForm" class="port-write-form" th:action="@{'/ports/uploads'}" method="post" enctype="multipart/form-data">
             <div class="section section-first">
                 <div class="fraged thumb-nail">
                     <!-- 썸네일 사진을 등록하는 공간 -->
                     <label for="thumbnail">썸네일 선택:</label>
-                    <input type="file" id="thumbnail" name="Thumbnail_url" accept="image/*, video/*, audio/*" onchange="previewFile(event)">
+                    <input type="file" id="thumbnail" name="Thumbnail_cast" accept="image/*, video/*, audio/*" onchange="previewFile(event)">
                     <div class="select-thumbnail" id="prevthumb" style="display: none;"></div>
 
                 </div>
                 <div class="fraged category-btn">
                     <!-- 카테고리 선택 버튼 -->
                     <label for="category">카테고리:</label>
-                    <select id="category" name="CategoryID" required>
+                    <select id="category" name="CategoryString" required>
                         <option value="">카테고리 선택</option>
                         <option value="Development">Development</option>
                         <option value="Music">Music</option>
@@ -59,7 +58,7 @@
             <div class="section section-link">
                 <div>
                     <label for="title">link</label>
-                    <input type="text" id="link" name="AttachmentsOr">
+                    <input type="text" id="link" name="AttachmentsOrLinks">
                 </div>
             </div>
 

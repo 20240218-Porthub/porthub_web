@@ -7,7 +7,7 @@
     <nav>
       <div class="logo">
         <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
-        <h2 class="logo-name">PortHub</h2>
+        <a class="logo-text" href="/"><h2 class="logo-name">PortHub</h2></a></h2>
       </div>
 
       <div class="sidebar">
@@ -72,7 +72,8 @@
               <a href="/login" class="nav-link">
                 <ion-icon name="bag-outline" class="icon"></ion-icon>
                 <span th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'"class="link">Logout</span>
-                <span th:unless="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/login'" class="link">Login</span>
+                <span th:unless="${#authorization.expression('isAuthenticated()')}" onclick="location.href='/login'" class="link">Login</span>
+
               </a>
             </li>
           </div>
@@ -107,6 +108,17 @@
           navBar.classList.remove("open");
         }
       });
+      function confirmLogout(event) {
+        // 확인 팝업 표시
+        var confirmLogout = confirm("로그아웃 하시겠습니까?");
+
+        // 사용자가 '예'를 선택한 경우 로그아웃
+        if (confirmLogout) {
+          window.location.href = '/logout';
+        } else {
+          event.preventDefault(); // 폼 제출 방지
+        }
+      }
     </script>
 
     <nav class="navigation">
@@ -115,8 +127,8 @@
       <a href="/about">About</a>
       <a href="/chat">Chatting</a>
 
-      <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'" class="btnLogin-popup">Logout</button>
-
+<!--      <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'" class="btnLogin-popup">Logout</button>-->
+      <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="confirmLogout()" class="btnLogin-popup">Logout</button>
       <!-- 로그인이 되어 있지 않을 때 -->
       <button th:unless="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/login'" class="btnLogin-popup">Login</button>
 

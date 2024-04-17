@@ -1,0 +1,215 @@
+.div-section {
+    margin-bottom: 20px; /* 추가: 섹션 아래 여백 조정 */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: rgba(255, 230, 230, 0.1);
+    margin-left: 10%;
+    margin-right: 10%;
+    overflow-x: auto; /* 가로 스크롤을 위한 설정 */
+    white-space: nowrap; /* 가로 스크롤을 위한 설정 */
+}
+
+.title-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.PortTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc; /* Placeholder color */
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+    background: white;
+    padding: 1px 10px;
+    border-radius: 5px;
+}
+
+.follow-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.report-container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10px;
+}
+
+.view-all{
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.report {
+    color: #dc3545;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.portfolio-container {
+    display: flex;
+    justify-content: space-between; /* 가로 중앙 정렬 */
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.content-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 30px;
+    flex-basis: 40%;
+    margin-right: 30px;
+}
+.markdown-view {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+}
+.user-portfolio-container {
+    flex: 1; /* 좌우로 나누어 배치 */
+}
+
+.user-portfolio {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 10px; /* 추가: Project Title 아래 여백 조정 */
+    flex-direction: column;
+}
+
+.thumb-nail-container {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc; /* Placeholder color */
+    border-radius: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.portcolio-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px; /* 추가: Project Title 위 여백 조정 */
+}
+.File-container {
+    width: 100%;
+    overflow: hidden; /* 스크롤 숨김 */
+    text-align: center; /* 가운데 정렬 */
+    flex-basis: 60%;
+}
+.File-container img {
+    max-width: 100%; /* 이미지 너비를 부모 요소에 맞게 조정 */
+    height: auto; /* 이미지 비율 유지 */
+}
+
+.date-container {
+    text-align: right;
+    margin-right: 10%;
+}
+
+.date,
+.views_count{
+    font-size: 13px;
+}
+
+
+/* 팝업 스타일 */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+}
+
+.heart {
+    width: 1.5em;
+    height: 1.5em;
+}
+.left-icons {
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+pre {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: whitesmoke;
+    padding: 10px;
+}
+
+code {
+    font-family: monospace;
+}
+
+button.follow-btn {
+    all: unset;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}

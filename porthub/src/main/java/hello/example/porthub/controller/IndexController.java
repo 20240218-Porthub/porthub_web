@@ -29,6 +29,9 @@ public class IndexController {
     @GetMapping(value = {"/", "/main"})
     public String index(Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
+        System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
         return "portfolio/main";
     }
@@ -36,6 +39,7 @@ public class IndexController {
     @GetMapping(value = {"/login"})
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "exception", required = false) String exception, Model model) {
+
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "register/login";
