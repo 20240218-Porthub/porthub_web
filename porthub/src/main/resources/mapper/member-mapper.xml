@@ -32,6 +32,10 @@
         select * from Usermeta where UserID=#{UserID}
     </select>
 
+    <select id="findmemberByUserID" parameterType="int" resultType="member">
+        select * from Users where UserID=#{UserID}
+    </select>
+
     <insert id="newmeta" parameterType="int">
         insert into Usermeta(UserID) values(#{UserID})
     </insert>
@@ -45,5 +49,17 @@
                         where UserID = #{UserID}
     </update>
 
+    <update id="imageupdate" parameterType="member">
+        update Users set
+                         ProfileImage=#{ProfileImage},
+                         backimage=#{backImage}
+        where UserID=#{UserID}
+    </update>
+
+    <select id="findByUserIDtoEmailcheck" parameterType="String" resultType="int">
+        SELECT UserID
+        FROM Users
+        WHERE Email = #{currentEmail}
+    </select>
 
 </mapper>

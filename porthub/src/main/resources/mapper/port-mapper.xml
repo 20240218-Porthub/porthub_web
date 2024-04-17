@@ -44,10 +44,12 @@
                p.AuthorID,
                p.Thumbnail_url,
                p.Title,
+               p.Views_count,
                p.CategoryID,
                p.CreationDate,
                p.AttachmentsOrLinks,
                u.UserName,
+               u.Email,
                u.ProfileImage,
                u.backImage
         FROM Portfolios p
@@ -61,19 +63,80 @@
         WHERE PortfolioID = #{portfolioID};
     </select>
     <select id="finduserport" resultType="hello.example.porthub.domain.PortViewDto">
-        SELECT
-            PortfolioID, Thumbnail_url, Title
-        FROM
-            Portfolios
-        WHERE
-                AuthorID = (
-                SELECT
-                    AuthorID
-                FROM
-                    Portfolios
-                WHERE
-                    PortfolioID = #{portfolioID}
-            );
+        SELECT PortfolioID,
+               Thumbnail_url,
+               Title
+        FROM Portfolios
+        WHERE AuthorID = (SELECT AuthorID
+                          FROM Portfolios
+                          WHERE PortfolioID = #{portfolioID})
+        ORDER BY PortfolioID DESC -- PortfolioID를 역순으로 정렬
+            LIMIT 6;
     </select>
 
+
+    <insert id="insertCopyrightDto" parameterType="hello.example.porthub.domain.CopyrightReportDto">
+        INSERT INTO CopyrightReport (PortfolioID, Contents, ReporterEmail, ReportedID)
+        VALUES (#{PortfolioID}, #{Contents}, #{ReporterEmail}, #{ReportedID});
+    </insert>
+
+    <select id="findBycheckHeart" parameterType="map" resultType="boolean">
+        SELECT IFNULL(
+                       (SELECT Heart_Check
+                        FROM PortfolioLikes
+                        WHERE PortfolioID = #{portfolioID}
+                          AND Email = #{authorID}
+                           LIMIT 1),
+        false
+    ) AS Heart_Check
+    </select>
+    <select id="findByCheckFollow" parameterType="map" resultType="boolean">
+        SELECT EXISTS(
+                       SELECT 1
+                       FROM Follows
+                       WHERE FollowerID = #{currentID}
+                         AND FollowingID = #{authorID}
+                   ) AS exists_follow;
+
+    </select>
+
+    <select id="ifnullHeartdata" parameterType="hello.example.porthub.domain.PortLikeDto" resultType="boolean">
+        SELECT IF(EXISTS(
+                          SELECT 1
+                          FROM PortfolioLikes
+                          WHERE PortfolioID = #{PortfolioID}
+                            AND Email = #{Email}
+                      ), true, false) AS Heart_Check;
+
+    </select>
+
+    <insert id="insertPortLikes" parameterType="hello.example.porthub.domain.PortLikeDto">
+        insert into PortfolioLikes (portfolioID, Email, Heart_Check)
+        values (#{portfolioID}, #{Email}, #{Heart_Check})
+    </insert>
+
+    <update id="updatePortLikes" parameterType="hello.example.porthub.domain.PortLikeDto">
+        update PortfolioLikes
+        set Heart_Check = #{Heart_Check}
+        where PortfolioID = #{PortfolioID}
+          AND Email = #{Email}
+    </update>
+
+    <insert id="followInsert" parameterType="map">
+        INSERT INTO Follows (FollowerID, FollowingID)
+        VALUES (#{currentID}, #{authorID})
+    </insert>
+
+    <delete id="unfollowDelete" parameterType="map">
+        DELETE
+        FROM Follows
+        WHERE FollowerID = #{currentID}
+          AND FollowingID = #{authorID}
+
+    </delete>
+    <update id="updateViewsCount" parameterType="int">
+        UPDATE Portfolios
+        SET Views_count = Views_count + 1
+        WHERE PortfolioID = #{portfolioID};
+    </update>
 </mapper>

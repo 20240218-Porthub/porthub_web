@@ -3,6 +3,7 @@ package hello.example.porthub.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -13,5 +14,6 @@ public class ProfileDto {
     private String aff;
     private String link;
     private String career;
-
+    private MultipartFile profileimage;
+    private MultipartFile backimg;
 }

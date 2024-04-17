@@ -1,8 +1,9 @@
 package hello.example.porthub.controller;
 
 import hello.example.porthub.domain.CategoryDto;
-import hello.example.porthub.domain.MainPortViewDto;
-import hello.example.porthub.domain.PortfolioDto;
+import hello.example.porthub.domain.MentoViewDto;
+import hello.example.porthub.domain.MentoringDto;
+import hello.example.porthub.service.MentoService;
 import hello.example.porthub.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import java.util.List;
 public class IndexController {
 
     private final PortfolioService portfolioService;
+    private final MentoService mentoService;
 
 
     @GetMapping(value = {"/", "/main"})
@@ -37,6 +39,7 @@ public class IndexController {
     @GetMapping(value = {"/login"})
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "exception", required = false) String exception, Model model) {
+
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "register/login";
@@ -45,7 +48,9 @@ public class IndexController {
     @GetMapping("/mentoring")
     public String Mento(Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        List<MentoViewDto> mentorings=mentoService.allmentoring();
         model.addAttribute("Category", categoryDtoList);
+        model.addAttribute("mentorings",mentorings);
         return "mentoring/mentoring";
     }
 

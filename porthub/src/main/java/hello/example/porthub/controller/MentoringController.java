@@ -1,22 +1,21 @@
 package hello.example.porthub.controller;
 
-import hello.example.porthub.domain.MemberDto;
-import hello.example.porthub.domain.PortfolioDto;
+import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import hello.example.porthub.domain.MentoDto;
-import hello.example.porthub.domain.MentoringDto;
 import hello.example.porthub.service.MentoService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -75,7 +74,7 @@ public class MentoringController {
     @PostMapping("/createmento/upload")
     public String uploadMentoring(@ModelAttribute MentoringDto mentoringDto, Principal principal) throws IOException {
         int cnt=0;
-        mentoringDto.setThumbnailurl(s3Service.uploadFiles(mentoringDto.getThumbnail()));
+        mentoringDto.setThumbnail(s3Service.uploadFiles(mentoringDto.getThumbnailfile()));
         String fileurls=null;
 
         String loginId = principal.getName();
@@ -94,7 +93,7 @@ public class MentoringController {
                 fileurls = fileurls + ',' + multipleFile;
             }
         }
-        mentoringDto.setFileurls(fileurls);
+        mentoringDto.setFile_urls(fileurls);
         int uploadResult = mentoService.upload(mentoringDto);
 
         if (uploadResult > 0) {
@@ -102,6 +101,32 @@ public class MentoringController {
         } else {
             return "redirect:/mentoring/createmento";
         }
+    }
+
+    @PostMapping("/load")
+    public @ResponseBody Map loadMentoring(@RequestParam("MentoringID") int id){
+        MentoringDto result=mentoService.mentoring(id);
+        MemberDto member=memberRepository.findmemberByUserID(result.getMentoID());
+
+        Map<String,String> map= new HashMap<String, String>();
+
+        map.put("MentoringID",String.valueOf(id));
+        map.put("MentoID",String.valueOf(result.getMentoID()));
+        map.put("profileImage",member.getProfileImage());
+        map.put("MentoName",member.getUserName());
+        map.put("Title",result.getTitle());
+        map.put("Contents",result.getContent());
+        map.put("Price",String.valueOf(result.getPrice()));
+        map.put("Thumbnail",result.getThumbnail());
+        map.put("file_urls",result.getFile_urls());
+
+        return map;
+    }
+
+    @PostMapping("/search")
+    public @ResponseBody List searchMentoring(@RequestParam("searchString") String searchString){
+        List<MentoViewDto> mentorings=mentoService.searchMentoring(searchString);
+        return mentorings;
     }
 
 }

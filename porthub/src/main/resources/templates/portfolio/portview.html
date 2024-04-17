@@ -6,8 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-        <link rel="stylesheet" th:href="@{/css/portfolio/portfolioview.css}" href="/static/css/portfolio/portfolioview.css" />
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioview.css}" href="/static/css/portfolio/portfolioview.css" />
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
 
 </head>
 <body>
@@ -19,25 +20,66 @@
     <div class="home-container">
         <br><br><br>
 
-
         <div class="title-container" >
             <div class="PortTitle" th:text="${PortViewDtoList.Title}"></div>
         </div>
-        <div class="date-container" >
-            <div class="date" th:text="${PortViewDtoList.CreationDate}"></div>
+        <div class="date-container">
+            <div class="views_count" th:text="'조회수: '+${PortViewDtoList.Views_count}"></div>
+            <div class="date" th:text="'작성날짜:' + ${PortViewDtoList.CreationDate}"></div>
         </div>
         <div class="user-container div-section" th:style="'background-image: url('+${PortViewDtoList.backImage} + '); background-position: center;'">
             <div class="user-profile">
-                <img th:src="${PortViewDtoList.profileImage}" src="/static/images/iim.png" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; ">
+                <img th:src="${PortViewDtoList.profileImage}" src="/static/images/iim.png" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; cursor: pointer;" th:data-username="${PortViewDtoList.UserName}" onclick="redirectToProfileClick(this)">
             </div>
             <div class="user-info">
                 <div class="user-name" th:text="${PortViewDtoList.UserName}"></div>
-                <a href="#" class="follow-btn">Follow</a>
+                <div th:if="${isLoggedIn}">
+                    <form action="unfollow" th:method="post" th:if="${followCheck}">
+                        <button class="follow-btn" onclick="checkLogin('follow')" style="background-color: #e2e8f0; color: #64748b;">Following</button>
+                    </form>
+                    <form action="follow" th:method="post" th:unless="${followCheck}">
+                        <button class="follow-btn" onclick="checkLogin('follow')" style="background-color: black; color: #fff;">Follow</button>
+                    </form>
+                </div>
+                <div th:unless="${isLoggedIn}">
+                    <a class="follow-btn" onclick="checkLogin('follow')" style="background-color: black; color: #fff;">Follow</a>
+                </div>
+
             </div>
         </div>
 
         <div class="report-container">
-            <a href="#" class="report">Report Copyright</a>
+            <div class="left-icons">
+                <!-- heart icon -->
+                <div th:if="${#authorization.expression('isAuthenticated()')}">
+
+                    <a th:if="${heartCheck}" onclick="checkHeart(true)">
+                        <ion-icon class="heart" name="heart"></ion-icon>
+                    </a>
+
+                    <a th:unless="${heartCheck}" onclick="checkHeart(false)">
+                        <ion-icon class="heart" name="heart-outline"></ion-icon>
+                    </a>
+
+                </div>
+                <div th:unless="${#authorization.expression('isAuthenticated()')}"><ion-icon class="heart" name="heart-outline" onclick="checkLogin('heart')"></ion-icon></div>
+            </div>
+
+            <div class="right-content">
+                <!-- report link -->
+                <a class="report" onclick="checkLogin('report')">Report Copyright</a>
+            </div>
+
+            <div id="reportPopup" class="popup">
+                <div class="popup-content">
+                    <!-- 팝업 내용 -->
+                    <h2>Report Copyright</h2>
+                    <textarea id="reportTextArea" name="Contents" rows="14" style="width: 100%"></textarea>
+                    <br>
+                    <button onclick="submitReport()" class="w-btn">Submit</button>
+                    <button onclick="confirmCancel()" class="w-btn">Cancel</button>
+                </div>
+            </div>
         </div>
 
         <!-- 반복되는 내용 -->
@@ -45,8 +87,7 @@
             <div class="content-container">
                 <div class="markdown-view" th:text="${FileViewDtoList.contents}"></div>
             </div>
-            <div class="File-container">
-                <img src="/static/images/back_Image.png" th:src="${FileViewDtoList.Image_url}">
+            <div class="File-container" th:data-src="${FileViewDtoList.Image_url}">
             </div>
         </div>
 
@@ -60,21 +101,180 @@
                 <label>Other Portfolios by this User</label>
             </div>
             <div class="view-all">
-                <a href="#" style="color: black">View Alls</a>
+                <a href="#" th:href="${'/profile/' + PortViewDtoList.UserName}" style="color: black">View Alls</a>
             </div>
-            <!-- 반복되는 내용 -->
-            <div class="user-portfolio">
+            <!-- 반복되는 내용portuserList -->
+            <div class="user-portfolio" th:each="portuserList: ${portuserList}">
                 <div class="thumb-nail">
-                    <img src="/static/images/back_Image.png" class="thumb-nail-container">
-                </div>
-                <div class="portcolio-title">Project Title</div>
-            </div>
+                    <img th:if="${portuserList.Thumbnail_url != null and (portuserList.Thumbnail_url.endsWith('.mp3') or portuserList.Thumbnail_url.endsWith('.mp4'))}"
+                         src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_File.jpeg"
+                         class="thumb-nail-container"
+                         th:onclick="'redirectToPortfolio(\'' + ${portuserList.PortfolioID} + '\')'">
+                    <img th:unless="${portuserList.Thumbnail_url == null or portuserList.Thumbnail_url.endsWith('.mp3') or portuserList.Thumbnail_url.endsWith('.mp4')}"
+                         th:src="${portuserList.Thumbnail_url}"
+                         class="thumb-nail-container"
+                         th:onclick="'redirectToPortfolio(\'' + ${portuserList.PortfolioID} + '\')'">
 
+                </div>
+            </div>
         </div>
     </div>
 
-
-    <footer th:replace="~{fragments/footer::footerFragment}"></footer>
 </div>
+
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+
 </body>
+<script type="text/javascript">
+    function redirectToPortfolio(portfolioID) {
+        window.location.href = '/ports/views/' + portfolioID;
+    }
+
+    function redirectToProfileClick(element) {
+        var userName = element.getAttribute('data-username');
+        window.location.href = '/profile/' + userName;
+    }
+
+    function checkLogin(check) {
+        var isLoggedIn = false; // 로그인 상태를 나타내는 변수 (임시로 false로 설정)
+        isLoggedIn = [[${isLoggedIn}]];
+        if (isLoggedIn) {
+            if (check === "report") {
+                showReportPopup();
+            }
+        } else {
+            // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
+            var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+            if (check_login) {
+                window.location.href = '/login';
+            }
+        }
+    }
+
+    function showReportPopup() {
+        document.getElementById('reportPopup').style.display = 'block';
+    }
+
+    function hideReportPopup() {
+        document.getElementById('reportPopup').style.display = 'none';
+    }
+
+
+    function submitReport() {
+        var result = confirm("제출 하시겠습니까?");
+        var reportText = document.getElementById('reportTextArea').value;
+        if (result) {
+            // 사용자가 제출을 확인하면 보고서를 서버로 전송
+            fetch('/ports/views/report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Content-Type을 application/json으로 변경
+                },
+                body: JSON.stringify({ contents: reportText }) // 보고서 내용을 객체에 추가하여 JSON 형식으로 변환하여 전송
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('보고서가 성공적으로 전송되었습니다.');
+                    } else {
+                        console.error('보고서 전송 중 오류가 발생했습니다.');
+                    }
+                    // 팝업 닫기
+                    hideReportPopup();
+                })
+                .catch(error => {
+                    console.error('보고서 전송 중 오류가 발생했습니다:', error);
+                    // 팝업 닫기
+                    hideReportPopup();
+                });
+        }
+    }
+
+    function confirmCancel() {
+        var result = confirm("취소 하시겠습니까?");
+        if (result) {
+            hideReportPopup();
+        }
+    }
+
+    window.onload = function() {
+        // div 요소 가져오기
+
+        renderMarkdown();
+
+        var divElements = document.querySelectorAll('.File-container');
+
+        // 각 div 요소에 대해 실행
+        divElements.forEach(function(divElement) {
+            // data-src 속성 값 가져오기
+            var src = divElement.getAttribute('data-src');
+            if (divElement.getAttribute('data-src') == null) {
+                src = 'https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg';
+            }
+
+            // 파일 경로로부터 파일의 확장자를 추출하는 함수
+            function getFileExtension(url) {
+                // URL에서 마지막 슬래시(/) 뒤의 문자열을 가져옴
+                var filename = url.substring(url.lastIndexOf('/') + 1);
+                // 파일명에서 마지막 점(.) 뒤의 문자열을 가져와서 소문자로 변환하여 반환
+                return filename.split('.').pop().toLowerCase();
+            }
+
+            // 확장자에 따라 적절한 HTML 태그를 생성하는 함수
+            function createHTMLTag(src) {
+                var fileExtension = getFileExtension(src);
+                if (fileExtension === 'mp3' || fileExtension === 'wav' || fileExtension === 'ogg') {
+                    return '<audio controls class="image"><source src="' + src + '" type="audio/' + fileExtension + '"></audio>';
+                } else if (fileExtension === 'mp4' || fileExtension === 'avi' || fileExtension === 'mov') {
+                    return '<video controls class="image"><source src="' + src + '" type="video/' + fileExtension + '"></video>';
+                } else if (fileExtension === 'jpeg' || fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'gif') {
+                    return '<img src="' + src + '" class="image">';
+                } else {
+                    return '<img src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg" class="image">';
+                }
+            }
+
+            // 생성된 HTML 태그를 div 요소 안에 추가
+            divElement.innerHTML = createHTMLTag(src);
+        });
+    };
+
+
+    // 마크다운을 HTML로 변환하여 보여주는 함수
+    function renderMarkdown() {
+        var markdownElements = document.querySelectorAll('.markdown-view');
+        markdownElements.forEach(function(element) {
+            var markdownText = element.textContent; // 마크다운 텍스트 가져오기
+            var html = marked(markdownText); // 마크다운을 HTML로 변환
+
+            // 줄 바꿈을 <br> 태그로 대체
+            html = html.replace(/\n/g, '<br>');
+
+            element.innerHTML = html; // HTML로 변환된 내용으로 대체
+        });
+    }
+
+    function checkHeart(checkesHeart) {
+        var url = "/ports/views/like";
+        if (checkesHeart) {
+            var result = confirm("좋아요를 취소합니다.");
+            if (!result) {
+                // 사용자가 확인을 취소한 경우 아무런 동작도 하지 않음
+                return;
+            }
+        } else {
+            var result = confirm("좋아요를 누르시겠습니까?");
+            if (!result) {
+                // 사용자가 확인을 취소한 경우 아무런 동작도 하지 않음
+                return;
+            }
+        }
+        window.location.href = url;
+    }
+
+
+
+</script>
+
+<script th:src="@{/js/portview.js}" src="/static/js/portview.js"></script>
+
 </html>
