@@ -23,4 +23,8 @@ public class ChatSession {
         this.lastMessage = lastMessage;
         this.lastMessageTimestamp = lastMessageTimestamp;
     }
+
+    public ChatSession() {
+
+    }
 }
