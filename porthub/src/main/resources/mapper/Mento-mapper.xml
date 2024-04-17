@@ -11,7 +11,7 @@
 
     <insert id="upload" parameterType="Mentoring">
         insert into Mentoring(MentoID, Title, Content, Price, Thumbnail, file_urls)
-        values (#{MentoID}, #{Title}, #{Content}, #{Price}, #{Thumbnail}, #{fileurls})
+        values (#{MentoID}, #{Title}, #{Content}, #{Price}, #{Thumbnail}, #{file_urls})
     </insert>
 
     <select id="allmentoring" resultType="MentoView">
