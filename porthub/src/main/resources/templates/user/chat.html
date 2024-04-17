@@ -9,29 +9,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 </head>
 <body>
-<header th:replace="~{fragments/header::headerFragment}"></header>
-<div class="header-image-container">
-    <img class="header-image" src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg" alt="Main Page Header Image">
-    <!-- 이미지 가운데 텍스트 -->
-    <div class="centered-text">여러분의 포트폴리오를 뽑내보세요!</div>
-</div>
 <div class="container">
     <div class="sidebar">
         <div class="header">
-            <h3>ChatApp</h3>
-            <div class="user-info">
-                <img src="https://via.placeholder.com/40" alt="User Avatar">
-                <span th:text="${username}">Username</span>
-            </div>
+            <h3>Messages</h3>
+            <button id="addChatButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M20.0002 3.33334C10.8168 3.33334 3.3335 10.8167 3.3335 20C3.3335 29.1833 10.8168 36.6667 20.0002 36.6667C29.1835 36.6667 36.6668 29.1833 36.6668 20C36.6668 10.8167 29.1835 3.33334 20.0002 3.33334ZM26.6668 21.25H21.2502V26.6667C21.2502 27.35 20.6835 27.9167 20.0002 27.9167C19.3168 27.9167 18.7502 27.35 18.7502 26.6667V21.25H13.3335C12.6502 21.25 12.0835 20.6833 12.0835 20C12.0835 19.3167 12.6502 18.75 13.3335 18.75H18.7502V13.3333C18.7502 12.65 19.3168 12.0833 20.0002 12.0833C20.6835 12.0833 21.2502 12.65 21.2502 13.3333V18.75H26.6668C27.3502 18.75 27.9168 19.3167 27.9168 20C27.9168 20.6833 27.3502 21.25 26.6668 21.25Z" fill="#333333"/>
+                </svg>
+            </button>
         </div>
         <div class="search-bar">
             <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Search messages...">
         </div>
         <div class="message-list">
             <!-- ... (past messages) ... -->
+        </div>
+        <div class="followers-list">
+            <h4>Followers</h4>
+            <ul id="followersList">
+                <!-- Followers will be dynamically added here -->
+            </ul>
         </div>
     </div>
     <div class="chat-area">
@@ -53,7 +53,6 @@
         </div>
     </div>
 </div>
-<footer th:replace="~{fragments/footer::footerFragment}"></footer>
 <script th:src="@{/js/chat.js}"></script>
 
 </body>
