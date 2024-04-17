@@ -11,7 +11,19 @@
 
     <insert id="upload" parameterType="Mentoring">
         insert into Mentoring(MentoID, Title, Content, Price, Thumbnail, file_urls)
-        values (#{MentoID}, #{Title}, #{contents}, #{Price}, #{Thumbnailurl}, #{fileurls})
+        values (#{MentoID}, #{Title}, #{Content}, #{Price}, #{Thumbnail}, #{file_urls})
     </insert>
+
+    <select id="allmentoring" resultType="MentoView">
+        select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID
+    </select>
+
+    <select id="mentoring" parameterType="int" resultType="Mentoring">
+        select * from Mentoring where MentoringID=#{MentoringID}
+    </select>
+
+    <select id="searchmentoring" parameterType="String" resultType="MentoView">
+        select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID where Title like concat('%',#{searchString},'%')
+    </select>
 
 </mapper>

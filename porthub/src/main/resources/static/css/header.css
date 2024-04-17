@@ -136,7 +136,11 @@ nav .logo {
   margin-right: 14px;
   cursor: pointer;
 }
+.logo-text {
+  text-decoration-line: none;
+}
 .logo .logo-name {
+  cursor: pointer;
   color: #333333;
   font-size: 22px;
   font-weight: 500;

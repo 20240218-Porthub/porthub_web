@@ -13,7 +13,7 @@
 .title-container {
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .PortTitle {
@@ -44,23 +44,25 @@
     font-weight: bold;
     margin-right: 10px;
     background: white;
-    padding: 3px 10px;
+    padding: 1px 10px;
     border-radius: 5px;
 }
 
 .follow-btn {
-    background-color: black;
-    color: #fff;
-    padding: 10px 20px;
+    cursor: pointer;
+    padding: 5px 10px;
     border-radius: 5px;
     text-decoration: none;
 }
 
 .report-container {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10px;
 }
+
 .view-all{
     margin-bottom: 10px;
     text-align: right;
@@ -69,6 +71,7 @@
 .report {
     color: #dc3545;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .portfolio-container {
@@ -87,7 +90,6 @@
     margin-right: 30px;
 }
 .markdown-view {
-    display: flex;
     border: 1px solid #ccc;
     padding: 10px;
     width: 100%;
@@ -109,6 +111,7 @@
     background-color: #ccc; /* Placeholder color */
     border-radius: 5px;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .portcolio-title {
@@ -132,6 +135,81 @@
     margin-right: 10%;
 }
 
-.date {
-    font-size: 10px;
+.date,
+.views_count{
+    font-size: 13px;
+}
+
+
+/* 팝업 스타일 */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+}
+
+.heart {
+    width: 1.5em;
+    height: 1.5em;
+}
+.left-icons {
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+pre {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: whitesmoke;
+    padding: 10px;
+}
+
+code {
+    font-family: monospace;
+}
+
+button.follow-btn {
+    all: unset;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
 }

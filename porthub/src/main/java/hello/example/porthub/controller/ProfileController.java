@@ -4,12 +4,14 @@ import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.ProfileDto;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.ProfileRepository;
+import hello.example.porthub.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ import java.util.Objects;
 public class ProfileController {
     private final MemberRepository memberRepository;
     private final ProfileRepository profileRepository;
+    private final S3Service s3Service;
 
     @GetMapping("/index")
     public String getUsername(Principal principal) {
@@ -60,10 +63,21 @@ public class ProfileController {
     }
 
     @PostMapping("/{name}/edit/save")
-    public String saveProfile(@PathVariable("name") String name, @ModelAttribute ProfileDto profiledto){
-        profiledto.setUserID(memberRepository.findByUserName(name).getUserID());
+    public String saveProfile(@PathVariable("name") String name, @ModelAttribute ProfileDto profiledto) throws IOException {
+        MemberDto memberDto=memberRepository.findByUserName(name);
+        profiledto.setUserID(memberDto.getUserID());
         log.info("formdata="+profiledto);
+        memberDto.setUserID(memberDto.getUserID());
+
+        if(!profiledto.getProfileimage().isEmpty()) {
+            memberDto.setProfileImage(s3Service.uploadFiles(profiledto.getProfileimage()));
+        }
+        if(!profiledto.getBackimg().isEmpty()) {
+            memberDto.setBackImage(s3Service.uploadFiles(profiledto.getBackimg()));
+        }
+
         profileRepository.metasave(profiledto);
+        memberRepository.imagesave(memberDto);
         return "redirect:/profile/"+name;
     }
 }

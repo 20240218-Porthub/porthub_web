@@ -8,5 +8,6 @@
         <typeAlias type="hello.example.porthub.domain.CategoryDto" alias="portfolio"/>
         <typeAlias type="hello.example.porthub.domain.MentoDto" alias="Mento"/>
         <typeAlias type="hello.example.porthub.domain.MentoringDto" alias="Mentoring"/>
+        <typeAlias type="hello.example.porthub.domain.MentoViewDto" alias="MentoView"/>
     </typeAliases>
 </configuration>

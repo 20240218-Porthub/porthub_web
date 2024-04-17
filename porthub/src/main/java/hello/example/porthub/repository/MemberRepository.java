@@ -13,9 +13,14 @@ import org.springframework.stereotype.Repository;
 public class MemberRepository {
     private final SqlSessionTemplate sql;
 
+
     public int save(MemberDto memberDto) {
         System.out.println("memberDto= " + memberDto);
         return sql.insert("Member.save", memberDto);
+    }
+
+    public int imagesave(MemberDto memberDto){
+        return sql.update("Member.imageupdate",memberDto);
     }
 
 
@@ -27,8 +32,8 @@ public class MemberRepository {
         return sql.selectOne("Member.findByEmail", Email);
     }
 
+    public MemberDto findmemberByUserID(int UserID){ return sql.selectOne("Member.findmemberByUserID", UserID); }
     public MemberDto findByUserIDtoEmail(String Email) {
         return sql.selectOne("Member.findByUserIDtoEmail", Email);
     }
-
 }

@@ -63,9 +63,26 @@
 .mentoapply{
     width:100%;
     display:flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .mentoapply button{
     margin:0;
+}
+
+.second-container-mento{
+    display:flex;
+    width:100%;
+    justify-content: space-between;
+    gap:1rem;
+}
+
+.search{
+    width:60%;
+    display:flex;
+    align-items: center;
+}
+
+.gapplus{
+    gap:1rem;
 }
