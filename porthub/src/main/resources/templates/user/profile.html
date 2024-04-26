@@ -78,45 +78,10 @@
                 <div class="container">
                     <div>포트폴리오</div>
                     <div class="cards-section">
-                        <div class="div-2">
-                            <img class="image" src="img/image-2.png" />
+                        <div class="div-2" th:each="portfolio : ${mainPortView}" th:onclick="'goToDetailPage(\'' + ${portfolio.PortfolioID} + '\')'">
+                            <img class="image" th:src="@{${portfolio.Thumbnail_url}}" src="img/image-2.png" />
                             <div class="title-description">
-                                <div class="text-wrapper-5">Project title</div>
-                                <div class="text-wrapper-6">UI, Art drection</div>
-                            </div>
-                        </div>
-                        <div class="div-2">
-                            <img class="image" src="img/image-6.png" />
-                            <div class="title-description">
-                                <div class="text-wrapper-7">Project title</div>
-                                <div class="text-wrapper-6">UI, Art drection</div>
-                            </div>
-                        </div>
-                        <div class="div-2">
-                            <img class="image" src="img/image-3.png" />
-                            <div class="title-description">
-                                <div class="text-wrapper-7">Project title</div>
-                                <div class="text-wrapper-6">UI, Art drection</div>
-                            </div>
-                        </div>
-                        <div class="div-2">
-                            <img class="image" src="img/image.png" />
-                            <div class="title-description">
-                                <div class="text-wrapper-7">Project title</div>
-                                <div class="text-wrapper-6">UI, Art drection</div>
-                            </div>
-                        </div>
-                        <div class="div-2">
-                            <img class="image" src="img/image-4.png" />
-                            <div class="title-description">
-                                <div class="text-wrapper-7">Project title</div>
-                                <div class="text-wrapper-6">UI, Art drection</div>
-                            </div>
-                        </div>
-                        <div class="div-2">
-                            <img class="image" src="img/image-5.png" />
-                            <div class="title-description">
-                                <div class="text-wrapper-7">Project title</div>
+                                <div class="text-wrapper-5" th:text="${portfolio.Title}">Project title</div>
                                 <div class="text-wrapper-6">UI, Art drection</div>
                             </div>
                         </div>
@@ -130,4 +95,5 @@
 <footer th:replace="~{fragments/footer::footerFragment}"></footer>
 
 </body>
+<script th:src="@{/js/profile.js}" src="/static/js/profile.js"></script>
 </html>

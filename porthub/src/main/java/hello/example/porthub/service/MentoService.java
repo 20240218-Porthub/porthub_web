@@ -37,7 +37,6 @@ public class MentoService {
     }
 
     public List<MentoViewDto> allmentoring(){
-        log.info("mentoring : "+mentoRepository.allmentoring());
         return mentoRepository.allmentoring();
     }
 
