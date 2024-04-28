@@ -44,6 +44,9 @@ dependencies {
 
 }
 
+jar {
+	enabled = false
+}
 //
 //tas4ks.named('test') {
 //	useJUnitPlatform()
