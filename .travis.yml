@@ -6,6 +6,9 @@ branches:
   only:
     - main
 
+before_script:
+	- cd porthub/
+
 before_install:
   - chmod +x gradlew
 
