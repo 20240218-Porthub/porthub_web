@@ -51,7 +51,7 @@ deploy:
     wait-until-deploy: true
     on:
       all_branches: true
-# CI 실행 완료시 메일로 알람
+# CI 실행 완료시d 메일로 알람
 notifications:
   email:
     recipients:
