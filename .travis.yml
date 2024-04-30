@@ -38,6 +38,19 @@ deploy:
     wait-until-deploy: true
     on:
       all_branches: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: porthub-s3
+    key: PortfolioHub.zip
+    bundle_type: zip
+    application: PortfolioHub
+    deployment_group: PortfolioHub-group
+    region: ap-northeast-2
+    wait-until-deploy: true
+    on:
+      all_branches: true
 # CI 실행 완료시 메일로 알람
 notifications:
   email:
