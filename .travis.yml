@@ -30,7 +30,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
 
-    bucket: porthub-s3
+    bucket: s3
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
