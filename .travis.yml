@@ -26,11 +26,11 @@ before_deploy:
   - mv PortfolioHub.zip deploy/PortfolioHub.zip
 
 deploy:
-  - provider: porthub-s3
+  - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
 
-    bucket: s3
+    bucket: porthub-s3
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
