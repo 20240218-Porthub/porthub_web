@@ -56,3 +56,6 @@ notifications:
   email:
     recipients:
       - wjdgusdlekd3@yonsei.ac.kr
+
+after_script:
+  - cd ..
