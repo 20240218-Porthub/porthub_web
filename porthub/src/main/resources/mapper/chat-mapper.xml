@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ChatSession">
+    <!-- Result Map to associate database columns with the ChatSession class fields -->
+    <resultMap id="ChatSessionResultMap" type="hello.example.porthub.domain.ChatSession">
+        <id property="id" column="ChatID"/>
+        <result property="senderUserId" column="SenderID"/>
+        <result property="recipientUserId" column="ReceiverID"/>
+        <result property="content" column="Content"/>
+        <result property="timestamp" column="DateTime"/>
+    </resultMap>
+
+    <!-- Select query to retrieve a chat by id -->
+    <select id="selectChatById" resultMap="ChatSessionResultMap">
+        SELECT ChatID, SenderID, ReceiverID, Content, DateTime
+        FROM Chats
+        WHERE ChatID = #{id}
+    </select>
+
+    <!-- Insert a new chat record -->
+    <insert id="insertChatSession" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Chats (SenderID, ReceiverID, Content, DateTime)
+        VALUES (#{senderUserId}, #{recipientUserId}, #{content}, #{timestamp})
+    </insert>
+
+    <!-- Update an existing chat record -->
+    <update id="updateChatSession">
+        UPDATE Chats
+        SET SenderID = #{senderUserId},
+            ReceiverID = #{recipientUserId},
+            Content = #{content},
+            DateTime = #{timestamp}
+        WHERE ChatID = #{id}
+    </update>
+
+    <!-- Delete a chat record -->
+    <delete id="deleteChatById">
+        DELETE FROM Chats
+        WHERE ChatID = #{id}
+    </delete>
+
+    <!-- Additional queries can be added below as needed -->
+</mapper>

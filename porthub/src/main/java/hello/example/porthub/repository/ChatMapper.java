@@ -10,19 +10,27 @@ import java.util.List;
 
 @Mapper
 public interface ChatMapper {
-    @Select("SELECT * FROM Chats WHERE SenderUsername = #{username} OR RecipientUsername = #{username}")
-    List<ChatSession> findByUsernameOrRecipientUsername(@Param("username") String username);
+    // Fetch chat sessions from the database where the UserID is equal to the given UserID or the recipient UserID is equal to the given UserID.
+    @Select("SELECT * FROM Chats WHERE SenderID = #{userID} OR ReceiverID = #{userID}")
+    List<ChatSession> findByUsernameOrRecipientUsername(@Param("userID") int userID);
 
-    @Insert("INSERT INTO Chats (SenderUsername, RecipientUsername) VALUES (#{senderUsername}, #{recipientUsername})")
+    /* Fetch the last message and the timestamp of the ChatSession between the current user and the given recipient userID.
+        SELECT c.Content AS lastMessage, c.DateTime AS lastMessageTimestamp
+        FROM Chats c
+        WHERE (c.SenderID = :currentUserId AND c.ReceiverID = :recipientUserId)
+        OR (c.SenderID = :recipientUserId AND c.ReceiverID = :currentUserId)
+        ORDER BY c.DateTime DESC
+        LIMIT 1;
+     */
+    @Select("SELECT * FROM Chats " +
+            "WHERE (SenderID = #{currentUserId} AND ReceiverID = #{recipientUserId}) " +
+            "   OR (SenderID = #{recipientUserId} AND ReceiverID = #{currentUserId}) " +
+            "ORDER BY DateTime DESC " +
+            "LIMIT 1")
+    ChatSession findLastChatSessionBetweenUsers(@Param("currentUserId") int currentUserId, @Param("recipientUserId") int recipientUserId);
+
+    // Insert a new chat session into the database
+    @Insert("INSERT INTO Chats (SenderID, ReceiverID, Content, DateTime) " +
+            "VALUES (#{senderUserId}, #{recipientUserId}, #{content}, #{timestamp})")
     void insertChatSession(ChatSession chatSession);
-
-    @Select("SELECT c1.Content, c1.DateTime " +
-            "FROM Chats c1 " +
-            "INNER JOIN (" +
-            "    SELECT MAX(ChatID) AS LastChatID " +
-            "    FROM Chats " +
-            "    WHERE SenderID = #{userId} OR ReceiverID = #{userId} " +
-            "    GROUP BY LEAST(SenderID, ReceiverID), GREATEST(SenderID, ReceiverID)" +
-            ") c2 ON c1.ChatID = c2.LastChatID")
-    List<ChatSession> findLastMessageAndTimestampForUser(@Param("userId") Long userId);
 }

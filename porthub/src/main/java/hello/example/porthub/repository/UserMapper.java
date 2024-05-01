@@ -8,6 +8,16 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Select("SELECT u.* FROM Users u JOIN Follows f ON u.UserID = f.FollowingID WHERE f.FollowerID = #{userId}")
-    List<ChatUser> findFollowersById(int userId);
+    @Select("SELECT UserID FROM Users WHERE Email = #{currentUserEmail}")
+    int findUserIDByEmail(String currentUserEmail);
+    /*
+    From the User table, fetch the UserID where the Email is equal to the currentUserEmail.
+    Then, from the Follows table, fetch the FollowingID where the FollowerID is equal to the UserID fetched from the User table.
+    Finally, from the User table, return the ChatUser object where the UserID is equal to the FollowingID fetched from the Follows table.
+    */
+    @Select("SELECT * FROM Users WHERE UserID IN (SELECT FollowingID FROM Follows WHERE FollowerID = (SELECT UserID FROM Users WHERE Email = #{currentUserEmail}))")
+    List<ChatUser> findFollowingsByID(String currentUserEmail);
+
+    @Select("SELECT Username FROM Users WHERE UserID = #{recipientUserId}")
+    String findUsernameById(int recipientUserId);
 }
