@@ -32,7 +32,7 @@ deploy:
 
     bucket: porthub-s3
     region: ap-northeast-2
-    cleanup: false
+    skip_cleanup: true
     acl: private
     local_dir: deploy
     wait-until-deploy: true
@@ -56,6 +56,3 @@ notifications:
   email:
     recipients:
       - wjdgusdlekd3@yonsei.ac.kr
-
-dist: xenial
-os: linux
