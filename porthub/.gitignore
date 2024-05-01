@@ -20,6 +20,7 @@ bin/
 ### yml
 *.yml
 !.travis.yml
+!appspec.yml
 
 ### IntelliJ IDEA ###
 .idea
