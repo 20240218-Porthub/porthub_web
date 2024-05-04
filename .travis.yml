@@ -9,8 +9,6 @@ branches:
 before_script:
   - cd porthub/
 
-before_install:
-  - chmod +x gradlew
 
 # Travis CI 서버의 Homes
 cache:
