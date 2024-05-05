@@ -29,19 +29,21 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'junit:junit:4.13.1'
+	implementation 'junit:junit:4.13.1'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	//testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	//testImplementation 'org.springframework.securigty:spring-security-test'
-	//testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
-	//testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.securigty:spring-security-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	testImplementation 'org.springframework.security:spring-security-test'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	implementation 'org.commonmark:commonmark:0.21.0'
 	implementation 'javax.xml.bind:jaxb-api:2.3.0'
 	implementation 'com.vladsch.flexmark:flexmark-all:0.62.2'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-maven-plugin', version: '3.2.2'
-
+	implementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 jar {
