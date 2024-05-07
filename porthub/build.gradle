@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'hello.example'
-version = '1.0.3-SNAPSHOT'
+version = '1.0.3-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 
 java {
 	sourceCompatibility = '17'
