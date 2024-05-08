@@ -3,10 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Member">
-<!--    <insert id="save" parameterType="Member">-->
-<!--    insert into Users(UserName, Email, PasswordHash, ProfileImage, AdditionalInfo, IsAdmin, IsMento)-->
-<!--    values (#{UserName}, #{Email}, #{PasswordHash}, #{ProfileImage}, #{AdditionalInfo}, #{IsAdmin}, #{IsMento})-->
-<!--    </insert>-->
 
     <insert id="save" parameterType="Member">
         insert into Users(UserName, Email, PasswordHash,RegistrationDate)
