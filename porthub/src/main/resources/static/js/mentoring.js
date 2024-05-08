@@ -1,5 +1,6 @@
 
 function mentorpopup(e){
+ $('#mentoringpostid').attr('value',e.id)
  $.ajax({
   type: "post",
   url: "/mentoring/load",
@@ -26,7 +27,6 @@ function mentorpopup(e){
 
 $(function(){
  $('.close').click(function(){
-  console.log('aa');
   $('.layer1').css('display','none');
  })
 })

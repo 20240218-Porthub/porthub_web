@@ -11,11 +11,15 @@
 
     <insert id="upload" parameterType="Mentoring">
         insert into Mentoring(MentoID, Title, Content, Price, Thumbnail, file_urls)
-        values (#{MentoID}, #{Title}, #{Content}, #{Price}, #{Thumbnail}, #{fileurls})
+        values (#{MentoID}, #{Title}, #{Content}, #{Price}, #{Thumbnail}, #{file_urls})
     </insert>
 
     <select id="allmentoring" resultType="MentoView">
         select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID
+    </select>
+
+    <select id="selectmentoview" parameterType="int" resultType="MentoView">
+        select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID where MentoringID=#{MentoringID}
     </select>
 
     <select id="mentoring" parameterType="int" resultType="Mentoring">
@@ -24,6 +28,18 @@
 
     <select id="searchmentoring" parameterType="String" resultType="MentoView">
         select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID where Title like concat('%',#{searchString},'%')
+    </select>
+
+    <select id="checkmentoprocess" parameterType="int" resultType="String">
+        select Process from MentoProcess where MentoID=#{MentoID}
+    </select>
+
+    <select id="paidmentoringID" parameterType="int" resultType="String">
+        select PaidProduct from Users where UserID=#{UserID}
+    </select>
+
+    <select id="mentoringcontent" parameterType="int" resultType="hello.example.porthub.domain.ActivityViewDto">
+        select MentoringID,UserID,UserName,ProfileImage,Title,file_urls from Mentoring inner join Users on MentoID=UserID where MentoringID=#{MentoringID}
     </select>
 
 </mapper>
