@@ -155,4 +155,7 @@
         SET Views_count = Views_count + 1
         WHERE PortfolioID = #{portfolioID};
     </update>
+    <delete id="deletePortfolio" parameterType="int">
+
+    </delete>
 </mapper>

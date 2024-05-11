@@ -151,4 +151,8 @@ public class PortfolioService {
     public void updateViewsCount(int portfolioID) {
         portfolioRepository.updateViewsCount(portfolioID);
     }
+
+    public void portdelete(int portfolioID) {
+        portfolioRepository.deletePortfolio(portfolioID);
+    }
 }

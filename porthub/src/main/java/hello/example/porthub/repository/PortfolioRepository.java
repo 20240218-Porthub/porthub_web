@@ -105,4 +105,8 @@ public class PortfolioRepository {
     public void updateViewsCount(int portfolioID) {
         sql.update("Portfolio.updateViewsCount", portfolioID);
     }
+
+    public void deletePortfolio(int portfolioID) {
+        sql.delete("Portfolio.deletePortfolio", portfolioID);
+    }
 }

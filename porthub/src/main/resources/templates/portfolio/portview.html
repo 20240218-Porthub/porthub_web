@@ -95,6 +95,21 @@
             <label>Link: </label>
             <a th:href="${PortViewDtoList.AttachmentsOrLinks}" th:text="${PortViewDtoList.AttachmentsOrLinks}"></a>
         </div>
+        <div class="modify-button-list" th:if="${#authentication.name==PortViewDtoList.email}">
+
+            <form id="delete_form" action="/ports/views/delete/${PortViewDtoList.portfolioID}" method="post">
+                <div class="port-delete-section">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <a href="#" onclick="confirmDelete(event)" class="port-button">삭제하기</a>
+                </div>
+            </form>
+
+            <div class="port-modify-section">
+                <button class="port-button">수정하기</button>
+            </div>
+            <div style="clear: both;"></div>
+
+        </div>
 
         <div class="user-portfolio-container div-section">
             <div class="port-text">
@@ -271,7 +286,17 @@
         window.location.href = url;
     }
 
-
+    function confirmDelete(event) {
+        event.preventDefault(); // 기본 동작(링크 클릭)을 막음
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            var form = document.getElementById('delete_form');
+            if (form) { // 폼 요소가 존재하는 경우에만 제출
+                form.submit();
+            } else {
+                console.error("폼 요소를 찾을 수 없습니다.");
+            }
+        }
+    }
 
 </script>
 

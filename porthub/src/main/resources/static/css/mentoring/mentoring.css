@@ -86,3 +86,7 @@
 .gapplus{
     gap:1rem;
 }
+
+.btn-outline-secondary {
+    border: 1px solid #ccc;
+}

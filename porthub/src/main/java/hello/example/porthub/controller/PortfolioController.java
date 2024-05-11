@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.sampled.Port;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +71,7 @@ public class PortfolioController {
 
 
         PortViewDto portViewDto = portfolioService.findportview(PortfolioID);
+
         model.addAttribute("PortViewDtoList", portViewDto);
         System.out.println(portViewDto);
         List<ImagesDto> fileDtoList = portfolioService.findportFiles(PortfolioID);
@@ -104,6 +106,7 @@ public class PortfolioController {
         session.setAttribute("heartCheck", heartCheck);
         session.setAttribute("portfolioID", portViewDto.getPortfolioID());
         session.setAttribute("authorID", portViewDto.getAuthorID());
+        session.setAttribute("getEmail",portViewDto.getEmail());
 
         return "portfolio/portview"; // 포트폴리오 상세 페이지 템플릿 이름을 반환합니다.
     }
@@ -172,6 +175,22 @@ public class PortfolioController {
         portfolioService.unfollow(authorID, CurrentUseremail);
 
         return "redirect:/ports/views/" + portfolioID;
+    }
+
+
+    @DeleteMapping("/views/delete/{PortfolioID}")
+    public String portfolioDelete(@PathVariable("PortfolioID") String PortfolioID, HttpSession session) {
+        String getEmail = (String) session.getAttribute("getEmail");
+        String CurrentUseremail = SessionUtils.getCurrentUsername();
+
+        if (getEmail != null && getEmail.equals(CurrentUseremail)) {
+            System.out.println(PortfolioID);
+            portfolioService.portdelete(Integer.parseInt(PortfolioID));
+        } else {
+            return "redirect:/403";
+        }
+
+        return "redirect:/";
     }
 
 }
