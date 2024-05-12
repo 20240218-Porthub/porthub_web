@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberDto {
-
     @Getter
     private int UserID;
     @Getter
@@ -18,5 +17,4 @@ public class MemberDto {
     private String backImage;
     private String PasswordHash;
     private String Role;
-
 }
