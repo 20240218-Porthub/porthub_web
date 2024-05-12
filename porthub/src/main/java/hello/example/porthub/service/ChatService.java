@@ -1,6 +1,6 @@
 package hello.example.porthub.service;
 
-import hello.example.porthub.domain.ChatSession;
+import hello.example.porthub.domain.ChatSessionDto;
 import hello.example.porthub.repository.ChatMapper;
 import hello.example.porthub.repository.UserMapper;
 import org.springframework.stereotype.Service;
@@ -18,38 +18,35 @@ public class ChatService {
         this.userMapper = userMapper;
     }
 
-    // Method to fetch chat sessions from the database
-    public List<ChatSession> getChatSessions(String userEmail) {
-        Integer userId = userMapper.findUserIDByEmail(userEmail);
-        return chatMapper.findByUsernameOrRecipientUsername(userId);
-    }
-
-    // Method to fetch the last message and timestamp for each chat session
-    public List<ChatSession> getLastMessageAndTimestampForUser(int userId, int recipientUserId) {
-        return (List<ChatSession>) chatMapper.findLastChatSessionBetweenUsers(userId, recipientUserId);
-    }
-
-    // Method to fetch the recipient's username of the current chat session
-    public String getRecipientUsername(int recipientUserId) {
-        return userMapper.findUsernameById(recipientUserId);
-    }
-
-    public boolean startNewChat(Integer currentUserID, Integer followingUserID) {
-        // Check if a chat already exists between the two users
-        List<ChatSession> existingChats = chatMapper.findByUsernameOrRecipientUsername(currentUserID);
-        boolean chatExists = existingChats.stream()
-                .anyMatch(chat -> chat.getSenderUserId().equals(followingUserID) || chat.getRecipientUserId().equals(followingUserID));
-        if (!chatExists) {
-            // Create a new chat session
-            ChatSession newChat = new ChatSession();
-            // Set the properties using the generated setter methods
-            newChat.setId(null);
-            newChat.setSenderUserId(currentUserID);
-            newChat.setRecipientUserId(followingUserID);
-            newChat.setContent("");
-            newChat.setTimestamp(new Date());
-            chatMapper.insertChatSession(newChat);
+    // Method to create a new chat session (message)
+    public void createNewChatSession(Integer senderId, Integer recipientId, String content) {
+        if (!isValidUser(senderId) || !isValidUser(recipientId)) {
+            throw new IllegalArgumentException("One or both user IDs are invalid or do not exist.");
         }
-        return chatExists;
+        ChatSessionDto newChat = new ChatSessionDto();
+        newChat.setSenderUserId(senderId);
+        newChat.setRecipientUserId(recipientId);
+        newChat.setContent(content);
+        newChat.setTimestamp(new Date());
+        chatMapper.insertChatSession(newChat);
+    }
+
+    // Use this method to get the full chat history
+    public List<ChatSessionDto> getChatSessions(int currentUserID, int followingUserID) {
+        return chatMapper.findAllChatSessionsBetweenUsers(currentUserID, followingUserID);
+    }
+
+    // Use this method to get the most recent chat session
+    // If the chat session does not exist, it will return null
+    public ChatSessionDto getLastChatSession(int currentUserID, int followingUserID) {
+        return chatMapper.findLastChatSessionBetweenUsers(currentUserID, followingUserID);
+    }
+
+    private boolean isValidUser(Integer userID) {
+        return userMapper.findUsernameById(userID) != null;
+    }
+
+    public List<ChatSessionDto> getFullChatHistoryForUser(Integer currentUserId) {
+        return chatMapper.findByUsernameOrRecipientUsername(currentUserId);
     }
 }

@@ -1,21 +1,44 @@
 $(document).ready(function () {
-    const loggedInUsername = /*[[${username}]]*/ 'defaultUsername';
-    console.log(`Logged-in User: ${loggedInUsername}`);
+    var loggedInUsername;
+
+    $.ajax({
+        url: '/api/user',
+        method: 'GET',
+        success: function (response) {
+            loggedInUsername = response.username;  // Assign value here
+            console.log(`Logged-in User: ${loggedInUsername}`);
+        },
+        error: function () {
+            console.error('Failed to fetch logged-in user. Please try again.');
+        }
+    });
+
+    $('.startChatButton').on('click', function() {
+        var followingUserId = $(this).data('user-id');
+        var content = $('#msg').val(); // Fetch the message content from the input
+        if (content.trim() === '') {
+            alert('Please type a message to start the chat.');
+            return; // Prevent sending an empty message
+        }
+        // ㅇㅣ ㅂㅜㅂㅜㄴㅇㅔ ㅅㅓㅂㅓㅇㅔ ㅇㅛㅊㅓㅇ ㅂㅗㄴㅐㄱㅗ, ㅇㅣㅁㅣ ㅊㅐㅌㅣㅇ ㅇㅣㅆㄴㅡㄴㅈㅣ ㅎㅗㅏㄱㅇㅣㄴ ㄹㅗㅈㅣㄱ ㅍㅣㄹㅇㅛ
+        startNewChat(followingUserId, content);
+        $('#msg').val(''); // Clear the input field after sending
+    });
 
     const API_ENDPOINTS = {
-        FOLLOWERS: '/api/followers',
-        NEW_CHAT: '/api/chats/new'
+        FOLLOWINGS: '/api/followings',
+        NEW_CHAT: '/chats/new'
     };
 
     const $sendButton = $('#button-send');
     const $addChatButton = $('#addChatButton');
-    const $followersList = $('#followersList');
+    const $followingsList = $('#followingsList');
     const $searchInput = $('#searchInput');
     const $msgInput = $('#msg');
     const $msgArea = $('#msgArea');
 
     $sendButton.on('click', sendMessage);
-    $addChatButton.on('click', fetchFollowers);
+    $addChatButton.on('click', fetchFollowings);
     $msgInput.on('keypress', handleEnterKey);
     $searchInput.on('input', searchMessages);
 
@@ -30,45 +53,50 @@ $(document).ready(function () {
         return ws;
     }
 
-    function fetchFollowers() {
+    function fetchFollowings() {
+        console.log('Fetching followings...');
         $.ajax({
-            url: API_ENDPOINTS.FOLLOWERS,
+            url: API_ENDPOINTS.FOLLOWINGS,
             method: 'GET',
             success: function (response) {
-                renderFollowers(response);
+                renderFollowings(response);
             },
             error: function () {
-                console.error('Failed to fetch followers. Please try again.');
+                console.error('Failed to fetch followings. Please try again.');
             }
         });
     }
 
-    function renderFollowers(followers) {
-        $followersList.empty();
-        followers.forEach(function (follower) {
-            const followerListItem = $('<li>').text(follower.username);
+    function renderFollowings(followings) {
+        console.log('Rendering followings:', followings);
+        $followingsList.empty();
+        followings.forEach(function (following) {
+            const followingListItem = $('<li>').text(following.username);
             const startChatButton = $('<button>')
                 .text('Start Chat')
-                .on('click', function () {
-                    startNewChat(follower.username);
+                .data('user-id', following.id)  // Ensure data-user-id is set properly
+                .on('click', function() {  // Directly attach the event handler
+                    var recipientUserId = $(this).data('user-id');
+                    startNewChat(recipientUserId);
                 });
-            followerListItem.append(startChatButton);
-            $followersList.append(followerListItem);
+            followingListItem.append(startChatButton);
+            $followingsList.append(followingListItem);
         });
     }
 
-    function startNewChat(followerUsername) {
+
+    function startNewChat(followingUserId, content) {
+        console.log('Starting new chat with user ID:', followingUserId, 'and content:', content);
         $.ajax({
-            url: API_ENDPOINTS.NEW_CHAT,
+            url: '/chats/new',
             method: 'POST',
-            data: {
-                followerUsername: followerUsername
+            contentType: 'application/json',
+            data: JSON.stringify({ recipientUserId: followingUserId, content: content }),
+            success: function(response) {
+                console.log('New chat started successfully:', response);
             },
-            success: function (response) {
-                console.log(`New chat started with ${followerUsername}`);
-            },
-            error: function () {
-                console.error(`Failed to start a new chat with ${followerUsername}. Please try again.`);
+            error: function(xhr) {
+                console.error('Failed to start a new chat. Please try again.', xhr.responseText);
             }
         });
     }
@@ -79,6 +107,7 @@ $(document).ready(function () {
             console.log(`${loggedInUsername}: ${message}`);
             websocket.send(`${loggedInUsername}: ${message}`);
             $msgInput.val('');
+
         }
     }
 

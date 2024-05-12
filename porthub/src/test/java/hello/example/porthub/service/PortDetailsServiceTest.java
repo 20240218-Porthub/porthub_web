@@ -3,7 +3,7 @@ package hello.example.porthub.service;
 import hello.example.porthub.config.PortDetails;
 import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.repository.MemberRepository;
-import hello.example.porthub.service.PortDetailsService;
+// import hello.example.porthub.service.PortDetailsService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collection;
-import java.util.Optional;
+// import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

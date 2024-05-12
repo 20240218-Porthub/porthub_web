@@ -21,7 +21,7 @@ public class UserService {
         return userMapper.findUserIDByEmail(email);
     }
 
-    public List<ChatUser> getFollowings(String currentUsername) {
-        return userMapper.findFollowingsByID(currentUsername);
+    public List<ChatUser> getFollowings(int currentUserID) {
+        return userMapper.findFollowingsByID(currentUserID);
     }
 }
