@@ -1270,7 +1270,7 @@
     </schema>
     <schema id="510" parent="1" name="porthub">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-05-07.18:16:59</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-05-11.06:55:18</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_unicode_520_ci</CollationName>
     </schema>
     <schema id="511" parent="1" name="innodb">
@@ -1376,7 +1376,7 @@
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="537" parent="518" name="ChatID">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>6</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1689,7 +1689,7 @@ FollowingID</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="604" parent="526" name="OrderID">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>4</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1708,7 +1708,7 @@ FollowingID</ColNames>
       <DasType>text|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="608" parent="526" name="name">
+    <column id="608" parent="526" name="pay_name">
       <DasType>longtext|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>

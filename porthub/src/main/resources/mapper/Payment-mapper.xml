@@ -10,7 +10,7 @@
             where
                 pg=#{pg}
             and pay_method=#{pay_method}
-            and name=#{name}
+            and pay_name=#{name}
             and amount=#{amount}
             and buyer_email=#{buyer_email}
             and buyer_name=#{buyer_name}
@@ -18,7 +18,7 @@
             and buyer_postcode=#{buyer_postcode}
             and buyer_addr=#{buyer_addr}
         </selectKey>
-            insert into MentoringOrder(pg, pay_method, name, amount, buyer_email, buyer_name, buyer_tel, buyer_postcode, buyer_addr)
+            insert into MentoringOrder(pg, pay_method, pay_name, amount, buyer_email, buyer_name, buyer_tel, buyer_postcode, buyer_addr)
             values (#{pg}, #{pay_method}, #{name}, #{amount}, #{buyer_email}, #{buyer_name}, #{buyer_tel}, #{buyer_postcode}, #{buyer_addr})
     </insert>
 </mapper>

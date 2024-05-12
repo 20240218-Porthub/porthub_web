@@ -23,7 +23,6 @@ import java.io.*;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/pay")
 public class PaymentController {
     private final PaymentService paymentService;
     private final RefundService refundService;
@@ -33,7 +32,7 @@ public class PaymentController {
     @Value("${imp.api.key}")
     private String apiKey;
 
-    @Value("${imp.api.secretkey")
+    @Value("${imp.api.secretkey}")
     private String secretKey;
 
     @PostConstruct
@@ -44,12 +43,15 @@ public class PaymentController {
 
     @PostMapping("/order/payment")
     public ResponseEntity<String> paymentComplete(@RequestBody OrderSaveDto orderSaveDto) throws IOException {
+        log.info("orderSaveDto="+orderSaveDto);
         String orderNumber=String.valueOf(orderSaveDto.getMerchant_uid());
         try {
-            paymentService.saveOrder(orderSaveDto);
+            int orderID=paymentService.saveOrder(orderSaveDto);
+            log.info("orderID="+orderID);
             log.info("결제 성공 : 주문 번호 {}", orderNumber);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
+            log.info("exception="+e.getCause());
             log.info("주문 상품 환불 진행 : 주문 번호 {}", orderNumber);
             String token = refundService.getToken(apiKey, secretKey);
             refundService.refundRequest(token, orderNumber, e.getMessage());
@@ -60,6 +62,7 @@ public class PaymentController {
     @PostMapping("/payment/validation/{imp_uid}")
     @ResponseBody
     public IamportResponse<Payment> validateIamport(@PathVariable String imp_uid) throws IamportResponseException, IOException {
+        log.info("here");
         IamportResponse<Payment> payment = iamportClient.paymentByImpUid(imp_uid);
         log.info("결제 요청 응답. 결제 내역 - 주문 번호: {}", payment.getResponse().getMerchantUid());
         return payment;

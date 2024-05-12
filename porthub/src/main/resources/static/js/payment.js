@@ -31,14 +31,17 @@ $(() =>{
         order.pay_method = payMethod;
         order.merchant_uid = orderNumber;
         order.name = name;
-        order.amount= $(".goods-price").text();
+        order.amount= parseInt($(".goods-price").text());
         order.buyer_name = "ghdtjq";
+        order.buyer_email="ghdtjq1111@gmail.com"
         order.buyer_tel = "010123445687";
         order.buyer_postcode = "12345";
         order.buyer_addr = "110-4564";
 
         // iamport 초기화 및 결제 요청
+        console.log("여기요")
         IMP.init('imp70034134');
+        console.log("오류 아직")
         IMP.request_pay({
             pg: pg,
             pay_method : payMethod,
@@ -46,6 +49,7 @@ $(() =>{
             name : name,
             amount: parseInt($(".goods-price").text()), // 결제 가격
             buyer_name : "ghdtjq",
+            buyer_email:"ghdtjq1111@gmail.com",
             buyer_tel : "010123445687",
             buyer_postcode : "12345",
             buyer_addr : "110-4564"
@@ -55,23 +59,24 @@ $(() =>{
                     method: "post",
                     url: `/payment/validation/${rsp.imp_uid}`
                 }).then(res => {
-                    if ($(".goods-price").text() == res.data.response.amount) {
+                    console.log(res.response)
+                    if (parseInt($(".goods-price").text()) == res.response.amount) {
                         $.ajax({
                             url: "/order/payment",
                             method: "post",
-                            data: order,
+                            data: JSON.stringify(order),
                             dataType: "json",
                             headers: {'Content-Type': 'application/json'}
                         }).then(res => {
-                            let productIds = order.productId;
-                            $.ajax({
-                                url: `/cart/delete/pay/success`,
-                                method: "post",
-                                data: {
-                                    userIdNo: res.data,
-                                    productIds: productIds
-                                }
-                            })
+                            //let productIds = order.productId;
+                            // $.ajax({
+                            //     url: `/cart/delete/pay/success`,
+                            //     method: "post",
+                            //     data: {
+                            //         userIdNo: res.data,
+                            //         productIds: productIds
+                            //     }
+                            // })
                             let msg = '결제가 완료되었습니다.';
                             msg += '고유ID : ' + rsp.imp_uid;
                             msg += '상점 거래ID : ' + rsp.merchant_uid;
@@ -83,6 +88,7 @@ $(() =>{
                         });
                     }
                 }).catch(error => {
+
                     alert('결제에 실패하였습니다. ' + rsp.error_msg);
                 });
             } else {
