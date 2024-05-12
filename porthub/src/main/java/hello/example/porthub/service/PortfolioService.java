@@ -153,6 +153,8 @@ public class PortfolioService {
     }
 
     public void portdelete(int portfolioID) {
+        portfolioRepository.deletePortfolioData(portfolioID);
         portfolioRepository.deletePortfolio(portfolioID);
     }
+
 }

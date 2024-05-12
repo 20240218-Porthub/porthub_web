@@ -238,6 +238,8 @@ button.follow-btn {
     font-weight: 800;
     transition: 0.25s;
     cursor: pointer;
+    background: #Efffff;
+    color: black;
 }
 .port-button:hover {
     letter-spacing: 1px;

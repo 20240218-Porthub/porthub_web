@@ -109,4 +109,8 @@ public class PortfolioRepository {
     public void deletePortfolio(int portfolioID) {
         sql.delete("Portfolio.deletePortfolio", portfolioID);
     }
+
+    public void deletePortfolioData(int portfolioID) {
+        sql.delete("Portfolio.deletePortfolioData", portfolioID);
+    }
 }

@@ -1,18 +1,22 @@
 package hello.example.porthub.controller;
 import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.*;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.PortfolioService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.sound.sampled.Port;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 @Controller
@@ -21,6 +25,7 @@ import java.util.Map;
 public class PortfolioController {
 
     private final PortfolioService portfolioService;
+    private final MemberRepository memberRepository;
 
     @PostMapping("/uploads")
     public String uploadPortfolio(@ModelAttribute PortfolioDto portfolioDto) throws IOException {
@@ -191,6 +196,21 @@ public class PortfolioController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/views/put/{userName}/{PortfolioID}")
+    public String portfolioput(@PathVariable("PortfolioID") String PortfolioID,@PathVariable("userName") String userName, Principal principal, ModelMap modelMap) {
+        if (principal == null) {
+            return "redirect:/";
+        }
+
+        MemberDto member = memberRepository.findByEmail(principal.getName());
+        if (userName.equals(member.getUserName())) {
+            return "portfolio/portput";
+        } else {
+            return "error/unAuthorized";
+        }
+
     }
 
 }

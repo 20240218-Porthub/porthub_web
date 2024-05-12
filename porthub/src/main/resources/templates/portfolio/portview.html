@@ -97,16 +97,18 @@
         </div>
         <div class="modify-button-list" th:if="${#authentication.name==PortViewDtoList.email}">
 
-            <form id="delete_form" action="/ports/views/delete/${PortViewDtoList.portfolioID}" method="post">
+            <form id="delete_form" th:action="@{/ports/views/delete/{portfolioID}(portfolioID=${PortViewDtoList.portfolioID})}" method="post">
                 <div class="port-delete-section">
                     <input type="hidden" name="_method" value="delete"/>
                     <a href="#" onclick="confirmDelete(event)" class="port-button">삭제하기</a>
                 </div>
             </form>
 
+
             <div class="port-modify-section">
-                <button class="port-button">수정하기</button>
+                <a th:href="@{/ports/views/put/{userName}/{portfolioID}(portfolioID=${PortViewDtoList.portfolioID}, userName=${PortViewDtoList.userName})}" class="port-button">수정하기</a>
             </div>
+
             <div style="clear: both;"></div>
 
         </div>
