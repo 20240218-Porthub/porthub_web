@@ -41,7 +41,6 @@ public class ProfileController {
         int userid=member.getUserID();
         ProfileDto UserMeta=profileRepository.findByUserID(userid);
         List<MainPortViewDto> mainPortView=profileService.findPortByUserID(userid);
-        log.info("MainPortView="+mainPortView);
         modelMap.addAttribute("mainPortView", mainPortView);
         modelMap.addAttribute("member", member);
         modelMap.addAttribute("UserMeta",UserMeta);

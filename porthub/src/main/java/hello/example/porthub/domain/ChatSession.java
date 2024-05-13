@@ -11,20 +11,19 @@ import java.util.Date;
 @ToString
 public class ChatSession {
     private Long id;
-    private String username;
-    private String recipientUsername;
-    private String lastMessage;
-    private Date lastMessageTimestamp;
+    private Integer senderUserId;
+    private Integer recipientUserId;
+    private String content;
+    private Date timestamp;
 
-    public ChatSession(Long id, String username, String recipientUsername, String lastMessage, Date lastMessageTimestamp) {
+    public ChatSession(Long id, Integer senderUserId, Integer recipientUserId, String content, Date timestamp) {
         this.id = id;
-        this.username = username;
-        this.recipientUsername = recipientUsername;
-        this.lastMessage = lastMessage;
-        this.lastMessageTimestamp = lastMessageTimestamp;
+        this.senderUserId = senderUserId;
+        this.recipientUserId = recipientUserId;
+        this.content = content;
+        this.timestamp = timestamp;
     }
 
     public ChatSession() {
-
     }
 }

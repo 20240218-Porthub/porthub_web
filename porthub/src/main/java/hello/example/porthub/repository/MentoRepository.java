@@ -1,5 +1,6 @@
 package hello.example.porthub.repository;
 
+import hello.example.porthub.domain.ActivityViewDto;
 import hello.example.porthub.domain.MentoDto;
 import hello.example.porthub.domain.MentoViewDto;
 import hello.example.porthub.domain.MentoringDto;
@@ -22,7 +23,15 @@ public class MentoRepository {
 
     public List<MentoViewDto> allmentoring() { return sql.selectList("Mento.allmentoring");}
 
+    public MentoViewDto SelectMentoView(int MentoringID){ return sql.selectOne("Mento.selectmentoview",MentoringID);}
+
     public MentoringDto mentoring(int MentoID){return sql.selectOne("Mento.mentoring", MentoID);}
 
     public List<MentoViewDto> searchMentoring(String searchString) { return sql.selectList("Mento.searchmentoring", searchString);}
+
+    public String CheckMentoProcess(int MentoID){ return sql.selectOne("Mento.checkmentoprocess",MentoID);}
+
+    public String PaidMentoringID(int UserID){return sql.selectOne("Mento.paidmentoringID",UserID);}
+
+    public ActivityViewDto MentoringContent(int MentoringID){return sql.selectOne("Mento.mentoringcontent",MentoringID);}
 }

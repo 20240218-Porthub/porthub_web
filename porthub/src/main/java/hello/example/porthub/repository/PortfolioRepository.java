@@ -105,4 +105,25 @@ public class PortfolioRepository {
     public void updateViewsCount(int portfolioID) {
         sql.update("Portfolio.updateViewsCount", portfolioID);
     }
+
+    public void deletePortfolio(int portfolioID) {
+        sql.delete("Portfolio.deletePortfolio", portfolioID);
+    }
+
+    public void deletePortfolioData(int portfolioID) {
+        sql.delete("Portfolio.deletePortfolioData", portfolioID);
+    }
+
+    public void PortUpdate(PortfolioDto portfolioDto) {
+        sql.update("Portfolio.PortUpdate", portfolioDto);
+    }
+
+    public List<Integer> getImagesID(int portfolioID) {
+        return sql.selectList("Portfolio.getImagesID", portfolioID);
+    }
+
+    public void ContentUpdate(ImagesDto imagesDto) {
+        sql.update("Portfolio.ContentUpdate", imagesDto);
+    }
+
 }
