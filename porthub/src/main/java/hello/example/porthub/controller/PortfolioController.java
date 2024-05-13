@@ -199,18 +199,46 @@ public class PortfolioController {
     }
 
     @GetMapping("/views/put/{userName}/{PortfolioID}")
-    public String portfolioput(@PathVariable("PortfolioID") String PortfolioID,@PathVariable("userName") String userName, Principal principal, ModelMap modelMap) {
+    public String portfolioput(@PathVariable("PortfolioID") String PortfolioID,@PathVariable("userName") String userName, Principal principal, ModelMap model) {
+
         if (principal == null) {
             return "redirect:/";
         }
 
+        int portID = Integer.parseInt(PortfolioID);
         MemberDto member = memberRepository.findByEmail(principal.getName());
         if (userName.equals(member.getUserName())) {
+
+            PortViewDto portViewDto = portfolioService.findportview(portID);
+
+            model.addAttribute("PortViewDtoList", portViewDto);
+            System.out.println(portViewDto);
+            List<ImagesDto> fileDtoList = portfolioService.findportFiles(portID);
+            model.addAttribute("FileViewDtoList", fileDtoList);
+            System.out.println("hi" + fileDtoList);
+            List<PortViewDto> portuserList = portfolioService.finduserport(portID);
+            model.addAttribute("portuserList", portuserList);
+
             return "portfolio/portput";
         } else {
             return "error/unAuthorized";
         }
 
+    }
+
+
+    @PutMapping("/views/put/{PortfolioID}")
+    public String portfolioput(@PathVariable("PortfolioID") int PortfolioID, @ModelAttribute PortfolioDto portfolioDto) {
+        System.out.println(portfolioDto);
+
+        int uploadResult = portfolioService.UpdatePortfolio(portfolioDto);
+
+
+        if (uploadResult > 0) {
+            return "redirect:/ports/views/" + PortfolioID;
+        } else {
+            return "redirect:/error/404";
+        }
     }
 
 }

@@ -167,4 +167,30 @@
         FROM Portfolios
         WHERE PortfolioID = #{portfolioID}
     </delete>
+
+    <update id="PortUpdate" parameterType="hello.example.porthub.domain.PortfolioDto">
+        UPDATE Portfolios
+        SET Thumbnail_url = #{Thumbnail_url},
+            Title = #{Title},
+            AttachmentsOrLinks = #{AttachmentsOrLinks}
+        WHERE PortfolioID = #{PortfolioID};
+    </update>
+
+    <select id="getImagesID" parameterType="int" resultMap="imageIdResultMap">
+        SELECT ImageID
+        FROM Images
+        WHERE PortfolioID = #{portfolioID}
+    </select>
+
+    <resultMap id="imageIdResultMap" type="java.lang.Integer">
+        <id property="id" column="ImageID"/>
+    </resultMap>
+
+    <update id="ContentUpdate" parameterType="hello.example.porthub.domain.ImagesDto">
+        UPDATE Images
+        SET Image_url = #{Image_url},
+            contents = #{contents}
+        WHERE ImageID = #{ImagesFileID};
+    </update>
+
 </mapper>

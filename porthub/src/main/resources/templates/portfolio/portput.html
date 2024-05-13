@@ -1,13 +1,252 @@
-<!doctype html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+
+    <link rel="stylesheet" th:href="@{/css/portfolio/create.css}" href="/static/css/portfolio/create.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
+
+
 </head>
+
 <body>
-<h1>portput authenthic</h1>
+
+
+<div class="container">
+    <h1>포트폴리오 수정</h1>
+    <div class="port-write">
+        <form id="put_form" th:action="@{'/ports/views/put/' + ${PortViewDtoList.portfolioID}}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="put"/>
+            <div class="section section-first">
+                <div class="fraged thumb-nail">
+                    <!-- 썸네일 사진을 등록하는 공간 -->
+                    <label>썸네일 선택:</label>
+
+                    <input type="file" id="thumbnail" th:value="${PortViewDtoList.thumbnail_url}" name="Thumbnail_cast" onchange="previewMedia(this)">
+                    <!-- 이미지를 위한 기본 미리보기 -->
+                    <img id="imagePreview" class="image-design-put imagePreview" th:src="${PortViewDtoList.thumbnail_url}" alt="미리보기">
+
+                    <!-- 미리보기를 표시할 요소 -->
+                    <div id="mediaPreview" class="mediaPreview"></div>
+
+                    <div class="select-thumbnail" style="display: none;"></div>
+
+
+                </div>
+
+                <div class="fraged category-btn">
+                    <!-- 카테고리 선택 버튼 -->
+                    <label for="category">카테고리:</label>
+                    <select id="category" name="CategoryString" required>
+                        <option th:if="${PortViewDtoList.categoryID == 2}" th:text="Development">Development</option>
+                        <option th:if="${PortViewDtoList.categoryID == 3}" th:text="Music">Music</option>
+                        <option th:if="${PortViewDtoList.categoryID == 4}" th:text="Design">Design</option>
+                        <option th:if="${PortViewDtoList.categoryID == 5}" th:text="Editing">Editing</option>
+                        <option th:if="${PortViewDtoList.categoryID == 6}" th:text="Film">Film</option>
+                        <option th:if="${PortViewDtoList.categoryID == 7}" th:text="Marketing">Marketing</option>
+                        <option th:if="${PortViewDtoList.categoryID == 8}" th:text="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section section-second">
+                <div class="fraged port-title">
+                    <!-- 제목 입력 영역 -->
+                    <label for="title">제목:</label>
+                    <input type="text" id="title" name="Title" th:value="${PortViewDtoList.Title}" required>
+                </div>
+            </div>
+
+            <div class="section section-forth" th:each="FileViewDtoList: ${FileViewDtoList}">
+                <div class="write-container">
+                    <div class="fraged right-section">
+
+
+                        <label>파일 선택:</label>
+                        <input type="file" class="input-file" th:value="${FileViewDtoList.image_url}" name="File" onchange="previewMedia(this)">
+                        <!-- 이미지를 위한 기본 미리보기 -->
+                        <img id="imagePreview2" class="image-design-put imagePreview" th:src="${FileViewDtoList.image_url}" alt="미리보기">
+
+                        <!-- 미리보기를 표시할 요소 -->
+                        <div id="mediaPreview2" class="mediaPreview"></div>
+
+                        <div class="select-thumbnail" style="display: none;"></div>
+                    </div>
+                    <div class="fraged left-section">
+                        <label>내용:</label>
+                        <div class="markdown-container">
+                            <button class="markdown-btn" type="button" data-action="# " title="H1">#</button>
+                            <button class="markdown-btn" type="button" data-action="## " title="H2">##</button>
+                            <button class="markdown-btn" type="button" data-action="### " title="H3">###</button>
+                            <button class="markdown-btn" type="button" data-action="#### " title="H4">####</button>
+                            <button class="markdown-btn" type="button" data-action="**" title="Bold">Bold</button>
+                            <button class="markdown-btn" type="button" data-action="_" title="Italic">Italic</button>
+                            <button class="markdown-btn" type="button" data-action="~~" title="Strikethrough">Strikethrough</button>
+                            <button class="markdown-btn" type="button" data-action="> " title="Blockquote">Quote</button>
+                            <button class="markdown-btn" type="button" data-action="[링크텍스트](링크 등록)" title="Link">Link</button>
+                            <button class="markdown-btn" type="button" data-action="``` ```" title="Code Block">Code Block</button>
+                        </div>
+                        <div class="left-section-container">
+                            <textarea class="content-input" name="content[]" required="" th:text="${FileViewDtoList.contents}"></textarea>
+                            <div class="markdown-text-container">
+                                <div class="markdown"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section section-link">
+                <div>
+                    <label for="title">link</label>
+                    <input type="text" id="link" th:value="${PortViewDtoList.AttachmentsOrLinks}" name="AttachmentsOrLinks">
+                </div>
+            </div>
+
+            <div class="section second-fifth">
+                <div class="fraged port-btn-container">
+                    <a class="w-btn bye" type="button" th:href="@{/main}">나가기</a>
+                    <div class="port-delete-section">
+                        <button type="button" onclick="confirmPut(event)" class="w-btn">수정하기</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
 </body>
+
+<script>
+
+
+    document.querySelectorAll('.content-input').forEach(function(textarea) {
+        textarea.addEventListener('input', function() {
+            var markdown = this.value;
+            var html = marked(markdown);
+            this.parentElement.querySelector('.markdown').innerHTML = html;
+        });
+    });
+
+    document.querySelectorAll('.markdown-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var action = this.getAttribute('data-action');
+            var textareaId = this.closest('.markdown-container').nextElementSibling.querySelector('.content-input').id;
+            var textarea = document.getElementById(textareaId);
+            insertMarkdown(action, textarea);
+        });
+    });
+
+    function insertMarkdown(text, textarea) {
+        var start = textarea.selectionStart;
+        var end = textarea.selectionEnd;
+        var selectedText = textarea.value.substring(start, end);
+        var replacement = text + selectedText + text;
+        if (start === end) {
+            replacement = text;
+        }
+        textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
+        textarea.focus();
+        textarea.setSelectionRange(start + replacement.length, start + replacement.length);
+
+        // Update markdown preview
+        var markdown = textarea.value;
+        var html = marked(markdown);
+        textarea.parentElement.nextElementSibling.querySelector('.markdown').innerHTML = html;
+    }
+
+    document.getElementById('put_form').addEventListener('submit', function(event) {
+        var confirmation = confirm("전송하시겠습니까?");
+        if (!confirmation) {
+            event.preventDefault(); // 전송 취소
+        }
+    });
+
+    document.querySelectorAll('.bye').forEach(function(btn) {
+        btn.addEventListener('click', function(event) {
+            var confirmation = confirm("나가시겠습니까?");
+            if (!confirmation) {
+                event.preventDefault(); // 링크 이동 취소
+            }
+        });
+    });
+
+    function previewMedia(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        var mediaPreview = input.closest('.write-container').querySelector('.mediaPreview');
+        var imagePreview = input.closest('.write-container').querySelector('.imagePreview');
+
+        reader.onload = function (e) {
+            var mediaType = getFileType(file.type);
+
+            // 이미지 파일인 경우 기존 이미지 미리보기를 숨깁니다.
+            if (mediaType === 'image') {
+                imagePreview.style.display = 'none';
+            }
+
+            // 미리보기 요소를 생성하고 적절한 속성을 설정합니다.
+            var previewElement;
+            switch (mediaType) {
+                case 'image':
+                    previewElement = document.createElement('img');
+                    previewElement.className = 'image-design-put';
+                    break;
+                case 'audio':
+                    previewElement = document.createElement('audio');
+                    previewElement.className = 'image-design-put';
+                    previewElement.controls = true;
+                    break;
+                case 'video':
+                    previewElement = document.createElement('video');
+                    previewElement.className = 'image-design-put';
+                    previewElement.controls = true;
+                    break;
+                default:
+                    console.error('Unsupported file type');
+                    return;
+            }
+
+            previewElement.src = e.target.result;
+            // 이전에 미리보기가 있으면 제거합니다.
+            while (mediaPreview.firstChild) {
+                mediaPreview.removeChild(mediaPreview.firstChild);
+            }
+            // 미리보기를 추가합니다.
+            mediaPreview.appendChild(previewElement);
+        };
+
+        reader.readAsDataURL(file);
+    }
+    // 파일 형식에 따라 미리보기 요소의 타입을 결정합니다.
+    function getFileType(fileType) {
+        if (fileType.startsWith('image')) {
+            return 'image';
+        } else if (fileType.startsWith('audio')) {
+            return 'audio';
+        } else if (fileType.startsWith('video')) {
+            return 'video';
+        } else {
+            return 'unsupported';
+        }
+    }
+
+    function confirmPut(event) {
+        if (confirm('정말로 수정 하시겠습니까?')) {
+            var form = document.getElementById('put_form');
+            if (form) { // 폼 요소가 존재하는 경우에만 제출
+                form.submit();
+            } else {
+                console.error("폼 요소를 찾을 수 없습니다.");
+            }
+        }
+    }
+</script>
+
+
 </html>
