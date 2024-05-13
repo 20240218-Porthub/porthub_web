@@ -2,7 +2,6 @@ package hello.example.porthub.service;
 
 import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MentoRepository;
-import hello.example.porthub.repository.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

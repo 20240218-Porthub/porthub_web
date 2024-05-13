@@ -30,7 +30,7 @@ $(() =>{
         order.pg= pg;
         order.pay_method = payMethod;
         order.merchant_uid = orderNumber;
-        order.name = name;
+        order.pay_name = name;
         order.amount= parseInt($(".goods-price").text());
         order.buyer_name = "ghdtjq";
         order.buyer_email="ghdtjq1111@gmail.com"
@@ -68,6 +68,7 @@ $(() =>{
                             msg += '상점 거래ID : ' + rsp.merchant_uid;
                             msg += '결제 금액 : ' + rsp.paid_amount;
                             alert(msg)
+                            window.location.href=`/payment/confirm/${res}`
                         }).catch((error) => {
                             alert("주문정보 저장을 실패 했습니다.")
                         });

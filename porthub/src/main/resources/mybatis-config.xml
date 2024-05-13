@@ -10,5 +10,6 @@
         <typeAlias type="hello.example.porthub.domain.MentoringDto" alias="Mentoring"/>
         <typeAlias type="hello.example.porthub.domain.MentoViewDto" alias="MentoView"/>
         <typeAlias type="hello.example.porthub.domain.OrderSaveDto" alias="order"/>
+        <typeAlias type="hello.example.porthub.domain.MentoProcessDto" alias="MentoProcess"/>
     </typeAliases>
 </configuration>

@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MentoProcessDto {
+    private int ProcessID;
     private int MentoID;
     private String Process;
 }
