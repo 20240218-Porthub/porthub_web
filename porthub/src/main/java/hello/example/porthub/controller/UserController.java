@@ -20,11 +20,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/followers")
-    public List<ChatUser> getFollowers(Principal principal) {
-        int userId = getUserIdFromPrincipal(principal);
-        return userService.getFollowers(userId);
-    }
+//    @GetMapping("/followers")
+//    public List<ChatUser> getFollowers(Principal principal) {
+//        int userId = getUserIdFromPrincipal(principal);
+//        return userService.getFollowers(userId);
+//    }
 
     private int getUserIdFromPrincipal(Principal principal) {
         // Assuming principal.getName() returns the user's ID as a string

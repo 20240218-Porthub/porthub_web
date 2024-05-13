@@ -39,9 +39,7 @@ $(() =>{
         order.buyer_addr = "110-4564";
 
         // iamport 초기화 및 결제 요청
-        console.log("여기요")
         IMP.init('imp70034134');
-        console.log("오류 아직")
         IMP.request_pay({
             pg: pg,
             pay_method : payMethod,
@@ -59,31 +57,18 @@ $(() =>{
                     method: "post",
                     url: `/payment/validation/${rsp.imp_uid}`
                 }).then(res => {
-                    console.log(res.response)
                     if (parseInt($(".goods-price").text()) == res.response.amount) {
                         $.ajax({
                             url: "/order/payment",
                             method: "post",
                             data: JSON.stringify(order),
-                            dataType: "json",
                             headers: {'Content-Type': 'application/json'}
                         }).then(res => {
-                            //let productIds = order.productId;
-                            // $.ajax({
-                            //     url: `/cart/delete/pay/success`,
-                            //     method: "post",
-                            //     data: {
-                            //         userIdNo: res.data,
-                            //         productIds: productIds
-                            //     }
-                            // })
                             let msg = '결제가 완료되었습니다.';
-                            msg += '고유ID : ' + rsp.imp_uid;
                             msg += '상점 거래ID : ' + rsp.merchant_uid;
                             msg += '결제 금액 : ' + rsp.paid_amount;
-                            msg += '카드 승인번호 : ' + rsp.apply_num;
                             alert(msg)
-                        }).catch(error => {
+                        }).catch((error) => {
                             alert("주문정보 저장을 실패 했습니다.")
                         });
                     }

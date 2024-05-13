@@ -49,6 +49,7 @@ public class PaymentController {
             int orderID=paymentService.saveOrder(orderSaveDto);
             log.info("orderID="+orderID);
             log.info("결제 성공 : 주문 번호 {}", orderNumber);
+            log.info("response="+ResponseEntity.ok().build());
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
             log.info("exception="+e.getCause());
