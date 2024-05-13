@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'hello.example'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.3-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 
 java {
 	sourceCompatibility = '17'
@@ -29,18 +29,19 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'junit:junit:4.13.1'
+	implementation 'junit:junit:4.13.1'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	//testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	//testImplementation 'org.springframework.securigty:spring-security-test'
-	//testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
-	//testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.securigty:spring-security-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	testImplementation 'org.springframework.security:spring-security-test'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	implementation 'org.commonmark:commonmark:0.21.0'
 	implementation 'javax.xml.bind:jaxb-api:2.3.0'
 	implementation 'com.vladsch.flexmark:flexmark-all:0.62.2'
-
 	implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
 
 	allprojects{
@@ -49,9 +50,14 @@ dependencies {
 		}
 	}
 
-
+	implementation group: 'org.springframework.boot', name: 'spring-boot-maven-plugin', version: '3.2.2'
+	implementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
+jar {
+	enabled = false
+}
 //
 //tas4ks.named('test') {
 //	useJUnitPlatform()
