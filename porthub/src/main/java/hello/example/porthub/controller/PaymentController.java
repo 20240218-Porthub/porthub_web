@@ -1,5 +1,6 @@
 package hello.example.porthub.controller;
 
+import com.ibm.icu.text.BidiTransform;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
@@ -16,9 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.*;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -50,7 +54,7 @@ public class PaymentController {
             log.info("orderID="+orderID);
             log.info("결제 성공 : 주문 번호 {}", orderNumber);
             log.info("response="+ResponseEntity.ok().build());
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Integer.toString(orderID));
         } catch (RuntimeException e) {
             log.info("exception="+e.getCause());
             log.info("주문 상품 환불 진행 : 주문 번호 {}", orderNumber);
@@ -67,6 +71,17 @@ public class PaymentController {
         IamportResponse<Payment> payment = iamportClient.paymentByImpUid(imp_uid);
         log.info("결제 요청 응답. 결제 내역 - 주문 번호: {}", payment.getResponse().getMerchantUid());
         return payment;
+    }
+
+    @GetMapping("/payment/confirm/{id}")
+    public String PaymentConfirmID(@PathVariable("id") int orderid, ModelMap modelMap){
+//        log.info("param.orderid="+params.get("orderid"));
+//        int orderid = Integer.parseInt((String)params.get("orderid"));
+
+        OrderSaveDto order= paymentService.selectOrder(orderid);
+        log.info("order="+order);
+        modelMap.addAttribute("order",order);
+        return "mentoring/paymentconfirm";
     }
 
 }

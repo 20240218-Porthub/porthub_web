@@ -54,6 +54,14 @@
     flex-direction:column;
 }
 
+.payment-intro{
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+    padding:20px;
+    width:100%;
+}
+
 .goods-name{
     font-size:larger;
 }

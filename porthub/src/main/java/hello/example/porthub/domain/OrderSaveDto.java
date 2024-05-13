@@ -12,7 +12,7 @@ public class OrderSaveDto {
     private String pg;
     private String pay_method;
     private String merchant_uid;
-    private String name;
+    private String pay_name;
     private int amount;
     private String buyer_email;
     private String buyer_name;

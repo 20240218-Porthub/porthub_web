@@ -1,5 +1,6 @@
 package hello.example.porthub.controller;
 
+import hello.example.porthub.service.PaymentService;
 import org.springframework.ui.Model;
 import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
@@ -25,6 +26,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/mentoring")
 public class MentoringController {
+    private final PaymentService paymentService;
     private final MemberRepository memberRepository;
     private final MentoService mentoService;
     private final S3Service s3Service;
@@ -150,6 +152,12 @@ public class MentoringController {
         MentoViewDto postdata = mentoService.SelectMentoView(mentoViewDto.getMentoringID());
         modelMap.addAttribute("mentoring",postdata);
         return "mentoring/payment";
+    }
+
+    @GetMapping("/payment/confirm/{id}")
+    public String PaymentConfirm(Model model, @ModelAttribute OrderSaveDto orderSaveDto){
+        orderSaveDto=paymentService.selectOrder(orderSaveDto.getOrderID());
+        return "mentoring/paymentconfirm";
     }
 
 }

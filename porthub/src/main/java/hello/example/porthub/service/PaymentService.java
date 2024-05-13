@@ -17,4 +17,6 @@ public class PaymentService {
     public int saveOrder(OrderSaveDto orderSaveDto) {
         return paymentRepository.insertOrder(orderSaveDto);
     }
+
+    public OrderSaveDto selectOrder(int OrderID){ return paymentRepository.selectOrder(OrderID);}
 }
