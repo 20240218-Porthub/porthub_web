@@ -31,8 +31,9 @@ $(() =>{
         order.pay_method = payMethod;
         order.merchant_uid = orderNumber;
         order.name = name;
-        order.amount= $(".goods-price").text();
+        order.amount= parseInt($(".goods-price").text());
         order.buyer_name = "ghdtjq";
+        order.buyer_email="ghdtjq1111@gmail.com"
         order.buyer_tel = "010123445687";
         order.buyer_postcode = "12345";
         order.buyer_addr = "110-4564";
@@ -46,6 +47,7 @@ $(() =>{
             name : name,
             amount: parseInt($(".goods-price").text()), // 결제 가격
             buyer_name : "ghdtjq",
+            buyer_email:"ghdtjq1111@gmail.com",
             buyer_tel : "010123445687",
             buyer_postcode : "12345",
             buyer_addr : "110-4564"
@@ -55,34 +57,23 @@ $(() =>{
                     method: "post",
                     url: `/payment/validation/${rsp.imp_uid}`
                 }).then(res => {
-                    if ($(".goods-price").text() == res.data.response.amount) {
+                    if (parseInt($(".goods-price").text()) == res.response.amount) {
                         $.ajax({
                             url: "/order/payment",
                             method: "post",
-                            data: order,
-                            dataType: "json",
+                            data: JSON.stringify(order),
                             headers: {'Content-Type': 'application/json'}
                         }).then(res => {
-                            let productIds = order.productId;
-                            $.ajax({
-                                url: `/cart/delete/pay/success`,
-                                method: "post",
-                                data: {
-                                    userIdNo: res.data,
-                                    productIds: productIds
-                                }
-                            })
                             let msg = '결제가 완료되었습니다.';
-                            msg += '고유ID : ' + rsp.imp_uid;
                             msg += '상점 거래ID : ' + rsp.merchant_uid;
                             msg += '결제 금액 : ' + rsp.paid_amount;
-                            msg += '카드 승인번호 : ' + rsp.apply_num;
                             alert(msg)
-                        }).catch(error => {
+                        }).catch((error) => {
                             alert("주문정보 저장을 실패 했습니다.")
                         });
                     }
                 }).catch(error => {
+
                     alert('결제에 실패하였습니다. ' + rsp.error_msg);
                 });
             } else {

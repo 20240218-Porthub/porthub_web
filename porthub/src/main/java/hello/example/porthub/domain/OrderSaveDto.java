@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class OrderSaveDto {
+    private int OrderID;
     private String pg;
     private String pay_method;
     private String merchant_uid;
