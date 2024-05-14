@@ -175,6 +175,12 @@
             AttachmentsOrLinks = #{AttachmentsOrLinks}
         WHERE PortfolioID = #{PortfolioID};
     </update>
+    <update id="PortUpdateNoneThumb" parameterType="hello.example.porthub.domain.PortfolioDto">
+        UPDATE Portfolios
+        SET Title = #{Title},
+            AttachmentsOrLinks = #{AttachmentsOrLinks}
+        WHERE PortfolioID = #{PortfolioID};
+    </update>
 
     <select id="getImagesID" parameterType="int" resultMap="imageIdResultMap">
         SELECT ImageID
@@ -193,4 +199,9 @@
         WHERE ImageID = #{ImagesFileID};
     </update>
 
+    <update id="ContentUpdateNull" parameterType="hello.example.porthub.domain.ImagesDto">
+        UPDATE Images
+        SET contents = #{contents}
+        WHERE ImageID = #{ImagesFileID};
+    </update>
 </mapper>

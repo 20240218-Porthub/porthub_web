@@ -115,7 +115,12 @@ public class PortfolioRepository {
     }
 
     public void PortUpdate(PortfolioDto portfolioDto) {
-        sql.update("Portfolio.PortUpdate", portfolioDto);
+        if (portfolioDto.getThumbnail_url() == null) {
+
+            sql.update("Portfolio.PortUpdateNoneThumb", portfolioDto);
+        } else {
+            sql.update("Portfolio.PortUpdate", portfolioDto);
+        }
     }
 
     public List<Integer> getImagesID(int portfolioID) {
@@ -123,7 +128,11 @@ public class PortfolioRepository {
     }
 
     public void ContentUpdate(ImagesDto imagesDto) {
-        sql.update("Portfolio.ContentUpdate", imagesDto);
+        if (imagesDto.getImage_url() == null) {
+            sql.update("Portfolio.ContentUpdateNull", imagesDto);
+        } else {
+            sql.update("Portfolio.ContentUpdate", imagesDto);
+        }
     }
 
 }

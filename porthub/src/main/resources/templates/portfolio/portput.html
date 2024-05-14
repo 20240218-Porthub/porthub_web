@@ -20,7 +20,7 @@
         <form id="put_form" th:action="@{'/ports/views/put/' + ${PortViewDtoList.portfolioID}}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="put"/>
             <div class="section section-first">
-                <div class="fraged thumb-nail">
+                <div class="fraged thumb-nail write-container">
                     <!-- 썸네일 사진을 등록하는 공간 -->
                     <label>썸네일 선택:</label>
 
@@ -62,8 +62,6 @@
             <div class="section section-forth" th:each="FileViewDtoList: ${FileViewDtoList}">
                 <div class="write-container">
                     <div class="fraged right-section">
-
-
                         <label>파일 선택:</label>
                         <input type="file" class="input-file" th:value="${FileViewDtoList.image_url}" name="File" onchange="previewMedia(this)">
                         <!-- 이미지를 위한 기본 미리보기 -->
