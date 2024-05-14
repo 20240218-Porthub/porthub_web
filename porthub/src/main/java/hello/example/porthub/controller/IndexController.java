@@ -58,7 +58,7 @@ public class IndexController {
 
     @GetMapping(value = {"/chat"})
     public String chat() {
-        return "user/chat";
+        return "redirect:/user/chat";
     }
 
     @GetMapping(value={"/profile"})

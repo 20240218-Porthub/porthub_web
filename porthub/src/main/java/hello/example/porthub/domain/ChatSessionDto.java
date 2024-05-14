@@ -9,14 +9,14 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class ChatSession {
+public class ChatSessionDto {
     private Long id;
     private Integer senderUserId;
     private Integer recipientUserId;
     private String content;
     private Date timestamp;
 
-    public ChatSession(Long id, Integer senderUserId, Integer recipientUserId, String content, Date timestamp) {
+    public ChatSessionDto(Long id, Integer senderUserId, Integer recipientUserId, String content, Date timestamp) {
         this.id = id;
         this.senderUserId = senderUserId;
         this.recipientUserId = recipientUserId;
@@ -24,6 +24,6 @@ public class ChatSession {
         this.timestamp = timestamp;
     }
 
-    public ChatSession() {
+    public ChatSessionDto() {
     }
 }
