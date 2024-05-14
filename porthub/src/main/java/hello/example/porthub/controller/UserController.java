@@ -37,3 +37,13 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 }
+//    public List<ChatUser> getFollowers(Principal principal) {
+//        int userId = getUserIdFromPrincipal(principal);
+//        return userService.getFollowers(userId);
+//    }
+
+    private int getUserIdFromPrincipal(Principal principal) {
+        // Assuming principal.getName() returns the user's ID as a string
+        return Integer.parseInt(principal.getName());
+    }
+}

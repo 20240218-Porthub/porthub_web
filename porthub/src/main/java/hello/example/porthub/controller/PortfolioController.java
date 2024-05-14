@@ -1,17 +1,22 @@
 package hello.example.porthub.controller;
 import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.*;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.PortfolioService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.sampled.Port;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 @Controller
@@ -20,6 +25,7 @@ import java.util.Map;
 public class PortfolioController {
 
     private final PortfolioService portfolioService;
+    private final MemberRepository memberRepository;
 
     @PostMapping("/uploads")
     public String uploadPortfolio(@ModelAttribute PortfolioDto portfolioDto) throws IOException {
@@ -70,6 +76,7 @@ public class PortfolioController {
 
 
         PortViewDto portViewDto = portfolioService.findportview(PortfolioID);
+
         model.addAttribute("PortViewDtoList", portViewDto);
         List<ImagesDto> fileDtoList = portfolioService.findportFiles(PortfolioID);
         model.addAttribute("FileViewDtoList", fileDtoList);
@@ -100,6 +107,7 @@ public class PortfolioController {
         session.setAttribute("heartCheck", heartCheck);
         session.setAttribute("portfolioID", portViewDto.getPortfolioID());
         session.setAttribute("authorID", portViewDto.getAuthorID());
+        session.setAttribute("getEmail",portViewDto.getEmail());
 
         return "portfolio/portview"; // 포트폴리오 상세 페이지 템플릿 이름을 반환합니다.
     }
@@ -168,6 +176,65 @@ public class PortfolioController {
         portfolioService.unfollow(authorID, CurrentUseremail);
 
         return "redirect:/ports/views/" + portfolioID;
+    }
+
+
+    @DeleteMapping("/views/delete/{PortfolioID}")
+    public String portfolioDelete(@PathVariable("PortfolioID") String PortfolioID, HttpSession session) {
+        String getEmail = (String) session.getAttribute("getEmail");
+        String CurrentUseremail = SessionUtils.getCurrentUsername();
+
+        if (getEmail != null && getEmail.equals(CurrentUseremail)) {
+            System.out.println(PortfolioID);
+            portfolioService.portdelete(Integer.parseInt(PortfolioID));
+        } else {
+            return "redirect:/403";
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/views/put/{userName}/{PortfolioID}")
+    public String portfolioput(@PathVariable("PortfolioID") String PortfolioID,@PathVariable("userName") String userName, Principal principal, ModelMap model) {
+
+        if (principal == null) {
+            return "redirect:/";
+        }
+
+        int portID = Integer.parseInt(PortfolioID);
+        MemberDto member = memberRepository.findByEmail(principal.getName());
+        if (userName.equals(member.getUserName())) {
+
+            PortViewDto portViewDto = portfolioService.findportview(portID);
+
+            model.addAttribute("PortViewDtoList", portViewDto);
+            System.out.println(portViewDto);
+            List<ImagesDto> fileDtoList = portfolioService.findportFiles(portID);
+            model.addAttribute("FileViewDtoList", fileDtoList);
+            System.out.println("hi" + fileDtoList);
+            List<PortViewDto> portuserList = portfolioService.finduserport(portID);
+            model.addAttribute("portuserList", portuserList);
+
+            return "portfolio/portput";
+        } else {
+            return "error/unAuthorized";
+        }
+
+    }
+
+
+    @PutMapping("/views/put/{PortfolioID}")
+    public String portfolioput(@PathVariable("PortfolioID") int PortfolioID, @ModelAttribute PortfolioDto portfolioDto) {
+        System.out.println(portfolioDto);
+
+        int uploadResult = portfolioService.UpdatePortfolio(portfolioDto);
+
+
+        if (uploadResult > 0) {
+            return "redirect:/ports/views/" + PortfolioID;
+        } else {
+            return "redirect:/error/404";
+        }
     }
 
 }

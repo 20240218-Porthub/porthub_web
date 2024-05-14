@@ -14,5 +14,6 @@ public class ImagesDto {
     private int PortfolioID;
     private String Image_url;
     private String contents;
+    private Integer ImagesFileID;
 
 }

@@ -281,3 +281,10 @@ input[type="submit"]:hover {
 .markdown-container {
     margin-bottom: 10px;
 }
+
+.image-design-put {
+    display: block;
+    max-height: 80%;
+    position: relative;
+    max-width: 100%;
+}

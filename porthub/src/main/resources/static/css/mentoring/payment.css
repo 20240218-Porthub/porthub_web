@@ -54,6 +54,14 @@
     flex-direction:column;
 }
 
+.payment-intro{
+    display:flex;
+    flex-direction: column;
+    gap:5px;
+    padding:20px;
+    width:100%;
+}
+
 .goods-name{
     font-size:larger;
 }
@@ -78,4 +86,19 @@
 
 .divide{
     border:groove 1px;
+}
+
+.paymentButtons{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.paymentButtons button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 8px 30px;
+    cursor: pointer;
 }
