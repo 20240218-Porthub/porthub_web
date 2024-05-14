@@ -42,8 +42,8 @@ public class UserController {
 //        return userService.getFollowers(userId);
 //    }
 
-    private int getUserIdFromPrincipal(Principal principal) {
-        // Assuming principal.getName() returns the user's ID as a string
-        return Integer.parseInt(principal.getName());
-    }
-}
+//    private int getUserIdFromPrincipal(Principal principal) {
+//        // Assuming principal.getName() returns the user's ID as a string
+//        return Integer.parseInt(principal.getName());
+//    }
+//}
