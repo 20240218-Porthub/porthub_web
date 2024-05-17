@@ -31,13 +31,41 @@ public class IndexController {
     private final MentoService mentoService;
 
 
-    @GetMapping(value = {"/", "/main","/{CategoryName}"})
-    public String index(@PathVariable("CategoryName") String CategoryName, Model model) {
+    @GetMapping(value = {"/", "/main"})
+    public String index(Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+        model.addAttribute("CategoryNameCheck", 0);
         model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
         System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
+        return "portfolio/main";
+    }
+    @GetMapping({"/{CategoryName}"})
+    public String CategoryPort(@PathVariable("CategoryName") String CategoryName, Model model) {
+        List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+        int checkNum = 0;
+        if (CategoryName.equals("Development")) {
+            checkNum = 2;
+        } else if (CategoryName.equals("Music")) {
+            checkNum = 3;
+        } else if (CategoryName.equals("Design")) {
+            checkNum = 4;
+        } else if (CategoryName.equals("Editing")) {
+            checkNum = 5;
+        } else if (CategoryName.equals("Film")) {
+            checkNum = 6;
+        } else if (CategoryName.equals("Marketing")) {
+            checkNum = 7;
+        } else if (CategoryName.equals("Other")) {
+            checkNum = 8;
+        }
+        model.addAttribute("CategoryNameCheck", checkNum);
+        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
+        System.out.println(mainPortViewDtoList);
+        model.addAttribute("Category", categoryDtoList);
+        model.addAttribute("CategoryName", CategoryName);
         return "portfolio/main";
     }
 

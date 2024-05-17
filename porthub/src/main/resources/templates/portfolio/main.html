@@ -33,6 +33,7 @@
                                     th:each="Category : ${Category}"
                                     th:text="${Category.CategoryName}"
                                     class="w-btn w-btn-indigo"
+                                    th:classappend="${Category.CategoryName == CategoryName} ? ' active' : ''"
                                     onclick="navigateToCategory(this)">
                             </button>
                         </div>
@@ -61,7 +62,7 @@
                 <div class="gallery-section">
                     <div class="cards-section">
                         <!-- 반복되는 요소 -->
-                        <div th:each="mainPortViewDtoList: ${mainPortViewDtoList}"  class="port-wrapper">
+                        <div th:if="${CategoryNameCheck} == 0" th:each="mainPortViewDtoList: ${mainPortViewDtoList}"  class="port-wrapper">
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5" th:data-src="${mainPortViewDtoList.Thumbnail_url}" data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg" th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"></div>
@@ -73,6 +74,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div th:unless="${CategoryNameCheck} == 0" th:if="${mainPortViewDtoList.CategoryID} == ${CategoryNameCheck}" th:each="mainPortViewDtoList: ${mainPortViewDtoList}"  class="port-wrapper">
+                            <div class="port-2">
+                                <div class="title-description">
+                                    <div class="text-wrapper-5" th:data-src="${mainPortViewDtoList.Thumbnail_url}" data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg" th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"></div>
+                                    <div class="profile-wrapper">
+                                        <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}" src="/static/images/profiletest.jpeg" th:attr="data-user-name=${mainPortViewDtoList.UserName}" onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
+                                    </div>
+                                    <div class="title-deco" th:text="${mainPortViewDtoList.UserName}"></div>
+                                    <div class="text-wrapper-6" th:text="${mainPortViewDtoList.Title}"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
 
                 </div>
@@ -116,7 +131,7 @@
     </div>
 </div>
 
-<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+<!--<footer th:replace="~{fragments/footer::footerFragment}"></footer>-->
 
 </body>
 <script th:src="@{/js/main.js}" src="/static/js/main.js"></script>
