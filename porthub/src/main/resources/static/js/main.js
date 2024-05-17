@@ -45,3 +45,9 @@
     divElement.innerHTML = createHTMLTag(src);
 });
 };
+
+ function navigateToCategory(buttonElement) {
+     const categoryName = buttonElement.innerText || buttonElement.textContent;
+     const url = '/' + encodeURIComponent(categoryName);
+     window.location.href = url;
+ }

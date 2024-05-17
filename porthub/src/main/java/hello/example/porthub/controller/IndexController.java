@@ -11,10 +11,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -28,8 +31,8 @@ public class IndexController {
     private final MentoService mentoService;
 
 
-    @GetMapping(value = {"/", "/main"})
-    public String index(Model model) {
+    @GetMapping(value = {"/", "/main","/{CategoryName}"})
+    public String index(@PathVariable("CategoryName") String CategoryName, Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
         model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
@@ -38,7 +41,8 @@ public class IndexController {
         return "portfolio/main";
     }
 
-    @GetMapping(value = {"/login"})
+
+        @GetMapping(value = {"/login"})
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "exception", required = false) String exception, Model model) {
 

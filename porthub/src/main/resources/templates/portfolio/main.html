@@ -28,7 +28,13 @@
                         <!-- 버튼 6개 -->
                         <div class="button-container">
                             <!--                            <button class="w-btn w-btn-indigo">버튼 1</button>-->
-                            <button th:each="Category : ${Category}" th:text="${Category.CategoryName}" class="w-btn w-btn-indigo"></button>
+
+                            <button
+                                    th:each="Category : ${Category}"
+                                    th:text="${Category.CategoryName}"
+                                    class="w-btn w-btn-indigo"
+                                    onclick="navigateToCategory(this)">
+                            </button>
                         </div>
                         <!-- 버튼 + 검색바-->
                         <div class="second-container">
