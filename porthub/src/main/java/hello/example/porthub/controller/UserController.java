@@ -23,7 +23,7 @@ public class UserController {
     }
 
 //    @GetMapping("/followers")
-//    public List<ChatUser> getFollowers(ChatUser chatUser, Principal principal) {
+//    public List<ChatUsersDto> getFollowers(ChatUsersDto chatUser, Principal principal) {
 //        int userId = chatUser.getId();
 //        String name = principal.getName();
 //        return userService.getFollowings(name);
@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 }
-//    public List<ChatUser> getFollowers(Principal principal) {
+//    public List<ChatUsersDto> getFollowers(Principal principal) {
 //        int userId = getUserIdFromPrincipal(principal);
 //        return userService.getFollowers(userId);
 //    }

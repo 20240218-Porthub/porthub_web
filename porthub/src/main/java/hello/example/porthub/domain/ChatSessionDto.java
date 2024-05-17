@@ -1,29 +1,13 @@
 package hello.example.porthub.domain;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
+import lombok.Data;
 import java.util.Date;
 
-@Getter
-@Setter
-@ToString
+@Data  // Lombok's annotation to generate getters, setters, toString, equals, and hashCode methods
 public class ChatSessionDto {
-    private Long id;
-    private Integer senderUserId;
-    private Integer recipientUserId;
-    private String content;
-    private Date timestamp;
+    private int sessionID;         // Corresponds to SessionID in the database
+    private String sessionName;    // Corresponds to SessionName in the database
+    private int createdBy;         // Corresponds to CreatedBy in the database, should reference a valid UserID
+    private Date createdAt;        // Corresponds to CreatedAt in the database
 
-    public ChatSessionDto(Long id, Integer senderUserId, Integer recipientUserId, String content, Date timestamp) {
-        this.id = id;
-        this.senderUserId = senderUserId;
-        this.recipientUserId = recipientUserId;
-        this.content = content;
-        this.timestamp = timestamp;
-    }
-
-    public ChatSessionDto() {
-    }
+    // No need to explicitly write constructors, getters, or setters due to @Data
 }

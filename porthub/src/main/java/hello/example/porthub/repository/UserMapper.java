@@ -1,8 +1,8 @@
 package hello.example.porthub.repository;
 
+import hello.example.porthub.domain.ChatUsersDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import hello.example.porthub.domain.ChatUser;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface UserMapper {
     int findUserIDByEmail(String currentUserEmail);
 
     @Select("SELECT UserID as id, UserName as username, Email, ProfileImage FROM Users WHERE UserID IN (SELECT FollowingID FROM Follows WHERE FollowerID = #{id})")
-    List<ChatUser> findFollowingsByID(int id);
+    List<ChatUsersDto> findFollowingsByID(int id);
 
     @Select("SELECT UserName FROM Users WHERE UserID = #{recipientUserId}")
     String findUsernameById(int recipientUserId);

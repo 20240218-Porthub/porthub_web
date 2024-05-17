@@ -1,18 +1,22 @@
 package hello.example.porthub.controller;
 
-import hello.example.porthub.domain.ChatUser;
-import hello.example.porthub.domain.ChatSessionDto;
+import hello.example.porthub.config.util.ChatSessionUtil;
+import hello.example.porthub.domain.ChatMessageDto;
+import hello.example.porthub.domain.ChatUsersDto;
 import hello.example.porthub.service.ChatService;
+import hello.example.porthub.service.SessionParticipantService;
 import hello.example.porthub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
@@ -22,18 +26,24 @@ public class ChatController {
 
     private final ChatService chatService;
     private final UserService userService;
+    private final SessionParticipantService sessionParticipantService;
 
     @Autowired
-    public ChatController(ChatService chatService, UserService userService) {
+    public ChatController(ChatService chatService, UserService userService, SessionParticipantService sessionParticipantService) {
         this.chatService = chatService;
         this.userService = userService;
+        this.sessionParticipantService = sessionParticipantService;
     }
 
-    @MessageMapping
-
+//    @MessageMapping("/chat/send")
+//    @SendTo("/topic/messages")
+//    public sendMessage handleMessage(ChatMessage message) throws Exception {
+//        chatService.saveMessage(message);
+//        return message;
+//    }
 
     @PostMapping("/chats/new")
-    public ResponseEntity<String> handleNewMessage(@RequestBody ChatSessionDto chatSession, Principal principal) {
+    public ResponseEntity<String> handleNewMessage(@RequestBody ChatMessageDto chatSession, Principal principal) {
         // Check if the principal is null, indicating no authenticated user.
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
@@ -53,7 +63,10 @@ public class ChatController {
         try {
             String currentUserEmail = principal.getName();
             int currentUserId = userService.findUserIDByEmail(currentUserEmail);
-            chatService.createNewChatSession(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent());
+            String sessionKey = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId());
+            sessionParticipantService.addParticipantToSession(sessionKey, currentUserId);
+            sessionParticipantService.addParticipantToSession(sessionKey, chatSession.getRecipientUserId());
+            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(), sessionKey);
             return ResponseEntity.ok("Message sent successfully");
         } catch (Exception e) {
             // Log the exception details here for debugging purposes.
@@ -68,13 +81,12 @@ public class ChatController {
         }
         String currentUserEmail = principal.getName();
         int currentUserId = userService.findUserIDByEmail(currentUserEmail);
-        List<ChatUser> followings = userService.getFollowings(currentUserId);
-        List<ChatSessionDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
-        System.out.println(chatSessions);
+        List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
+        List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
         model.addAttribute("followings", followings);
-        model.addAttribute("chats", chatSessions);
+        model.addAttribute("chatSessions", chatSessions);
         return "user/chat";
     }
 }
