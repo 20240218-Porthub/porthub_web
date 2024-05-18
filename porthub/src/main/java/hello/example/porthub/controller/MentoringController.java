@@ -1,14 +1,18 @@
 package hello.example.porthub.controller;
 
+import hello.example.porthub.service.PaymentService;
+import org.springframework.ui.Model;
 import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import hello.example.porthub.service.MentoService;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -22,12 +26,26 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/mentoring")
 public class MentoringController {
+    private final PaymentService paymentService;
     private final MemberRepository memberRepository;
     private final MentoService mentoService;
     private final S3Service s3Service;
 
     @GetMapping("/activity")
-    public String MentorActivity(){
+    public String MentorActivity(Principal principal, Model model){
+        MemberDto member=memberRepository.findByEmail(principal.getName());
+        int userid=member.getUserID();
+
+        String mentoprocess=mentoService.CheckMentoProcess(userid);
+
+        String paidproducts=mentoService.PaidMentoringID(userid);
+        List<ActivityViewDto> mentoringcontent=mentoService.MentoringContent(paidproducts);
+        log.info("mentoprocess="+mentoprocess);
+
+        model.addAttribute("mentoprocess", mentoprocess);
+        model.addAttribute("mentoringcontents", mentoringcontent);
+
+
         return "mentoring/activitymanage";
     }
 
@@ -83,14 +101,14 @@ public class MentoringController {
         mentoringDto.setMentoID(member.getUserID());
 
         for (MultipartFile file : mentoringDto.getMentofile()) {
+            if(cnt==1) {
+                String multipleFile = s3Service.uploadFiles(file);
+                fileurls = fileurls + ',' + multipleFile;
+            }
             if(cnt==0) {
                 String multipleFile = s3Service.uploadFiles(file);
                 fileurls=multipleFile;
                 cnt=1;
-            }
-            if(cnt==1) {
-                String multipleFile = s3Service.uploadFiles(file);
-                fileurls = fileurls + ',' + multipleFile;
             }
         }
         mentoringDto.setFile_urls(fileurls);
@@ -127,6 +145,19 @@ public class MentoringController {
     public @ResponseBody List searchMentoring(@RequestParam("searchString") String searchString){
         List<MentoViewDto> mentorings=mentoService.searchMentoring(searchString);
         return mentorings;
+    }
+
+    @PostMapping("/payment")
+    public String paymentdata(@ModelAttribute MentoViewDto mentoViewDto, ModelMap modelMap){
+        MentoViewDto postdata = mentoService.SelectMentoView(mentoViewDto.getMentoringID());
+        modelMap.addAttribute("mentoring",postdata);
+        return "mentoring/payment";
+    }
+
+    @GetMapping("/payment/confirm/{id}")
+    public String PaymentConfirm(Model model, @ModelAttribute OrderSaveDto orderSaveDto){
+        orderSaveDto=paymentService.selectOrder(orderSaveDto.getOrderID());
+        return "mentoring/paymentconfirm";
     }
 
 }

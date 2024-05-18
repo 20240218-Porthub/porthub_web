@@ -1,6 +1,6 @@
 package hello.example.porthub.service;
 
-import hello.example.porthub.domain.ChatUser;
+import hello.example.porthub.domain.ChatUsersDto;
 import hello.example.porthub.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,11 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public List<ChatUser> getFollowers(int userId) {
-        return userMapper.findFollowersById(userId);
+    public int findUserIDByEmail(String email) {
+        return userMapper.findUserIDByEmail(email);
+    }
+
+    public List<ChatUsersDto> getFollowings(int currentUserID) {
+        return userMapper.findFollowingsByID(currentUserID);
     }
 }

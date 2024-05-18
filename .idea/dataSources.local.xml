@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-233.14475.28">
-    <data-source name="porthub@database-2.czqsyq4cefmv.ap-northeast-2.rds.amazonaws.com" uuid="c6febfd1-709e-4868-bef1-2c404256a214">
-      <database-info product="MariaDB" version="10.11.6-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.0.7" dbms="MARIADB" exact-version="10.11.6" exact-driver-version="3.0">
+  <component name="dataSourceStorageLocal" created-in="IU-233.15026.9">
+    <data-source name="porthub@porthub-db.cdcakmoae2oc.ap-northeast-2.rds.amazonaws.com" uuid="20d3944b-a99b-4f6b-958d-ff508a6ee42b">
+      <database-info product="MariaDB" version="10.11.6-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.3.3" dbms="MARIADB" exact-version="10.11.6" exact-driver-version="3.3">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
       <user-name>admin</user-name>
       <schema-mapping>
         <introspection-scope>

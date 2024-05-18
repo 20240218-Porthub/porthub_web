@@ -8,18 +8,18 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ChatUser {
+public class ChatUsersDto {
     private int id;
     private String username;
     private String email;
     private String profileImage;
 
     // Default constructor
-    public ChatUser() {
+    public ChatUsersDto() {
     }
 
     // Parameterized constructor
-    public ChatUser(int id, String username, String email, String profileImage) {
+    public ChatUsersDto(int id, String username, String email, String profileImage) {
         this.id = id;
         this.username = username;
         this.email = email;
