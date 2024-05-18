@@ -10,4 +10,12 @@
     <select id="selectAllRequestMentoProcess" resultType="MentoProcess">
         select * from MentoProcess where Process="0"
     </select>
+
+    <update id="UpdateMentoProcess" parameterType="MentoProcess">
+        update MentoProcess set Process=#{Process} where ProcessID=#{processID}
+    </update>
+
+    <delete id="DeleteMentoProcess" parameterType="MentoProcess">
+        delete from MentoProcess where ProcessID=#{ProcessID}
+    </delete>
 </mapper>
