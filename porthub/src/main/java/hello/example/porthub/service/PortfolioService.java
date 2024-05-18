@@ -162,7 +162,8 @@ public class PortfolioService {
         try {
             String thumbnailUrl;
             if (portfolioDto.getThumbnail_cast() == null) {
-                thumbnailUrl = "https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg";
+//                thumbnailUrl = "https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg";
+                thumbnailUrl = null;
             } else {
                 thumbnailUrl = s3Service.uploadFiles(portfolioDto.getThumbnail_cast());
             }
