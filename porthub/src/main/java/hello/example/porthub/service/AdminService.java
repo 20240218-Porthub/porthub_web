@@ -17,4 +17,8 @@ public class AdminService {
     public List<MentoProcessDto> AllRequestMentoProcess(){return adminRepository.AllRequestMentoProcess();}
 
     public List<MentoProcessDto> AllMento(){return adminRepository.AllMento();}
+
+    public int UpdateMentoProcess(MentoProcessDto mentoProcessDto){return adminRepository.UpdateMentoProcess(mentoProcessDto);}
+
+    public int DeleteMentoProcess(MentoProcessDto mentoProcessDto){ return adminRepository.DeleteMentoProcess(mentoProcessDto);}
 }
