@@ -1,0 +1,57 @@
+graph TD
+    A[User] -->|Visits chat page| B[ChatController]
+    B -->|Fetches followings| C[UserService]
+    C -->|Queries database| D[UserMapper]
+    D -->|Executes SQL query| E[Database]
+    E -->|Returns followings data| D
+    D -->|Maps data to ChatUser objects| C
+    C -->|Returns followings| B
+    B -->|Fetches chat sessions| F[ChatService]
+    F -->|Queries database| G[ChatMapper]
+    G -->|Executes SQL queries| E
+    E -->|Returns chat sessions data| G
+    G -->|Maps data to ChatSession objects| F
+    F -->|Returns chat sessions| B
+    B -->|Adds followings and chat sessions to Model| H[Model]
+    B -->|Renders chat page| I[chat.html]
+    I -->|Displays chat UI| A
+    A -->|Clicks 'Add Chat' button| J[chat.js]
+    J -->|Sends AJAX request| K[ChatController]
+    K -->|Handles /api/followings request| L[getFollowings]
+    L -->|Retrieves logged-in user's username| M[Principal]
+    L -->|Fetches followers| C
+    C -->|Queries database| D
+    D -->|Executes SQL query| E
+    E -->|Returns followers data| D
+    D -->|Maps data to ChatUser objects| C
+    C -->|Returns followers| L
+    L -->|Returns followers as JSON| K
+    K -->|Returns JSON response| J
+    J -->|Renders followers list| I
+    A -->|Clicks 'Start Chat' button| J
+    J -->|Sends AJAX request| N[ChatController]
+    N -->|Handles /chats/new request| O[startNewChat]
+    O -->|Retrieves logged-in user's username| M
+    O -->|Retrieves selected follower's username| P[RequestParam]
+    O -->|Creates new chat session| F
+    F -->|Saves chat session| G
+    G -->|Executes SQL insert| E
+    E -->|Returns success| G
+    G -->|Returns success| F
+    F -->|Returns success| O
+    O -->|Returns success response| N
+    N -->|Returns response| J
+    J -->|Updates UI| I
+    A -->|Sends chat message| J
+    J -->|Sends WebSocket message| Q[ChatHandler]
+    Q -->|Broadcasts message| R[WebSocket]
+    R -->|Receives message| J
+    J -->|Updates chat messages| I
+    J -->|Handles WebSocket connection| S[initializeWebSocket]
+    S -->|Creates WebSocket connection| R
+    R -->|Handles connection events| J
+    J -->|Handles WebSocket errors| T[handleError]
+    T -->|Logs errors| U[Console]
+    J -->|Searches chat messages| V[searchMessages]
+    V -->|Filters messages based on search query| I
+    I -->|Displays filtered messages| A

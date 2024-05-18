@@ -1,3 +1,40 @@
+body {
+    background-size: cover;
+    margin: 0; /* body 마진 제거 */
+    padding: 0; /* body 패딩 제거 */
+}
+.mento-wrapper {
+    border: 1px solid #ccc;
+    padding: 4px;
+    width: calc(25% - 30px);
+    margin: 0 4px;
+    float: left;
+    border-radius: 5%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: 0.25s;
+}
+
+.mento-wrapper:hover {
+    letter-spacing: 2px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.mento-wrapper *:hover{
+    transform:scale(1.01)
+}
+
+.third-container {
+    display: flex;
+    width: 100%;
+}
+.mento-btn-container {
+    margin-right: 10px;
+}
+.mento-btn {
+    background: #Efffff;
+}
+
 .layer1{
     width:100%;
     height:100%;

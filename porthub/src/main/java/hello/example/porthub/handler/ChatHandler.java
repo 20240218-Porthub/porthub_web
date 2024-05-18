@@ -6,11 +6,11 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
 public class ChatHandler extends TextWebSocketHandler {
-    private static final List<WebSocketSession> sessions = new ArrayList<>();
+    private static final List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
