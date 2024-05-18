@@ -31,20 +31,65 @@ public class IndexController {
     private final MentoService mentoService;
 
 
+//    @GetMapping(value = {"/", "/main"})
+//    public String index(Model model) {
+//        List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+//        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+//        model.addAttribute("CategoryNameCheck", 0);
+//        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
+//        System.out.println(mainPortViewDtoList);
+//        model.addAttribute("Category", categoryDtoList);
+//        return "portfolio/main";
+//    }
+
     @GetMapping(value = {"/", "/main"})
-    public String index(Model model) {
+    public String index(@RequestParam(value = "order", defaultValue = "NewestOrder") String order, Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+
         List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+        switch (order) {
+            case "PopularityOrder":
+                mainPortViewDtoList = portfolioService.findAllPorts();
+                break;
+            case "RecommendationOrder":
+//                mainPortViewDtoList = portfolioService.findAllPorts();
+                break;
+            case "OldestOrder":
+                mainPortViewDtoList = portfolioService.findAllPortsOrderByOldest();
+                break;
+            case "NewestOrder":
+            default:
+//                mainPortViewDtoList = portfolioService.findAllPortsOrderByNewest();
+                break;
+        }
+
         model.addAttribute("CategoryNameCheck", 0);
         model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
-        System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
+        model.addAttribute("selectedOrder", order);
         return "portfolio/main";
     }
     @GetMapping({"/{CategoryName}"})
-    public String CategoryPort(@PathVariable("CategoryName") String CategoryName, Model model) {
+    public String CategoryPort(@PathVariable("CategoryName") String CategoryName, @RequestParam(value = "order", defaultValue = "NewestOrder") String order, Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+
         List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+        switch (order) {
+            case "PopularityOrder":
+                mainPortViewDtoList = portfolioService.findAllPorts();
+                break;
+            case "RecommendationOrder":
+//                mainPortViewDtoList = portfolioService.findAllPorts();
+                break;
+            case "OldestOrder":
+                mainPortViewDtoList = portfolioService.findAllPortsOrderByOldest();
+                break;
+            case "NewestOrder":
+            default:
+//                mainPortViewDtoList = portfolioService.findAllPortsOrderByNewest();
+                break;
+        }
+
         int checkNum = 0;
         if (CategoryName.equals("Development")) {
             checkNum = 2;
@@ -66,6 +111,7 @@ public class IndexController {
         System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("CategoryName", CategoryName);
+        model.addAttribute("selectedOrder", order);
         return "portfolio/main";
     }
 

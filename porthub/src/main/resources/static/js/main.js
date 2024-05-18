@@ -51,3 +51,10 @@
      const url = '/' + encodeURIComponent(categoryName);
      window.location.href = url;
  }
+
+
+ function sortPortfolio() {
+     var sortOrder = document.getElementById("sort-options").value;
+     var categoryName = /*[[${CategoryName}]]*/ 'All'; // Use Thymeleaf to get CategoryName
+     window.location.href = "/" + categoryName + "?order=" + sortOrder;
+ }

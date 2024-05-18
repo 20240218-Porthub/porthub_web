@@ -210,4 +210,10 @@ public class PortfolioService {
             return 0; // 실패 시 0 반환
         }
     }
+
+    public List<MainPortViewDto> findAllPortsOrderByOldest() {
+
+        return portfolioRepository.findAllPortsOrderByOldest();
+    }
 }
+
