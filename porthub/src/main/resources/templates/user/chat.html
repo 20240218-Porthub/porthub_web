@@ -9,42 +9,63 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../../static/js/chat.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="sidebar">
         <div class="header">
             <h3>Messages</h3>
-            <button id="addChatButton">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <button id="addChatButton" aria-label="Start a new chat">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" th:border="none" fill="none">
                     <path d="M20.0002 3.33334C10.8168 3.33334 3.3335 10.8167 3.3335 20C3.3335 29.1833 10.8168 36.6667 20.0002 36.6667C29.1835 36.6667 36.6668 29.1833 36.6668 20C36.6668 10.8167 29.1835 3.33334 20.0002 3.33334ZM26.6668 21.25H21.2502V26.6667C21.2502 27.35 20.6835 27.9167 20.0002 27.9167C19.3168 27.9167 18.7502 27.35 18.7502 26.6667V21.25H13.3335C12.6502 21.25 12.0835 20.6833 12.0835 20C12.0835 19.3167 12.6502 18.75 13.3335 18.75H18.7502V13.3333C18.7502 12.65 19.3168 12.0833 20.0002 12.0833C20.6835 12.0833 21.2502 12.65 21.2502 13.3333V18.75H26.6668C27.3502 18.75 27.9168 19.3167 27.9168 20C27.9168 20.6833 27.3502 21.25 26.6668 21.25Z" fill="#333333"/>
                 </svg>
             </button>
         </div>
         <div class="search-bar">
-            <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Search messages...">
+            <!--            <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Search messages...">-->
+            <input type="text" id="searchInput" placeholder="Search messages..." aria-label="Search for messages">
         </div>
         <div class="message-list">
-            <!-- ... (past messages) ... -->
+            <ul>
+                <li th:each="ChatSession : ${chatSessions}">
+                    <a th:href="@{'/chat/' + ${ChatSession.senderUserId}}">
+                        <span th:each="following : ${followings}">
+                            <span th:if="${following.id == ChatSession.recipientUserId}">
+                                Chat with <span th:text="${following.username}"></span>
+                            </span>
+                        </span>
+<!--                        Chat with <span th:text="${ChatSession.recipientUserId}"></span>-->
+                        <p>Last message: <span th:text="${ChatSession.content}"></span></p>
+                        <p><small th:text="${ChatSession.timestamp}"></small></p>
+                    </a>
+                </li>
+            </ul>
         </div>
         <div class="followers-list">
             <h4>Followers</h4>
             <ul id="followersList">
-                <!-- Followers will be dynamically added here -->
+                <li th:each="following : ${followings}">
+                    <span th:text="${following.username}"></span>
+                    <button class="startChatButton" th:data-user-id="${following.id}">Start Chat</button>
+                </li>
             </ul>
         </div>
     </div>
     <div class="chat-area">
+        <div th:if="${isNewUser}">
+            <p>You're starting a new conversation.</p>
+        </div>
         <div class="header">
             <div class="user-info">
-                <img src="https://via.placeholder.com/40" alt="User Avatar">
+                <img th:src="@{/images/user-avatar.png}" alt="User Avatar">
                 <div>
-                    <span class="username">John Doe</span>
-                    <span class="status">Online</span>
+                    <span class="username" th:text="${recipientUserId}"></span>
+                    <!--                    <span class="status" th:text="${partnerStatus}"></span>-->
                 </div>
             </div>
         </div>
-        <div class="messages" id="msgArea">
+        <div class="messages" id="msgArea" th:unless="${isNewUser}">
             <!-- ... (chat messages) ... -->
         </div>
         <div class="input-area">
@@ -54,6 +75,5 @@
     </div>
 </div>
 <script th:src="@{/js/chat.js}"></script>
-
 </body>
 </html>

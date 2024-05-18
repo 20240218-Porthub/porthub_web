@@ -2,6 +2,7 @@ package hello.example.porthub.controller;
 
 import hello.example.porthub.service.MailService;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.mapping.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

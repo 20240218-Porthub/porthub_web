@@ -516,3 +516,7 @@ a {
     margin-bottom: 10px;
     justify-content: center;
 }
+
+.w-btn-indigo.active {
+    background-color: #868e96; /* 활성 상태 버튼 색상 */
+}

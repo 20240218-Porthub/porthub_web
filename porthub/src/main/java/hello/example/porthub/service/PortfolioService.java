@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -151,4 +152,68 @@ public class PortfolioService {
     public void updateViewsCount(int portfolioID) {
         portfolioRepository.updateViewsCount(portfolioID);
     }
+
+    public void portdelete(int portfolioID) {
+        portfolioRepository.deletePortfolioData(portfolioID);
+        portfolioRepository.deletePortfolio(portfolioID);
+    }
+
+    public int UpdatePortfolio(PortfolioDto portfolioDto) {
+        try {
+            String thumbnailUrl;
+            if (portfolioDto.getThumbnail_cast() == null) {
+//                thumbnailUrl = "https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg";
+                thumbnailUrl = null;
+            } else {
+                thumbnailUrl = s3Service.uploadFiles(portfolioDto.getThumbnail_cast());
+            }
+            portfolioDto.setThumbnail_url(thumbnailUrl);
+
+
+            // portfolioID를 가져옴 Images Table에 넣어주기 위함
+            portfolioRepository.PortUpdate(portfolioDto);
+
+            int PortfolioID = portfolioDto.getPortfolioID();
+
+            imagesDto.setPortfolioID(PortfolioID);
+
+            List<String> multipleFiles = new ArrayList<>();
+            List<String> contentList = portfolioDto.getContent();
+
+            if (portfolioDto.getFile() != null) {
+                for (MultipartFile file : portfolioDto.getFile()) {
+                    String multipleFile = s3Service.uploadFiles(file);
+                    multipleFiles.add(multipleFile);
+                }
+            }
+
+            portfolioDto.setMultipleFiles(multipleFiles); // List<String>
+
+            int UploadSize = multipleFiles.size();
+
+            List<Integer> ImageFileID = portfolioRepository.getImagesID(PortfolioID);
+
+            if (contentList != null && multipleFiles != null) {
+                for (int i = 0; i < UploadSize; i++) {
+                    imagesDto.setImage_url(multipleFiles.get(i));
+                    imagesDto.setContents(contentList.get(i));
+                    imagesDto.setImagesFileID(ImageFileID.get(i));
+                    portfolioRepository.ContentUpdate(imagesDto);
+                    System.out.println(i);
+                    System.out.println(imagesDto);
+                }
+            }
+
+            return 1; // 성공 시 1 반환
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0; // 실패 시 0 반환
+        }
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByOldest() {
+
+        return portfolioRepository.findAllPortsOrderByOldest();
+    }
 }
+

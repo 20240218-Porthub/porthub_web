@@ -105,4 +105,37 @@ public class PortfolioRepository {
     public void updateViewsCount(int portfolioID) {
         sql.update("Portfolio.updateViewsCount", portfolioID);
     }
+
+    public void deletePortfolio(int portfolioID) {
+        sql.delete("Portfolio.deletePortfolio", portfolioID);
+    }
+
+    public void deletePortfolioData(int portfolioID) {
+        sql.delete("Portfolio.deletePortfolioData", portfolioID);
+    }
+
+    public void PortUpdate(PortfolioDto portfolioDto) {
+        if (portfolioDto.getThumbnail_url() == null) {
+
+            sql.update("Portfolio.PortUpdateNoneThumb", portfolioDto);
+        } else {
+            sql.update("Portfolio.PortUpdate", portfolioDto);
+        }
+    }
+
+    public List<Integer> getImagesID(int portfolioID) {
+        return sql.selectList("Portfolio.getImagesID", portfolioID);
+    }
+
+    public void ContentUpdate(ImagesDto imagesDto) {
+        if (imagesDto.getImage_url() == null) {
+            sql.update("Portfolio.ContentUpdateNull", imagesDto);
+        } else {
+            sql.update("Portfolio.ContentUpdate", imagesDto);
+        }
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByOldest() {
+        return sql.selectList("Portfolio.findAllPortsOrderByOldest");
+    }
 }
