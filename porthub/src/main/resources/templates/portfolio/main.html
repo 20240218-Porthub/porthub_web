@@ -40,14 +40,13 @@
                         <!-- 버튼 + 검색바-->
                         <div class="second-container">
                             <div class="left-btn">
-                                <select class="w-btn w-btn-indigo" id="sort-options">
-                                    <option value="popularity">최신순</option>
-                                    <option value="recommendation">인기순</option>
-                                    <option value="latest">추천순</option>
-                                    <option value="latest">오래된 순</option>
+                                <select class="w-btn w-btn-indigo" id="sort-options" onchange="sortPortfolio()">
+                                    <option value="NewestOrder" th:attr="selected=${selectedOrder == 'NewestOrder'}">최신순</option>
+                                    <option value="PopularityOrder" th:attr="selected=${selectedOrder == 'PopularityOrder'}">인기순</option>
+                                    <option value="RecommendationOrder" th:attr="selected=${selectedOrder == 'RecommendationOrder'}">추천순</option>
+                                    <option value="OldestOrder" th:attr="selected=${selectedOrder == 'OldestOrder'}">오래된 순</option>
                                 </select>
                             </div>
-
                             <div class="search-bar">
                                 <input class="w-btn" type="text" placeholder="검색어를 입력하세요">
                             </div>
@@ -136,4 +135,13 @@
 
 </body>
 <script th:src="@{/js/main.js}" src="/static/js/main.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var categoryName = [[${CategoryName}]]; // Use Thymeleaf to get CategoryName as a string
+    function sortPortfolio() {
+        var sortOrder = document.getElementById("sort-options").value;
+        window.location.href = "/" + categoryName + "?order=" + sortOrder;
+    }
+    /*]]>*/
+</script>
 </html>

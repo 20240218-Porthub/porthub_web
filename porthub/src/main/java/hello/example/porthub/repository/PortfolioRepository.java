@@ -135,4 +135,7 @@ public class PortfolioRepository {
         }
     }
 
+    public List<MainPortViewDto> findAllPortsOrderByOldest() {
+        return sql.selectList("Portfolio.findAllPortsOrderByOldest");
+    }
 }

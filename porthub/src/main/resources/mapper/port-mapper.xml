@@ -205,4 +205,18 @@
         SET contents = #{contents}
         WHERE ImageID = #{ImagesFileID};
     </update>
+
+    <select id="findAllPortsOrderByOldest" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN
+             Users u ON p.AuthorID = u.UserID;
+    </select>
+
 </mapper>
