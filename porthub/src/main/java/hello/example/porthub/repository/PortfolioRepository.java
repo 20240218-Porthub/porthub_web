@@ -138,4 +138,19 @@ public class PortfolioRepository {
     public List<MainPortViewDto> findAllPortsOrderByOldest() {
         return sql.selectList("Portfolio.findAllPortsOrderByOldest");
     }
+
+    public List<MainPortViewDto> findAllPortsOrderByPopularity() {
+        return sql.selectList("Portfolio.findAllPortsOrderByPopularity");
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByViews() {
+        return sql.selectList("Portfolio.findAllPortsOrderByViews");
+    }
+
+    public void portfolioIncreLikes(int portfolioID) {
+        sql.update("Portfolio.portfolioIncreLikes", portfolioID);
+    }
+    public void portfolioDecreLikes(int portfolioID) {
+        sql.update("Portfolio.portfolioDecreLikes", portfolioID);
+    }
 }

@@ -77,17 +77,17 @@ public class IndexController {
         List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
         switch (order) {
             case "PopularityOrder":
-                mainPortViewDtoList = portfolioService.findAllPorts();
+                mainPortViewDtoList = portfolioService.findAllPortsOrderByPopularity();
                 break;
-            case "RecommendationOrder":
-//                mainPortViewDtoList = portfolioService.findAllPorts();
+            case "ViewsOrder":
+                mainPortViewDtoList = portfolioService.findAllPortsOrderByViews();
                 break;
             case "OldestOrder":
                 mainPortViewDtoList = portfolioService.findAllPortsOrderByOldest();
                 break;
             case "NewestOrder":
             default:
-//                mainPortViewDtoList = portfolioService.findAllPortsOrderByNewest();
+                mainPortViewDtoList = portfolioService.findAllPorts();
                 break;
         }
 

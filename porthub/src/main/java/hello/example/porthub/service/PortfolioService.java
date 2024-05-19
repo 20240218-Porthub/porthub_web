@@ -129,7 +129,6 @@ public class PortfolioService {
             portLikeDto.setHeart_Check(true);
             portfolioRepository.createLikedata(portLikeDto);
         }
-
     }
 
     public boolean checkFollow(int authorID, String currentEmail) {
@@ -214,6 +213,22 @@ public class PortfolioService {
     public List<MainPortViewDto> findAllPortsOrderByOldest() {
 
         return portfolioRepository.findAllPortsOrderByOldest();
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByPopularity() {
+        return portfolioRepository.findAllPortsOrderByPopularity();
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByViews() {
+        return portfolioRepository.findAllPortsOrderByViews();
+    }
+
+    public void portfolioIncreLikes(int portfolioID) {
+        portfolioRepository.portfolioIncreLikes(portfolioID);
+    }
+
+    public void portfolioDecreLikes(int portfolioID) {
+        portfolioRepository.portfolioDecreLikes(portfolioID);
     }
 }
 

@@ -216,7 +216,48 @@
                u.ProfileImage
         FROM Portfolios p
                  JOIN
-             Users u ON p.AuthorID = u.UserID;
+             Users u ON p.AuthorID = u.UserID
+        ORDER BY p.PortfolioID;
     </select>
+    <select id="findAllPortsOrderByPopularity" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.Views_count,
+               p.Hearts_count,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        ORDER BY p.Hearts_count DESC;
+    </select>
+    <select id="findAllPortsOrderByViews" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.Views_count,
+               p.Hearts_count,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        ORDER BY p.Views_count DESC;
+    </select>
+
+    <update id="portfolioIncreLikes" parameterType="int">
+        UPDATE Portfolios
+        SET Hearts_count = Hearts_count + 1
+        WHERE PortfolioID = #{portfolioID}
+    </update>
+
+    <update id="portfolioDecreLikes" parameterType="int">
+        UPDATE Portfolios
+        SET Hearts_count = Hearts_count - 1
+        WHERE PortfolioID = #{portfolioID}
+    </update>
 
 </mapper>
