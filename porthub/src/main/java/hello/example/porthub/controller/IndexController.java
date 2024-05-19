@@ -32,49 +32,13 @@ public class IndexController {
     private final MentoService mentoService;
 
 
-//    @GetMapping(value = {"/", "/main"})
-//    public String index(Model model) {
-//        List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
-//        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
-//        model.addAttribute("CategoryNameCheck", 0);
-//        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
-//        System.out.println(mainPortViewDtoList);
-//        model.addAttribute("Category", categoryDtoList);
-//        return "portfolio/main";
-//    }
-
-    @GetMapping(value = {"/", "/main"})
-    public String index(@RequestParam(value = "order", defaultValue = "NewestOrder") String order, Model model) {
+    @GetMapping(value = {"/", "/main","/All"})
+    public String index(@RequestParam(value = "order", defaultValue = "NewestOrder") String order,
+                        @RequestParam(value = "page", defaultValue = "1") int page,
+                        @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
+                        Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
-
-        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
-        switch (order) {
-            case "PopularityOrder":
-                mainPortViewDtoList = portfolioService.findAllPorts();
-                break;
-            case "RecommendationOrder":
-//                mainPortViewDtoList = portfolioService.findAllPorts();
-                break;
-            case "OldestOrder":
-                mainPortViewDtoList = portfolioService.findAllPortsOrderByOldest();
-                break;
-            case "NewestOrder":
-            default:
-//                mainPortViewDtoList = portfolioService.findAllPortsOrderByNewest();
-                break;
-        }
-
-        model.addAttribute("CategoryNameCheck", 0);
-        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
-        model.addAttribute("Category", categoryDtoList);
-        model.addAttribute("selectedOrder", order);
-        return "portfolio/main";
-    }
-    @GetMapping({"/{CategoryName}"})
-    public String CategoryPort(@PathVariable("CategoryName") String CategoryName, @RequestParam(value = "order", defaultValue = "NewestOrder") String order, Model model) {
-        List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
-
-        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts();
+        List<MainPortViewDto> mainPortViewDtoList;
         switch (order) {
             case "PopularityOrder":
                 mainPortViewDtoList = portfolioService.findAllPortsOrderByPopularity();
@@ -90,6 +54,35 @@ public class IndexController {
                 mainPortViewDtoList = portfolioService.findAllPorts();
                 break;
         }
+
+        // 전체 페이지 수 계산
+        int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+
+        // 페이지 범위 계산
+        int fromIndex = (page - 1) * pageSize;
+        int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
+        List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
+
+
+        model.addAttribute("CategoryNameCheck", 0);
+        model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
+        model.addAttribute("Category", categoryDtoList);
+        model.addAttribute("CategoryName", "All");
+        model.addAttribute("selectedOrder", order);
+        model.addAttribute("currentPage", page); // 현재 페이지 추가
+        model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
+        model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
+
+        return "portfolio/main";
+    }
+
+    @GetMapping({"/{CategoryName}"})
+    public String CategoryPort(@RequestParam(value = "page", defaultValue = "1") int page,
+                               @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
+                               @PathVariable("CategoryName") String CategoryName, @RequestParam(value = "order",
+            defaultValue = "NewestOrder") String order, Model model) {
+
+        List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
 
         int checkNum = 0;
         if (CategoryName.equals("Development")) {
@@ -107,12 +100,44 @@ public class IndexController {
         } else if (CategoryName.equals("Other")) {
             checkNum = 8;
         }
+
+        List<MainPortViewDto> mainPortViewDtoList;
+        switch (order) {
+            case "PopularityOrder":
+                mainPortViewDtoList = portfolioService.findAllPortsOrderByPopularity();
+                break;
+            case "ViewsOrder":
+                mainPortViewDtoList = portfolioService.findAllPortsOrderByViews();
+                break;
+            case "OldestOrder":
+                mainPortViewDtoList = portfolioService.findAllPortsOrderByOldest();
+                break;
+            case "NewestOrder":
+            default:
+                mainPortViewDtoList = portfolioService.findAllPorts();
+                break;
+        }
+        List<MainPortViewDto> selectedPortViewDtoList = portfolioService.findPortsByCategory(mainPortViewDtoList, checkNum);
+        mainPortViewDtoList = selectedPortViewDtoList;
+
+
+        int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+
+        // 페이지 범위 계산
+        int fromIndex = (page - 1) * pageSize;
+        int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
+        List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
+
+
         model.addAttribute("CategoryNameCheck", checkNum);
-        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
         System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("CategoryName", CategoryName);
         model.addAttribute("selectedOrder", order);
+        model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
+        model.addAttribute("currentPage", page); // 현재 페이지 추가
+        model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
+        model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
         return "portfolio/main";
     }
 

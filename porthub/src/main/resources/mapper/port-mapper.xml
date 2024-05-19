@@ -260,4 +260,9 @@
         WHERE PortfolioID = #{portfolioID}
     </update>
 
+    <select id="checkCategoryNum" resultType="int" parameterType="int">
+        SELECT COUNT(*)
+        FROM Portfolios
+        WHERE CategoryID = #{checkNum}
+    </select>
 </mapper>

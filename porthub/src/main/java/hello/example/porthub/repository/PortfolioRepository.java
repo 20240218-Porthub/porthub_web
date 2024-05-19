@@ -153,4 +153,8 @@ public class PortfolioRepository {
     public void portfolioDecreLikes(int portfolioID) {
         sql.update("Portfolio.portfolioDecreLikes", portfolioID);
     }
+
+    public int checkCategoryNum(int checkNum) {
+        return sql.selectOne("Portfolio.checkCategoryNum", checkNum);
+    }
 }

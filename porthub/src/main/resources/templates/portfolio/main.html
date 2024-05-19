@@ -92,6 +92,41 @@
 
                 </div>
             </div>
+            <!-- 페이지네이션 -->
+            <div th:if="${CategoryNameCheck} == 0" class="pagination">
+                <ul>
+                    <li th:if="${currentPage > 1}">
+                        <a th:if="${CategoryName == null}" th:href="@{'/main?page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo; Previous</a>
+                        <a th:unless="${CategoryName == null}" th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo; Previous</a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${i == currentPage} ? ' active' : ''">
+                        <a th:if="${CategoryName == null}" th:href="@{'/main?page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}" th:text="${i}"></a>
+                        <a th:unless="${CategoryName == null}" th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}" th:text="${i}"></a>
+                    </li>
+                    <li th:if="${currentPage < totalPages}">
+                        <a th:if="${CategoryName == null}" th:href="@{'/main?page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next &raquo;</a>
+                        <a th:unless="${CategoryName == null}" th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next &raquo;</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div th:unless="${CategoryNameCheck} == 0" class="pagination">
+                <ul>
+                    <li th:if="${currentPage > 1}">
+                        <a th:if="${CategoryName == null}" th:href="@{'/'+ ${CategoryName} +'?page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo; Previous</a>
+                        <a th:unless="${CategoryName == null}" th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo; Previous</a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${i == currentPage} ? ' active' : ''">
+                        <a th:if="${CategoryName == null}" th:href="@{'/'+ ${CategoryName} +'?page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}" th:text="${i}"></a>
+                        <a th:unless="${CategoryName == null}" th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}" th:text="${i}"></a>
+                    </li>
+                    <li th:if="${currentPage < totalPages}">
+                        <a th:if="${CategoryName == null}" th:href="@{'/'+ ${CategoryName} +'?page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next &raquo;</a>
+                        <a th:unless="${CategoryName == null}" th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next &raquo;</a>
+                    </li>
+                </ul>
+            </div>
+
 
         </div>
     </div>
@@ -138,10 +173,14 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var categoryName = [[${CategoryName}]]; // Use Thymeleaf to get CategoryName as a string
+    if (categoryName === "All") {
+        categoryName = "main";
+    }
     function sortPortfolio() {
         var sortOrder = document.getElementById("sort-options").value;
+
         window.location.href = "/" + categoryName + "?order=" + sortOrder;
     }
-    /*]]>*/
+
 </script>
 </html>
