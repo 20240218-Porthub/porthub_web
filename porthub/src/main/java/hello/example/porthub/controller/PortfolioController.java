@@ -147,8 +147,10 @@ public class PortfolioController {
         portLikeDto.setEmail(email);
         if (heartCheck) {
             portLikeDto.setHeart_Check(false);
+            portfolioService.portfolioDecreLikes(portfolioID);
         } else {
             portLikeDto.setHeart_Check(true);
+            portfolioService.portfolioIncreLikes(portfolioID);
         }
         //db에서 데이터 없을 경우 default = 0으로 insert하고 데이터 존재하는 경우 Check_Heart 역전 시키기
 //        설정값대로

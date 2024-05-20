@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -129,7 +128,6 @@ public class PortfolioService {
             portLikeDto.setHeart_Check(true);
             portfolioRepository.createLikedata(portLikeDto);
         }
-
     }
 
     public boolean checkFollow(int authorID, String currentEmail) {
@@ -214,6 +212,44 @@ public class PortfolioService {
     public List<MainPortViewDto> findAllPortsOrderByOldest() {
 
         return portfolioRepository.findAllPortsOrderByOldest();
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByPopularity() {
+        return portfolioRepository.findAllPortsOrderByPopularity();
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByViews() {
+        return portfolioRepository.findAllPortsOrderByViews();
+    }
+
+    public void portfolioIncreLikes(int portfolioID) {
+        portfolioRepository.portfolioIncreLikes(portfolioID);
+    }
+
+    public void portfolioDecreLikes(int portfolioID) {
+        portfolioRepository.portfolioDecreLikes(portfolioID);
+    }
+
+    public int checkCategoryNum(int checkNum) {
+        if (checkNum > 0) {
+            return portfolioRepository.checkCategoryNum(checkNum);
+        } else {
+            return 0;
+        }
+    }
+
+    public List<MainPortViewDto> findPortsByCategory(List<MainPortViewDto> mainPortViewDtoList, int checkNum) {
+
+        List<MainPortViewDto> selectedPortViewDtoList = new ArrayList<>(); // 선택된 포트폴리오를 저장할 리스트
+
+        // 카테고리 넘버가 checkNum과 일치하는 포트폴리오만 selectedPortViewDtoList에 추가
+        for (MainPortViewDto portViewDto : mainPortViewDtoList) {
+            if (portViewDto.getCategoryID() == checkNum) {
+                selectedPortViewDtoList.add(portViewDto);
+            }
+        }
+
+        return selectedPortViewDtoList;
     }
 }
 
