@@ -251,5 +251,21 @@ public class PortfolioService {
 
         return selectedPortViewDtoList;
     }
+
+    public List<MainPortViewDto> findAllSearchPorts(String searchQuery) {
+        return portfolioRepository.findAllSearchPorts(searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByPopularity(String searchQuery) {
+        return portfolioRepository.findAllSearchPortsOrderByPopularity(searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByViews(String searchQuery) {
+        return portfolioRepository.findAllSearchPortsOrderByViews(searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
+        return portfolioRepository.findAllSearchPortsOrderByOldest(searchQuery);
+    }
 }
 

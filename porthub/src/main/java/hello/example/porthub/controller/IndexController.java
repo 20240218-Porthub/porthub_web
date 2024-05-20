@@ -72,6 +72,7 @@ public class IndexController {
         model.addAttribute("currentPage", page); // 현재 페이지 추가
         model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
         model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
+        model.addAttribute("checkSearchNum", 1);
 
         return "portfolio/main";
     }
@@ -120,7 +121,6 @@ public class IndexController {
         List<MainPortViewDto> selectedPortViewDtoList = portfolioService.findPortsByCategory(mainPortViewDtoList, checkNum);
         mainPortViewDtoList = selectedPortViewDtoList;
 
-
         int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
 
         // 페이지 범위 계산
@@ -138,9 +138,98 @@ public class IndexController {
         model.addAttribute("currentPage", page); // 현재 페이지 추가
         model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
         model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
+        model.addAttribute("checkSearchNum", 1);
         return "portfolio/main";
     }
 
+
+    @GetMapping(value = {"{CategoryName}/search", "/main/search"})
+    public String searchPortfolios(@PathVariable(value = "CategoryName", required = false) String CategoryName,
+                                   @RequestParam(value = "SearchQuery", defaultValue = "") String SearchQuery,
+                                   @RequestParam(value = "page", defaultValue = "1") int page,
+                                   @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
+                                   @RequestParam(value = "order", defaultValue = "NewestOrder") String order,
+                                   Model model) {
+        List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        if (CategoryName==null) {
+            CategoryName = "main";
+        }
+        int checkNum = 0;
+        if (CategoryName.equals("Development")) {
+            checkNum = 2;
+        } else if (CategoryName.equals("Music")) {
+            checkNum = 3;
+        } else if (CategoryName.equals("Design")) {
+            checkNum = 4;
+        } else if (CategoryName.equals("Editing")) {
+            checkNum = 5;
+        } else if (CategoryName.equals("Film")) {
+            checkNum = 6;
+        } else if (CategoryName.equals("Marketing")) {
+            checkNum = 7;
+        } else if (CategoryName.equals("Other")) {
+            checkNum = 8;
+        }
+
+        List<MainPortViewDto> mainPortViewDtoList;
+        switch (order) {
+            case "PopularityOrder":
+                mainPortViewDtoList = portfolioService.findAllSearchPortsOrderByPopularity(SearchQuery);
+                break;
+            case "ViewsOrder":
+                mainPortViewDtoList = portfolioService.findAllSearchPortsOrderByViews(SearchQuery);
+                break;
+            case "OldestOrder":
+                mainPortViewDtoList = portfolioService.findAllSearchPortsOrderByOldest(SearchQuery);
+                break;
+            case "NewestOrder":
+            default:
+                mainPortViewDtoList = portfolioService.findAllSearchPorts(SearchQuery);
+                break;
+        }
+
+        if (!CategoryName.equals("main")) {
+            List<MainPortViewDto> selectedPortViewDtoList = portfolioService.findPortsByCategory(mainPortViewDtoList, checkNum);
+            mainPortViewDtoList = selectedPortViewDtoList;
+
+            int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+            int fromIndex = (page - 1) * pageSize;
+            int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
+
+            List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
+            model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
+            model.addAttribute("CategoryNameCheck", checkNum);
+            model.addAttribute("Category", categoryDtoList);
+            model.addAttribute("CategoryName", CategoryName);
+            model.addAttribute("selectedOrder", order);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("SearchQuery", SearchQuery);
+        } else {
+
+            int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+            // 페이지 범위 계산
+            int fromIndex = (page - 1) * pageSize;
+            int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
+            List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
+
+            model.addAttribute("CategoryNameCheck", 0);
+            model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
+            model.addAttribute("Category", categoryDtoList);
+            model.addAttribute("CategoryName", "All");
+            model.addAttribute("selectedOrder", order);
+            model.addAttribute("currentPage", page); // 현재 페이지 추가
+            model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
+            model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
+            model.addAttribute("SearchQuery", SearchQuery);
+        }
+
+        int checkSearchNum = 0;
+        model.addAttribute("checkSearchNum", checkSearchNum);
+
+        return "portfolio/main";
+    }
 
         @GetMapping(value = {"/login"})
     public String login(@RequestParam(value = "error", required = false) String error,
