@@ -265,4 +265,62 @@
         FROM Portfolios
         WHERE CategoryID = #{checkNum}
     </select>
+
+    <select id="findAllSearchPorts" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY p.PortfolioID DESC;
+    </select>
+
+    <select id="findAllSearchPortsOrderByPopularity" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.Views_count,
+               p.Hearts_count,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY p.Hearts_count DESC;
+    </select>
+    <select id="findAllSearchPortsOrderByOldest" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY p.PortfolioID;
+    </select>
+    <select id="findAllSearchPortsOrderByViews" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.Views_count,
+               p.Hearts_count,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY p.Views_count DESC;
+    </select>
 </mapper>

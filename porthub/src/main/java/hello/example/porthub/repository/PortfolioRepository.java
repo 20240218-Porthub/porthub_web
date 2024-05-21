@@ -157,4 +157,20 @@ public class PortfolioRepository {
     public int checkCategoryNum(int checkNum) {
         return sql.selectOne("Portfolio.checkCategoryNum", checkNum);
     }
+
+    public List<MainPortViewDto> findAllSearchPorts(String searchQuery) {
+        return sql.selectList("Portfolio.findAllSearchPorts", searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByPopularity(String searchQuery) {
+        return sql.selectList("Portfolio.findAllSearchPortsOrderByPopularity", searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByViews(String searchQuery) {
+        return sql.selectList("Portfolio.findAllSearchPortsOrderByViews", searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
+        return sql.selectList("Portfolio.findAllSearchPortsOrderByOldest", searchQuery);
+    }
 }
