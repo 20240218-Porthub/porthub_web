@@ -5,6 +5,11 @@
     /*padding-bottom: 60px;*/
 }
 
+.desktop {
+    height: auto;
+    min-height: 100%;
+}
+
 .home-container {
     min-height: 800px;
 }
