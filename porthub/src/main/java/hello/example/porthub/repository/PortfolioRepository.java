@@ -26,6 +26,7 @@ public class PortfolioRepository {
         return sql.selectList("Portfolio.findByCategory");
     }
 
+    public int getCategoryID(String Category){return sql.selectOne("Portfolio.getCategoryID", Category);}
 
     public void PortUpload(PortfolioDto portfolioDto) {
         sql.insert("Portfolio.insertPortfolio", portfolioDto);

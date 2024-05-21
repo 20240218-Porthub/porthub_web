@@ -98,6 +98,8 @@ public class PortfolioService {
         return portfolioRepository.findByCategory();
     }
 
+    public int getCategoryID(String CategoryName){ return portfolioRepository.getCategoryID(CategoryName);}
+
     public List<MainPortViewDto> findAllPorts() {
         return portfolioRepository.findAllPorts();
     }

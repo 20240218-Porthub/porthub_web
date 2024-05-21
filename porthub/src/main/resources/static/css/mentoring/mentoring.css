@@ -127,3 +127,7 @@ body {
 .btn-outline-secondary {
     border: 1px solid #ccc;
 }
+
+.categories.selected{
+    background-color: #7d7d7d;
+}

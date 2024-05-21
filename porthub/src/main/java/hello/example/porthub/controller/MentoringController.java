@@ -1,6 +1,7 @@
 package hello.example.porthub.controller;
 
 import hello.example.porthub.service.PaymentService;
+import hello.example.porthub.service.PortfolioService;
 import org.springframework.ui.Model;
 import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
@@ -29,6 +30,7 @@ public class MentoringController {
     private final PaymentService paymentService;
     private final MemberRepository memberRepository;
     private final MentoService mentoService;
+    private final PortfolioService portfolioService;
     private final S3Service s3Service;
 
     @GetMapping("/activity")
@@ -142,8 +144,28 @@ public class MentoringController {
     }
 
     @PostMapping("/search")
-    public @ResponseBody List searchMentoring(@RequestParam("searchString") String searchString){
-        List<MentoViewDto> mentorings=mentoService.searchMentoring(searchString);
+    public @ResponseBody List searchMentoring(@RequestParam(value="searchString", required = false) String searchString,
+                                              @RequestParam(value="CategoryName", required = false) String CategoryName){
+
+        List<MentoViewDto> mentorings;
+        int CategoryID = 0;
+
+        log.info("param="+searchString+CategoryName);
+
+        if(searchString!=null && CategoryName!=null){
+            CategoryID= portfolioService.getCategoryID(CategoryName);
+            mentorings=mentoService.searchMentoring(searchString,CategoryID);
+        } else if (searchString==null && CategoryName!=null) {
+            CategoryID= portfolioService.getCategoryID(CategoryName);
+            mentorings=mentoService.searchMentoring(CategoryID);
+        } else if (searchString!=null && CategoryName==null) {
+            mentorings=mentoService.searchMentoring(searchString);
+        } else {
+            mentorings=mentoService.allmentoring();
+        }
+
+        log.info("categoryid="+CategoryID);
+
         return mentorings;
     }
 
