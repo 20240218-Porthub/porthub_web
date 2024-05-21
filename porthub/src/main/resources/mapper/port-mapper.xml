@@ -8,6 +8,10 @@
         from Categories
     </select>
 
+    <select id="getCategoryID" resultType="int">
+        select CategoryID from Categories where CategoryName=#{Category}
+    </select>
+
     <insert id="insertPortfolio" parameterType="portfolio">
         insert into Portfolios (AuthorID, Thumbnail_url, Title, Hearts_count, Views_count, CreationDate, CategoryID,
                                 AttachmentsOrLinks)
