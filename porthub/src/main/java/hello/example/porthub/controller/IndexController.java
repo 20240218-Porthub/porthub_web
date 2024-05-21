@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.List;
 
@@ -149,8 +153,9 @@ public class IndexController {
                                    @RequestParam(value = "page", defaultValue = "1") int page,
                                    @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
                                    @RequestParam(value = "order", defaultValue = "NewestOrder") String order,
-                                   Model model) {
+                                   Model model) throws UnsupportedEncodingException {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+
         if (CategoryName==null) {
             CategoryName = "main";
         }
@@ -226,6 +231,9 @@ public class IndexController {
         }
 
         int checkSearchNum = 0;
+        String encodedSearchQuery = URLEncoder.encode(SearchQuery, "UTF-8");
+
+        model.addAttribute("encodedSearchQuery", encodedSearchQuery);
         model.addAttribute("checkSearchNum", checkSearchNum);
 
         return "portfolio/main";
