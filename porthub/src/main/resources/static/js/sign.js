@@ -42,6 +42,7 @@ form.addEventListener('submit', (event) => {
         event.preventDefault(); // 폼 제출을 막습니다.
     }
 
+    console.log("Logged in");
 });
 
 

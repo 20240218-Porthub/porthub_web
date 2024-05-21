@@ -78,21 +78,17 @@ public class PortfolioController {
         PortViewDto portViewDto = portfolioService.findportview(PortfolioID);
 
         model.addAttribute("PortViewDtoList", portViewDto);
-        System.out.println(portViewDto);
         List<ImagesDto> fileDtoList = portfolioService.findportFiles(PortfolioID);
         model.addAttribute("FileViewDtoList", fileDtoList);
-        System.out.println("hi" + fileDtoList);
         List<PortViewDto> portuserList = portfolioService.finduserport(PortfolioID);
         model.addAttribute("portuserList", portuserList);
 
         if (SessionUtils.isLoggedIn()) {
-            System.out.println("login되었음");
             model.addAttribute("isLoggedIn", true);
             boolean followCheck = portfolioService.checkFollow(portViewDto.getAuthorID(), SessionUtils.getCurrentUsername());
             model.addAttribute("followCheck", followCheck);
             //로그인 되어있는 경우 사용자 아이디
         } else {
-            System.out.println("logout되어있음");
             model.addAttribute("isLoggedIn", false);
             //not login not session
         }
@@ -151,8 +147,10 @@ public class PortfolioController {
         portLikeDto.setEmail(email);
         if (heartCheck) {
             portLikeDto.setHeart_Check(false);
+            portfolioService.portfolioDecreLikes(portfolioID);
         } else {
             portLikeDto.setHeart_Check(true);
+            portfolioService.portfolioIncreLikes(portfolioID);
         }
         //db에서 데이터 없을 경우 default = 0으로 insert하고 데이터 존재하는 경우 Check_Heart 역전 시키기
 //        설정값대로

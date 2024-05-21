@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,6 +97,8 @@ public class PortfolioService {
         return portfolioRepository.findByCategory();
     }
 
+    public int getCategoryID(String CategoryName){ return portfolioRepository.getCategoryID(CategoryName);}
+
     public List<MainPortViewDto> findAllPorts() {
         return portfolioRepository.findAllPorts();
     }
@@ -129,7 +130,6 @@ public class PortfolioService {
             portLikeDto.setHeart_Check(true);
             portfolioRepository.createLikedata(portLikeDto);
         }
-
     }
 
     public boolean checkFollow(int authorID, String currentEmail) {
@@ -162,7 +162,8 @@ public class PortfolioService {
         try {
             String thumbnailUrl;
             if (portfolioDto.getThumbnail_cast() == null) {
-                thumbnailUrl = "https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg";
+//                thumbnailUrl = "https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg";
+                thumbnailUrl = null;
             } else {
                 thumbnailUrl = s3Service.uploadFiles(portfolioDto.getThumbnail_cast());
             }
@@ -209,4 +210,64 @@ public class PortfolioService {
             return 0; // 실패 시 0 반환
         }
     }
+
+    public List<MainPortViewDto> findAllPortsOrderByOldest() {
+
+        return portfolioRepository.findAllPortsOrderByOldest();
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByPopularity() {
+        return portfolioRepository.findAllPortsOrderByPopularity();
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByViews() {
+        return portfolioRepository.findAllPortsOrderByViews();
+    }
+
+    public void portfolioIncreLikes(int portfolioID) {
+        portfolioRepository.portfolioIncreLikes(portfolioID);
+    }
+
+    public void portfolioDecreLikes(int portfolioID) {
+        portfolioRepository.portfolioDecreLikes(portfolioID);
+    }
+
+    public int checkCategoryNum(int checkNum) {
+        if (checkNum > 0) {
+            return portfolioRepository.checkCategoryNum(checkNum);
+        } else {
+            return 0;
+        }
+    }
+
+    public List<MainPortViewDto> findPortsByCategory(List<MainPortViewDto> mainPortViewDtoList, int checkNum) {
+
+        List<MainPortViewDto> selectedPortViewDtoList = new ArrayList<>(); // 선택된 포트폴리오를 저장할 리스트
+
+        // 카테고리 넘버가 checkNum과 일치하는 포트폴리오만 selectedPortViewDtoList에 추가
+        for (MainPortViewDto portViewDto : mainPortViewDtoList) {
+            if (portViewDto.getCategoryID() == checkNum) {
+                selectedPortViewDtoList.add(portViewDto);
+            }
+        }
+
+        return selectedPortViewDtoList;
+    }
+
+    public List<MainPortViewDto> findAllSearchPorts(String searchQuery) {
+        return portfolioRepository.findAllSearchPorts(searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByPopularity(String searchQuery) {
+        return portfolioRepository.findAllSearchPortsOrderByPopularity(searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByViews(String searchQuery) {
+        return portfolioRepository.findAllSearchPortsOrderByViews(searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
+        return portfolioRepository.findAllSearchPortsOrderByOldest(searchQuery);
+    }
 }
+

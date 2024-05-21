@@ -13,6 +13,7 @@ public class MainPortViewDto {
     private int PortfolioID;
     private int AuthorID;
     private int UserID;
+    private int CategoryID;
     private String Thumbnail_url;
     private String Title;
     private String UserName;

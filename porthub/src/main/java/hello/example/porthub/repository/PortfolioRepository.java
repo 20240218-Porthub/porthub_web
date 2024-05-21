@@ -26,6 +26,7 @@ public class PortfolioRepository {
         return sql.selectList("Portfolio.findByCategory");
     }
 
+    public int getCategoryID(String Category){return sql.selectOne("Portfolio.getCategoryID", Category);}
 
     public void PortUpload(PortfolioDto portfolioDto) {
         sql.insert("Portfolio.insertPortfolio", portfolioDto);
@@ -115,7 +116,12 @@ public class PortfolioRepository {
     }
 
     public void PortUpdate(PortfolioDto portfolioDto) {
-        sql.update("Portfolio.PortUpdate", portfolioDto);
+        if (portfolioDto.getThumbnail_url() == null) {
+
+            sql.update("Portfolio.PortUpdateNoneThumb", portfolioDto);
+        } else {
+            sql.update("Portfolio.PortUpdate", portfolioDto);
+        }
     }
 
     public List<Integer> getImagesID(int portfolioID) {
@@ -123,7 +129,49 @@ public class PortfolioRepository {
     }
 
     public void ContentUpdate(ImagesDto imagesDto) {
-        sql.update("Portfolio.ContentUpdate", imagesDto);
+        if (imagesDto.getImage_url() == null) {
+            sql.update("Portfolio.ContentUpdateNull", imagesDto);
+        } else {
+            sql.update("Portfolio.ContentUpdate", imagesDto);
+        }
     }
 
+    public List<MainPortViewDto> findAllPortsOrderByOldest() {
+        return sql.selectList("Portfolio.findAllPortsOrderByOldest");
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByPopularity() {
+        return sql.selectList("Portfolio.findAllPortsOrderByPopularity");
+    }
+
+    public List<MainPortViewDto> findAllPortsOrderByViews() {
+        return sql.selectList("Portfolio.findAllPortsOrderByViews");
+    }
+
+    public void portfolioIncreLikes(int portfolioID) {
+        sql.update("Portfolio.portfolioIncreLikes", portfolioID);
+    }
+    public void portfolioDecreLikes(int portfolioID) {
+        sql.update("Portfolio.portfolioDecreLikes", portfolioID);
+    }
+
+    public int checkCategoryNum(int checkNum) {
+        return sql.selectOne("Portfolio.checkCategoryNum", checkNum);
+    }
+
+    public List<MainPortViewDto> findAllSearchPorts(String searchQuery) {
+        return sql.selectList("Portfolio.findAllSearchPorts", searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByPopularity(String searchQuery) {
+        return sql.selectList("Portfolio.findAllSearchPortsOrderByPopularity", searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByViews(String searchQuery) {
+        return sql.selectList("Portfolio.findAllSearchPortsOrderByViews", searchQuery);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
+        return sql.selectList("Portfolio.findAllSearchPortsOrderByOldest", searchQuery);
+    }
 }

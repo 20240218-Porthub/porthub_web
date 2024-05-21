@@ -8,10 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -35,5 +35,25 @@ public class AdminController {
         model.addAttribute("allmento",allmento);
 
         return "adm/admin_mento";
+    }
+
+    @PostMapping("/mento/{status}/{id}")
+    @ResponseBody
+    public MentoProcessDto AcceptMento(@PathVariable String status, @PathVariable int id){
+        MentoProcessDto mentoProcessDto = new MentoProcessDto();
+        mentoProcessDto.setProcessID(id);
+        if(Objects.equals(status, "accept")){
+            mentoProcessDto.setProcess("1");
+            adminService.UpdateMentoProcess(mentoProcessDto);
+        }
+        if(Objects.equals(status, "deny")){
+            mentoProcessDto.setProcess("2");
+            adminService.UpdateMentoProcess(mentoProcessDto);
+        }
+        if(Objects.equals(status, "delete")){;
+            adminService.DeleteMentoProcess(mentoProcessDto);
+        }
+
+        return mentoProcessDto;
     }
 }

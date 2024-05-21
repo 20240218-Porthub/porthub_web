@@ -80,9 +80,9 @@
                         <div class="request-header">
                             <h4>멘토 요청 목록</h4>
                         </div>
-                        <div class="box-body">
-                            <div class="mento-item" th:if="${requestmentos}!=null" th:each="requestmento:${requestmentos}">
-                                <div><span>id : </span><span th:text="${requestmento.MentoID}"></span></div>
+                        <div id="request-mento" class="box-body">
+                            <div class="mento-item" th:if="${requestmentos}!=null" th:each="requestmento:${requestmentos}" th:id="${requestmento.ProcessID}">
+                                <div><span>id : </span><span id="mento-id" th:text="${requestmento.MentoID}"></span></div>
                                 <div class="buttons">
                                     <button id="accept">승인</button>
                                     <button id="deny">거절</button>
@@ -94,8 +94,8 @@
                         <div class="mentobox-header">
                             <h4>멘토 목록</h4>
                         </div>
-                        <div class="box-body">
-                            <div class="mento-item" th:if="${allmento}!=null" th:each="mento:${allmento}">
+                        <div id="accept-mento" class="box-body">
+                            <div class="mento-item" th:if="${allmento}!=null" th:each="mento:${allmento}" th:id="${mento.ProcessID}">
                                 <div><span>id : </span><span th:text="${mento.MentoID}"></span></div>
                                 <button id="delete">삭제</button>
                             </div>

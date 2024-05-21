@@ -8,6 +8,10 @@
         from Categories
     </select>
 
+    <select id="getCategoryID" resultType="int">
+        select CategoryID from Categories where CategoryName=#{Category}
+    </select>
+
     <insert id="insertPortfolio" parameterType="portfolio">
         insert into Portfolios (AuthorID, Thumbnail_url, Title, Hearts_count, Views_count, CreationDate, CategoryID,
                                 AttachmentsOrLinks)
@@ -31,6 +35,7 @@
                p.AuthorID AS UserID,
                p.Thumbnail_url,
                p.Title,
+               p.CategoryID,
                u.UserName,
                u.ProfileImage
         FROM Portfolios p
@@ -175,6 +180,12 @@
             AttachmentsOrLinks = #{AttachmentsOrLinks}
         WHERE PortfolioID = #{PortfolioID};
     </update>
+    <update id="PortUpdateNoneThumb" parameterType="hello.example.porthub.domain.PortfolioDto">
+        UPDATE Portfolios
+        SET Title = #{Title},
+            AttachmentsOrLinks = #{AttachmentsOrLinks}
+        WHERE PortfolioID = #{PortfolioID};
+    </update>
 
     <select id="getImagesID" parameterType="int" resultMap="imageIdResultMap">
         SELECT ImageID
@@ -193,4 +204,127 @@
         WHERE ImageID = #{ImagesFileID};
     </update>
 
+    <update id="ContentUpdateNull" parameterType="hello.example.porthub.domain.ImagesDto">
+        UPDATE Images
+        SET contents = #{contents}
+        WHERE ImageID = #{ImagesFileID};
+    </update>
+
+    <select id="findAllPortsOrderByOldest" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN
+             Users u ON p.AuthorID = u.UserID
+        ORDER BY p.PortfolioID;
+    </select>
+    <select id="findAllPortsOrderByPopularity" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.Views_count,
+               p.Hearts_count,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        ORDER BY p.Hearts_count DESC;
+    </select>
+    <select id="findAllPortsOrderByViews" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.Views_count,
+               p.Hearts_count,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        ORDER BY p.Views_count DESC;
+    </select>
+
+    <update id="portfolioIncreLikes" parameterType="int">
+        UPDATE Portfolios
+        SET Hearts_count = Hearts_count + 1
+        WHERE PortfolioID = #{portfolioID}
+    </update>
+
+    <update id="portfolioDecreLikes" parameterType="int">
+        UPDATE Portfolios
+        SET Hearts_count = Hearts_count - 1
+        WHERE PortfolioID = #{portfolioID}
+    </update>
+
+    <select id="checkCategoryNum" resultType="int" parameterType="int">
+        SELECT COUNT(*)
+        FROM Portfolios
+        WHERE CategoryID = #{checkNum}
+    </select>
+
+    <select id="findAllSearchPorts" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY p.PortfolioID DESC;
+    </select>
+
+    <select id="findAllSearchPortsOrderByPopularity" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.Views_count,
+               p.Hearts_count,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY p.Hearts_count DESC;
+    </select>
+    <select id="findAllSearchPortsOrderByOldest" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY p.PortfolioID;
+    </select>
+    <select id="findAllSearchPortsOrderByViews" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
+        SELECT p.PortfolioID,
+               p.AuthorID AS UserID,
+               p.Thumbnail_url,
+               p.Title,
+               p.CategoryID,
+               p.Views_count,
+               p.Hearts_count,
+               u.UserName,
+               u.ProfileImage
+        FROM Portfolios p
+                 JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY p.Views_count DESC;
+    </select>
 </mapper>

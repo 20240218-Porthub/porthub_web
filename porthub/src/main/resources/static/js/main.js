@@ -45,3 +45,24 @@
     divElement.innerHTML = createHTMLTag(src);
 });
 };
+
+ function navigateToCategory(buttonElement) {
+     const categoryName = buttonElement.innerText || buttonElement.textContent;
+     let url; // url 변수를 함수 스코프 밖에서 선언
+
+     if (categoryName === "All") {
+         url = '/' + 'main'; // 변수 url에 값을 할당
+     } else {
+         url = '/' + encodeURIComponent(categoryName); // 변수 url에 값을 할당
+     }
+
+     window.location.href = url; // 변수 url을 사용하여 페이지 이동
+ }
+
+ // function sortPortfolio() {
+ //     const sortOrder = document.getElementById("sort-options").value;
+ //     const categoryName = /*[[${CategoryName}]]*/ 'All'; // Use Thymeleaf to get CategoryName
+ //     const url = "/" + categoryName + "?order=" + sortOrder; // url 변수를 const로 선언
+ //
+ //     window.location.href = url; // 변수 url을 사용하여 페이지 이동
+ // }
