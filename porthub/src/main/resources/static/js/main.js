@@ -59,10 +59,10 @@
      window.location.href = url; // 변수 url을 사용하여 페이지 이동
  }
 
- function sortPortfolio() {
-     const sortOrder = document.getElementById("sort-options").value;
-     const categoryName = /*[[${CategoryName}]]*/ 'All'; // Use Thymeleaf to get CategoryName
-     const url = "/" + categoryName + "?order=" + sortOrder; // url 변수를 const로 선언
-
-     window.location.href = url; // 변수 url을 사용하여 페이지 이동
- }
+ // function sortPortfolio() {
+ //     const sortOrder = document.getElementById("sort-options").value;
+ //     const categoryName = /*[[${CategoryName}]]*/ 'All'; // Use Thymeleaf to get CategoryName
+ //     const url = "/" + categoryName + "?order=" + sortOrder; // url 변수를 const로 선언
+ //
+ //     window.location.href = url; // 변수 url을 사용하여 페이지 이동
+ // }
