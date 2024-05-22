@@ -56,11 +56,12 @@
                                 <form id="search-form" th:if="${CategoryNameCheck} != 0" th:action="@{'/' + ${CategoryName} + '/search'}" method="get">
                                     <input class="w-btn" type="text" name="SearchQuery" placeholder="검색어를 입력하세요" th:value="${SearchQuery}">
                                     <button type="submit" class="w-btn w-btn-indigo">검색</button>
+                                    <input type="hidden" class="encodedSearchQuery" th:value="${encodedSearchQuery}" />
                                 </form>
                                 <form th:unless="${CategoryNameCheck} != 0" th:action="@{/main/search}" method="get">
                                     <input class="w-btn" type="text" name="SearchQuery" placeholder="검색어를 입력하세요" th:value="${SearchQuery}">
                                     <button type="submit" class="w-btn w-btn-indigo">검색</button>
-                                    <input type="hidden" id="encodedSearchQuery" th:value="${encodedSearchQuery}" />
+                                    <input type="hidden" class="encodedSearchQuery" th:value="${encodedSearchQuery}" />
                                 </form>
                             </div>
                             <div class="right-btn">
@@ -199,11 +200,11 @@
         const sortOrder = document.getElementById("sort-search-options").value;
         const urlParams = new URLSearchParams(window.location.search);
         const searchQuery = urlParams.get('SearchQuery');
-        const encodedSearchQuery = document.getElementById('encodedSearchQuery').value;
+        const encodedSearchQuery = document.querySelector('.encodedSearchQuery').value;
         const page = urlParams.get('page') || 1;
         const pageSize = urlParams.get('pageSize') || 20;
 
-        let categoryName = /*[[${CategoryName}]]*/ 'main'; // 기본값을 설정하거나 Thymeleaf 변수를 사용하세요.
+        let categoryName = [[${CategoryName}]]; // 기본값을 설정하거나 Thymeleaf 변수를 사용하세요.
         if (categoryName === "All") {
             categoryName = "main";
         }
@@ -211,6 +212,7 @@
         let newUrl = `/${categoryName}/search?SearchQuery=${encodedSearchQuery}&page=${page}&pageSize=${pageSize}&order=${sortOrder}`;
         window.location.href = newUrl;
     }
+
 </script>
 
 </script>

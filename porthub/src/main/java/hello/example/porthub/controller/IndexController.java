@@ -222,7 +222,8 @@ public class IndexController {
             model.addAttribute("CategoryNameCheck", 0);
             model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
             model.addAttribute("Category", categoryDtoList);
-            model.addAttribute("CategoryName", "All");
+            model.addAttribute("CategoryName", CategoryName);
+            model.addAttribute("CategoryNameCheck", checkNum);
             model.addAttribute("selectedOrder", order);
             model.addAttribute("currentPage", page); // 현재 페이지 추가
             model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
