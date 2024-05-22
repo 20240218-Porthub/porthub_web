@@ -12,6 +12,7 @@ body {
     text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
     position: relative;
 }
+
 .header-image {
     width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
     height: auto;
@@ -55,13 +56,67 @@ body {
     align-items: center;
 }
 
-.sidebar .message-list {
+.sidebar .chat-list {
     display: flex;
     padding: 0rem 1rem;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
     align-self: stretch;
+}
+
+.sidebar .chat-item {
+    display: flex;
+    padding: 0.75rem;
+    align-items: flex-start;
+    gap: 1rem;
+    align-self: stretch;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar .chat-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
+.sidebar .chat-avatar {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.sidebar .chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sidebar .chat-details {
+    flex-grow: 1;
+}
+
+.sidebar .chat-username {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.sidebar .chat-message {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.sidebar .chat-timestamp {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
 }
 
 button#addChatButton {
@@ -202,7 +257,7 @@ button#addChatButton {
 .search-bar input[type="text"] {
     display: flex;
     width: 90%;
-    height: 3rem;
+    height: 2rem;
     padding: 0.625rem 1.25rem;
     align-items: center;
     gap: 0.625rem;

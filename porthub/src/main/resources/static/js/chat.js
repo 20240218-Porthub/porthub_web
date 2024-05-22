@@ -1,3 +1,4 @@
+/*<![CDATA[*/
 $(document).ready(function () {
     var loggedInUsername;
 
@@ -5,7 +6,7 @@ $(document).ready(function () {
         url: '/api/user',
         method: 'GET',
         success: function (response) {
-            loggedInUsername = response.username;  // Assign value here
+            loggedInUsername = response.username;
             console.log(`Logged-in User: ${loggedInUsername}`);
         },
         error: function () {
@@ -15,14 +16,19 @@ $(document).ready(function () {
 
     $('.startChatButton').on('click', function() {
         var followingUserId = $(this).data('user-id');
-        var content = $('#msg').val(); // Fetch the message content from the input
+        var content = $('#msg').val();
         if (content.trim() === '') {
             alert('Please type a message to start the chat.');
-            return; // Prevent sending an empty message
+            return;
         }
-        // ㅇㅣ ㅂㅜㅂㅜㄴㅇㅔ ㅅㅓㅂㅓㅇㅔ ㅇㅛㅊㅓㅇ ㅂㅗㄴㅐㄱㅗ, ㅇㅣㅁㅣ ㅊㅐㅌㅣㅇ ㅇㅣㅆㄴㅡㄴㅈㅣ ㅎㅗㅏㄱㅇㅣㄴ ㄹㅗㅈㅣㄱ ㅍㅣㄹㅇㅛ
         startNewChat(followingUserId, content);
-        $('#msg').val(''); // Clear the input field after sending
+        $('#msg').val('');
+    });
+
+    $('.chat-link').on('click', function (event) {
+        event.preventDefault();
+        var sessionId = $(this).attr('href').split('/').pop();
+        loadChatMessages(sessionId);
     });
 
     const API_ENDPOINTS = {
@@ -32,7 +38,7 @@ $(document).ready(function () {
 
     const $sendButton = $('#button-send');
     const $addChatButton = $('#addChatButton');
-    const $followingsList = $('#followingsList');
+    const $followingsList = $('#followersList');
     const $searchInput = $('#searchInput');
     const $msgInput = $('#msg');
     const $msgArea = $('#msgArea');
@@ -42,15 +48,42 @@ $(document).ready(function () {
     $msgInput.on('keypress', handleEnterKey);
     $searchInput.on('input', searchMessages);
 
-    const websocket = initializeWebSocket();
+    function createMessageElement(message) {
+        var messageElement = document.createElement('div');
+        messageElement.className = 'message-item';
 
-    function initializeWebSocket() {
-        const ws = new WebSocket('ws://localhost:8080/ws/chat');
-        ws.onmessage = handleMessage;
-        ws.onopen = handleOpen;
-        ws.onclose = handleClose;
-        ws.onerror = handleError;
-        return ws;
+        var senderElement = document.createElement('span');
+        senderElement.className = 'message-sender';
+        senderElement.textContent = message.senderUserId + ': ';
+
+        var contentElement = document.createElement('span');
+        contentElement.className = 'message-content';
+        contentElement.textContent = message.content;
+
+        var timestampElement = document.createElement('span');
+        timestampElement.className = 'message-timestamp';
+        timestampElement.textContent = formatTimestamp(message.timestamp);
+
+        messageElement.appendChild(senderElement);
+        messageElement.appendChild(contentElement);
+        messageElement.appendChild(timestampElement);
+
+        return messageElement;
+    }
+
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/public', function (message) {
+                var chatMessage = JSON.parse(message.body);
+                var messageElement = createMessageElement(chatMessage);
+                $msgArea.append(messageElement);
+            });
+        });
     }
 
     function fetchFollowings() {
@@ -74,8 +107,8 @@ $(document).ready(function () {
             const followingListItem = $('<li>').text(following.username);
             const startChatButton = $('<button>')
                 .text('Start Chat')
-                .data('user-id', following.id)  // Ensure data-user-id is set properly
-                .on('click', function() {  // Directly attach the event handler
+                .data('user-id', following.id)
+                .on('click', function() {
                     var recipientUserId = $(this).data('user-id');
                     startNewChat(recipientUserId);
                 });
@@ -83,6 +116,38 @@ $(document).ready(function () {
             $followingsList.append(followingListItem);
         });
     }
+
+    function loadChatMessages(sessionId) {
+        // Clear the current chat messages
+        $msgArea.empty();
+
+        // Fetch chat messages from the server
+        $.ajax({
+            url: '/user/chat/' + sessionId,
+            method: 'GET',
+            dataType: 'json',  // Ensure the response is treated as JSON
+            success: function (response) {
+                // Log the response to debug
+                console.log('Chat messages response:', response);
+
+                // Check if the response is an array
+                if (Array.isArray(response)) {
+                    // Display the retrieved chat messages
+                    response.forEach(function (message) {
+                        var messageElement = createMessageElement(message);
+                        $msgArea.append(messageElement);
+                    });
+                } else {
+                    console.error('Unexpected response format:', response);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Failed to load chat messages. Status:', status, 'Error:', error);
+                console.log('Response Text:', xhr.responseText);
+            }
+        });
+    }
+
 
 
     function startNewChat(followingUserId, content) {
@@ -102,66 +167,66 @@ $(document).ready(function () {
     }
 
     function sendMessage() {
-        const message = $msgInput.val().trim();
-        if (message !== '') {
-            console.log(`${loggedInUsername}: ${message}`);
-            websocket.send(`${loggedInUsername}: ${message}`);
-            $msgInput.val('');
+        console.log("hihi", stompClient, stompClient.connected)
+        if (stompClient && stompClient.connected) {
+            var messageInput = $('#msg');
+            // var senderId = /*[[${#authentication.principal.id}]]*/ '';
+            var senderId = [[${userID}]];
+            var recipientId = [[${recipientUserId}]];
+            var sessionId = [[${sessionId}]];
+            stompClient.send("/chat.sendMessage", {}, JSON.stringify({
+                'senderUserId': senderId,
+                'recipientUserId': recipientId,
+                'content': messageInput.val(),
+                'timestamp': new Date().toISOString(),
+                'sessionId': sessionId
+            }));
+            messageInput.val('');
 
+            // Append the sent message to the chat area
+            var sentMessage = {
+                senderUserId: senderId,
+                content: messageInput.val(),
+                timestamp: new Date().toISOString()
+            };
+            var messageElement = createMessageElement(sentMessage);
+            $msgArea.append(messageElement);
+        } else {
+            console.error('WebSocket connection is not active. Cannot send message.');
         }
     }
 
     function handleEnterKey(event) {
         if (event.which === 13) {
             event.preventDefault();
-            sendMessage();
+            if (stompClient && stompClient.connected) {
+                sendMessage();
+            } else {
+                console.error('WebSocket connection is not active. Cannot send message.');
+            }
         }
     }
 
-    function handleMessage(event) {
-        const data = event.data;
-        const [sessionId, ...messageParts] = data.split(':');
-        const message = messageParts.join(':');
-        const sanitizedMessage = escapeHtml(message);
-        const messageClass = sessionId === loggedInUsername ? 'sent' : 'received';
-        const messageHtml = `<div class="message-item ${messageClass}">
-                                 <div class="message-content">${sanitizedMessage}</div>
-                             </div>`;
-        $msgArea.append(messageHtml);
-    }
-
-    function escapeHtml(text) {
-        const escape = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, function (match) {
-            return escape[match];
-        });
-    }
-
-    function handleOpen() {
-        console.log('WebSocket connection opened');
-    }
-
-    function handleClose() {
-        console.log('WebSocket connection closed');
-        // Implement reconnection logic here
-    }
-
-    function handleError(error) {
-        console.error('WebSocket error:', error);
-        // Implement error handling and user feedback here
+    function formatTimestamp(timestamp) {
+        var date = new Date(timestamp);
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + strTime;
     }
 
     function searchMessages() {
         const searchQuery = $searchInput.val().toLowerCase();
-        $('.message-list .message-item').each(function () {
+        $('.message-item').each(function () {
             const messageText = $(this).find('.message-content').text().toLowerCase();
             $(this).toggle(messageText.includes(searchQuery));
         });
     }
+
+    connect();
 });
+/*]]>*/

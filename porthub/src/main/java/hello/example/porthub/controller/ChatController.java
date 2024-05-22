@@ -10,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -35,12 +33,24 @@ public class ChatController {
         this.sessionParticipantService = sessionParticipantService;
     }
 
-//    @MessageMapping("/chat/send")
-//    @SendTo("/topic/messages")
-//    public sendMessage handleMessage(ChatMessage message) throws Exception {
-//        chatService.saveMessage(message);
-//        return message;
-//    }
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/public")
+    public ChatMessageDto sendMessage(@Payload ChatMessageDto chatMessage) {
+        // Extract the necessary information from the chatMessage object
+        Integer senderId = chatMessage.getSenderUserId();
+        Integer recipientId = chatMessage.getRecipientUserId();
+        String content = chatMessage.getContent();
+        String sessionId = chatMessage.getSessionId();
+        chatService.saveMessages(senderId, recipientId, content, sessionId);
+
+        return chatMessage;
+    }
+
+    @GetMapping("/api/chat-messages/{sessionId}")
+    @ResponseBody
+    public List<ChatMessageDto> getChatMessagesBySessionId(@PathVariable String sessionId) {
+        return chatService.getChatHistoryBySessionId(sessionId);
+    }
 
     @PostMapping("/chats/new")
     public ResponseEntity<String> handleNewMessage(@RequestBody ChatMessageDto chatSession, Principal principal) {
@@ -63,15 +73,33 @@ public class ChatController {
         try {
             String currentUserEmail = principal.getName();
             int currentUserId = userService.findUserIDByEmail(currentUserEmail);
-            String sessionKey = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId());
-            sessionParticipantService.addParticipantToSession(sessionKey, currentUserId);
-            sessionParticipantService.addParticipantToSession(sessionKey, chatSession.getRecipientUserId());
-            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(), sessionKey);
+            String sessionId = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId());
+            sessionParticipantService.addParticipantToSession(sessionId, currentUserId);
+            sessionParticipantService.addParticipantToSession(sessionId, chatSession.getRecipientUserId());
+            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(), sessionId);
             return ResponseEntity.ok("Message sent successfully");
         } catch (Exception e) {
             // Log the exception details here for debugging purposes.
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending message: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/user/chat/{sessionId}")
+    public String chatPage(@PathVariable String sessionId, Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        String currentUserEmail = principal.getName();
+        int currentUserId = userService.findUserIDByEmail(currentUserEmail);
+        int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
+        System.out.println("why!" + currentUserId + recipientUserId + sessionId);
+        model.addAttribute("email", currentUserEmail);
+        model.addAttribute("userID", currentUserId);
+        model.addAttribute("recipientUserId", recipientUserId);
+        model.addAttribute("sessionId", sessionId);
+
+        return "user/chat";
     }
 
     @GetMapping("/user/chat")

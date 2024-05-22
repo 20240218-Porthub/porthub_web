@@ -26,22 +26,24 @@
             <!--            <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Search messages...">-->
             <input type="text" id="searchInput" placeholder="Search messages..." aria-label="Search for messages">
         </div>
-        <div class="message-list">
-            <ul>
-                <li th:each="ChatSession : ${chatSessions}">
-                    <a th:href="@{'/chat/' + ${ChatSession.senderUserId}}">
-                        <span th:each="following : ${followings}">
-                            <span th:if="${following.id == ChatSession.recipientUserId}">
-                                Chat with <span th:text="${following.username}"></span>
-                            </span>
+        <ul class="chat-list">
+            <li th:each="ChatSession : ${chatSessions}" class="chat-item">
+                <!-- I also changed this part right below from /chat/{ChatSession.sessionId} to /user/chat/{ChatSession.sessionId} -->
+                <!-- Still not sure what it should be, but I thought it should be /user/chat/{ChatSession.sessionId} -->
+                <a th:href="@{'/user/chat/' + ${ChatSession.sessionId}}" class="chat-link">
+                    <div class="chat-avatar">
+                        <img th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" th:src="@{/images/following.avatarUrl}" alt="User Avatar">
+                    </div>
+                    <div class="chat-details">
+                        <span th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" class="chat-username">
+                            <span th:text="${following.username}"></span>
                         </span>
-<!--                        Chat with <span th:text="${ChatSession.recipientUserId}"></span>-->
-                        <p>Last message: <span th:text="${ChatSession.content}"></span></p>
-                        <p><small th:text="${ChatSession.timestamp}"></small></p>
-                    </a>
-                </li>
-            </ul>
-        </div>
+                        <p class="chat-message" th:text="${ChatSession.content}"></p>
+                        <p class="chat-timestamp"><small th:text="${ChatSession.timestamp}"></small></p>
+                    </div>
+                </a>
+            </li>
+        </ul>
         <div class="followers-list">
             <h4>Followers</h4>
             <ul id="followersList">
@@ -61,7 +63,7 @@
                 <img th:src="@{/images/user-avatar.png}" alt="User Avatar">
                 <div>
                     <span class="username" th:text="${recipientUserId}"></span>
-                    <!--                    <span class="status" th:text="${partnerStatus}"></span>-->
+                    <!--<span class="status" th:text="${partnerStatus}"></span>-->
                 </div>
             </div>
         </div>
@@ -71,9 +73,14 @@
         <div class="input-area">
             <label for="msg"></label><input type="text" id="msg" placeholder="Type a message...">
             <button id="button-send">Send</button>
+            <input type="hidden" id="senderId" th:value="${userID}"/>
+            <input type="hidden" id="recipientId" th:value="${recipientUserId}"/>
+            <input type="hidden" id="sessionId" th:value="${sessionId}"/>
         </div>
     </div>
 </div>
-<script th:src="@{/js/chat.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script th:src="@{/js/chat.js}" src="/static/js/chat.js"></script>
 </body>
 </html>
