@@ -151,7 +151,7 @@ public class MentoringController {
     public String paymentdata(@ModelAttribute MentoViewDto mentoViewDto, ModelMap modelMap){
         MentoViewDto postdata = mentoService.SelectMentoView(mentoViewDto.getMentoringID());
         modelMap.addAttribute("mentoring",postdata);
-        return "mentoring/payment";
+        return "mentoring/Payment";
     }
 
     @GetMapping("/payment/confirm/{id}")
