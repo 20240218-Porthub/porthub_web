@@ -197,7 +197,7 @@ button#addChatButton {
 
 .chat-area .input-area input {
     display: flex;
-    height: 3rem;
+    height: 2rem;
     padding: 0.625rem 1.25rem;
     justify-content: space-between;
     align-items: center;

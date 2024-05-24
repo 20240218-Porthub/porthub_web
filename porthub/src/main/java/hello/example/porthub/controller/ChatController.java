@@ -85,7 +85,7 @@ public class ChatController {
     }
 
     @GetMapping("/user/chat/{sessionId}")
-    public String chatPage(@PathVariable String sessionId, Model model, Principal principal) {
+    public String chatPage(@PathVariable("sessionId") String sessionId, Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
@@ -93,10 +93,13 @@ public class ChatController {
         String currentUserEmail = principal.getName();
         int currentUserId = userService.findUserIDByEmail(currentUserEmail);
         int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
-        System.out.println("why!" + currentUserId + recipientUserId + sessionId);
+        List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
+        List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
         model.addAttribute("recipientUserId", recipientUserId);
+        model.addAttribute("followings", followings);
+        model.addAttribute("chatSessions", chatSessions);
         model.addAttribute("sessionId", sessionId);
 
         return "user/chat";

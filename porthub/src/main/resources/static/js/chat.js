@@ -148,8 +148,6 @@ $(document).ready(function () {
         });
     }
 
-
-
     function startNewChat(followingUserId, content) {
         console.log('Starting new chat with user ID:', followingUserId, 'and content:', content);
         $.ajax({
@@ -167,14 +165,13 @@ $(document).ready(function () {
     }
 
     function sendMessage() {
-        console.log("hihi", stompClient, stompClient.connected)
         if (stompClient && stompClient.connected) {
             var messageInput = $('#msg');
-            // var senderId = /*[[${#authentication.principal.id}]]*/ '';
-            var senderId = [[${userID}]];
-            var recipientId = [[${recipientUserId}]];
-            var sessionId = [[${sessionId}]];
-            stompClient.send("/chat.sendMessage", {}, JSON.stringify({
+            var senderId = $('#senderId').val();
+            var recipientId = $('#recipientId').val();
+            var sessionId = $('#sessionId').val();
+
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
                 'senderUserId': senderId,
                 'recipientUserId': recipientId,
                 'content': messageInput.val(),
@@ -229,4 +226,4 @@ $(document).ready(function () {
 
     connect();
 });
-/*]]>*/
+
