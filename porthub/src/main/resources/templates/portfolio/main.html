@@ -9,6 +9,35 @@
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 
 </head>
+<style>
+    .views_report {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 10px;
+    }
+    .views-all {
+        color: #a6a6a6;
+    }
+
+    .views-all:hover {
+        color: #000000; /* Change to black on hover */
+    }
+
+    .user-info {
+        align-items: center;
+        width: 200px;
+    }
+    .user-name {
+        margin-bottom: 5px; /* 원하는 만큼의 간격으로 조정 */
+        margin-right: 60px;
+    }
+
+    .user-affiliation {
+        color: gray; /* 소속 텍스트의 색상을 조정할 수 있습니다. */
+    }
+
+</style>
 <body>
 
 <header th:replace="~{fragments/header::headerFragment}"></header>
@@ -152,28 +181,49 @@
     <div class="fixed-up">
         <br><br>
         <div>
-            <h2 style="font-size: 1em; margin-bottom: 0.1em;">Popularity</h2>
+            <h2 style="font-size: 1em; margin-bottom: 20px;">Popularity</h2>
         </div>
-        <div th:each="idx : ${#numbers.sequence(1, 4)}" class="Popularity">
-            <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{/images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+
+        <div th:each="PopularViewDtoList: ${PopularViewDtoList}" class="Popularity">
+            <div class="profile-wrapper" style="width: 50px;">
+                <img class="profile-image" th:src="${PopularViewDtoList.profileImage}" src="/static/images/profiletest.jpeg" th:attr="data-user-name=${PopularViewDtoList.userName}" onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
             </div>
-            <div>UserName</div>
-            <button class="follow-btn">follow</button>
+            <div class="user-info">
+                <div class="user-name" th:text="${PopularViewDtoList.userName}">UserName</div>
+                <div class="user-affiliation" th:text="${PopularViewDtoList.aff}">소속</div>
+            </div>
+
+            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                <form th:action="@{'/unfollow/' + ${PopularViewDtoList.UserID}}" th:method="post" th:if="${PopularViewDtoList.followCheck}">
+                    <button type="submit" class="follow-btn" style="background-color: #e2e8f0; color: #64748b;">Following</button>
+                </form>
+
+                <!-- Follow form -->
+                <form th:action="@{'/follow/' + ${PopularViewDtoList.UserID}}" th:method="post" th:unless="${PopularViewDtoList.followCheck}">
+                    <button type="submit" class="follow-btn" style="background-color: black; color: #fff;">Follow</button>
+                </form>
+            </div>
+            <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a class="follow-btn" onclick="checkLogin()" style="background-color: black; color: #fff;">Follow</a>
+            </div>
+
         </div>
 
     </div>
     <div class="fixed-down">
-        <div>
+        <div class="views_report">
             <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History</h2>
+            <a class="views-all" href="/view">views_all</a>
         </div>
 
         <div class="history_section">
             <div th:each="idx : ${#numbers.sequence(1, 4)}" class="port-3">
                 <div class="history-description">
-                    <div class="history-image">
-                        <img class="image" th:src="@{/images/iim.png}" src="/static/images/iim.png" />
-                    </div>
+                    <a href="/">
+                        <div class="history-image">
+                            <img class="image" th:src="@{/images/iim.png}" src="/static/images/iim.png" />
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -181,7 +231,7 @@
     </div>
 </div>
 
-<!--<footer th:replace="~{fragments/footer::footerFragment}"></footer>-->
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
 
 </body>
 <script th:src="@{/js/main.js}" src="/static/js/main.js"></script>
@@ -212,7 +262,18 @@
         let newUrl = `/${categoryName}/search?SearchQuery=${encodedSearchQuery}&page=${page}&pageSize=${pageSize}&order=${sortOrder}`;
         window.location.href = newUrl;
     }
-
+    function checkLogin() {
+        var isLoggedIn = false; // 로그인 상태를 나타내는 변수 (임시로 false로 설정)
+        isLoggedIn = [[${isLoggedIn}]];
+        if (isLoggedIn) {
+        } else {
+            // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
+            var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+            if (check_login) {
+                window.location.href = '/login';
+            }
+        }
+    }
 </script>
 
 </script>

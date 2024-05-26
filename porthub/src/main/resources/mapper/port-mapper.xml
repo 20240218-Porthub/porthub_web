@@ -323,4 +323,7 @@
         WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
         ORDER BY p.Views_count DESC;
     </select>
+    <select id="findByPopular" resultType="hello.example.porthub.domain.PopularDto">
+        SELECT * FROM PopularUser;
+    </select>
 </mapper>

@@ -173,4 +173,8 @@ public class PortfolioRepository {
     public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
         return sql.selectList("Portfolio.findAllSearchPortsOrderByOldest", searchQuery);
     }
+
+    public List<PopularDto> findByPopular()  {
+        return sql.selectList("Portfolio.findByPopular");
+    }
 }

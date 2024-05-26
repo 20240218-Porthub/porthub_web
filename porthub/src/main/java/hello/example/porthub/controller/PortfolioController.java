@@ -35,7 +35,6 @@ public class PortfolioController {
 
         int uploadResult = portfolioService.upload(portfolioDto);
 
-
         if (uploadResult > 0) {
             return "redirect:/main";
         } else {
@@ -127,7 +126,6 @@ public class PortfolioController {
         copyrightReportDto.setReporterEmail(email);
 
 
-        System.out.println(copyrightReportDto);
         portfolioService.postReportdata(copyrightReportDto);
 
         return "redirect:/ports/views/" + portfolioID;
@@ -156,7 +154,6 @@ public class PortfolioController {
 //        설정값대로
         portfolioService.convertLikes(portLikeDto);
 
-        System.out.println(portLikeDto);
         return "redirect:/ports/views/" + portfolioID;
     }
 
@@ -187,7 +184,6 @@ public class PortfolioController {
         String CurrentUseremail = SessionUtils.getCurrentUsername();
 
         if (getEmail != null && getEmail.equals(CurrentUseremail)) {
-            System.out.println(PortfolioID);
             portfolioService.portdelete(Integer.parseInt(PortfolioID));
         } else {
             return "redirect:/403";
@@ -210,10 +206,8 @@ public class PortfolioController {
             PortViewDto portViewDto = portfolioService.findportview(portID);
 
             model.addAttribute("PortViewDtoList", portViewDto);
-            System.out.println(portViewDto);
             List<ImagesDto> fileDtoList = portfolioService.findportFiles(portID);
             model.addAttribute("FileViewDtoList", fileDtoList);
-            System.out.println("hi" + fileDtoList);
             List<PortViewDto> portuserList = portfolioService.finduserport(portID);
             model.addAttribute("portuserList", portuserList);
 
@@ -227,7 +221,6 @@ public class PortfolioController {
 
     @PutMapping("/views/put/{PortfolioID}")
     public String portfolioput(@PathVariable("PortfolioID") int PortfolioID, @ModelAttribute PortfolioDto portfolioDto) {
-        System.out.println(portfolioDto);
 
         int uploadResult = portfolioService.UpdatePortfolio(portfolioDto);
 

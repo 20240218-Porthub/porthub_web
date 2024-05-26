@@ -4,6 +4,7 @@ import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -133,7 +134,6 @@ public class PortfolioService {
     public boolean checkFollow(int authorID, String currentEmail) {
         int CurrentID = portfolioRepository.findByUserIDtoEmailcheck(currentEmail);
         System.out.println("authorID: " + authorID + "currentID: " + currentEmail);
-
         return portfolioRepository.checkFollow(authorID, CurrentID);
     }
 
@@ -212,6 +212,7 @@ public class PortfolioService {
     public List<MainPortViewDto> findAllPortsOrderByOldest() {
 
         return portfolioRepository.findAllPortsOrderByOldest();
+
     }
 
     public List<MainPortViewDto> findAllPortsOrderByPopularity() {
@@ -266,6 +267,16 @@ public class PortfolioService {
 
     public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
         return portfolioRepository.findAllSearchPortsOrderByOldest(searchQuery);
+    }
+
+
+    public List<PopularDto> findByPopular() {
+
+        return portfolioRepository.findByPopular();
+    }
+
+    public void updatePopularTask() {
+
     }
 }
 

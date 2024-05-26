@@ -119,13 +119,26 @@
           event.preventDefault(); // 폼 제출 방지
         }
       }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        var chatAlertLink = document.getElementById('chat-alert-link');
+        if (chatAlertLink) {
+          chatAlertLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            if (confirm('채팅을 이용하려면 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?')) {
+              window.location.href = '/login'; // 로그인 페이지로 이동
+            }
+          });
+        }
+      });
     </script>
 
     <nav class="navigation">
       <a href="/main">Home</a>
       <a href="/mentoring">Mentoring</a>
       <a href="/about">About</a>
-      <a href="/chat">Chatting</a>
+      <a href="/chat" id="chat-link" th:if="${#authorization.expression('isAuthenticated()')}">Chatting</a>
+      <a href="#" id="chat-alert-link" th:unless="${#authorization.expression('isAuthenticated()')}">Chatting</a>
 
 <!--      <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'" class="btnLogin-popup">Logout</button>-->
       <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="confirmLogout()" class="btnLogin-popup">Logout</button>
@@ -136,7 +149,6 @@
   </header>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 
 </div>
 </html>
