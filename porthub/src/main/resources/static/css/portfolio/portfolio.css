@@ -338,7 +338,7 @@ body, html {
 
 .profile-wrapper {
     width: 30px; /* Adjust the size of the circular profile image */
-    /*height: 30px;*/
+    height: 30px;
     border-radius: 50%; /* Makes the image circular */
     overflow: hidden; /* Hides any image overflow */
     margin-right: 4px; /* Adjust spacing between profile image and text */
@@ -347,7 +347,7 @@ body, html {
 
 .profile-image {
     width: 100%; /* Ensures the image takes up the full space of its container */
-    height: auto;
+    height: 100%;
     display: block;
     cursor: pointer;
 }

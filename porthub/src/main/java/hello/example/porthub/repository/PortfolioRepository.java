@@ -177,4 +177,16 @@ public class PortfolioRepository {
     public List<PopularDto> findByPopular()  {
         return sql.selectList("Portfolio.findByPopular");
     }
+
+    public List<CalculatePopularDto> findAllCalcultePorts() {
+        return sql.selectList("Portfolio.findAllCalcultePorts");
+    }
+
+    public PopularDto findUserByAuthor(int getUserID) {
+        return sql.selectOne("Portfolio.findUserByAuthor", getUserID);
+    }
+
+    public void updateByRank(PopularDto resetPopulars) {
+        sql.update("Portfolio.updateByRank",resetPopulars);
+    }
 }

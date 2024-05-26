@@ -14,7 +14,8 @@ public class PopularDto {
     private String Email;
     private String ProfileImage;
     private String aff;
-    private int FollowingID;
+//    private int FollowingID;
     private boolean followCheck;
+    private int PopularID;
     //follower id는 UserID이고 FollowingID를 찾아서 체크를 해주어야 함
 }
