@@ -181,7 +181,7 @@
     <div class="fixed-up">
         <br><br>
         <div>
-            <h2 style="font-size: 1em; margin-bottom: 20px;">Popularity</h2>
+            <h2 style="font-size: 1em; margin-bottom: 15px;">Popularity</h2>
         </div>
 
         <div th:each="PopularViewDtoList: ${PopularViewDtoList}" class="Popularity">
@@ -215,13 +215,13 @@
             <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History</h2>
             <a class="views-all" href="/view">views_all</a>
         </div>
-
         <div class="history_section">
             <div th:each="idx : ${#numbers.sequence(1, 4)}" class="port-3">
                 <div class="history-description">
                     <a href="/">
                         <div class="history-image">
                             <img class="image" th:src="@{/images/iim.png}" src="/static/images/iim.png" />
+<!--                            <div class="text-wrapper-5" th:data-src="${mainPortViewDtoList.Thumbnail_url}" data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg" th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"></div>-->
                         </div>
                     </a>
                 </div>
@@ -229,6 +229,7 @@
         </div>
 
     </div>
+
 </div>
 
 <footer th:replace="~{fragments/footer::footerFragment}"></footer>
