@@ -338,7 +338,7 @@ body, html {
 
 .profile-wrapper {
     width: 30px; /* Adjust the size of the circular profile image */
-    /*height: 30px;*/
+    height: 30px;
     border-radius: 50%; /* Makes the image circular */
     overflow: hidden; /* Hides any image overflow */
     margin-right: 4px; /* Adjust spacing between profile image and text */
@@ -347,8 +347,9 @@ body, html {
 
 .profile-image {
     width: 100%; /* Ensures the image takes up the full space of its container */
-    height: auto;
+    height: 100%;
     display: block;
+    cursor: pointer;
 }
 
 .profile-image-sm{
@@ -457,16 +458,23 @@ a {
     display: flex; /* Flexbox를 사용하여 요소들을 한 줄로 정렬합니다. */
     align-items: center; /* 세로 방향 가운데 정렬합니다. */
     margin-bottom: 10px; /* 요소들 사이의 간격을 설정합니다. */
-    justify-content: center;
 }
+
 .follow-btn {
     background-color: black;
+    border:none;
     color: white;
-    border-radius: .25rem;
     margin: 10px;
     font: revert;
     font-size: small;
-    padding: 4px 2px;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.follow-btn:hover {
+    background-color: #555555 !important;
 }
 
 .history_section img {

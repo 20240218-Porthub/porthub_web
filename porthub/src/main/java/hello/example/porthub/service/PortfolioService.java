@@ -4,14 +4,13 @@ import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -135,7 +134,6 @@ public class PortfolioService {
     public boolean checkFollow(int authorID, String currentEmail) {
         int CurrentID = portfolioRepository.findByUserIDtoEmailcheck(currentEmail);
         System.out.println("authorID: " + authorID + "currentID: " + currentEmail);
-
         return portfolioRepository.checkFollow(authorID, CurrentID);
     }
 
@@ -214,6 +212,7 @@ public class PortfolioService {
     public List<MainPortViewDto> findAllPortsOrderByOldest() {
 
         return portfolioRepository.findAllPortsOrderByOldest();
+
     }
 
     public List<MainPortViewDto> findAllPortsOrderByPopularity() {
@@ -268,6 +267,74 @@ public class PortfolioService {
 
     public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
         return portfolioRepository.findAllSearchPortsOrderByOldest(searchQuery);
+    }
+
+
+    public List<PopularDto> findByPopular() {
+
+        return portfolioRepository.findByPopular();
+    }
+
+    public void updatePopularTask() {
+        // 모든 포트폴리오를 가져옴
+        List<CalculatePopularDto> portfolios = portfolioRepository.findAllCalcultePorts();
+
+        if (portfolios == null || portfolios.isEmpty()) {
+            System.out.println("포트폴리오 데이터가 없습니다.");
+            return;
+        }
+        PopularDto resetPopulars;
+        // 포트폴리오의 순위를 계산하여 매핑할 맵
+        Map<Integer, Integer> portfolioRankMap = calculatePortfolioRank(portfolios);
+        for (Map.Entry<Integer, Integer> entry : portfolioRankMap.entrySet()) {
+            int getUserID = entry.getKey();
+            int rank = entry.getValue();
+            resetPopulars = portfolioRepository.findUserByAuthor(getUserID);
+            System.out.println(resetPopulars);
+            resetPopulars.setPopularID(rank);
+            portfolioRepository.updateByRank(resetPopulars);
+        }
+
+    }
+
+
+    private Map<Integer, Integer> calculatePortfolioRank(List<CalculatePopularDto> portfolios) {
+        // Hearts_count와 Views_count의 총합을 계산
+        long totalHeartsCount = portfolios.stream()
+                .mapToLong(CalculatePopularDto::getHearts_count)
+                .sum();
+        long totalViewsCount = portfolios.stream()
+                .mapToLong(CalculatePopularDto::getViews_count)
+                .sum();
+
+        if (totalHeartsCount == 0 || totalViewsCount == 0) {
+            throw new RuntimeException("Hearts_count 또는 Views_count가 0입니다.");
+        }
+
+        // 포트폴리오를 Hearts_count의 80%와 Views_count의 20% 비율로 가중치를 부여하여 점수를 계산
+        Map<Integer, Double> portfolioScoreMap = portfolios.stream()
+                .collect(Collectors.toMap(
+                        CalculatePopularDto::getAuthorID,
+                        portfolio -> 0.8 * portfolio.getHearts_count() / (double) totalHeartsCount +
+                                0.2 * portfolio.getViews_count() / (double) totalViewsCount,
+                        Double::sum // 충돌 시 점수를 합산
+                ));
+
+        // 중복되는 AuthorID를 처리하고 포트폴리오의 순위를 재배열
+        List<Map.Entry<Integer, Double>> sortedPortfolios = new ArrayList<>(portfolioScoreMap.entrySet());
+        sortedPortfolios.sort(Map.Entry.<Integer, Double>comparingByValue().reversed());
+
+        // 순위 매핑
+        Map<Integer, Integer> portfolioRankMap = new LinkedHashMap<>();
+        int rank = 1;
+        for (Map.Entry<Integer, Double> entry : sortedPortfolios) {
+            portfolioRankMap.put(entry.getKey(), rank++);
+        }
+
+        // 상위 3개 랭크 반환
+        return portfolioRankMap.entrySet().stream()
+                .limit(3)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
 

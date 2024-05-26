@@ -1,22 +1,19 @@
 package hello.example.porthub.controller;
 
-import hello.example.porthub.domain.CategoryDto;
+import hello.example.porthub.config.util.SessionUtils;
+import hello.example.porthub.domain.*;
 import hello.example.porthub.domain.MainPortViewDto;
-import hello.example.porthub.domain.MentoViewDto;
-import hello.example.porthub.domain.MainPortViewDto;
-import hello.example.porthub.domain.MentoringDto;
 import hello.example.porthub.service.MentoService;
 import hello.example.porthub.service.PortfolioService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import retrofit2.http.Path;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -42,6 +39,23 @@ public class IndexController {
                         @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
                         Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        List<PopularDto> popularDtoList = portfolioService.findByPopular();
+
+        if (SessionUtils.isLoggedIn()) {
+            model.addAttribute("isLoggedIn", true);
+            boolean followCheck = false;
+            for (PopularDto dto : popularDtoList) {
+                followCheck = portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername());
+                if (followCheck) {
+                    dto.setFollowCheck(true);
+                } else {
+                    dto.setFollowCheck(false);
+                }
+            }
+        } else {
+            model.addAttribute("isLoggedIn", false);
+        }
+
         List<MainPortViewDto> mainPortViewDtoList;
         switch (order) {
             case "PopularityOrder":
@@ -58,6 +72,7 @@ public class IndexController {
                 mainPortViewDtoList = portfolioService.findAllPorts();
                 break;
         }
+
 
         // 전체 페이지 수 계산
         int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
@@ -77,6 +92,7 @@ public class IndexController {
         model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
         model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
         model.addAttribute("checkSearchNum", 1);
+        model.addAttribute("PopularViewDtoList", popularDtoList);
 
         return "portfolio/main";
     }
@@ -88,6 +104,21 @@ public class IndexController {
             defaultValue = "NewestOrder") String order, Model model) {
 
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        List<PopularDto> popularDtoList = portfolioService.findByPopular();
+        if (SessionUtils.isLoggedIn()) {
+            model.addAttribute("isLoggedIn", true);
+            boolean followCheck = false;
+            for (PopularDto dto : popularDtoList) {
+                followCheck = portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername());
+                if (followCheck) {
+                    dto.setFollowCheck(true);
+                } else {
+                    dto.setFollowCheck(false);
+                }
+            }
+        } else {
+            model.addAttribute("isLoggedIn", false);
+        }
 
         int checkNum = 0;
         if (CategoryName.equals("Development")) {
@@ -143,6 +174,7 @@ public class IndexController {
         model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
         model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
         model.addAttribute("checkSearchNum", 1);
+        model.addAttribute("PopularViewDtoList", popularDtoList);
         return "portfolio/main";
     }
 
@@ -155,6 +187,21 @@ public class IndexController {
                                    @RequestParam(value = "order", defaultValue = "NewestOrder") String order,
                                    Model model) throws UnsupportedEncodingException {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
+        List<PopularDto> popularDtoList = portfolioService.findByPopular();
+        if (SessionUtils.isLoggedIn()) {
+            model.addAttribute("isLoggedIn", true);
+            boolean followCheck = false;
+            for (PopularDto dto : popularDtoList) {
+                followCheck = portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername());
+                if (followCheck) {
+                    dto.setFollowCheck(true);
+                } else {
+                    dto.setFollowCheck(false);
+                }
+            }
+        } else {
+            model.addAttribute("isLoggedIn", false);
+        }
 
         if (CategoryName==null) {
             CategoryName = "main";
@@ -236,6 +283,7 @@ public class IndexController {
 
         model.addAttribute("encodedSearchQuery", encodedSearchQuery);
         model.addAttribute("checkSearchNum", checkSearchNum);
+        model.addAttribute("PopularViewDtoList", popularDtoList);
 
         return "portfolio/main";
     }
@@ -267,6 +315,9 @@ public class IndexController {
     @GetMapping(value={"/profile"})
     public String profile() { return "user/profile"; }
 
+    @GetMapping(value={"/view"})
+    public String views_all() { return "user/view"; }
+
     @GetMapping(value = {"/about"})
     public String about() {
         return "user/about";
@@ -275,6 +326,22 @@ public class IndexController {
     @GetMapping(value = {"/register"})
     public String register() {
         return "register/register";
+    }
+
+
+    @PostMapping("/follow/{followingID}")
+    public String portsFollowInsert(@PathVariable("followingID") int followingID) {
+        String CurrentUseremail = SessionUtils.getCurrentUsername();
+        portfolioService.following(followingID, CurrentUseremail);
+
+        return "redirect:/main";
+    }
+
+    @PostMapping("/unfollow/{followingID}")
+    public String portsFollowDelete(@PathVariable("followingID") int followingID) {
+        String CurrentUseremail = SessionUtils.getCurrentUsername();
+        portfolioService.unfollow(followingID, CurrentUseremail);
+        return "redirect:/main";
     }
 
 }
