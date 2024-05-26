@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 public class MentoViewDto {
     private int UserID;
+    private int CategoryID;
     private String UserName;
     private String profileImage;
     private int MentoringID;

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -21,13 +22,27 @@ public class MentoRepository {
 
     public int upload(MentoringDto mentoringDto) { return sql.insert("Mento.upload", mentoringDto); }
 
-    public List<MentoViewDto> allmentoring() { return sql.selectList("Mento.allmentoring");}
+    public List<MentoViewDto> searchMentoring() { return sql.selectList("Mento.searchmentoring");}
+
+    public List<MentoViewDto> searchMentoring(String searchString) { return sql.selectList("Mento.searchmentoring", searchString);}
+
+    public List<MentoViewDto> searchMentoring(int CategoryID) {
+        HashMap<String, Object> param= new HashMap<>();
+        param.put("CategoryID",CategoryID);
+        return sql.selectList("Mento.searchmentoring", param);
+    }
+
+    public List<MentoViewDto> searchMentoring(String searchString, int CategoryID) {
+        HashMap<String, Object> param= new HashMap<>();
+        param.put("searchString",searchString);
+        param.put("CategoryID",CategoryID);
+        return sql.selectList("Mento.searchmentoring", param);
+    }
 
     public MentoViewDto SelectMentoView(int MentoringID){ return sql.selectOne("Mento.selectmentoview",MentoringID);}
 
     public MentoringDto mentoring(int MentoID){return sql.selectOne("Mento.mentoring", MentoID);}
 
-    public List<MentoViewDto> searchMentoring(String searchString) { return sql.selectList("Mento.searchmentoring", searchString);}
 
     public String CheckMentoProcess(int MentoID){ return sql.selectOne("Mento.checkmentoprocess",MentoID);}
 

@@ -17,4 +17,8 @@ public class AdminRepository {
     public List<MentoProcessDto> AllRequestMentoProcess(){return sql.selectList("admin.selectAllRequestMentoProcess");}
 
     public List<MentoProcessDto> AllMento(){return sql.selectList("admin.selectAllMento");}
+
+    public int UpdateMentoProcess(MentoProcessDto mentoProcessDto){ return sql.update("admin.UpdateMentoProcess", mentoProcessDto);}
+
+    public int DeleteMentoProcess(MentoProcessDto mentoProcessDto){ return sql.delete("admin.DeleteMentoProcess",mentoProcessDto);}
 }

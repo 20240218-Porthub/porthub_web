@@ -34,7 +34,7 @@ public class MentoService {
     }
 
     public List<MentoViewDto> allmentoring(){
-        return mentoRepository.allmentoring();
+        return mentoRepository.searchMentoring();
     }
 
     public MentoViewDto SelectMentoView(int MentoringID){
@@ -45,9 +45,11 @@ public class MentoService {
         return mentoRepository.mentoring(MentoID);
     }
 
-    public List<MentoViewDto> searchMentoring(String searchString){
-        return mentoRepository.searchMentoring(searchString);
-    }
+    public List<MentoViewDto> searchMentoring(String searchString){ return mentoRepository.searchMentoring(searchString);}
+
+    public List<MentoViewDto> searchMentoring(int CategoryID){ return mentoRepository.searchMentoring(CategoryID);}
+
+    public List<MentoViewDto> searchMentoring(String searchString,int CategoryID){ return mentoRepository.searchMentoring(searchString,CategoryID);}
 
     public String CheckMentoProcess(int UserID){return mentoRepository.CheckMentoProcess(UserID);}
 

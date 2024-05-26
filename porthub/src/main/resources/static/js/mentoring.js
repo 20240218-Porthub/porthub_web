@@ -31,14 +31,67 @@ $(function(){
  })
 })
 
-$(function(){
- $('#searchbutton').click(function(){
+$(function() {
+ $('.categories').click(function () {
+  if ($(".categories").hasClass("selected")) {
+   $(".selected").removeClass("selected")
+  }
+  CategoryName = $(this).text()
+  $(this).addClass("selected")
   $.ajax({
    type: "post",
    url: "/mentoring/search",
    data:{
-    searchString:$('#searchbox').val()
+    "CategoryName":CategoryName
    },
+   dataType:"json",
+   success: function (data) {
+    console.log(data)
+    if($.isEmptyObject(data)){
+     $('.cards-section').empty();
+     $('.cards-section').append('<div>검색된 결과가 없습니다.</div>')
+    }
+    else{
+     $('.cards-section').empty();
+     data.forEach((searchdata)=>{
+      $('.cards-section').append('<div id="'+searchdata.mentoringID+'" onclick="mentorpopup(this)" class="mento-wrapper pop">\n' +
+          '                            <div class="port-2">\n' +
+          '                                <div class="title-description">\n' +
+          '                                    <div class="text-wrapper-5">\n' +
+          '                                        <img class="image" src="'+searchdata.thumbnail+'"/>\n' +
+          '                                        <div>'+searchdata.title+'</div>\n' +
+          '                                        <div class="text-wrapper-6"><img class="profile-image-sm" src="'+searchdata.profileImage+'"/><span>'+searchdata.userName+'</span></div>\n' +
+          '                                        <div class="price">'+searchdata.price+'</div>\n' +
+          '                                    </div>\n' +
+          '                                </div>\n' +
+          '                            </div>\n' +
+          '                        </div>');
+     })
+    }
+   },
+   error: function (err) {
+    console.log("error", err);
+   },
+  })
+ })
+})
+
+$(function(){
+ $('#searchbutton').click(function(){
+  var searchString = $('#searchbox').val();
+
+  var data = {};
+
+  if (searchString) {
+   data.searchString = $('#searchbox').val();
+  }
+  if (CategoryName) {
+   data.CategoryName = CategoryName;
+  }
+  $.ajax({
+   type: "post",
+   url: "/mentoring/search",
+   data:data,
    dataType:"json",
    success: function (data) {
     console.log(data)
