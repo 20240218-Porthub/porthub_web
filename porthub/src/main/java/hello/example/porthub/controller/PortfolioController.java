@@ -1,8 +1,11 @@
 package hello.example.porthub.controller;
+import hello.example.porthub.config.util.CookieUtils;
 import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.PortfolioService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,13 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Port;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 @Controller
@@ -26,6 +25,9 @@ public class PortfolioController {
 
     private final PortfolioService portfolioService;
     private final MemberRepository memberRepository;
+
+    private static final int MAX_ENTRIES = 5;
+    private static final String COOKIE_NAME = "portfolioCookie";
 
     @PostMapping("/uploads")
     public String uploadPortfolio(@ModelAttribute PortfolioDto portfolioDto) throws IOException {
@@ -49,9 +51,11 @@ public class PortfolioController {
 
 
     @GetMapping("/views/{PortfolioID}")
-    public String portfolioDetail(@PathVariable(name = "PortfolioID") int PortfolioID, Model model, HttpSession session) {
+    public String portfolioDetail(@PathVariable(name = "PortfolioID") int PortfolioID, Model model, HttpSession session,
+                                  HttpServletRequest request, HttpServletResponse response) {
 
         String viewsPort = (String) session.getAttribute("viewsPort");
+
         if (viewsPort == null || viewsPort.isEmpty()) {
             // 새로운 포트폴리오를 조회한 경우이므로, 해당 포트폴리오의 ID를 viewsPort에 추가하고 조회수를 증가시킵니다.
             viewsPort = String.valueOf(PortfolioID);
@@ -82,6 +86,11 @@ public class PortfolioController {
         List<PortViewDto> portuserList = portfolioService.finduserport(PortfolioID);
         model.addAttribute("portuserList", portuserList);
 
+        if (portViewDto.getThumbnail_url()==null) {
+            portViewDto.setThumbnail_url("https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg");
+        }
+        CookieUtils.addPortfolioData(request.getCookies(), response, CookieUtils.COOKIE_NAME, String.valueOf(PortfolioID), portViewDto.getThumbnail_url());
+
         if (SessionUtils.isLoggedIn()) {
             model.addAttribute("isLoggedIn", true);
             boolean followCheck = portfolioService.checkFollow(portViewDto.getAuthorID(), SessionUtils.getCurrentUsername());
@@ -89,7 +98,6 @@ public class PortfolioController {
             //로그인 되어있는 경우 사용자 아이디
         } else {
             model.addAttribute("isLoggedIn", false);
-            //not login not session
         }
 
         if (portViewDto.getEmail() == SessionUtils.getCurrentUsername()) {

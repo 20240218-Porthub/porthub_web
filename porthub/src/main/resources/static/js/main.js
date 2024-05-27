@@ -3,7 +3,7 @@
     window.location.href = '/ports/views/' + portfolioId;
 }
 
-    function goToProfilePage(UserName) {
+function goToProfilePage(UserName) {
     window.location.href = '/profile/' + UserName;
 }
 
