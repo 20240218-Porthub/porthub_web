@@ -109,7 +109,7 @@ public class IndexController {
         }
         model.addAttribute("CategoryNameCheck", checkNum);
         model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
-        System.out.println(mainPortViewDtoList);
+//        System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("CategoryName", CategoryName);
         model.addAttribute("selectedOrder", order);

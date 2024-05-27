@@ -7,27 +7,6 @@ body {
     height: 100vh;
 }
 
-/* 페이지 상단 이미지를 위한 스타일 */
-.header-image-container {
-    text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
-    position: relative;
-}
-
-.header-image {
-    width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
-    height: auto;
-    display: block;
-}
-
-.centered-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px; /* 원하는 글꼴 크기로 조정하세요 */
-    color: black; /* 글꼴 색상 설정 */
-}
-
 .container {
     display: flex;
     width: 100%;
@@ -120,18 +99,22 @@ body {
 }
 
 button#addChatButton {
-    border: none;        /* Removes any border */
-    outline: none;       /* Removes focus outline */
-    background: none;    /* Removes any background styling */
+    border: none;
+    outline: none;
+    background: none;
 }
 
 .chat-area {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-    height: 400px;
     overflow-y: auto;
+    width: 90%;
+    height: 50rem;
+    padding: 1.5rem;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-shrink: 0;
 }
 
 .chat-area .header {
@@ -140,6 +123,7 @@ button#addChatButton {
     align-items: center;
     padding: 1.25rem;
     border-bottom: 0.0625rem solid #ddd;
+    width: 90%;
 }
 
 .chat-area .header .user-info {
@@ -163,15 +147,10 @@ button#addChatButton {
     color: #888;
 }
 
-.chat-area .messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.25rem;
-}
-
 .message-item {
     display: flex;
-    margin-bottom: 1rem;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .message-item.sent {
@@ -183,30 +162,32 @@ button#addChatButton {
 }
 
 .message-content {
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.9375rem;
+    padding: 8px 12px;
+    border-radius: 15px;
     max-width: 70%;
 }
 
 .message-item.sent .message-content {
     background-color: #615EF0;
     color: #FFFFFF;
+    align-self: flex-end;
 }
 
 .message-item.received .message-content {
     background-color: #F1F1F1;
     color: #000000;
+    align-self: flex-start;
 }
 
 .message-sender {
     font-weight: bold;
-    margin-right: 0.5rem;
+    margin-right: 5px;
 }
 
 .message-timestamp {
-    font-size: 0.75rem;
+    font-size: 12px;
     color: #888;
-    margin-left: 0.5rem;
+    margin-left: 5px;
 }
 
 .chat-area .input-area {
@@ -258,7 +239,6 @@ button#addChatButton {
     outline: none;
 }
 
-/* Apply Poppins font to all placeholders within the application */
 ::placeholder {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;

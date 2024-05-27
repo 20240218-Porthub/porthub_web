@@ -1,8 +1,8 @@
-/*<![CDATA[*/
 $(document).ready(function () {
     const API_ENDPOINTS = {
         FOLLOWINGS: '/api/followings',
-        NEW_CHAT: '/chats/new'
+        NEW_CHAT: '/chats/new',
+        USER_DETAILS: '/api/user-details' // Assuming this endpoint exists
     };
 
     const $sendButton = $('#button-send');
@@ -11,20 +11,23 @@ $(document).ready(function () {
     const $searchInput = $('#searchInput');
     const $msgInput = $('#msg');
     const $msgArea = $('#msgArea');
+    const $chatArea = $('#chatArea');
 
     var loggedInUsername;
-    // Get the sessionId from the URL
+    var loggedInUserId;
     var sessionId = window.location.pathname.split('/').pop();
     var stompClient = null;
 
     loadChatMessages(sessionId);
 
+    // Fetch the logged-in user's details
     $.ajax({
         url: '/api/user',
         method: 'GET',
         success: function (response) {
             loggedInUsername = response.username;
-            console.log(`Logged-in User: ${loggedInUsername}`);
+            loggedInUserId = response.userId; // Assuming the response contains the user ID
+            console.log(`Logged-in User: ${loggedInUsername}, ID: ${loggedInUserId}`);
         },
         error: function () {
             console.error('Failed to fetch logged-in user. Please try again.');
@@ -42,6 +45,16 @@ $(document).ready(function () {
         $('#msg').val('');
     });
 
+    $('.startChatButton').on('click', function() {
+        var followingUserId = $(this).data('user-id');
+        var content = $('#msg').val();
+        if (content.trim() === '') {
+            alert('Please type a message to start the chat.');
+            return;
+        }
+        startNewChat(followingUserId, content);
+        $('#msg').val('');
+    });
 
     $sendButton.on('click', sendMessage);
     $addChatButton.on('click', fetchFollowings);
@@ -53,31 +66,34 @@ $(document).ready(function () {
         messageElement.className = 'message-item';
 
         // Check if the senderUserId matches the current user's ID
-        if (message.senderUserId === loggedInUsername) {
+        if (message.senderUserId == loggedInUserId) {
             messageElement.classList.add('sent');
         } else {
             messageElement.classList.add('received');
         }
 
+        var contentElement = document.createElement('div');
+        contentElement.className = 'message-content';
+
         var senderElement = document.createElement('span');
         senderElement.className = 'message-sender';
         senderElement.textContent = message.senderUserId + ': ';
 
-        var contentElement = document.createElement('span');
-        contentElement.className = 'message-content';
-        contentElement.textContent = message.content;
+        var textElement = document.createElement('span');
+        textElement.textContent = message.content;
 
         var timestampElement = document.createElement('span');
         timestampElement.className = 'message-timestamp';
         timestampElement.textContent = formatTimestamp(message.timestamp);
 
-        messageElement.appendChild(senderElement);
+        contentElement.appendChild(senderElement);
+        contentElement.appendChild(textElement);
+        contentElement.appendChild(timestampElement);
+
         messageElement.appendChild(contentElement);
-        messageElement.appendChild(timestampElement);
 
         return messageElement;
     }
-
 
     function connect() {
         var socket = new SockJS('/ws');
@@ -88,6 +104,7 @@ $(document).ready(function () {
                 var chatMessage = JSON.parse(message.body);
                 var messageElement = createMessageElement(chatMessage);
                 $msgArea.append(messageElement);
+                $msgArea.scrollTop($msgArea[0].scrollHeight);
             });
         });
     }
@@ -124,25 +141,20 @@ $(document).ready(function () {
     }
 
     function loadChatMessages(sessionId) {
-        // Clear the current chat messages
         $msgArea.empty();
 
-        // Fetch chat messages from the server
         $.ajax({
             url: '/api/chat-messages/' + sessionId,
             method: 'GET',
-            dataType: 'json',  // Ensure the response is treated as JSON
+            dataType: 'json',
             success: function (response) {
-                // Log the response to debug
                 console.log('Chat messages response:', response);
-
-                // Check if the response is an array
                 if (Array.isArray(response)) {
-                    // Display the retrieved chat messages
                     response.forEach(function (message) {
                         var messageElement = createMessageElement(message);
                         $msgArea.append(messageElement);
                     });
+                    $msgArea.scrollTop($msgArea[0].scrollHeight);
                 } else {
                     console.error('Unexpected response format:', response);
                 }
@@ -184,16 +196,16 @@ $(document).ready(function () {
                 'timestamp': new Date().toISOString(),
                 'sessionId': sessionId
             }));
-            messageInput.val('');
 
-            // Append the sent message to the chat area
             var sentMessage = {
                 senderUserId: senderId,
                 content: messageInput.val(),
                 timestamp: new Date().toISOString()
             };
             var messageElement = createMessageElement(sentMessage);
-            $msgArea.append(messageElement);
+            // $msgArea.append(messageElement);
+            $msgArea.scrollTop($msgArea[0].scrollHeight);
+            messageInput.val('');
         } else {
             console.error('WebSocket connection is not active. Cannot send message.');
         }
@@ -232,4 +244,3 @@ $(document).ready(function () {
 
     connect();
 });
-
