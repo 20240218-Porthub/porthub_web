@@ -32,7 +32,7 @@ public class CookieUtils {
         String json = gson.toJson(data);
         String encodedJson = Base64.getEncoder().encodeToString(json.getBytes());
         Cookie cookie = new Cookie(cookieName, encodedJson);
-        cookie.setMaxAge(60 * 60 * 24 * 7); // 7일간 유효
+        cookie.setMaxAge(60 * 60 * 24 * 1); // 7일간 유효
         cookie.setPath("/");
         response.addCookie(cookie);
     }

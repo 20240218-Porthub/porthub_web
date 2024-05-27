@@ -34,14 +34,12 @@ public class MemberController {
 
     @PostMapping("/username-check")
     public @ResponseBody String userCheck(@RequestParam("UserName") String UserName) {
-        System.out.println("UserName" + UserName);
         String checkResult = memberService.UserNameCheck(UserName);
         return checkResult;
     }
 
     @PostMapping("/email-check")
     public @ResponseBody boolean emailCheck(@RequestParam("Email") String Email) {
-        System.out.println("Email" + Email);
         boolean checkDuplelicateEmail = memberService.EmailDuplicateCheck(Email);
         return checkDuplelicateEmail;
     }
