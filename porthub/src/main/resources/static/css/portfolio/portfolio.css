@@ -520,6 +520,8 @@ a {
     transition: transform 0.3s ease; /* 확대 효과를 부드럽게 적용합니다. */
 }
 .history-image {
+    width: 20rem;
+    height: 13rem;;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -567,4 +569,18 @@ a {
     background-color: #868e96; /* 활성 상태 버튼 배경 색상 */
     color: #fff; /* 활성 상태 버튼 텍스트 색상 */
     cursor: default;
+}
+
+.create-section video,
+.create-section audio,
+.create-section img {
+    max-width: 20rem;
+    width: 15rem;
+    max-height: 13rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    padding: 5px;
+    float: left;
+    border-radius: 5%;
+    margin: 0 4px 1rem;
 }

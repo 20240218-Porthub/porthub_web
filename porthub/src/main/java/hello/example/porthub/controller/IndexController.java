@@ -1,10 +1,12 @@
 package hello.example.porthub.controller;
 
+import hello.example.porthub.config.util.CookieUtils;
 import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.*;
 import hello.example.porthub.domain.MainPortViewDto;
 import hello.example.porthub.service.MentoService;
 import hello.example.porthub.service.PortfolioService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +22,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
-import java.util.List;
+import java.util.*;
 
 
 @Slf4j
@@ -32,12 +34,24 @@ public class IndexController {
     private final PortfolioService portfolioService;
     private final MentoService mentoService;
 
+    public Map<Integer, String> getCookie(HttpServletRequest request) {
+        Map<String, String> recentPortfolios = CookieUtils.getCookieData(request.getCookies(), CookieUtils.COOKIE_NAME);
+        Map<Integer, String> reverseRecentPort = new LinkedHashMap<>();
+        List<String> keys = new ArrayList<>(recentPortfolios.keySet());
+
+        Collections.reverse(keys);
+        for (String key : keys) {
+            int intKey = Integer.parseInt(key); // String key를 int로 변환
+            reverseRecentPort.put(intKey, recentPortfolios.get(key));
+        }
+        return reverseRecentPort;
+    }
 
     @GetMapping(value = {"/", "/main","/All"})
     public String index(@RequestParam(value = "order", defaultValue = "NewestOrder") String order,
                         @RequestParam(value = "page", defaultValue = "1") int page,
                         @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
-                        Model model) {
+                        Model model, HttpServletRequest request) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<PopularDto> popularDtoList = portfolioService.findByPopular();
 
@@ -82,6 +96,11 @@ public class IndexController {
         int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
         List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
 
+        Map<Integer, String> reverseRecentPort = getCookie(request);
+
+        model.addAttribute("recentPortfolios", reverseRecentPort);
+
+
 
         model.addAttribute("CategoryNameCheck", 0);
         model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
@@ -101,7 +120,7 @@ public class IndexController {
     public String CategoryPort(@RequestParam(value = "page", defaultValue = "1") int page,
                                @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
                                @PathVariable("CategoryName") String CategoryName, @RequestParam(value = "order",
-            defaultValue = "NewestOrder") String order, Model model) {
+            defaultValue = "NewestOrder") String order, Model model, HttpServletRequest request) {
 
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<PopularDto> popularDtoList = portfolioService.findByPopular();
@@ -163,9 +182,11 @@ public class IndexController {
         int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
         List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
 
+        Map<Integer, String> reverseRecentPort = getCookie(request);
+
+        model.addAttribute("recentPortfolios", reverseRecentPort);
 
         model.addAttribute("CategoryNameCheck", checkNum);
-        System.out.println(mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("CategoryName", CategoryName);
         model.addAttribute("selectedOrder", order);
@@ -185,7 +206,7 @@ public class IndexController {
                                    @RequestParam(value = "page", defaultValue = "1") int page,
                                    @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
                                    @RequestParam(value = "order", defaultValue = "NewestOrder") String order,
-                                   Model model) throws UnsupportedEncodingException {
+                                   Model model, HttpServletRequest request) throws UnsupportedEncodingException {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<PopularDto> popularDtoList = portfolioService.findByPopular();
         if (SessionUtils.isLoggedIn()) {
@@ -278,6 +299,9 @@ public class IndexController {
             model.addAttribute("SearchQuery", SearchQuery);
         }
 
+        Map<Integer, String> reverseRecentPort = getCookie(request);
+
+        model.addAttribute("recentPortfolios", reverseRecentPort);
         int checkSearchNum = 0;
         String encodedSearchQuery = URLEncoder.encode(SearchQuery, "UTF-8");
 
