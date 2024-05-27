@@ -12,6 +12,8 @@ import java.util.List;
 @ToString
 public class MentoringDto {
     private int MentoID;
+    private String CategoryString;
+    private int CategoryID;
     private String Title;
     private float Price;
     private MultipartFile Thumbnailfile;

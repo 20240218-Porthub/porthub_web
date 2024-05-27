@@ -325,6 +325,7 @@ public class IndexController {
     public String Mento(Model model) {
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<MentoViewDto> mentorings=mentoService.allmentoring();
+
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("mentorings",mentorings);
         return "mentoring/mentoring";
