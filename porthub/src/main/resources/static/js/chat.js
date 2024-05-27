@@ -1,6 +1,23 @@
 /*<![CDATA[*/
 $(document).ready(function () {
+    const API_ENDPOINTS = {
+        FOLLOWINGS: '/api/followings',
+        NEW_CHAT: '/chats/new'
+    };
+
+    const $sendButton = $('#button-send');
+    const $addChatButton = $('#addChatButton');
+    const $followingsList = $('#followersList');
+    const $searchInput = $('#searchInput');
+    const $msgInput = $('#msg');
+    const $msgArea = $('#msgArea');
+
     var loggedInUsername;
+    // Get the sessionId from the URL
+    var sessionId = window.location.pathname.split('/').pop();
+    var stompClient = null;
+
+    loadChatMessages(sessionId);
 
     $.ajax({
         url: '/api/user',
@@ -25,23 +42,6 @@ $(document).ready(function () {
         $('#msg').val('');
     });
 
-    $('.chat-link').on('click', function (event) {
-        event.preventDefault();
-        var sessionId = $(this).attr('href').split('/').pop();
-        loadChatMessages(sessionId);
-    });
-
-    const API_ENDPOINTS = {
-        FOLLOWINGS: '/api/followings',
-        NEW_CHAT: '/chats/new'
-    };
-
-    const $sendButton = $('#button-send');
-    const $addChatButton = $('#addChatButton');
-    const $followingsList = $('#followersList');
-    const $searchInput = $('#searchInput');
-    const $msgInput = $('#msg');
-    const $msgArea = $('#msgArea');
 
     $sendButton.on('click', sendMessage);
     $addChatButton.on('click', fetchFollowings);
@@ -51,6 +51,13 @@ $(document).ready(function () {
     function createMessageElement(message) {
         var messageElement = document.createElement('div');
         messageElement.className = 'message-item';
+
+        // Check if the senderUserId matches the current user's ID
+        if (message.senderUserId === loggedInUsername) {
+            messageElement.classList.add('sent');
+        } else {
+            messageElement.classList.add('received');
+        }
 
         var senderElement = document.createElement('span');
         senderElement.className = 'message-sender';
@@ -71,7 +78,6 @@ $(document).ready(function () {
         return messageElement;
     }
 
-    var stompClient = null;
 
     function connect() {
         var socket = new SockJS('/ws');
@@ -123,7 +129,7 @@ $(document).ready(function () {
 
         // Fetch chat messages from the server
         $.ajax({
-            url: '/user/chat/' + sessionId,
+            url: '/api/chat-messages/' + sessionId,
             method: 'GET',
             dataType: 'json',  // Ensure the response is treated as JSON
             success: function (response) {

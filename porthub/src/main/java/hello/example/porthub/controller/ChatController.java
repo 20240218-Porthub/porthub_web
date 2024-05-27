@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -48,8 +49,15 @@ public class ChatController {
 
     @GetMapping("/api/chat-messages/{sessionId}")
     @ResponseBody
-    public List<ChatMessageDto> getChatMessagesBySessionId(@PathVariable String sessionId) {
-        return chatService.getChatHistoryBySessionId(sessionId);
+    public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable String sessionId) {
+        try {
+            List<ChatMessageDto> chatMessages = chatService.getChatHistoryBySessionId(sessionId);
+            return ResponseEntity.ok(chatMessages);
+        } catch (Exception e) {
+            // Log the exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.singletonMap("error", "Failed to load chat messages"));
+        }
     }
 
     @PostMapping("/chats/new")

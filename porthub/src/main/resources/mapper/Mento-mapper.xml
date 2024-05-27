@@ -10,12 +10,16 @@
     </insert>
 
     <insert id="upload" parameterType="Mentoring">
-        insert into Mentoring(MentoID, Title, Content, Price, Thumbnail, file_urls)
-        values (#{MentoID}, #{Title}, #{Content}, #{Price}, #{Thumbnail}, #{file_urls})
+        insert into Mentoring(MentoID, CategoryID, Title, Content, Price, Thumbnail, file_urls)
+        values (#{MentoID}, #{CategoryID}, #{Title}, #{Content}, #{Price}, #{Thumbnail}, #{file_urls})
     </insert>
 
-    <select id="allmentoring" resultType="MentoView">
+    <select id="searchmentoring" resultType="MentoView">
         select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID
+        <where>
+            <if test="CategoryID!=null and CategoryID!=1">and CategoryID=#{CategoryID}</if>
+            <if test="searchString!=null">and Title like concat('%',#{searchString},'%')</if>
+        </where>
     </select>
 
     <select id="selectmentoview" parameterType="int" resultType="MentoView">
@@ -26,9 +30,7 @@
         select * from Mentoring where MentoringID=#{MentoringID}
     </select>
 
-    <select id="searchmentoring" parameterType="String" resultType="MentoView">
-        select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID where Title like concat('%',#{searchString},'%')
-    </select>
+
 
     <select id="checkmentoprocess" parameterType="int" resultType="String">
         select Process from MentoProcess where MentoID=#{MentoID}
