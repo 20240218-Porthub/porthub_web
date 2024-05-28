@@ -15,20 +15,23 @@
     </insert>
 
     <select id="searchmentoring" resultType="MentoView">
-        select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID
-
-        <where>
-            <if test="CategoryID!=null and CategoryID!=1">and CategoryID=#{CategoryID}</if>
-            <if test="searchString!=null">and Title like concat('%',#{searchString},'%')</if>
-        </where>
+        select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail,mentoring_delete from Mentoring inner join Users on UserID=MentoID
+            <where>
+                <if test="CategoryID!=null and CategoryID!=1">and CategoryID=#{CategoryID}</if>
+                <if test="searchString!=null">and Title like concat('%',#{searchString},'%')</if>
+            </where>
     </select>
 
     <select id="selectmentoview" parameterType="int" resultType="MentoView">
-        select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID where MentoringID=#{MentoringID}
+        select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail,mentoring_delete from Mentoring inner join Users on UserID=MentoID where MentoringID=#{MentoringID}
     </select>
 
     <select id="mentoring" parameterType="int" resultType="Mentoring">
         select * from Mentoring where MentoringID=#{MentoringID}
+    </select>
+
+    <select id="mymentoring" parameterType="int" resultType="Mentoring">
+        select * from Mentoring where MentoID=#{MentoID}
     </select>
 
 
@@ -44,5 +47,9 @@
     <select id="mentoringcontent" parameterType="int" resultType="hello.example.porthub.domain.ActivityViewDto">
         select MentoringID,UserID,UserName,ProfileImage,Title,file_urls from Mentoring inner join Users on MentoID=UserID where MentoringID=#{MentoringID}
     </select>
+
+    <update id="deletementoring" parameterType="int">
+        update Mentoring set mentoring_delete=1 where MentoringID=#{MentoringID}
+    </update>
 
 </mapper>

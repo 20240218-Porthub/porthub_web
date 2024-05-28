@@ -21,3 +21,29 @@ window.onload = function() {
         }
     });
 };
+
+$(function(){
+    $('.delete-mentoring').click(function(){
+        let mentoringtitle=$(this).prev().text()
+        let mentoringpar=$(this).parent()
+        let mentoringid=mentoringpar.attr('id')
+        if(confirm("멘토링 제목: "+mentoringtitle+"을 삭제하시겠습니까? *이미 결제된 사용자에게는 컨텐츠가 남아있습니다.")){
+            $.ajax({
+                method:"post",
+                url:'/mentoring/delete',
+                data:{
+                  "MentoringID":mentoringid
+                },
+                success:function(rsp){
+                    mentoringpar.remove()
+                    alert("삭제 완료")
+                },
+                error:function(e){
+                    alert("삭제 실패")
+                }
+            })
+        }else{
+            alert("취소했습니다.")
+        }
+    })
+})
