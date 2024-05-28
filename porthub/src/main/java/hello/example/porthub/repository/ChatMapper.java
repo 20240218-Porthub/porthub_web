@@ -37,14 +37,27 @@ public interface ChatMapper {
             "LIMIT 1")
     ChatMessageDto findLastChatSessionBetweenUsers(@Param("currentUserId") int currentUserId, @Param("recipientUserId") int recipientUserId);
 
-    @Select("SELECT * FROM Chats " +
-            "WHERE (SenderID = #{currentUserId} AND ReceiverID = #{recipientUserId}) " +
-            "   OR (SenderID = #{recipientUserId} AND ReceiverID = #{currentUserId}) " +
-            "ORDER BY DateTime DESC ")
-    List<ChatMessageDto> findAllChatSessionsBetweenUsers(int currentUserID, int followingUserID);
+    @Select("SELECT * FROM Chats WHERE SessionID = #{sessionId} ORDER BY DateTime ASC")
+    @Results({
+            @Result(property = "id", column = "ChatID"),
+            @Result(property = "senderUserId", column = "SenderID"),
+            @Result(property = "recipientUserId", column = "ReceiverID"),
+            @Result(property = "content", column = "Content"),
+            @Result(property = "timestamp", column = "DateTime"),
+            @Result(property = "sessionId", column = "SessionID")
+    })
+    List<ChatMessageDto> getChatHistoryBySessionId(String sessionId);
 
     // Insert a new chat session into the database
     @Insert("INSERT INTO Chats (SenderID, ReceiverID, Content, DateTime, SessionID) " +
             "VALUES (#{senderUserId}, #{recipientUserId}, #{content}, #{timestamp}, #{sessionId})")
+    @Results({
+            @Result(property = "id", column = "ChatID"),
+            @Result(property = "senderUserId", column = "SenderID"),
+            @Result(property = "recipientUserId", column = "ReceiverID"),
+            @Result(property = "content", column = "Content"),
+            @Result(property = "timestamp", column = "DateTime"),
+            @Result(property = "sessionId", column = "SessionID")
+    })
     void insertChatMessage(ChatMessageDto chatMessage);
 }

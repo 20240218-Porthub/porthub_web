@@ -327,4 +327,27 @@
         WHERE p.Title LIKE CONCAT('%', #{searchQuery}, '%')
         ORDER BY p.Views_count DESC;
     </select>
+    <select id="findByPopular" resultType="hello.example.porthub.domain.PopularDto">
+        SELECT * FROM PopularUser
+        ORDER BY PopularID;
+    </select>
+    <select id="findAllCalcultePorts" resultType="hello.example.porthub.domain.CalculatePopularDto">
+        SELECT AuthorID, Hearts_count , Views_count FROM Portfolios;
+    </select>
+    <select id="findUserByAuthor" parameterType="int" resultType="hello.example.porthub.domain.PopularDto">
+    SELECT u.UserID, u.UserName, u.Email, u.ProfileImage, um.aff
+    FROM Users u
+             JOIN Usermeta um ON u.UserID = um.UserID
+    WHERE u.UserID = #{getUserID};
+    </select>
+
+    <update id="updateByRank" parameterType="hello.example.porthub.domain.PopularDto">
+        UPDATE PopularUser
+        SET UserID = #{UserID},
+            UserName = #{UserName},
+            Email = #{Email},
+            ProfileImage = #{ProfileImage},
+            aff = #{aff}
+        WHERE PopularID = #{PopularID};
+    </update>
 </mapper>

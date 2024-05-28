@@ -34,6 +34,7 @@ public class UserController {
         String username = principal.getName();
         Map<String, String> response = new HashMap<>();
         response.put("username", username);
+        response.put("userId", String.valueOf(userService.findUserIDByEmail(username)));
         return ResponseEntity.ok(response);
     }
 }

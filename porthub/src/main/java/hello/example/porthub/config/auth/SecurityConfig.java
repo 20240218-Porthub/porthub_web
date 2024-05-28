@@ -2,6 +2,7 @@
 package hello.example.porthub.config.auth;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 @Configuration
 @EnableWebSecurity
@@ -26,16 +29,17 @@ public class SecurityConfig {
 
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //특정한 경로의 접근을 제한
         http
                 .authorizeHttpRequests((auth) -> auth
 //                        .requestMatchers("/mentoring/MentoAuth").hasRole("MENTO")
-                        .requestMatchers("/about").hasRole("ADMIN")
+//                        .requestMatchers("/about").hasRole("ADMIN")
 //                        .requestMatchers("/profile", "/views/report").hasRole("USER")
                         .requestMatchers("/profile", "/views/report").authenticated()
-                        .requestMatchers("/chat","/ports/create").authenticated()
+//                        .requestMatchers("/chat","/ports/create").authenticated()
                         .anyRequest().permitAll() //전체 권한 열어놓고 특정 경로들을 요청받음 -> 자잘한 기능도 막힘
                 );
         http
