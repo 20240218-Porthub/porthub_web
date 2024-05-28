@@ -32,9 +32,10 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<Map<String, String>> getLoggedInUser(Principal principal) {
         String username = principal.getName();
+        String userID = String.valueOf(userService.findUserIDByEmail(username));
         Map<String, String> response = new HashMap<>();
         response.put("username", username);
-        response.put("userId", String.valueOf(userService.findUserIDByEmail(username)));
+        response.put("userID", userID);
         return ResponseEntity.ok(response);
     }
 }
