@@ -1,15 +1,191 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!---->
+    <link th:href="@{/css/header2.css}" rel="stylesheet">
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/about/main.css}" href="/static/css/about/main.css">
 </head>
 <body>
-<h1>
-    Abuout 페이지입니다.
-</h1>
+
+<div class="top-header" th:replace="~{fragments/header::headerFragment}"></div>
+
+
+<div class="desktop">
+    <div class="port">
+
+        <section class="banner full">
+            <article>
+                <img th:src="@{/images/slide01.jpg}" src="/static/images/slide01.jpg" alt="" width="1440" height="961">
+                <div class="inner">
+                    <header><p>각 분야 별로 다양한 포트폴리오를 경험할 수 있습니다!<a href="/main">Portfolio</a></p>
+                        <h2>Portfolio</h2>
+                    </header>
+                </div>
+            </article>
+            <article>
+                <img th:src="@{/images/slide02.jpg}" src="/static/images/slide02.jpg" alt="" width="1440" height="961">
+                <div class="inner">
+                    <header>
+                        <p>자신이 부족한 부분을 멘토링을 통해 해결할 수 있습니다!</p>
+                        <h2>Mentoring</h2>
+                    </header>
+                </div>
+            </article>
+            <article>
+                <img th:src="@{/images/slide03.jpg}" src="/static/images/slide03.jpg" alt="" width="1440" height="962">
+                <div class="inner">
+                    <header><p>멘토 인증을 진행하여 수익화를 진행할 수 있습니다!!</p>
+                        <h2>Profit</h2>
+                    </header>
+                </div>
+            </article>
+            <article>
+                <img th:src="@{/images/slide04.jpg}" src="/static/images/slide04.jpg" alt="" width="1440" height="961">
+                <div class="inner">
+                    <header><p>채팅을 통해 여러 분야와 소통을 진행할 수 있습니다!</p>
+                        <h2>Chatting</h2>
+                    </header>
+                </div>
+            </article>
+            <article>
+                <img th:src="@{/images/slide05.jpg}" src="/static/images/slide05.jpg" alt="" width="1440" height="962">
+                <div class="inner">
+                    <header><p>다양한 분야의 트랜드를 파악해 볼 수 있습니다!</p>
+                        <h2>Trend</h2>
+                    </header>
+                </div>
+            </article>
+        </section><!-- One -->
+
+        <section id="one" class="wrapper style2">
+            <div class="inner">
+                <div class="grid-style">
+
+                    <div>
+                        <div class="box">
+                            <div class="image fit">
+                                <img th:src="@{/images/pic02.jpg}" src="/static/images/pic02.jpg" alt="" width="600" height="300">
+                            </div>
+                            <div class="content">
+                                <header class="align-center"><p>maecenas sapien feugiat ex purus</p>
+                                    <h2>Lorem ipsum dolor</h2>
+                                </header>
+                                <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet
+                                    tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus,
+                                    quis volutpat lacus placerat malesuada.</p>
+                                <footer class="align-center"><a href="#" class="button alt">Learn More</a></footer>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="box">
+                            <div class="image fit">
+                                <img th:src="@{/images/pic03.jpg}" src="/static/images/pic03.jpg" alt="" width="600" height="300">
+                            </div>
+                            <div class="content">
+                                <header class="align-center"><p>mattis elementum sapien pretium tellus</p>
+                                    <h2>Vestibulum sit amet</h2>
+                                </header>
+                                <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet
+                                    tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus,
+                                    quis volutpat lacus placerat malesuada.</p>
+                                <footer class="align-center"><a href="#" class="button alt">Learn More</a></footer>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="box">
+                            <div class="image fit">
+                                <img th:src="@{/images/pic03.jpg}" src="/static/images/pic03.jpg" alt="" width="600" height="300">
+                            </div>
+                            <div class="content">
+                                <header class="align-center"><p>mattis elementum sapien pretium tellus</p>
+                                    <h2>Vestibulum sit amet</h2>
+                                </header>
+                                <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet
+                                    tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus,
+                                    quis volutpat lacus placerat malesuada.</p>
+                                <footer class="align-center"><a href="#" class="button alt">Learn More</a></footer>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="box">
+                            <div class="image fit">
+                                <img th:src="@{/images/pic03.jpg}" src="/static/images/pic03.jpg" alt="" width="600" height="300">
+                            </div>
+                            <div class="content">
+                                <header class="align-center"><p>mattis elementum sapien pretium tellus</p>
+                                    <h2>Vestibulum sit amet</h2>
+                                </header>
+                                <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet
+                                    tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus,
+                                    quis volutpat lacus placerat malesuada.</p>
+                                <footer class="align-center"><a href="#" class="button alt">Learn More</a></footer>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section><!-- Two -->
+        <section id="two" class="wrapper style3">
+            <div class="inner">
+                <header class="align-center"><p>Nam vel ante sit amet libero scelerisque facilisis eleifend vitae urna</p>
+                    <h2>Morbi maximus justo</h2>
+                </header>
+            </div>
+        </section><!-- Three -->
+        <section id="three" class="wrapper style2">
+            <div class="inner">
+                <header class="align-center"><p class="special">Nam vel ante sit amet libero scelerisque facilisis eleifend
+                    vitae urna</p>
+                    <h2>Morbi maximus justo</h2>
+                </header>
+                <div class="gallery">
+                    <div>
+                        <div class="image fit">
+                            <a href="#"><img th:src="@{/images/pic01.jpg}" src="/static/images/pic01.jpg" alt="" width="600" height="300"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="image fit">
+                            <a href="#"><img th:src="@{/images/pic02.jpg}" src="/static/images/pic02.jpg" alt="" width="600" height="300"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="image fit">
+                            <a href="#"><img th:src="@{/images/pic03.jpg}" src="/static/images/pic03.jpg" alt="" width="600" height="300"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="image fit">
+                            <a href="#"><img th:src="@{/images/pic04.jpg}" src="/static/images/pic04.jpg" alt="" width="600" height="300"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- Footer -->
+
+    </div>
+</div>
+
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+<!-- Scripts -->
+<script th:src="@{/js/about/jquery.min.js}" src="/static/js/about/jquery.min.js"></script>
+<script th:src="@{/js/about/jquery.scrollex.min.js}" src="/static/js/about/jquery.scrollex.min.js"></script>
+<script th:src="@{/js/about/skel.min.js}" src="/static/js/about/skel.min.js"></script>
+<script th:src="@{/js/about/util.js}" src="/static/js/about/util.js"></script>
+<script th:src="@{/js/about/main.js}" src="/static/js/about/main.js"></script>
 </body>
 </html>

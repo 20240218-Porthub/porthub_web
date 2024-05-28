@@ -7,26 +7,6 @@ body {
     height: 100vh;
 }
 
-/* 페이지 상단 이미지를 위한 스타일 */
-.header-image-container {
-    text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
-    position: relative;
-}
-.header-image {
-    width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
-    height: auto;
-    display: block;
-}
-
-.centered-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px; /* 원하는 글꼴 크기로 조정하세요 */
-    color: black; /* 글꼴 색상 설정 */
-}
-
 .container {
     display: flex;
     width: 100%;
@@ -55,7 +35,7 @@ body {
     align-items: center;
 }
 
-.sidebar .message-list {
+.sidebar .chat-list {
     display: flex;
     padding: 0rem 1rem;
     flex-direction: column;
@@ -64,17 +44,77 @@ body {
     align-self: stretch;
 }
 
+.sidebar .chat-item {
+    display: flex;
+    padding: 0.75rem;
+    align-items: flex-start;
+    gap: 1rem;
+    align-self: stretch;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar .chat-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
+.sidebar .chat-avatar {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.sidebar .chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sidebar .chat-details {
+    flex-grow: 1;
+}
+
+.sidebar .chat-username {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.sidebar .chat-message {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.sidebar .chat-timestamp {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+}
+
 button#addChatButton {
-    border: none;        /* Removes any border */
-    outline: none;       /* Removes focus outline */
-    background: none;    /* Removes any background styling */
+    border: none;
+    outline: none;
+    background: none;
 }
 
 .chat-area {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    overflow-y: auto;
+    width: 90%;
+    height: 50rem;
+    padding: 1.5rem;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-shrink: 0;
 }
 
 .chat-area .header {
@@ -83,6 +123,7 @@ button#addChatButton {
     align-items: center;
     padding: 1.25rem;
     border-bottom: 0.0625rem solid #ddd;
+    width: 90%;
 }
 
 .chat-area .header .user-info {
@@ -106,30 +147,47 @@ button#addChatButton {
     color: #888;
 }
 
-.chat-area .messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.25rem;
+.message-item {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-.chat-area .messages .message {
-    margin-bottom: 0.625rem;
+.message-item.sent {
+    justify-content: flex-end;
 }
 
-.chat-area .messages .message.sent {
-    background-color: #dcf8c6;
+.message-item.received {
+    justify-content: flex-start;
+}
+
+.message-content {
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 70%;
+}
+
+.message-item.sent .message-content {
+    background-color: #615EF0;
+    color: #FFFFFF;
     align-self: flex-end;
-    border-radius: 1.25rem 1.25rem 0 1.25rem;
-    padding: 0.625rem;
-    max-width: 70%;
 }
 
-.chat-area .messages .message.received {
-    background-color: #f1f1f1;
+.message-item.received .message-content {
+    background-color: #F1F1F1;
+    color: #000000;
     align-self: flex-start;
-    border-radius: 1.25rem 1.25rem 1.25rem 0;
-    padding: 0.625rem;
-    max-width: 70%;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.message-timestamp {
+    font-size: 12px;
+    color: #888;
+    margin-left: 5px;
 }
 
 .chat-area .input-area {
@@ -141,12 +199,9 @@ button#addChatButton {
 }
 
 .chat-area .input-area input {
-    display: flex;
-    height: 3rem;
+    flex: 1;
+    height: 2rem;
     padding: 0.625rem 1.25rem;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1 0 0;
     border-radius: 0.75rem;
     border: 2px solid #E2E8F0;
     background: #FFF;
@@ -161,35 +216,6 @@ button#addChatButton {
     cursor: pointer;
 }
 
-.message-item {
-    display: flex;
-    margin-bottom: 1rem;
-}
-
-.message-item.sent {
-    justify-content: flex-end;
-}
-
-.message-item.received {
-    justify-content: flex-start;
-}
-
-.message-content {
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.9375rem;
-    max-width: 70%;
-}
-
-.message-item.sent .message-content {
-    background-color: #615EF0;
-    color: #FFFFFF;
-}
-
-.message-item.received .message-content {
-    background-color: #F1F1F1;
-    color: #000000;
-}
-
 .search-bar {
     display: flex;
     padding: 0.75rem 1.5rem;
@@ -202,7 +228,7 @@ button#addChatButton {
 .search-bar input[type="text"] {
     display: flex;
     width: 90%;
-    height: 3rem;
+    height: 2rem;
     padding: 0.625rem 1.25rem;
     align-items: center;
     gap: 0.625rem;
@@ -213,7 +239,6 @@ button#addChatButton {
     outline: none;
 }
 
-/* Apply Poppins font to all placeholders within the application */
 ::placeholder {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;

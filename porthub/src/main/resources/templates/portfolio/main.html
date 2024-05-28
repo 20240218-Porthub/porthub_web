@@ -4,16 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link rel="stylesheet" th:href="@{/css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css" />
-    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioguide.css}" href="/static/css/portfolio/portfolioguide.css" />
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolio.css}" href="/static/css/portfolio/portfolio.css"/>
+    <link rel="stylesheet" th:href="@{/css/portfolio/portfolioguide.css}"
+          href="/static/css/portfolio/portfolioguide.css"/>
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 
+    <link rel="shortcut icon" href="#">
 </head>
+<style>
+    .views_report {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+    .views-all {
+        color: #a6a6a6;
+    }
+
+    .views-all:hover {
+        color: #000000; /* Change to black on hover */
+    }
+
+    .user-info {
+        align-items: center;
+        width: 200px;
+    }
+
+    .user-name {
+        margin-bottom: 5px; /* 원하는 만큼의 간격으로 조정 */
+        margin-right: 60px;
+    }
+
+    .user-affiliation {
+        color: gray; /* 소속 텍스트의 색상을 조정할 수 있습니다. */
+    }
+
+</style>
 <body>
 
 <header th:replace="~{fragments/header::headerFragment}"></header>
 <div class="header-image-container">
-    <img class="header-image" src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg" alt="Main Page Header Image">
+    <img class="header-image"
+         src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg"
+         alt="Main Page Header Image">
     <!-- 이미지 가운데 텍스트 -->
     <div class="centered-text">ngnix zero-downtime Deployment!</div>
 </div>
@@ -39,29 +74,48 @@
                         <!-- 버튼 + 검색바-->
                         <div class="second-container">
                             <div class="left-btn">
-                                <select th:if="${checkSearchNum} == 1" class="w-btn w-btn-indigo" id="sort-options" onchange="sortPortfolio()">
-                                    <option value="NewestOrder" th:attr="selected=${selectedOrder == 'NewestOrder'}">최신순</option>
-                                    <option value="PopularityOrder" th:attr="selected=${selectedOrder == 'PopularityOrder'}">인기순</option>
-                                    <option value="ViewsOrder" th:attr="selected=${selectedOrder == 'ViewsOrder'}">조회순</option>
-                                    <option value="OldestOrder" th:attr="selected=${selectedOrder == 'OldestOrder'}">오래된 순</option>
+                                <select th:if="${checkSearchNum} == 1" class="w-btn w-btn-indigo" id="sort-options"
+                                        onchange="sortPortfolio()">
+                                    <option value="NewestOrder" th:attr="selected=${selectedOrder == 'NewestOrder'}">
+                                        최신순
+                                    </option>
+                                    <option value="PopularityOrder"
+                                            th:attr="selected=${selectedOrder == 'PopularityOrder'}">인기순
+                                    </option>
+                                    <option value="ViewsOrder" th:attr="selected=${selectedOrder == 'ViewsOrder'}">조회순
+                                    </option>
+                                    <option value="OldestOrder" th:attr="selected=${selectedOrder == 'OldestOrder'}">오래된
+                                        순
+                                    </option>
                                 </select>
-                                <select th:unless="${checkSearchNum} == 1" class="w-btn w-btn-indigo" id="sort-search-options" onchange="SearchsortPortfolio()">
-                                    <option value="NewestOrder" th:attr="selected=${selectedOrder == 'NewestOrder'}">최신순</option>
-                                    <option value="PopularityOrder" th:attr="selected=${selectedOrder == 'PopularityOrder'}">인기순</option>
-                                    <option value="ViewsOrder" th:attr="selected=${selectedOrder == 'ViewsOrder'}">조회순</option>
-                                    <option value="OldestOrder" th:attr="selected=${selectedOrder == 'OldestOrder'}">오래된 순</option>
+                                <select th:unless="${checkSearchNum} == 1" class="w-btn w-btn-indigo"
+                                        id="sort-search-options" onchange="SearchsortPortfolio()">
+                                    <option value="NewestOrder" th:attr="selected=${selectedOrder == 'NewestOrder'}">
+                                        최신순
+                                    </option>
+                                    <option value="PopularityOrder"
+                                            th:attr="selected=${selectedOrder == 'PopularityOrder'}">인기순
+                                    </option>
+                                    <option value="ViewsOrder" th:attr="selected=${selectedOrder == 'ViewsOrder'}">조회순
+                                    </option>
+                                    <option value="OldestOrder" th:attr="selected=${selectedOrder == 'OldestOrder'}">오래된
+                                        순
+                                    </option>
                                 </select>
                             </div>
                             <div class="search-bar">
-                                <form id="search-form" th:if="${CategoryNameCheck} != 0" th:action="@{'/' + ${CategoryName} + '/search'}" method="get">
-                                    <input class="w-btn" type="text" name="SearchQuery" placeholder="검색어를 입력하세요" th:value="${SearchQuery}">
+                                <form id="search-form" th:if="${CategoryNameCheck} != 0"
+                                      th:action="@{'/' + ${CategoryName} + '/search'}" method="get">
+                                    <input class="w-btn" type="text" name="SearchQuery" placeholder="검색어를 입력하세요"
+                                           th:value="${SearchQuery}">
                                     <button type="submit" class="w-btn w-btn-indigo">검색</button>
-                                    <input type="hidden" class="encodedSearchQuery" th:value="${encodedSearchQuery}" />
+                                    <input type="hidden" class="encodedSearchQuery" th:value="${encodedSearchQuery}"/>
                                 </form>
                                 <form th:unless="${CategoryNameCheck} != 0" th:action="@{/main/search}" method="get">
-                                    <input class="w-btn" type="text" name="SearchQuery" placeholder="검색어를 입력하세요" th:value="${SearchQuery}">
+                                    <input class="w-btn" type="text" name="SearchQuery" placeholder="검색어를 입력하세요"
+                                           th:value="${SearchQuery}">
                                     <button type="submit" class="w-btn w-btn-indigo">검색</button>
-                                    <input type="hidden" class="encodedSearchQuery" th:value="${encodedSearchQuery}" />
+                                    <input type="hidden" class="encodedSearchQuery" th:value="${encodedSearchQuery}"/>
                                 </form>
                             </div>
                             <div class="right-btn">
@@ -76,24 +130,37 @@
                 <div class="gallery-section">
                     <div class="cards-section">
                         <!-- 반복되는 요소 -->
-                        <div th:if="${CategoryNameCheck} == 0" th:each="mainPortViewDtoList: ${mainPortViewDtoList}"  class="port-wrapper">
+                        <div th:if="${CategoryNameCheck} == 0" th:each="mainPortViewDtoList: ${mainPortViewDtoList}"
+                             class="port-wrapper">
                             <div class="port-2">
                                 <div class="title-description">
-                                    <div class="text-wrapper-5" th:data-src="${mainPortViewDtoList.Thumbnail_url}" data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg" th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"></div>
+                                    <div class="text-wrapper-5" th:data-src="${mainPortViewDtoList.Thumbnail_url}"
+                                         data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg"
+                                         th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"></div>
                                     <div class="profile-wrapper">
-                                        <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}" src="/static/images/profiletest.jpeg" th:attr="data-user-name=${mainPortViewDtoList.UserName}" onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
+                                        <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}"
+                                             src="/static/images/profiletest.jpeg"
+                                             th:attr="data-user-name=${mainPortViewDtoList.UserName}"
+                                             onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
                                     </div>
                                     <div class="title-deco" th:text="${mainPortViewDtoList.UserName}"></div>
                                     <div class="text-wrapper-6" th:text="${mainPortViewDtoList.Title}"></div>
                                 </div>
                             </div>
                         </div>
-                        <div th:unless="${CategoryNameCheck} == 0" th:if="${mainPortViewDtoList.CategoryID} == ${CategoryNameCheck}" th:each="mainPortViewDtoList: ${mainPortViewDtoList}"  class="port-wrapper">
+                        <div th:unless="${CategoryNameCheck} == 0"
+                             th:if="${mainPortViewDtoList.CategoryID} == ${CategoryNameCheck}"
+                             th:each="mainPortViewDtoList: ${mainPortViewDtoList}" class="port-wrapper">
                             <div class="port-2">
                                 <div class="title-description">
-                                    <div class="text-wrapper-5" th:data-src="${mainPortViewDtoList.Thumbnail_url}" data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg" th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"></div>
+                                    <div class="text-wrapper-5" th:data-src="${mainPortViewDtoList.Thumbnail_url}"
+                                         data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg"
+                                         th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"></div>
                                     <div class="profile-wrapper">
-                                        <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}" src="/static/images/profiletest.jpeg" th:attr="data-user-name=${mainPortViewDtoList.UserName}" onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
+                                        <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}"
+                                             src="/static/images/profiletest.jpeg"
+                                             th:attr="data-user-name=${mainPortViewDtoList.UserName}"
+                                             onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
                                     </div>
                                     <div class="title-deco" th:text="${mainPortViewDtoList.UserName}"></div>
                                     <div class="text-wrapper-6" th:text="${mainPortViewDtoList.Title}"></div>
@@ -110,17 +177,30 @@
             <div th:if="${CategoryNameCheck} == 0" class="pagination">
                 <ul>
                     <li th:if="${currentPage > 1}">
-                        <a th:if="${checkSearchNum} == 1" th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo; Previous</a>
-                        <a th:unless="${checkSearchNum} == 1" th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo; Previous</a>
-<!--                        search 경로로 들어온 것들에 대한 a태그 경로 요청-->
+                        <a th:if="${checkSearchNum} == 1"
+                           th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
+                            Previous</a>
+                        <a th:unless="${checkSearchNum} == 1"
+                           th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
+                            Previous</a>
+                        <!--                        search 경로로 들어온 것들에 대한 a태그 경로 요청-->
                     </li>
-                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${i == currentPage} ? ' active' : ''">
-                        <a th:if="${checkSearchNum} == 1" th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}" th:text="${i}"></a>
-                        <a th:unless="${checkSearchNum} == 1" th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}" th:text="${i}"></a>
+                    <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                        th:classappend="${i == currentPage} ? ' active' : ''">
+                        <a th:if="${checkSearchNum} == 1"
+                           th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
+                           th:text="${i}"></a>
+                        <a th:unless="${checkSearchNum} == 1"
+                           th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
+                           th:text="${i}"></a>
                     </li>
                     <li th:if="${currentPage < totalPages}">
-                        <a th:if="${checkSearchNum} == 1" th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next &raquo;</a>
-                        <a th:unless="${checkSearchNum} == 1" th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next &raquo;</a>
+                        <a th:if="${checkSearchNum} == 1"
+                           th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
+                            &raquo;</a>
+                        <a th:unless="${checkSearchNum} == 1"
+                           th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
+                            &raquo;</a>
                     </li>
                 </ul>
             </div>
@@ -128,16 +208,29 @@
             <div th:unless="${CategoryNameCheck} == 0" class="pagination">
                 <ul>
                     <li th:if="${currentPage > 1}">
-                        <a th:if="${checkSearchNum} == 1" th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo; Previous</a>
-                        <a th:unless="${checkSearchNum} == 1" th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo; Previous</a>
+                        <a th:if="${checkSearchNum} == 1"
+                           th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
+                            Previous</a>
+                        <a th:unless="${checkSearchNum} == 1"
+                           th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
+                            Previous</a>
                     </li>
-                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${i == currentPage} ? ' active' : ''">
-                        <a th:if="${checkSearchNum} == 1" th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}" th:text="${i}"></a>
-                        <a th:unless="${checkSearchNum} == 1" th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}" th:text="${i}"></a>
+                    <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                        th:classappend="${i == currentPage} ? ' active' : ''">
+                        <a th:if="${checkSearchNum} == 1"
+                           th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
+                           th:text="${i}"></a>
+                        <a th:unless="${checkSearchNum} == 1"
+                           th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
+                           th:text="${i}"></a>
                     </li>
                     <li th:if="${currentPage < totalPages}">
-                        <a th:if="${checkSearchNum} == 1" th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next &raquo;</a>
-                        <a th:unless="${checkSearchNum} == 1" th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next &raquo;</a>
+                        <a th:if="${checkSearchNum} == 1"
+                           th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
+                            &raquo;</a>
+                        <a th:unless="${checkSearchNum} == 1"
+                           th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
+                            &raquo;</a>
                     </li>
                 </ul>
             </div>
@@ -152,33 +245,64 @@
     <div class="fixed-up">
         <br><br>
         <div>
-            <h2 style="font-size: 1em; margin-bottom: 0.1em;">Popularity</h2>
+            <h2 style="font-size: 1em; margin-bottom: 15px;">Popularity</h2>
         </div>
-        <div th:each="idx : ${#numbers.sequence(1, 4)}" class="Popularity">
-            <div class="profile-wrapper">
-                <img class="profile-image" th:src="@{/images/profiletest.jpeg}" src="/static/images/profiletest.jpeg" />
+
+        <div th:each="PopularViewDtoList: ${PopularViewDtoList}" class="Popularity">
+            <div class="profile-wrapper" style="width: 50px; height: 50px;">
+                <img class="profile-image" th:src="${PopularViewDtoList.profileImage}"
+                     src="/static/images/profiletest.jpeg" th:attr="data-user-name=${PopularViewDtoList.userName}"
+                     onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
             </div>
-            <div>UserName</div>
-            <button class="follow-btn">follow</button>
+            <div class="user-info">
+                <div class="user-name" th:text="${PopularViewDtoList.userName}">UserName</div>
+                <div class="user-affiliation" th:text="${PopularViewDtoList.aff}">소속</div>
+            </div>
+
+            <div th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
+                <form th:action="@{'/unfollow/' + ${PopularViewDtoList.UserID}}" th:method="post"
+                      th:if="${PopularViewDtoList.followCheck}">
+                    <button type="submit" class="follow-btn" style="background-color: #e2e8f0; color: #64748b;">
+                        Following
+                    </button>
+                </form>
+
+                <!-- Follow form -->
+                <form th:action="@{'/follow/' + ${PopularViewDtoList.UserID}}" th:method="post"
+                      th:unless="${PopularViewDtoList.followCheck}">
+                    <button type="submit" class="follow-btn" style="background-color: black; color: #fff;">Follow
+                    </button>
+                </form>
+            </div>
+            <div th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
+                <a class="follow-btn" onclick="checkLogin()" style="background-color: black; color: #fff;">Follow</a>
+            </div>
         </div>
 
     </div>
     <div class="fixed-down">
-        <div>
+        <div class="views_report">
             <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History</h2>
+            <a class="views-all" href="/view">views_all</a>
         </div>
-
-        <div class="history_section">
-            <div th:each="idx : ${#numbers.sequence(1, 4)}" class="port-3">
+        <div class="history_section" th:if="${#lists.isEmpty(recentPortfolios)}">
+            <p>No recent portfolios available.</p>
+        </div>
+        <div class="history_section" th:unless="${#lists.isEmpty(recentPortfolios)}">
+            <div th:each="entry : ${recentPortfolios}" class="port-3">
                 <div class="history-description">
                     <div class="history-image">
-                        <img class="image" th:src="@{/images/iim.png}" src="/static/images/iim.png" />
+                        <div class="text-wrapper-5 create-section" th:data-src="${entry.value}"
+                             data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg"
+                             th:onclick="'goToDetailPage(\'' + ${entry.key} + '\')'"></div>
                     </div>
                 </div>
             </div>
         </div>
 
+
     </div>
+
 </div>
 
 <footer th:replace="~{fragments/footer::footerFragment}"></footer>
@@ -191,6 +315,7 @@
     if (categoryName === "All") {
         categoryName = "main";
     }
+
     function sortPortfolio() {
         var sortOrder = document.getElementById("sort-options").value;
         window.location.href = "/" + categoryName + "?order=" + sortOrder;
@@ -211,6 +336,24 @@
 
         let newUrl = `/${categoryName}/search?SearchQuery=${encodedSearchQuery}&page=${page}&pageSize=${pageSize}&order=${sortOrder}`;
         window.location.href = newUrl;
+    }
+
+    function checkLogin() {
+        var isLoggedIn = false; // 로그인 상태를 나타내는 변수 (임시로 false로 설정)
+        isLoggedIn = [[${isLoggedIn}]];
+        if (isLoggedIn) {
+        } else {
+            // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
+            var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+            if (check_login) {
+                window.location.href = '/login';
+            }
+        }
+    }
+
+    function goToDetailPage(portfolioId) {
+        // 클릭된 이미지의 포트폴리오 ID를 사용하여 상세 페이지로 이동
+        window.location.href = '/ports/views/' + portfolioId;
     }
 
 </script>

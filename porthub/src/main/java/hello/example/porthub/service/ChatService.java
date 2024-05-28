@@ -27,7 +27,6 @@ public class ChatService {
             throw new IllegalArgumentException("One or both user IDs are invalid or do not exist.");
         }
         // Check if there's an existing chat session between the two users
-
         ChatMessageDto newChat = new ChatMessageDto();
         newChat.setSenderUserId(senderId);
         newChat.setRecipientUserId(recipientId);
@@ -44,7 +43,6 @@ public class ChatService {
         for (String sessionKey : sessionKeys) {
             ChatMessageDto latestMessage = chatMapper.getLatestMessageForSession(sessionKey);
             if (latestMessage != null) {
-                System.out.println("Latest message: " + latestMessage);
                 chatSummaries.add(new ChatMessageDto(latestMessage.getId(),
                         userId,
                         sessionParticipantMapper.findOtherParticipant(sessionKey, userId),
@@ -58,5 +56,14 @@ public class ChatService {
 
     private boolean isValidUser(Integer userID) {
         return userMapper.findUsernameById(userID) != null;
+    }
+
+    public List<ChatMessageDto> getChatHistoryBySessionId(String sessionId) {
+        return chatMapper.getChatHistoryBySessionId(sessionId);
+    }
+
+    public int getRecipientUserIdBySessionId(String sessionId, int currentUserId) {
+        // Logic to retrieve the recipient user's ID based on the sessionId and currentUserId
+        return sessionParticipantMapper.findOtherParticipant(sessionId, currentUserId);
     }
 }

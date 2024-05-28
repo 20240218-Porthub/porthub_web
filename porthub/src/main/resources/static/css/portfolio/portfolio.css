@@ -338,7 +338,7 @@ body, html {
 
 .profile-wrapper {
     width: 30px; /* Adjust the size of the circular profile image */
-    /*height: 30px;*/
+    height: 30px;
     border-radius: 50%; /* Makes the image circular */
     overflow: hidden; /* Hides any image overflow */
     margin-right: 4px; /* Adjust spacing between profile image and text */
@@ -347,8 +347,9 @@ body, html {
 
 .profile-image {
     width: 100%; /* Ensures the image takes up the full space of its container */
-    height: auto;
+    height: 100%;
     display: block;
+    cursor: pointer;
 }
 
 .profile-image-sm{
@@ -457,16 +458,23 @@ a {
     display: flex; /* Flexbox를 사용하여 요소들을 한 줄로 정렬합니다. */
     align-items: center; /* 세로 방향 가운데 정렬합니다. */
     margin-bottom: 10px; /* 요소들 사이의 간격을 설정합니다. */
-    justify-content: center;
 }
+
 .follow-btn {
     background-color: black;
+    border:none;
     color: white;
-    border-radius: .25rem;
     margin: 10px;
     font: revert;
     font-size: small;
-    padding: 4px 2px;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.follow-btn:hover {
+    background-color: #555555 !important;
 }
 
 .history_section img {
@@ -512,6 +520,8 @@ a {
     transition: transform 0.3s ease; /* 확대 효과를 부드럽게 적용합니다. */
 }
 .history-image {
+    width: 20rem;
+    height: 13rem;;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -559,4 +569,18 @@ a {
     background-color: #868e96; /* 활성 상태 버튼 배경 색상 */
     color: #fff; /* 활성 상태 버튼 텍스트 색상 */
     cursor: default;
+}
+
+.create-section video,
+.create-section audio,
+.create-section img {
+    max-width: 20rem;
+    width: 15rem;
+    max-height: 13rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    padding: 5px;
+    float: left;
+    border-radius: 5%;
+    margin: 0 4px 1rem;
 }

@@ -2,9 +2,9 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!--    <settings>-->
-<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
-<!--    </settings>-->
+    <!--    <settings>-->
+    <!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+    <!--    </settings>-->
     <typeAliases>
         <typeAlias type="hello.example.porthub.domain.MemberDto" alias="Member"></typeAlias>
         <typeAlias type="hello.example.porthub.domain.ProfileDto" alias="User"></typeAlias>
