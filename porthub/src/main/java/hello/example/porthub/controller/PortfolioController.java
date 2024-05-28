@@ -1,8 +1,11 @@
 package hello.example.porthub.controller;
+import hello.example.porthub.config.util.CookieUtils;
 import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.PortfolioService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,13 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Port;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 @Controller
@@ -27,6 +26,9 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
     private final MemberRepository memberRepository;
 
+    private static final int MAX_ENTRIES = 5;
+    private static final String COOKIE_NAME = "portfolioCookie";
+
     @PostMapping("/uploads")
     public String uploadPortfolio(@ModelAttribute PortfolioDto portfolioDto) throws IOException {
 
@@ -34,7 +36,6 @@ public class PortfolioController {
         // 이를 순서대로 db에 저장하는 로직을 구현해야 함.
 
         int uploadResult = portfolioService.upload(portfolioDto);
-
 
         if (uploadResult > 0) {
             return "redirect:/main";
@@ -50,9 +51,11 @@ public class PortfolioController {
 
 
     @GetMapping("/views/{PortfolioID}")
-    public String portfolioDetail(@PathVariable(name = "PortfolioID") int PortfolioID, Model model, HttpSession session) {
+    public String portfolioDetail(@PathVariable(name = "PortfolioID") int PortfolioID, Model model, HttpSession session,
+                                  HttpServletRequest request, HttpServletResponse response) {
 
         String viewsPort = (String) session.getAttribute("viewsPort");
+
         if (viewsPort == null || viewsPort.isEmpty()) {
             // 새로운 포트폴리오를 조회한 경우이므로, 해당 포트폴리오의 ID를 viewsPort에 추가하고 조회수를 증가시킵니다.
             viewsPort = String.valueOf(PortfolioID);
@@ -83,6 +86,11 @@ public class PortfolioController {
         List<PortViewDto> portuserList = portfolioService.finduserport(PortfolioID);
         model.addAttribute("portuserList", portuserList);
 
+        if (portViewDto.getThumbnail_url()==null) {
+            portViewDto.setThumbnail_url("https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg");
+        }
+        CookieUtils.addPortfolioData(request.getCookies(), response, CookieUtils.COOKIE_NAME, String.valueOf(PortfolioID), portViewDto.getThumbnail_url());
+
         if (SessionUtils.isLoggedIn()) {
             model.addAttribute("isLoggedIn", true);
             boolean followCheck = portfolioService.checkFollow(portViewDto.getAuthorID(), SessionUtils.getCurrentUsername());
@@ -90,7 +98,6 @@ public class PortfolioController {
             //로그인 되어있는 경우 사용자 아이디
         } else {
             model.addAttribute("isLoggedIn", false);
-            //not login not session
         }
 
         if (portViewDto.getEmail() == SessionUtils.getCurrentUsername()) {
@@ -127,7 +134,6 @@ public class PortfolioController {
         copyrightReportDto.setReporterEmail(email);
 
 
-        System.out.println(copyrightReportDto);
         portfolioService.postReportdata(copyrightReportDto);
 
         return "redirect:/ports/views/" + portfolioID;
@@ -147,14 +153,15 @@ public class PortfolioController {
         portLikeDto.setEmail(email);
         if (heartCheck) {
             portLikeDto.setHeart_Check(false);
+            portfolioService.portfolioDecreLikes(portfolioID);
         } else {
             portLikeDto.setHeart_Check(true);
+            portfolioService.portfolioIncreLikes(portfolioID);
         }
         //db에서 데이터 없을 경우 default = 0으로 insert하고 데이터 존재하는 경우 Check_Heart 역전 시키기
 //        설정값대로
         portfolioService.convertLikes(portLikeDto);
 
-        System.out.println(portLikeDto);
         return "redirect:/ports/views/" + portfolioID;
     }
 
@@ -185,7 +192,6 @@ public class PortfolioController {
         String CurrentUseremail = SessionUtils.getCurrentUsername();
 
         if (getEmail != null && getEmail.equals(CurrentUseremail)) {
-            System.out.println(PortfolioID);
             portfolioService.portdelete(Integer.parseInt(PortfolioID));
         } else {
             return "redirect:/403";
@@ -208,10 +214,8 @@ public class PortfolioController {
             PortViewDto portViewDto = portfolioService.findportview(portID);
 
             model.addAttribute("PortViewDtoList", portViewDto);
-            System.out.println(portViewDto);
             List<ImagesDto> fileDtoList = portfolioService.findportFiles(portID);
             model.addAttribute("FileViewDtoList", fileDtoList);
-            System.out.println("hi" + fileDtoList);
             List<PortViewDto> portuserList = portfolioService.finduserport(portID);
             model.addAttribute("portuserList", portuserList);
 
@@ -225,7 +229,6 @@ public class PortfolioController {
 
     @PutMapping("/views/put/{PortfolioID}")
     public String portfolioput(@PathVariable("PortfolioID") int PortfolioID, @ModelAttribute PortfolioDto portfolioDto) {
-        System.out.println(portfolioDto);
 
         int uploadResult = portfolioService.UpdatePortfolio(portfolioDto);
 

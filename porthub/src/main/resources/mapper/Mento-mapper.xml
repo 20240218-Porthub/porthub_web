@@ -16,6 +16,7 @@
 
     <select id="searchmentoring" resultType="MentoView">
         select UserID,UserName,profileImage,Price,MentoringID,Title,Thumbnail from Mentoring inner join Users on UserID=MentoID
+
         <where>
             <if test="CategoryID!=null and CategoryID!=1">and CategoryID=#{CategoryID}</if>
             <if test="searchString!=null">and Title like concat('%',#{searchString},'%')</if>

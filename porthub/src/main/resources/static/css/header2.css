@@ -1,0 +1,191 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /*background: url("../images/background.jpeg") no-repeat;*/
+    background-size: cover;
+    background-position: center;
+    background-color: white;
+}
+
+#wrap {
+    height: auto;
+    margin-top: 100px;
+    min-height: 100%;
+    padding-bottom: 5rem;
+}
+
+
+#login {
+
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    padding: 20px 100px;
+    background: lavenderblush;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+
+}
+.left-menu {
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    cursor: pointer;
+}
+
+nav .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 260px;
+    padding: 20px 0;
+    background-color: white;
+    box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+nav.open .sidebar{
+    left: 0;
+}
+.sidebar .sidebar-content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 16px;
+}
+.sidebar-content .list {
+    list-style: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 1000vh;
+    width: 200%;
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+nav.open ~ .sidebar{
+    opacity: 1;
+    left: 260px;
+    pointer-events: auto;
+}
+
+.list .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 14px 12px;
+    border-radius: 8px;
+    color: #4070f4;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background-color: #4070f4;
+}
+.nav-link .icon{
+    margin-right: 14px;
+    font-size: 20px;
+    color: #707070;
+}
+.nav-link .link {
+    font-size: 16px;
+    color: #707070;
+    font-weight: 400;
+}
+
+.nav-link:hover .icon,
+.nav-link:hover .link {
+    color: white;
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+    margin: 0 24px;
+}
+.logo .menu-icon {
+    color: #333333;
+    font-size: 2em;
+    margin-right: 14px;
+    cursor: pointer;
+}
+.logo-text {
+    text-decoration-line: none;
+}
+.logo .logo-name {
+    cursor: pointer;
+    color: #333333;
+    font-size: 22px;
+    font-weight: 500;
+}
+.navigation a{
+    position: relative;
+    font-size: 1.1em;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+.navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: black;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+.navigation a:hover::after {
+    transform-origin: right;
+    transform: scaleX(1);
+}
+
+.navigation .btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid black;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: lightgray;
+    color: white;
+}
