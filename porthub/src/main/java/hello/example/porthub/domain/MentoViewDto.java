@@ -16,4 +16,5 @@ public class MentoViewDto {
     private float Price;
     private String Title;
     private String Thumbnail;
+    private int mentoring_delete;
 }

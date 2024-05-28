@@ -70,4 +70,8 @@ public class MentoService {
         }
         return activityViewDtos;
     }
+
+    public List<MentoringDto> mymentoring(int MentoID){ return mentoRepository.mymentoring(MentoID);}
+
+    public int deletementoring(int MentoringID){return mentoRepository.deletementoring(MentoringID);}
 }
