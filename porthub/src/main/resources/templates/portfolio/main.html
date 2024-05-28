@@ -9,6 +9,7 @@
           href="/static/css/portfolio/portfolioguide.css"/>
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
 
+    <link rel="shortcut icon" href="#">
 </head>
 <style>
     .views_report {
@@ -258,7 +259,7 @@
                 <div class="user-affiliation" th:text="${PopularViewDtoList.aff}">소속</div>
             </div>
 
-            <div th:if="${#authorization.expression('isAuthenticated()')}">
+            <div th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
                 <form th:action="@{'/unfollow/' + ${PopularViewDtoList.UserID}}" th:method="post"
                       th:if="${PopularViewDtoList.followCheck}">
                     <button type="submit" class="follow-btn" style="background-color: #e2e8f0; color: #64748b;">
@@ -273,7 +274,7 @@
                     </button>
                 </form>
             </div>
-            <div th:unless="${#authorization.expression('isAuthenticated()')}">
+            <div th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
                 <a class="follow-btn" onclick="checkLogin()" style="background-color: black; color: #fff;">Follow</a>
             </div>
         </div>

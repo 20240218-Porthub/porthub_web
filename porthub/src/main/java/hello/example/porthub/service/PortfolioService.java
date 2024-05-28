@@ -80,8 +80,6 @@ public class PortfolioService {
                     imagesDto.setImage_url(multipleFiles.get(i));
                     imagesDto.setContents(contentList.get(i));
                     portfolioRepository.ContentUpload(imagesDto);
-                    System.out.println(i);
-                    System.out.println(imagesDto);
                 }
             }
 
@@ -133,7 +131,6 @@ public class PortfolioService {
 
     public boolean checkFollow(int authorID, String currentEmail) {
         int CurrentID = portfolioRepository.findByUserIDtoEmailcheck(currentEmail);
-        System.out.println("authorID: " + authorID + "currentID: " + currentEmail);
         return portfolioRepository.checkFollow(authorID, CurrentID);
     }
 
@@ -197,8 +194,6 @@ public class PortfolioService {
                     imagesDto.setContents(contentList.get(i));
                     imagesDto.setImagesFileID(ImageFileID.get(i));
                     portfolioRepository.ContentUpdate(imagesDto);
-                    System.out.println(i);
-                    System.out.println(imagesDto);
                 }
             }
 
@@ -280,7 +275,6 @@ public class PortfolioService {
         List<CalculatePopularDto> portfolios = portfolioRepository.findAllCalcultePorts();
 
         if (portfolios == null || portfolios.isEmpty()) {
-            System.out.println("포트폴리오 데이터가 없습니다.");
             return;
         }
         PopularDto resetPopulars;
@@ -290,7 +284,6 @@ public class PortfolioService {
             int getUserID = entry.getKey();
             int rank = entry.getValue();
             resetPopulars = portfolioRepository.findUserByAuthor(getUserID);
-            System.out.println(resetPopulars);
             resetPopulars.setPopularID(rank);
             portfolioRepository.updateByRank(resetPopulars);
         }
