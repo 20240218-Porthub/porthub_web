@@ -49,4 +49,8 @@ public class MentoRepository {
     public String PaidMentoringID(int UserID){return sql.selectOne("Mento.paidmentoringID",UserID);}
 
     public ActivityViewDto MentoringContent(int MentoringID){return sql.selectOne("Mento.mentoringcontent",MentoringID);}
+
+    public List<MentoringDto> mymentoring(int MentoID){return sql.selectList("Mento.mymentoring",MentoID);}
+
+    public int deletementoring(int MentoringID){return sql.update("Mento.deletementoring",MentoringID);}
 }
