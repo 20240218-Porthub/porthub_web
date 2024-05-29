@@ -16,6 +16,9 @@ public class CookieUtils {
     public static final String COOKIE_NAME = "portfolioCookie";
 
     public static Map<String, String> getCookieData(Cookie[] cookies, String cookieName) {
+        if (cookies == null) {
+            return new LinkedHashMap<>(); // 쿠키 배열이 null인 경우 빈 맵 반환
+        }
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(cookieName)) {
                 String value = new String(Base64.getDecoder().decode(cookie.getValue()));
@@ -32,7 +35,7 @@ public class CookieUtils {
         String json = gson.toJson(data);
         String encodedJson = Base64.getEncoder().encodeToString(json.getBytes());
         Cookie cookie = new Cookie(cookieName, encodedJson);
-        cookie.setMaxAge(60 * 60 * 24 * 1); // 7일간 유효
+        cookie.setMaxAge(60 * 60 * 24 * 1); // 1일간 유효
         cookie.setPath("/");
         response.addCookie(cookie);
     }
