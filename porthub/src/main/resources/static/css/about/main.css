@@ -1843,6 +1843,7 @@
 
 		.box .content {
 			padding: 3rem;
+			height: 20rem;
 		}
 
 		.box > :last-child,
