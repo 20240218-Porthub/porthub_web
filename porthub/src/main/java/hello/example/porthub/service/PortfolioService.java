@@ -4,7 +4,6 @@ import hello.example.porthub.domain.*;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -328,6 +327,14 @@ public class PortfolioService {
         return portfolioRankMap.entrySet().stream()
                 .limit(3)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public List<Integer> findLikesByEmail(String userEmail) {
+        return portfolioRepository.findLikesByEmail(userEmail);
+    }
+
+    public List<MainPortViewDto> findSelectListPorts(List<Integer> IDs) {
+        return portfolioRepository.findSelectListPorts(IDs);
     }
 }
 

@@ -18,7 +18,9 @@
         align-items: center;
         margin-right: 10px;
     }
-
+    .likes-text {
+        color: #a6a6a6;
+    }
     .views-all {
         color: #a6a6a6;
     }
@@ -166,8 +168,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
 
                 </div>
@@ -281,7 +281,7 @@
     </div>
     <div class="fixed-down">
         <div class="views_report">
-            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History</h2>
+            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History<div class="likes-text">&Likes</div></h2>
             <a class="views-all" href="/view" onclick="checkLogin(event)">views_all</a>
         </div>
         <div class="history_section" th:if="${#lists.isEmpty(recentPortfolios)}">
