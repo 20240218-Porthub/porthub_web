@@ -25,5 +25,4 @@ public class PortfolioDto {
     private List<String> multipleFiles;
     private List<String> content;
     private String AttachmentsOrLinks;
-
 }
