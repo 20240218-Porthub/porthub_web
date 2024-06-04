@@ -71,7 +71,7 @@
             <li class="list" th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}" >
               <a class="nav-link" style="cursor: pointer;">
                 <ion-icon name="bag-outline" class="icon"></ion-icon>
-                <span onclick="confirmLogout()" class="link">Logout</span>
+                <span onclick="confirmLogout(event)" class="link">Logout</span>
               </a>
             </li>
             <li class="list" th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}" >
@@ -146,7 +146,7 @@
       <a href="#" id="chat-alert-link" th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">Chatting</a>
 
 <!--      <button th:if="${#authorization.expression('isAuthenticated()')}" type="button" onclick="location.href='/logout'" class="btnLogin-popup">Logout</button>-->
-      <button th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}" type="button" onclick="confirmLogout()" class="btnLogin-popup">Logout</button>
+      <button th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}" type="button" onclick="confirmLogout(event)" class="btnLogin-popup">Logout</button>
       <!-- 로그인이 되어 있지 않을 때 -->
       <button th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}" onclick="location.href='/login'" class="btnLogin-popup">Login</button>
 

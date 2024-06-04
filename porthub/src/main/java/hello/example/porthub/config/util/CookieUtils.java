@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class CookieUtils {
 
-    public static final int MAX_ENTRIES = 5;
+    public static final int MAX_ENTRIES = 10;
     public static final String COOKIE_NAME = "portfolioCookie";
 
     public static Map<String, String> getCookieData(Cookie[] cookies, String cookieName) {

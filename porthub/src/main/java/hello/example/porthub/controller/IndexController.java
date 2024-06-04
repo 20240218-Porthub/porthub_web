@@ -7,21 +7,14 @@ import hello.example.porthub.domain.MainPortViewDto;
 import hello.example.porthub.service.MentoService;
 import hello.example.porthub.service.PortfolioService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import retrofit2.http.Path;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.security.Principal;
 import java.util.*;
 
 
@@ -340,7 +333,41 @@ public class IndexController {
     public String profile() { return "user/profile"; }
 
     @GetMapping(value={"/view"})
-    public String views_all() { return "user/view"; }
+    public String views_all(Model model, HttpServletRequest request) {
+
+        String userEmail = SessionUtils.getCurrentUsername();
+
+        if (userEmail == null) {
+            return "redirect:/";
+        }
+
+        List<Integer> likeIDs = portfolioService.findLikesByEmail(userEmail);
+
+        List<Integer> historyIDs = new ArrayList<>();
+        Map<Integer, String> reverseRecentPort = getCookie(request);
+        historyIDs.addAll(reverseRecentPort.keySet());
+
+        boolean hasLikes = !likeIDs.isEmpty();
+        boolean hasHistory = !historyIDs.isEmpty();
+
+
+        if (hasLikes) {
+            model.addAttribute("LikesPortViewDtoList", portfolioService.findSelectListPorts(likeIDs));
+        } else {
+            model.addAttribute("LikesPortViewDtoList", null);
+        }
+        if (hasHistory) {
+            model.addAttribute("HistoryPortViewDtoList", portfolioService.findSelectListPorts(historyIDs));
+        } else {
+            model.addAttribute("HistoryPortViewDtoList", null);
+        }
+
+
+        model.addAttribute("hasHistory", hasHistory);
+        model.addAttribute("hasLikes", hasLikes);
+
+        return "user/view";
+    }
 
     @GetMapping(value = {"/about"})
     public String about() {
