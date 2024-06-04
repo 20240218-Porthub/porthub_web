@@ -526,6 +526,7 @@ a {
     align-items: center;
     margin-bottom: 10px;
     justify-content: center;
+    cursor: pointer;
 }
 
 .w-btn-indigo.active {

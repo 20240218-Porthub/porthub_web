@@ -18,7 +18,9 @@
         align-items: center;
         margin-right: 10px;
     }
-
+    .likes-text {
+        color: #a6a6a6;
+    }
     .views-all {
         color: #a6a6a6;
     }
@@ -135,7 +137,6 @@
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5" th:data-src="${mainPortViewDtoList.Thumbnail_url}"
-                                         data-src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg"
                                          th:onclick="'goToDetailPage(\'' + ${mainPortViewDtoList.PortfolioID} + '\')'"></div>
                                     <div class="profile-wrapper">
                                         <img class="profile-image" th:src="${mainPortViewDtoList.profileImage}"
@@ -167,8 +168,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
 
                 </div>
@@ -282,8 +281,8 @@
     </div>
     <div class="fixed-down">
         <div class="views_report">
-            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History</h2>
-            <a class="views-all" href="/view">views_all</a>
+            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History<div class="likes-text">&Likes</div></h2>
+            <a class="views-all" href="/view" onclick="checkLogin(event)">views_all</a>
         </div>
         <div class="history_section" th:if="${#lists.isEmpty(recentPortfolios)}">
             <p>No recent portfolios available.</p>
@@ -338,15 +337,17 @@
         window.location.href = newUrl;
     }
 
-    function checkLogin() {
-        var isLoggedIn = false; // 로그인 상태를 나타내는 변수 (임시로 false로 설정)
-        isLoggedIn = [[${isLoggedIn}]];
-        if (isLoggedIn) {
-        } else {
+
+    function checkLogin(event) {
+        var isLoggedIn = [[${isLoggedIn}]]; // 서버에서 isLoggedIn 변수의 값을 받아옴
+        if (!isLoggedIn) {
             // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
             var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
             if (check_login) {
+                event.preventDefault();
                 window.location.href = '/login';
+            } else {
+                event.preventDefault(); // 기본 동작(링크 이동) 취소
             }
         }
     }

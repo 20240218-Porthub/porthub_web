@@ -350,4 +350,28 @@
             aff = #{aff}
         WHERE PopularID = #{PopularID};
     </update>
+    <select id="findLikesByEmail" parameterType="String" resultType="Integer">
+        SELECT PortfolioID
+        FROM PortfolioLikes
+        WHERE Email = #{userEmail}
+          AND Heart_Check = true
+    </select>
+
+    <select id="findSelectListPorts" parameterType="list" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT p.PortfolioID,
+        p.AuthorID AS UserID,
+        p.Thumbnail_url,
+        p.Title,
+        p.CategoryID,
+        u.UserName,
+        u.ProfileImage
+        FROM Portfolios p
+        JOIN Users u ON p.AuthorID = u.UserID
+        WHERE p.PortfolioID IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY p.PortfolioID DESC
+    </select>
+
 </mapper>

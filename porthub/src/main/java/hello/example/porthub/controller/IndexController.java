@@ -333,7 +333,41 @@ public class IndexController {
     public String profile() { return "user/profile"; }
 
     @GetMapping(value={"/view"})
-    public String views_all() { return "user/view"; }
+    public String views_all(Model model, HttpServletRequest request) {
+
+        String userEmail = SessionUtils.getCurrentUsername();
+
+        if (userEmail == null) {
+            return "redirect:/";
+        }
+
+        List<Integer> likeIDs = portfolioService.findLikesByEmail(userEmail);
+
+        List<Integer> historyIDs = new ArrayList<>();
+        Map<Integer, String> reverseRecentPort = getCookie(request);
+        historyIDs.addAll(reverseRecentPort.keySet());
+
+        boolean hasLikes = !likeIDs.isEmpty();
+        boolean hasHistory = !historyIDs.isEmpty();
+
+
+        if (hasLikes) {
+            model.addAttribute("LikesPortViewDtoList", portfolioService.findSelectListPorts(likeIDs));
+        } else {
+            model.addAttribute("LikesPortViewDtoList", null);
+        }
+        if (hasHistory) {
+            model.addAttribute("HistoryPortViewDtoList", portfolioService.findSelectListPorts(historyIDs));
+        } else {
+            model.addAttribute("HistoryPortViewDtoList", null);
+        }
+
+
+        model.addAttribute("hasHistory", hasHistory);
+        model.addAttribute("hasLikes", hasLikes);
+
+        return "user/view";
+    }
 
     @GetMapping(value = {"/about"})
     public String about() {
