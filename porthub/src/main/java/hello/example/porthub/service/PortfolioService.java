@@ -75,11 +75,22 @@ public class PortfolioService {
             int UploadSize = multipleFiles.size();
 
             if (contentList != null && multipleFiles != null) {
-                for (int i = 0; i < UploadSize; i++) {
-                    imagesDto.setImage_url(multipleFiles.get(i));
-                    imagesDto.setContents(contentList.get(i));
+
+                if (portfolioDto.getFile().size() > 1) {
+                    for (int i = 0; i < UploadSize; i++) {
+                        imagesDto.setImage_url(multipleFiles.get(i));
+                        imagesDto.setContents(contentList.get(i));
+                        portfolioRepository.ContentUpload(imagesDto);
+                    }
+                } else {
+                    String contentListString = contentList.toString();
+                    String contentListWithoutBrackets = contentListString.substring(1, contentListString.length() - 1);
+                    imagesDto.setImage_url(multipleFiles.get(0));
+                    imagesDto.setContents(contentListWithoutBrackets);
                     portfolioRepository.ContentUpload(imagesDto);
                 }
+
+
             }
 
             return 1; // 성공 시 1 반환
@@ -163,7 +174,6 @@ public class PortfolioService {
             }
             portfolioDto.setThumbnail_url(thumbnailUrl);
 
-
             // portfolioID를 가져옴 Images Table에 넣어주기 위함
             portfolioRepository.PortUpdate(portfolioDto);
 
@@ -181,6 +191,7 @@ public class PortfolioService {
                 }
             }
 
+
             portfolioDto.setMultipleFiles(multipleFiles); // List<String>
 
             int UploadSize = multipleFiles.size();
@@ -188,12 +199,23 @@ public class PortfolioService {
             List<Integer> ImageFileID = portfolioRepository.getImagesID(PortfolioID);
 
             if (contentList != null && multipleFiles != null) {
-                for (int i = 0; i < UploadSize; i++) {
-                    imagesDto.setImage_url(multipleFiles.get(i));
-                    imagesDto.setContents(contentList.get(i));
-                    imagesDto.setImagesFileID(ImageFileID.get(i));
+                if (portfolioDto.getFile().size() > 1) {
+                    for (int i = 0; i < UploadSize; i++) {
+                        imagesDto.setImage_url(multipleFiles.get(i));
+                        imagesDto.setContents(contentList.get(i));
+                        imagesDto.setImagesFileID(ImageFileID.get(i));
+                        portfolioRepository.ContentUpdate(imagesDto);
+                    }
+                } else {
+                    String contentListString = contentList.toString();
+                    String contentListWithoutBrackets = contentListString.substring(1, contentListString.length() - 1);
+                    imagesDto.setImage_url(multipleFiles.get(0));
+                    imagesDto.setContents(contentListWithoutBrackets);
+                    imagesDto.setImagesFileID(ImageFileID.get(0));
                     portfolioRepository.ContentUpdate(imagesDto);
                 }
+
+
             }
 
             return 1; // 성공 시 1 반환
