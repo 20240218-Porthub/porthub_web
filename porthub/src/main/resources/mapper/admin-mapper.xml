@@ -18,4 +18,9 @@
     <delete id="DeleteMentoProcess" parameterType="MentoProcess">
         delete from MentoProcess where ProcessID=#{ProcessID}
     </delete>
+
+    <select id="AllCopyRightList" resultType="Copyright">
+        select * from CopyrightReport;
+    </select>
+
 </mapper>
