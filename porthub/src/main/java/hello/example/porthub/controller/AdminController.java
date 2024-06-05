@@ -1,8 +1,7 @@
 package hello.example.porthub.controller;
 
 
-import hello.example.porthub.domain.CopyrightReportDto;
-import hello.example.porthub.domain.MentoProcessDto;
+import hello.example.porthub.domain.*;
 import hello.example.porthub.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +62,6 @@ public class AdminController {
 
         List<CopyrightReportDto> copyrightReportDtoList = adminService.AllCopyRightList();
 
-
         model.addAttribute("copyrightReportDtoList", copyrightReportDtoList);
         return "adm/admin_report";
     }
@@ -71,16 +69,20 @@ public class AdminController {
     @GetMapping("/user")
     public String UserManagement() {
         //삭제시 cascading 모두 삭제되도록 해야 합니다.
+        List<MemberDto> memberDtoList = adminService.AllUserList();
         return "adm/admin_user";
     }
     @GetMapping("/mentoring")
     public String MentoManagement() {
+
         //멘토링 삭제시 주의사항
         return "adm/admin_mentoring";
     }
 
     @GetMapping("/port")
     public String PortManagement() {
+//        List<PortfolioDto> portfolioDto = adminService.AllPortList();
+        //port와 user 번호 받아와서 유저 이름대로 출력
         //port 그냥 삭제하면 될듯
         return "adm/admin_port";
     }

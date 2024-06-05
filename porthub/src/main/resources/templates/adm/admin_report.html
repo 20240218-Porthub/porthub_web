@@ -77,7 +77,22 @@
                 </div>
 
 
-                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                <div class="mento-box">
+                    <div class="request-header">
+                        <h4>신고 요청 목록</h4>
+                    </div>
+                    <div id="request-mento" class="box-body">
+                        <div class="mento-item" th:if="${requestmentos}!=null" th:each="requestmento:${requestmentos}" th:id="${requestmento.ProcessID}">
+                            <div><span>id : </span><span id="mento-id" th:text="${requestmento.MentoID}"></span></div>
+                            <div class="buttons">
+                                <button id="accept">승인</button>
+                                <button id="deny">거절</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
             </main>
         </div>

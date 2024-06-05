@@ -20,7 +20,7 @@
     </delete>
 
     <select id="AllCopyRightList" resultType="Copyright">
-        select * from CopyrightReport;
+        select * from Users;
     </select>
 
 </mapper>

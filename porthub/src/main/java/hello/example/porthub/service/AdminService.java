@@ -2,6 +2,7 @@ package hello.example.porthub.service;
 
 
 import hello.example.porthub.domain.CopyrightReportDto;
+import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.MentoProcessDto;
 import hello.example.porthub.repository.AdminRepository;
 import hello.example.porthub.repository.MentoRepository;
@@ -25,5 +26,9 @@ public class AdminService {
 
     public List<CopyrightReportDto> AllCopyRightList() {
         return adminRepository.AllCopyRightList();
+    }
+
+    public List<MemberDto> AllUserList() {
+        return adminRepository.AllUserList();
     }
 }

@@ -2,6 +2,7 @@ package hello.example.porthub.repository;
 
 
 import hello.example.porthub.domain.CopyrightReportDto;
+import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.MentoProcessDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -25,5 +26,9 @@ public class AdminRepository {
 
     public List<CopyrightReportDto> AllCopyRightList() {
         return sql.selectList("admin.AllCopyRightList");
+    }
+
+    public List<MemberDto> AllUserList() {
+        return sql.selectList("admin.AllUserList");
     }
 }
