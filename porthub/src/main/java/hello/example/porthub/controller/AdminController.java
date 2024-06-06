@@ -61,6 +61,13 @@ public class AdminController {
     public String ReportManagement(Model model) {
 
         List<CopyrightReportDto> copyrightReportDtoList = adminService.AllCopyRightList();
+        System.out.println(copyrightReportDtoList);
+        for (CopyrightReportDto dto : copyrightReportDtoList) {
+            String reporterName = adminService.getReporterNameByEmail(dto.getReporterEmail());
+            String reportedName = adminService.getReportedNameById(dto.getReportedID());
+            dto.setReporterName(reporterName);
+            dto.setReportedName(reportedName);
+        }
 
         model.addAttribute("copyrightReportDtoList", copyrightReportDtoList);
         return "adm/admin_report";
@@ -69,7 +76,7 @@ public class AdminController {
     @GetMapping("/user")
     public String UserManagement() {
         //삭제시 cascading 모두 삭제되도록 해야 합니다.
-        List<MemberDto> memberDtoList = adminService.AllUserList();
+//        List<MemberDto> memberDtoList = adminService.AllUserList();
         return "adm/admin_user";
     }
     @GetMapping("/mentoring")

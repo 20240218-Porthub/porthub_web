@@ -20,7 +20,20 @@
     </delete>
 
     <select id="AllCopyRightList" resultType="Copyright">
-        select * from Users;
+        select * from CopyrightReport
+        WHERE ReportState = 0
+    </select>
+
+    <select id="findUserNameByEmail" resultType="String" parameterType="String">
+        SELECT UserName
+        FROM Users
+        WHERE Email = #{reporterEmail}
+    </select>
+
+    <select id="findUserNameByID" resultType="String" parameterType="int">
+        SELECT UserName
+        FROM Users
+        WHERE UserID = #{reportedID}
     </select>
 
 </mapper>

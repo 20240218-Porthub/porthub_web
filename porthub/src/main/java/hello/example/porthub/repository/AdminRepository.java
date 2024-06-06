@@ -31,4 +31,13 @@ public class AdminRepository {
     public List<MemberDto> AllUserList() {
         return sql.selectList("admin.AllUserList");
     }
+
+    public String findUserNameByEmail(String reporterEmail) {
+        return sql.selectOne("admin.findUserNameByEmail", reporterEmail);
+    }
+
+    public String findUserNameByID(int reportedID) {
+        return sql.selectOne("admin.findUserNameByID", reportedID);
+    }
+
 }

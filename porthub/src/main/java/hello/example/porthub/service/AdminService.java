@@ -5,6 +5,7 @@ import hello.example.porthub.domain.CopyrightReportDto;
 import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.MentoProcessDto;
 import hello.example.porthub.repository.AdminRepository;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.MentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,13 @@ public class AdminService {
 
     public List<MemberDto> AllUserList() {
         return adminRepository.AllUserList();
+    }
+
+    public String getReporterNameByEmail(String reporterEmail) {
+        return adminRepository.findUserNameByEmail(reporterEmail);
+    }
+
+    public String getReportedNameById(int reportedID) {
+        return adminRepository.findUserNameByID(reportedID);
     }
 }
