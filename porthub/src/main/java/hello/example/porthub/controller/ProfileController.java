@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -37,10 +39,19 @@ public class ProfileController {
 
     @GetMapping("/{name}")
     public String memberInfo(@PathVariable("name") String name, ModelMap modelMap){
+        Map<String,String> map= new HashMap<String, String>();
+
         MemberDto member = memberRepository.findByUserName(name);
         int userid=member.getUserID();
         ProfileDto UserMeta=profileRepository.findByUserID(userid);
         List<MainPortViewDto> mainPortView=profileService.findPortByUserID(userid);
+
+        int follower=profileRepository.cntFollower(userid);
+        int following=profileRepository.cntFollowing(userid);
+        map.put("follower",Integer.toString(follower));
+        map.put("following",Integer.toString(following));
+
+        modelMap.addAttribute("follows",map);
         modelMap.addAttribute("mainPortView", mainPortView);
         modelMap.addAttribute("member", member);
         modelMap.addAttribute("UserMeta",UserMeta);

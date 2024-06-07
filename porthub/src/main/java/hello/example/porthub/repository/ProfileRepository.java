@@ -20,4 +20,8 @@ public class ProfileRepository {
     public ProfileDto findByUserID(int UserID){ return sql.selectOne("Member.findByUserID", UserID); }
 
     public List<MainPortViewDto> findportByUserID(int UserID){ return sql.selectList("Portfolio.findPortsByUserID", UserID);}
+
+    public int cntFollower(int id){return sql.selectOne("Member.countfollower",id);}
+
+    public int cntFollowing(int id){return sql.selectOne("Member.countfollowing",id);}
 }

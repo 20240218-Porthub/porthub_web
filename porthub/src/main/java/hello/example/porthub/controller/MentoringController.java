@@ -17,10 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -128,11 +125,33 @@ public class MentoringController {
     }
 
     @PostMapping("/load")
-    public @ResponseBody Map loadMentoring(@RequestParam("MentoringID") int id){
+    public @ResponseBody Map loadMentoring(@RequestParam("MentoringID") int id, Principal principal){
         MentoringDto result=mentoService.mentoring(id);
         MemberDto member=memberRepository.findmemberByUserID(result.getMentoID());
 
+        MemberDto currentusr=memberRepository.findByEmail(principal.getName());
+
+        String usrpay=currentusr.getPaidProduct();
+
         Map<String,String> map= new HashMap<String, String>();
+
+        if(currentusr.getUserID()==result.getMentoID()){
+            map.put("MentoisMe","Y");
+        }else{
+            map.put("MentoisMe","N");
+        }
+
+        if(usrpay!=null){
+            if(Arrays.asList(usrpay.split(",")).contains(Integer.toString(id))){
+                map.put("alreadypay","Y");
+            }else{
+                map.put("alreadypay","N");
+            }
+        }else{
+            map.put("alreadypay","N");
+        }
+
+
 
         map.put("MentoringID",String.valueOf(id));
         map.put("MentoID",String.valueOf(result.getMentoID()));
@@ -174,8 +193,10 @@ public class MentoringController {
     }
 
     @PostMapping("/payment")
-    public String paymentdata(@ModelAttribute MentoViewDto mentoViewDto, ModelMap modelMap){
+    public String paymentdata(@ModelAttribute MentoViewDto mentoViewDto, ModelMap modelMap, Principal principal){
+        MemberDto member = memberRepository.findByEmail(principal.getName());
         MentoViewDto postdata = mentoService.SelectMentoView(mentoViewDto.getMentoringID());
+        modelMap.addAttribute("buyer", member);
         modelMap.addAttribute("mentoring",postdata);
         return "mentoring/Payment";
     }

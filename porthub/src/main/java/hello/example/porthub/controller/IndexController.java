@@ -4,6 +4,7 @@ import hello.example.porthub.config.util.CookieUtils;
 import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.*;
 import hello.example.porthub.domain.MainPortViewDto;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.MentoService;
 import hello.example.porthub.service.PortfolioService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,6 +34,7 @@ public class IndexController {
 
     private final PortfolioService portfolioService;
     private final MentoService mentoService;
+    private final MemberRepository memberRepository;
 
     public Map<Integer, String> getCookie(HttpServletRequest request) {
         Map<String, String> recentPortfolios = CookieUtils.getCookieData(request.getCookies(), CookieUtils.COOKIE_NAME);
@@ -322,10 +324,12 @@ public class IndexController {
     }
 
     @GetMapping("/mentoring")
-    public String Mento(Model model) {
+    public String Mento(Model model, Principal principal) {
+        MemberDto member = memberRepository.findByEmail(principal.getName());
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<MentoViewDto> mentorings=mentoService.allmentoring();
 
+        model.addAttribute("member",member);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("mentorings",mentorings);
         return "mentoring/mentoring";

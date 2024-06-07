@@ -1,29 +1,59 @@
 
-function mentorpopup(e){
- $('#mentoringpostid').attr('value',e.id)
- $.ajax({
-  type: "post",
-  url: "/mentoring/load",
-  data:{
-   MentoringID:e.id
-  },
-  dataType:"json",
-  success: function (data) {
-   $('.mentoimg').attr('src',data.profileImage)
-   $('.mentoname').text(data.MentoName);
-   $('.postname').text(data.Title);
-   $('.post-con').html(data.Contents);
-   $('.mentoprice').text(data.Price)
+$(function(){
+ // $(document).on("click", ".text-wrapper-6",function(e){
+ //  e.stopImmediatePropagation();
+ //  //location.href='profile/'+e.target.innerText
+ //  e.stopPropagation();
+ // })
 
-  },
-  error: function (err) {
-   console.log("error", err);
-  },
+ $('.mentoprofile').click(function(e){
+  location.href='profile/'+e.target.innerText
  })
- $('.layer1').css('display','block');
 
+ $(document).on("click",".mento-wrapper",function(e){
+  e.stopImmediatePropagation();
+  if(e.target.parentElement.className==='text-wrapper-6'){
+   location.href='profile/'+e.target.parentElement.innerText
+  }
+  else{
+   $.ajax({
+    type: "post",
+    url: "/mentoring/load",
+    data:{
+     MentoringID:e.currentTarget.id
+    },
+    dataType:"json",
+    success: function (data) {
+     console.log(data.alreadypay)
+     $('.mentoimg').attr('src',data.profileImage)
+     $('.mentoname').text(data.MentoName);
+     $('.postname').text(data.Title);
+     $('.post-con').html(data.Contents);
+     $('.mentoprice').text(data.Price)
+     if(data.MentoisMe=="Y"){
+      $('#locatebutton').empty()
+      $('#locatebutton').append('<button type="submit" form="paymentdata" class="btn btn-primary pay go-pay" disabled>Its mine</button>')
+     }
+     else{
+      if(data.alreadypay=="Y"){
+       $('#locatebutton').empty()
+       $('#locatebutton').append('<button type="submit" form="paymentdata" class="btn btn-primary pay go-pay" disabled>이미 결제된 내역입니다.</button>')
+      }else{
+       $('#locatebutton').empty()
+       $('#locatebutton').append('<button type="submit" form="paymentdata" class="btn btn-primary pay go-pay">결제하기</button>')
+      }
+     }
 
-}
+    },
+    error: function (err) {
+     console.log("error", err);
+    },
+   })
+   $('.layer1').css('display','block');
+
+  }
+ })
+})
 
 $(function(){
  $('.close').click(function(){
@@ -54,7 +84,7 @@ $(function() {
     else{
      $('.cards-section').empty();
      data.forEach((searchdata)=>{
-      $('.cards-section').append('<div id="'+searchdata.mentoringID+'" onclick="mentorpopup(this)" class="mento-wrapper pop">\n' +
+      $('.cards-section').append('<div id="'+searchdata.mentoringID+'" class="mento-wrapper pop">\n' +
           '                            <div class="port-2">\n' +
           '                                <div class="title-description">\n' +
           '                                    <div class="text-wrapper-5">\n' +
@@ -102,7 +132,7 @@ $(function(){
     else{
      $('.cards-section').empty();
      data.forEach((searchdata)=>{
-      $('.cards-section').append('<div id="'+searchdata.mentoringID+'" onclick="mentorpopup(this)" class="mento-wrapper pop">\n' +
+      $('.cards-section').append('<div id="'+searchdata.mentoringID+'" class="mento-wrapper pop">\n' +
           '                            <div class="port-2">\n' +
           '                                <div class="title-description">\n' +
           '                                    <div class="text-wrapper-5">\n' +

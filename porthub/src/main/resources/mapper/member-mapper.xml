@@ -58,5 +58,13 @@
         WHERE Email = #{currentEmail}
     </select>
 
+    <select id="countfollower" parameterType="int" resultType="int">
+        select count(*) from Follows where FollowerID=#{id}
+    </select>
+
+    <select id="countfollowing" parameterType="int" resultType="int">
+        select count(*) from Follows where FollowingID=#{id}
+    </select>
+
 
 </mapper>
