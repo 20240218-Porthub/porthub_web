@@ -1,3 +1,5 @@
+/* ! 모달창의 팔로우 고르는 부분에서 메세지 입력  !*/
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f5f5f5;
@@ -10,7 +12,7 @@ body {
 .container {
     display: flex;
     width: 100%;
-    height: 55.4375rem;
+    height: 100%;
     margin: 0 auto;
     background-color: #fff;
     overflow: hidden;
@@ -21,7 +23,7 @@ body {
     flex-direction: column;
     background-color: #f5f5f5;
     width: 29rem;
-    height: 55rem;
+    height: 100%;
     padding: 1rem;
     align-items: center;
     flex-shrink: 0;
@@ -105,12 +107,12 @@ button#addChatButton {
 }
 
 .chat-area {
+    height: 95%;
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     width: 90%;
-    height: 50rem;
     padding: 1.5rem;
     align-items: flex-start;
     gap: 2rem;
@@ -244,3 +246,146 @@ button#addChatButton {
     font-weight: 400;
     font-size: 0.75rem;
 }
+
+
+/* ! 보여질 모달 CSS Start */
+
+.modal.on {
+    display: block;
+}
+
+.modal {
+    /* 팝업 배경 */
+    display: none;
+    /* 평소에는 보이지 않도록 */
+    position: fixed;
+    /* fixed로 변경 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal .modal_popup {
+    /* 팝업 */
+    top: 25%;
+    left: 25%;
+    position: absolute;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 20px;
+    width: 50%;
+    height: 50%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.modal .modal_popup .close_btn {
+    position: absolute;
+    /* 절대 위치 */
+    bottom: 20px;
+    /* 하단에서 20px 위로 */
+    left: 50%;
+    /* 좌우 중앙 정렬 */
+    transform: translateX(-50%);
+    /* 좌우 중앙 정렬 */
+    width: auto;
+    padding: 10px 20px;
+    background-color: rgb(65, 147, 239);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.modal_popup {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.modal_header {
+    display: flex;
+    justify-content: center;
+    /* 중앙 정렬 */
+    align-items: center;
+    height: 50px;
+    /* 고정된 높이 설정 */
+    margin-bottom: 10px;
+    /* 하단 마진 추가 */
+    position: relative;
+    /* 이전 버튼을 절대 위치로 배치할 수 있도록 설정 */
+}
+
+.modal_header h3 {
+    margin: 0;
+    /* 제목의 기본 마진 제거 */
+    font-size: 1.5em;
+    /* 제목 폰트 크기 설정 */
+    text-align: center;
+    /* 텍스트 중앙 정렬 */
+    flex: 1;
+    /* 제목이 중앙에 위치하도록 설정 */
+}
+
+.modal_header .before_btn {
+    display: none;
+    /* 초기에는 보이지 않도록 설정 */
+    position: absolute;
+    right: 10px;
+    /* 오른쪽 상단에 위치 */
+    padding: 10px 20px;
+    background-color: rgb(65, 147, 239);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.screen {
+    position: relative;
+    width: 100%;
+    height: 90%;
+    /* header의 높이를 제외한 높이 설정 */
+    transition: transform 0.5s ease;
+    /* padding: 10px; */
+    /* 화면 내용의 패딩 */
+    box-sizing: border-box;
+    /* 패딩을 포함한 박스 모델 설정 */
+}
+
+#send_message_btn {
+    position: absolute;
+    /* 절대 위치 */
+    bottom: 50px;
+    /* 하단에서 20px 위로 */
+    left: 50%;
+    /* 좌우 중앙 정렬 */
+    transform: translateX(-50%);
+    /* 좌우 중앙 정렬 */
+    width: auto;
+    padding: 10px 20px;
+    background-color: rgb(65, 147, 239);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+#select_follower_screen {
+    transform: translateX(0);
+    top : -1%
+}
+
+#message_input_screen {
+    transform: translateX(150%);
+    top : -91%
+}
+
+/* ! 보여질 모달 CSS End */
