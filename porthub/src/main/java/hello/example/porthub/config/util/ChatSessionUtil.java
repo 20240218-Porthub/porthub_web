@@ -15,8 +15,7 @@ public class ChatSessionUtil {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(rawKey.getBytes(StandardCharsets.UTF_8));
-            //FIXME: Base64 results '/' and '+' characters which are not URL safe
-            return Base64.getEncoder().encodeToString(hash);
+            return Base64.getUrlEncoder().encodeToString(hash);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Error generating session key", e);
         }

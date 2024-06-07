@@ -13,47 +13,46 @@ $(document).ready(function () {
     const $msgArea = $('#msgArea');
     const $chatArea = $('#chatArea');
 
-    var loggedInUsername;
-    var loggedInUserId;
     var sessionId = window.location.pathname.split('/').pop();
     var stompClient = null;
 
     loadChatMessages(sessionId);
 
     // Fetch the logged-in user's details
-    $.ajax({
-        url: '/api/user',
-        method: 'GET',
-        success: function (response) {
-            loggedInUsername = response.username;
-            loggedInUserId = response.userId; // Assuming the response contains the user ID
-            console.log(`Logged-in User: ${loggedInUsername}, ID: ${loggedInUserId}`);
-        },
-        error: function () {
-            console.error('Failed to fetch logged-in user. Please try again.');
-        }
-    });
+    // $.ajax({
+    //     url: '/api/user',
+    //     method: 'GET',
+    //     success: function (response) {
+    //         loggedInUsername = response.username;
+    //         loggedInUserId = response.userID // Parse the userId as an integer
+    //     },
+    //     error: function () {
+    //         console.error('Failed to fetch logged-in user. Please try again.');
+    //     }
+    // });
 
-    $('.startChatButton').on('click', function() {
-        var followingUserId = $(this).data('user-id');
-        var content = $('#msg').val();
-        if (content.trim() === '') {
-            alert('Please type a message to start the chat.');
-            return;
-        }
-        startNewChat(followingUserId, content);
-        $('#msg').val('');
-    });
+    // $('.startChatButton').on('click', function() {
+    //     var followingUserId = $(this).data('user-id');
+    //     var content = $('#msg').val();
+    //     // if (content.trim() === '') {
+    //     //     alert('Please type a message to start the chat.');
+    //     //     return;
+    //     // }
+    //     startNewChat(followingUserId, content);
+    //     $('#msg').val('');
+    // });
 
-    $('.startChatButton').on('click', function() {
+
+    $('#send_message_btn').on('click', function () {
         var followingUserId = $(this).data('user-id');
-        var content = $('#msg').val();
-        if (content.trim() === '') {
-            alert('Please type a message to start the chat.');
-            return;
-        }
+        console.log("button USerID")
+        var content = $('#message_input').val();
+        // if (content.trim() === '') {
+        //     alert('Please type a message to start the chat.');
+        //     return;
+        // }
         startNewChat(followingUserId, content);
-        $('#msg').val('');
+        $('#message_input').val('');
     });
 
     $sendButton.on('click', sendMessage);
@@ -71,6 +70,7 @@ $(document).ready(function () {
         } else {
             messageElement.classList.add('received');
         }
+        console.log(messageElement.classList);
 
         var contentElement = document.createElement('div');
         contentElement.className = 'message-content';
@@ -173,10 +173,11 @@ $(document).ready(function () {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ recipientUserId: followingUserId, content: content }),
-            success: function(response) {
-                console.log('New chat started successfully:', response);
+            success: function (sessionId) {
+                console.log('New chat started successfully. Session ID:', sessionId);
+                window.location.href = '/user/chat/' + sessionId; // 새로운 URL로 이동
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.error('Failed to start a new chat. Please try again.', xhr.responseText);
             }
         });

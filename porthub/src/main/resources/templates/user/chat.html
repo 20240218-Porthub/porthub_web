@@ -15,11 +15,13 @@
     <div class="sidebar">
         <div class="header">
             <h3>Messages</h3>
+            <!-- ! 모달 창 부분 ! -->
             <button id="addChatButton" aria-label="Start a new chat">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" th:border="none" fill="none">
                     <path d="M20.0002 3.33334C10.8168 3.33334 3.3335 10.8167 3.3335 20C3.3335 29.1833 10.8168 36.6667 20.0002 36.6667C29.1835 36.6667 36.6668 29.1833 36.6668 20C36.6668 10.8167 29.1835 3.33334 20.0002 3.33334ZM26.6668 21.25H21.2502V26.6667C21.2502 27.35 20.6835 27.9167 20.0002 27.9167C19.3168 27.9167 18.7502 27.35 18.7502 26.6667V21.25H13.3335C12.6502 21.25 12.0835 20.6833 12.0835 20C12.0835 19.3167 12.6502 18.75 13.3335 18.75H18.7502V13.3333C18.7502 12.65 19.3168 12.0833 20.0002 12.0833C20.6835 12.0833 21.2502 12.65 21.2502 13.3333V18.75H26.6668C27.3502 18.75 27.9168 19.3167 27.9168 20C27.9168 20.6833 27.3502 21.25 26.6668 21.25Z" fill="#333333"/>
                 </svg>
             </button>
+            <!-- ! 모달 창 부분 ! -->
         </div>
         <div class="search-bar">
             <!--            <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Search messages...">-->
@@ -48,7 +50,7 @@
             <ul id="followersList">
                 <li th:each="following : ${followings}">
                     <span th:text="${following.username}"></span>
-                    <button class="startChatButton" th:data-user-id="${following.id}">Start Chat</button>
+                    <button class="s" th:data-user-id="${following.id}">Start Chat</button>
                 </li>
             </ul>
         </div>
@@ -82,8 +84,92 @@
         </div>
     </div>
 </div>
+
+<!-- ! 보여질 모달 Start -->
+<div class="modal">
+    <div class="modal_popup">
+        <div class="modal_header">
+            <h3 style="text-align: center">새로운 메세지</h3>
+            <button type="button" class="before_btn" style="display: none;">이전</button>
+        </div>
+        <div id="select_follower_screen" class="screen">
+            <hr>
+            <ul class="list-group">
+                <li th:each="following : ${followings}" class="modal_follow_list list-group-item">
+                    <button class="sel_follow_btn" th:data-user-id="${following.id}"><span th:text="${following.username}"></span></button>
+                </li>
+            </ul>
+            <button type="button" class="close_btn">닫기</button>
+        </div>
+
+        <div id="message_input_screen" class="screen" style="top: -93%">
+            <hr>
+            <input type="text" id="message_input" placeholder="메세지를 입력하세요...">
+            <button id="send_message_btn">보내기</button>
+        </div>
+    </div>
+</div>
+<!-- ! 보여질 모달 End -->
+
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script th:inline="javascript">
+    var loggedInUserId = [[${userID}]];
+    console.log(`Logged-in User ID: ${loggedInUserId}`);
+
+    <!--! 보여질 모달 JS Start-->
+    // 모달 열기
+    document.getElementById('addChatButton').addEventListener('click', function () {
+        document.querySelector('.modal').style.display = 'block';
+    });
+
+    // 모달 닫기
+    document.querySelector('.close_btn').addEventListener('click', function () {
+        document.querySelector('.modal').style.display = 'none';
+    });
+
+    // 모달 외부 클릭 시 닫기
+    window.addEventListener('click', function (event) {
+        if (event.target.classList.contains('modal')) {
+            document.querySelector('.modal').style.display = 'none';
+        }
+    });
+    <!-- ! 보여질 모달 JS End -->
+
+    <!--! 모달에서 화면 이동 JS START !-->
+    document.querySelectorAll('.sel_follow_btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const userId = button.getAttribute('data-user-id');
+            console.log(`Selected User ID: ${userId}`);
+            // select_follower_screen을 왼쪽으로 슬라이드 아웃
+            document.getElementById('select_follower_screen').style.transform = 'translateX(-150%)';
+            // message_input_screen을 오른쪽에서 중앙으로 슬라이드 인
+            document.getElementById('message_input_screen').style.transform = 'translateX(0)';
+            // 선택한 유저의 ID를 button에 저장
+            document.getElementById("send_message_btn").setAttribute('data-user-id', userId);
+            // 이전 버튼 표시
+            document.querySelector('.before_btn').style.display = 'inline-block';
+
+
+        });
+    });
+
+    document.querySelectorAll('.before_btn').forEach(button => {
+        button.addEventListener('click', () => {
+            requestAnimationFrame(() => {
+                // select_follower_screen을 원래 위치로 되돌림
+                document.getElementById('select_follower_screen').style.transform = 'translateX(0)';
+                // message_input_screen을 오른쪽으로 슬라이드 아웃
+                document.getElementById('message_input_screen').style.transform = 'translateX(150%)';
+                // 이전 버튼 숨기기
+                document.querySelector('.before_btn').style.display = 'none';
+            });
+        });
+    });
+
+
+    <!--! 모달에서 화면 이동 JS END !-->
+</script>
 <script th:src="@{/js/chat.js}" src="/static/js/chat.js"></script>
 </body>
 </html>

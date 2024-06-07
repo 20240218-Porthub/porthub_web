@@ -34,10 +34,10 @@ function goToProfilePage(UserName) {
     return '<audio controls class="image"><source src="' + src + '" type="audio/' + fileExtension + '"></audio>';
 } else if (fileExtension === 'mp4' || fileExtension === 'avi' || fileExtension === 'mov') {
     return '<video controls class="image"><source src="' + src + '" type="video/' + fileExtension + '"></video>';
-} else if (fileExtension === 'jpeg' || fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'gif') {
+} else if (fileExtension === 'jpeg' || fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'avif') {
     return '<img src="' + src + '" class="image">';
 } else {
-    return '<img src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg" class="image">';
+        return '<img src="' + src + '" class="image">';
 }
 }
 

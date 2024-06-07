@@ -17,11 +17,11 @@
         WHERE SessionID = #{id}
     </select>
 
-    <!-- Insert a new chat record -->
-    <insert id="insertChatSession" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO ChatSessions (SenderID, ReceiverID, Content, DateTime)
-        VALUES (#{senderUserId}, #{recipientUserId}, #{content}, #{timestamp})
-    </insert>
+<!--    &lt;!&ndash; Insert a new chat record &ndash;&gt;-->
+<!--    <insert id="insertChatSession" useGeneratedKeys="true" keyProperty="id">-->
+<!--        INSERT INTO ChatSessions (SenderID, ReceiverID, Content, DateTime)-->
+<!--        VALUES (#{senderUserId}, #{recipientUserId}, #{content}, #{timestamp})-->
+<!--    </insert>-->
 
     <!-- Update an existing chat record -->
     <update id="updateChatSession">
