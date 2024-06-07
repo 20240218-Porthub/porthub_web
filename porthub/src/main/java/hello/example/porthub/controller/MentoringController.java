@@ -40,10 +40,14 @@ public class MentoringController {
 
         String mentoprocess=mentoService.CheckMentoProcess(userid);
 
+
+        List<MentoringDto> myMentoring=mentoService.mymentoring(userid);
         String paidproducts=mentoService.PaidMentoringID(userid);
         List<ActivityViewDto> mentoringcontent=mentoService.MentoringContent(paidproducts);
-        log.info("mentoprocess="+mentoprocess);
+        log.info("mymento="+myMentoring);
 
+
+        model.addAttribute("mymentorings", myMentoring);
         model.addAttribute("mentoprocess", mentoprocess);
         model.addAttribute("mentoringcontents", mentoringcontent);
 
@@ -180,6 +184,12 @@ public class MentoringController {
     public String PaymentConfirm(Model model, @ModelAttribute OrderSaveDto orderSaveDto){
         orderSaveDto=paymentService.selectOrder(orderSaveDto.getOrderID());
         return "mentoring/paymentconfirm";
+    }
+
+    @PostMapping("/delete")
+    public @ResponseBody String delete(@RequestParam("MentoringID") int id){
+        mentoService.deletementoring(id);
+        return "success";
     }
 
 }

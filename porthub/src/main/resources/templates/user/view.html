@@ -8,6 +8,138 @@
         body {
             background-size: cover;
         }
+
+        .wrap-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .home-container {
+            width: 90%;
+        }
+
+        .section-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .history-section-list, .likes-section-list {
+            margin-left: 1rem;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-container {
+            flex: 0 0 20%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            margin: 0 4px;
+            border-radius: 5%;
+        }
+
+        .text-wrapper-6 {
+            position: relative;
+            align-self: stretch;
+            font-family: "Poppins-Regular", Helvetica;
+            font-weight: 600;
+            color: var(--black);
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+
+        .title-deco {
+            font-weight: bold;
+        }
+
+        .profile-wrapper {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 4px;
+            float: left;
+        }
+
+        .profile-wrapper:hover {
+            transform: scale(1.4);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            cursor: pointer;
+        }
+
+        .text-wrapper-5 {
+            cursor: pointer;
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .prev-button {
+            left: 0;
+        }
+
+        .next-button {
+            right: 0;
+        }
+
+        .list-title-deco {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .header-image-container {
+            text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
+            position: relative;
+        }
+
+        .header-image {
+            width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
+            height: auto;
+            display: block;
+        }
+
+        .wrap-container .image {
+            position: relative;
+            align-self: stretch;
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 5%;
+        }
+
+
+        /*.image {*/
+        /*    object-fit: contain;*/
+        /*    border-radius: 10%;*/
+        /*    width: 100%;*/
+        /*    height: auto;*/
+        /*    display: block;*/
+        /*}*/
+
     </style>
 
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
@@ -15,15 +147,112 @@
 <body>
 
 <header th:replace="~{fragments/header::headerFragment}"></header>
+<div class="header-image-container">
+    <img class="header-image"
+         src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg"
+         alt="Main Page Header Image">
+</div>
 
 <div class="wrap-container">
     <div class="home-container">
+        <div class="section-list">
+            <br>
+            <div class="list-title-deco">history</div>
+            <section class="history-section-list">
+                <div class="slider-container">
+                    <button class="nav-button prev-button" onclick="slide(-1, 'history-slider')">&#10094;</button>
+                    <div class="slider" id="history-slider">
+                        <div th:if="${hasHistory}" th:each="HistoryPortViewDtoList: ${HistoryPortViewDtoList}"
+                             class="image-container">
+                            <div class="port-2">
+                                <div class="title-description">
+                                    <div class="text-wrapper-5"
+                                         th:data-src="${HistoryPortViewDtoList.Thumbnail_url}"
+                                         th:onclick="'goToDetailPage(\'' + ${HistoryPortViewDtoList.PortfolioID} + '\')'"></div>
+                                    <div class="profile-wrapper">
+                                        <img class="profile-image" th:src="${HistoryPortViewDtoList.profileImage}"
+                                             src="/static/images/profiletest.jpeg"
+                                             th:attr="data-user-name=${HistoryPortViewDtoList.UserName}"
+                                             onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
+                                    </div>
+                                    <div class="title-deco" th:text="${HistoryPortViewDtoList.UserName}"></div>
+                                    <div class="text-wrapper-6" th:text="${HistoryPortViewDtoList.Title}"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:unless="${hasHistory}">
+                            <p>No history available.</p>
+                        </div>
+                    </div>
+                    <button class="nav-button next-button" onclick="slide(1, 'history-slider')">&#10095;</button>
+                </div>
+            </section>
 
+            <br><br>
+
+            <div class="list-title-deco">Likes</div>
+            <section class="likes-section-list">
+                <div class="slider-container">
+                    <button class="nav-button prev-button" onclick="slide(-1, 'likes-slider')">&#10094;</button>
+                    <div class="slider" id="likes-slider">
+                        <div th:if="${hasLikes}" th:each="LikesPortViewDtoList: ${LikesPortViewDtoList}"
+                             class="image-container">
+                            <div class="port-2">
+                                <div class="title-description">
+                                    <div class="text-wrapper-5" th:data-src="${LikesPortViewDtoList.Thumbnail_url}"
+                                         th:onclick="'goToDetailPage(\'' + ${LikesPortViewDtoList.PortfolioID} + '\')'"></div>
+                                    <div class="profile-wrapper">
+                                        <img class="profile-image" th:src="${LikesPortViewDtoList.profileImage}"
+                                             src="/static/images/profiletest.jpeg"
+                                             th:attr="data-user-name=${LikesPortViewDtoList.UserName}"
+                                             onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
+                                    </div>
+                                    <div class="title-deco" th:text="${LikesPortViewDtoList.UserName}"></div>
+                                    <div class="text-wrapper-6" th:text="${LikesPortViewDtoList.Title}"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:unless="${hasLikes}">
+                            <p>No Likes available.</p>
+                        </div>
+                    </div>
+                    <button class="nav-button next-button" onclick="slide(1, 'likes-slider')">&#10095;</button>
+                </div>
+            </section>
+
+        </div>
     </div>
 </div>
-
 <footer th:replace="~{fragments/footer::footerFragment}"></footer>
 
 </body>
-<script th:src="@{/js/profile.js}" src="/static/js/profile.js"></script>
+<script>
+    let currentSlideIndex = {
+        'history-slider': 0,
+        'likes-slider': 0
+    };
+
+    function goToDetailPage(portfolioId) {
+        // 클릭된 이미지의 포트폴리오 ID를 사용하여 상세 페이지로 이동
+        window.location.href = '/ports/views/' + portfolioId;
+    }
+
+    function slide(direction, sliderId) {
+        const slider = document.getElementById(sliderId);
+        const totalItems = slider.children.length;
+        const itemsPerSlide = 5;
+
+        currentSlideIndex[sliderId] += direction * itemsPerSlide;
+
+        if (currentSlideIndex[sliderId] < 0) {
+            currentSlideIndex[sliderId] = totalItems - itemsPerSlide;
+        } else if (currentSlideIndex[sliderId] >= totalItems) {
+            currentSlideIndex[sliderId] = 0;
+        }
+
+        const transformValue = `translateX(-${currentSlideIndex[sliderId] * (100 / itemsPerSlide)}%)`;
+        slider.style.transform = transformValue;
+    }
+</script>
+<script th:src="@{/js/main.js}" src="/static/js/main.js"></script>
 </html>

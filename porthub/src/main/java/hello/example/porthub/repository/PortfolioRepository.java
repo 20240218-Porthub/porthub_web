@@ -190,4 +190,12 @@ public class PortfolioRepository {
     public void updateByRank(PopularDto resetPopulars) {
         sql.update("Portfolio.updateByRank",resetPopulars);
     }
+
+    public List<Integer> findLikesByEmail(String userEmail) {
+        return sql.selectList("Portfolio.findLikesByEmail",userEmail);
+    }
+
+    public List<MainPortViewDto> findSelectListPorts(List<Integer> iDs) {
+        return sql.selectList("Portfolio.findSelectListPorts", iDs);
+    }
 }

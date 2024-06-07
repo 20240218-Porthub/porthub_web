@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 public class MentoringDto {
+    private int MentoringID;
     private int MentoID;
     private String CategoryString;
     private int CategoryID;
@@ -21,5 +22,6 @@ public class MentoringDto {
     private List<MultipartFile> mentofile;
     private String Content;
     private String file_urls;
+    private int mentoring_delete;
 
 }

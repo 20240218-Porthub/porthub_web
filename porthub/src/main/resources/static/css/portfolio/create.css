@@ -33,6 +33,7 @@ pre {
     border-radius: 10px;
     background: whitesmoke;
     padding: 10px;
+    white-space: break-spaces;
 }
 
 code {
@@ -256,8 +257,9 @@ input[type="submit"]:hover {
     border: 1px solid #ccc;
     padding: 10px;
     width: 100%; /* markdown-container의 크기와 동일하게 설정 */
-    height: 93%; /* markdown-container의 크기와 동일하게 설정 */
+    height: 460px; /* markdown-container의 크기와 동일하게 설정 */
     overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+    white-space: normal;
 }
 
 .markdown-btn {

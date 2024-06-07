@@ -81,7 +81,7 @@
                 <div class="gallery-section">
                     <div class="cards-section">
                         <!-- 반복되는 요소 -->
-                        <div th:id="${mentoring.MentoringID}" onclick="mentorpopup(this)" th:each="mentoring : ${mentorings}"  class="mento-wrapper pop">
+                        <div th:if="${mentoring.mentoring_delete}==0" th:id="${mentoring.MentoringID}" onclick="mentorpopup(this)" th:each="mentoring : ${mentorings}"  class="mento-wrapper pop">
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5">
@@ -124,6 +124,7 @@
                 <form id="paymentdata" th:action="@{'/mentoring/payment'}" method="post">
                     <input id="mentoringpostid" type="text" name="MentoringID" value="1" hidden>
                 </form>
+                <button type="submit" form="paymentdata" class="btn btn-primary pay go-pay">삭제하기</button>
                 <button type="submit" form="paymentdata" class="btn btn-primary pay go-pay">결제하기</button>
             </div>
         </div>
