@@ -359,10 +359,18 @@ button#addChatButton {
     /* 패딩을 포함한 박스 모델 설정 */
 }
 
+.modal_follow_list{
+    list-style-type: none;
+}
+
+.startChatButton{
+
+}
+
 #send_message_btn {
     position: absolute;
     /* 절대 위치 */
-    bottom: 50px;
+    bottom: 20px;
     /* 하단에서 20px 위로 */
     left: 50%;
     /* 좌우 중앙 정렬 */

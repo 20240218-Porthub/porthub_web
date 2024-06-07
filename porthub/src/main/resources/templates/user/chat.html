@@ -50,7 +50,7 @@
             <ul id="followersList">
                 <li th:each="following : ${followings}">
                     <span th:text="${following.username}"></span>
-                    <button class="startChatButton" th:data-user-id="${following.id}">Start Chat</button>
+                    <button class="s" th:data-user-id="${following.id}">Start Chat</button>
                 </li>
             </ul>
         </div>
@@ -94,10 +94,9 @@
         </div>
         <div id="select_follower_screen" class="screen">
             <hr>
-            <ul>
-                <li th:each="following : ${followings}">
-                    <span th:text="${following.username}"></span>
-                    <button class="startChatButton" th:data-user-id="${following.id}">Start Chat</button>
+            <ul class="list-group">
+                <li th:each="following : ${followings}" class="modal_follow_list list-group-item">
+                    <button class="sel_follow_btn" th:data-user-id="${following.id}"><span th:text="${following.username}"></span></button>
                 </li>
             </ul>
             <button type="button" class="close_btn">닫기</button>
@@ -111,6 +110,7 @@
     </div>
 </div>
 <!-- ! 보여질 모달 End -->
+
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script th:inline="javascript">
@@ -137,14 +137,20 @@
     <!-- ! 보여질 모달 JS End -->
 
     <!--! 모달에서 화면 이동 JS START !-->
-    document.querySelectorAll('.startChatButton').forEach(button => {
-        button.addEventListener('click', () => {
+    document.querySelectorAll('.sel_follow_btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const userId = button.getAttribute('data-user-id');
+            console.log(`Selected User ID: ${userId}`);
             // select_follower_screen을 왼쪽으로 슬라이드 아웃
             document.getElementById('select_follower_screen').style.transform = 'translateX(-150%)';
             // message_input_screen을 오른쪽에서 중앙으로 슬라이드 인
             document.getElementById('message_input_screen').style.transform = 'translateX(0)';
+            // 선택한 유저의 ID를 button에 저장
+            document.getElementById("send_message_btn").setAttribute('data-user-id', userId);
             // 이전 버튼 표시
             document.querySelector('.before_btn').style.display = 'inline-block';
+
+
         });
     });
 
@@ -160,6 +166,8 @@
             });
         });
     });
+
+
     <!--! 모달에서 화면 이동 JS END !-->
 </script>
 <script th:src="@{/js/chat.js}" src="/static/js/chat.js"></script>

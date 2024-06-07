@@ -18,7 +18,7 @@ public class SessionParticipantService {
 
     public void addParticipantToSession(String sessionKey, int userId) {
         // Check if the participant already exists in the session
-        if (!sessionParticipantMapper.existsParticipant(sessionKey, userId)) {
+        if (!sessionParticipantMapper.isSessionParticipant(sessionKey, userId)) {
             sessionParticipantMapper.insertSessionParticipant(sessionKey, userId);
         }
     }

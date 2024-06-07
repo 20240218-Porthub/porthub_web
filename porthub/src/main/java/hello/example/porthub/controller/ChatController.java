@@ -28,7 +28,8 @@ public class ChatController {
     private final SessionParticipantService sessionParticipantService;
 
     @Autowired
-    public ChatController(ChatService chatService, UserService userService, SessionParticipantService sessionParticipantService) {
+    public ChatController(ChatService chatService, UserService userService,
+                          SessionParticipantService sessionParticipantService) {
         this.chatService = chatService;
         this.userService = userService;
         this.sessionParticipantService = sessionParticipantService;
@@ -37,24 +38,22 @@ public class ChatController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessageDto sendMessage(@Payload ChatMessageDto chatMessage) {
-        // Extract the necessary information from the chatMessage object
         Integer senderId = chatMessage.getSenderUserId();
         Integer recipientId = chatMessage.getRecipientUserId();
         String content = chatMessage.getContent();
         String sessionId = chatMessage.getSessionId();
         chatService.saveMessages(senderId, recipientId, content, sessionId);
-
         return chatMessage;
     }
 
     @GetMapping("/api/chat-messages/{sessionId}")
     @ResponseBody
     public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable String sessionId) {
+        System.out.println("sessionId: " + sessionId);
         try {
             List<ChatMessageDto> chatMessages = chatService.getChatHistoryBySessionId(sessionId);
             return ResponseEntity.ok(chatMessages);
         } catch (Exception e) {
-            // Log the exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Collections.singletonMap("error", "Failed to load chat messages"));
         }
@@ -62,33 +61,27 @@ public class ChatController {
 
     @PostMapping("/chats/new")
     public ResponseEntity<String> handleNewMessage(@RequestBody ChatMessageDto chatSession, Principal principal) {
-        // Check if the principal is null, indicating no authenticated user.
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
         }
-
-        // Validate that the recipient user ID is provided.
         if (chatSession.getRecipientUserId() == null) {
             return ResponseEntity.badRequest().body("Recipient ID is required");
         }
-
-        // Additional validation checks can be added here, e.g., content validation.
         if (chatSession.getContent() == null || chatSession.getContent().isEmpty()) {
             return ResponseEntity.badRequest().body("Message content is required");
         }
-
-        // Try to create a new chat session using the provided information.
         try {
             String currentUserEmail = principal.getName();
             int currentUserId = userService.findUserIDByEmail(currentUserEmail);
             String sessionId = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId());
             sessionParticipantService.addParticipantToSession(sessionId, currentUserId);
             sessionParticipantService.addParticipantToSession(sessionId, chatSession.getRecipientUserId());
-            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(), sessionId);
-            return ResponseEntity.ok("Message sent successfully");
+            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(),
+                    sessionId);
+            return ResponseEntity.ok(sessionId);
         } catch (Exception e) {
-            // Log the exception details here for debugging purposes.
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending message: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error sending message: " + e.getMessage());
         }
     }
 
@@ -97,7 +90,6 @@ public class ChatController {
         if (principal == null) {
             return "redirect:/login";
         }
-
         String currentUserEmail = principal.getName();
         int currentUserId = userService.findUserIDByEmail(currentUserEmail);
         int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
@@ -109,7 +101,6 @@ public class ChatController {
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
         model.addAttribute("sessionId", sessionId);
-
         return "user/chat";
     }
 
@@ -128,4 +119,9 @@ public class ChatController {
         model.addAttribute("chatSessions", chatSessions);
         return "user/chat";
     }
+
+    //! 새로운 채팅방 만드는 API Start
+
+    //! 새로운 채팅방 만드는 API End
+
 }

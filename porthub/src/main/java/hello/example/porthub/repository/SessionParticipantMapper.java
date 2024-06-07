@@ -14,7 +14,7 @@ public interface SessionParticipantMapper {
     void insertSessionParticipant(@Param("sessionKey") String sessionKey, @Param("userId") int userId);
 
     @Select("SELECT COUNT(*) FROM SessionParticipants WHERE SessionKey = #{sessionKey} AND UserID = #{userId}")
-    boolean existsParticipant(@Param("sessionKey") String sessionKey, @Param("userId") int userId);
+    boolean isSessionParticipant(@Param("sessionKey") String sessionKey, @Param("userId") int userId);
 
     @Select("SELECT UserID FROM SessionParticipants WHERE SessionKey = #{sessionKey} AND UserID != #{userId}")
     Integer findOtherParticipant(String sessionKey, int userId);
