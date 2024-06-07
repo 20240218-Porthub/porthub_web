@@ -60,12 +60,12 @@
                         </div>
 
                         <div class="third-container">
-                            <div class="mento-btn-container">
+                            <div th:if="${member.Role=='USER'}" class="mento-btn-container">
                                 <a href="mentoring/registermento" class="w-btn w-btn-indigo mento-btn">
                                     멘토 등록하기
                                 </a>
                             </div>
-                            <div class="mento-btn-container">
+                            <div th:if="${member.Role=='MENTO' or member.Role=='ADMIN' }" class="mento-btn-container">
                                 <a href="mentoring/createmento" class="w-btn w-btn-indigo mento-btn">
                                     활동 등록하기
                                 </a>
@@ -87,7 +87,9 @@
                                     <div class="text-wrapper-5">
                                         <img class="image" th:src="@{${mentoring.Thumbnail}}" src="/static/images/iim.png" />
                                         <div th:text="${mentoring.Title}">Project title</div>
-                                        <div class="text-wrapper-6"><img class="profile-image-sm" th:src="@{${mentoring.profileImage}}" src="/static/images/profiletest.jpeg" /><span th:text="${mentoring.UserName}">Project title</span></div>
+                                            <div class="text-wrapper-6">
+                                                    <img class="profile-image-sm" th:src="@{${mentoring.profileImage}}" src="/static/images/profiletest.jpeg" /><span th:text="${mentoring.UserName}">Project title</span>
+                                            </div>
                                         <div class="price" th:text="${mentoring.Price}">1000.00</div>
                                     </div>
                                 </div>
@@ -108,7 +110,6 @@
                 <div class="mentoprofile">
                     <img class="mentoimg">
                     <div class="mentoname">이름</div>
-                    <div class="follow-btn">팔로우</div>
                 </div>
                 <div class="close">X</div>
             </div>
@@ -124,8 +125,8 @@
                 <form id="paymentdata" th:action="@{'/mentoring/payment'}" method="post">
                     <input id="mentoringpostid" type="text" name="MentoringID" value="1" hidden>
                 </form>
-                <button type="submit" form="paymentdata" class="btn btn-primary pay go-pay">삭제하기</button>
-                <button type="submit" form="paymentdata" class="btn btn-primary pay go-pay">결제하기</button>
+                <div id="locatebutton">
+                </div>
             </div>
         </div>
     </div>

@@ -40,8 +40,23 @@
 
 .goods-content{
     display:flex;
+    align-content: flex-start;
+    margin:10px;
+}
+
+.goods-content .content-div1{
+    width:50%;
+    display:flex;
     gap:20px;
     margin:10px;
+}
+
+.goods-content .content-div2{
+    width:50%;
+}
+
+.goods-id{
+    display:none;
 }
 
 .goods-thumbnail{
@@ -52,6 +67,15 @@
 .goods-intro{
     display:flex;
     flex-direction:column;
+}
+
+.buyer{
+    display:flex;
+    gap:50px;
+}
+
+.buyer span{
+    width:20%;
 }
 
 .payment-intro{
@@ -101,4 +125,12 @@
     border-radius: 5px;
     padding: 8px 30px;
     cursor: pointer;
+}
+
+#cartPay.selected{
+    background-color: #4070f4;
+}
+
+#kakaoPay.selected{
+    background-color: goldenrod;
 }
