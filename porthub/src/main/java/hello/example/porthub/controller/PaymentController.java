@@ -6,6 +6,7 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.OrderSaveDto;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.PaymentService;
 import hello.example.porthub.service.RefundService;
 import jakarta.annotation.PostConstruct;
