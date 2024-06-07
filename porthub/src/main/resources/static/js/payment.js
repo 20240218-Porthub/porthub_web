@@ -3,16 +3,15 @@ $(() =>{
     let payMethod = "";
 
     $('#cartPay').on("click", () => {
+        $('#cartPay').addClass("selected")
+        $('#kakaoPay').removeClass("selected")
         pg = "html5_inicis";
         payMethod = "card"
     });
 
-    $('#phonePay').on("click", () => {
-        pg = "danal";
-        payMethod = "MOBILE";
-    });
-
     $('#kakaoPay').on("click", () => {
+        $('#kakaoPay').addClass("selected")
+        $('#cartPay').removeClass("selected")
         pg = "kakaopay";
         payMethod = "card"
     });
@@ -20,6 +19,9 @@ $(() =>{
     $(document).on("click", "#do-pay", () => {
         let name = $(".goods-name").text();
         const orderNumber = createOrderNum();
+        let buyername= $("#buyerName").text();
+        let buyeremail=$("#buyerEmail").text();
+        let goodsid=$(".goods-id").text();
 
         let order = {};
         // const price = parseInt($(e).text().replace(/[^0-9]/g, ''));
@@ -30,13 +32,14 @@ $(() =>{
         order.pg= pg;
         order.pay_method = payMethod;
         order.merchant_uid = orderNumber;
+        order.goods_id= parseInt(goodsid);
         order.pay_name = name;
         order.amount= parseInt($(".goods-price").text());
-        order.buyer_name = "ghdtjq";
-        order.buyer_email="ghdtjq1111@gmail.com"
-        order.buyer_tel = "010123445687";
-        order.buyer_postcode = "12345";
-        order.buyer_addr = "110-4564";
+        order.buyer_name = buyername;
+        order.buyer_email=buyeremail;
+        //order.buyer_tel = "010123445687";
+        //order.buyer_postcode = "12345";
+        //order.buyer_addr = "110-4564";
 
         // iamport 초기화 및 결제 요청
         IMP.init('imp70034134');
@@ -46,11 +49,11 @@ $(() =>{
             merchant_uid : orderNumber,
             name : name,
             amount: parseInt($(".goods-price").text()), // 결제 가격
-            buyer_name : "ghdtjq",
-            buyer_email:"ghdtjq1111@gmail.com",
-            buyer_tel : "010123445687",
-            buyer_postcode : "12345",
-            buyer_addr : "110-4564"
+            buyer_name : buyername,
+            buyer_email:buyeremail,
+            //buyer_tel : "010123445687",
+            // buyer_postcode : "12345",
+            // buyer_addr : "110-4564"
         }, function(rsp) {
             if (rsp.success) {
                 $.ajax({

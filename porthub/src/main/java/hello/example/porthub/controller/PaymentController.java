@@ -4,7 +4,9 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.OrderSaveDto;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.PaymentService;
 import hello.example.porthub.service.RefundService;
 import jakarta.annotation.PostConstruct;
@@ -26,6 +28,7 @@ import java.util.Map;
 public class PaymentController {
     private final PaymentService paymentService;
     private final RefundService refundService;
+    private final MemberRepository memberRepository;
 
     private IamportClient iamportClient;
 
@@ -47,6 +50,10 @@ public class PaymentController {
         String orderNumber=String.valueOf(orderSaveDto.getMerchant_uid());
         try {
             int orderID=paymentService.saveOrder(orderSaveDto);
+            MemberDto buyer=memberRepository.findByEmail(orderSaveDto.getBuyer_email());
+            String newpaid=buyer.getPaidProduct()+","+orderSaveDto.getGoods_id();
+            buyer.setPaidProduct(newpaid);
+            paymentService.UpdateUserPaid(buyer);
             log.info("orderID="+orderID);
             log.info("결제 성공 : 주문 번호 {}", orderNumber);
             log.info("response="+ResponseEntity.ok().build());

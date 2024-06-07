@@ -31,15 +31,28 @@ $(document).ready(function () {
     //     }
     // });
 
-    $('.startChatButton').on('click', function() {
+    // $('.startChatButton').on('click', function() {
+    //     var followingUserId = $(this).data('user-id');
+    //     var content = $('#msg').val();
+    //     // if (content.trim() === '') {
+    //     //     alert('Please type a message to start the chat.');
+    //     //     return;
+    //     // }
+    //     startNewChat(followingUserId, content);
+    //     $('#msg').val('');
+    // });
+
+
+    $('#send_message_btn').on('click', function () {
         var followingUserId = $(this).data('user-id');
-        var content = $('#msg').val();
-        if (content.trim() === '') {
-            alert('Please type a message to start the chat.');
-            return;
-        }
+        console.log("button USerID")
+        var content = $('#message_input').val();
+        // if (content.trim() === '') {
+        //     alert('Please type a message to start the chat.');
+        //     return;
+        // }
         startNewChat(followingUserId, content);
-        $('#msg').val('');
+        $('#message_input').val('');
     });
 
     $sendButton.on('click', sendMessage);
@@ -160,10 +173,11 @@ $(document).ready(function () {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ recipientUserId: followingUserId, content: content }),
-            success: function(response) {
-                console.log('New chat started successfully:', response);
+            success: function (sessionId) {
+                console.log('New chat started successfully. Session ID:', sessionId);
+                window.location.href = '/user/chat/' + sessionId; // 새로운 URL로 이동
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.error('Failed to start a new chat. Please try again.', xhr.responseText);
             }
         });

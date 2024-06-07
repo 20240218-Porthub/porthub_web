@@ -66,4 +66,8 @@ public class ChatService {
         // Logic to retrieve the recipient user's ID based on the sessionId and currentUserId
         return sessionParticipantMapper.findOtherParticipant(sessionId, currentUserId);
     }
+
+    public boolean isSessionParticipant(String sessionId, int userId) {
+        return sessionParticipantMapper.isSessionParticipant(sessionId, userId);
+    }
 }

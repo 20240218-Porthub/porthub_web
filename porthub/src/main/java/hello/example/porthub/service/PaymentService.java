@@ -1,5 +1,6 @@
 package hello.example.porthub.service;
 
+import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.OrderSaveDto;
 import hello.example.porthub.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,4 +20,6 @@ public class PaymentService {
     }
 
     public OrderSaveDto selectOrder(int OrderID){ return paymentRepository.selectOrder(OrderID);}
+
+    public int UpdateUserPaid(MemberDto memberDto){return paymentRepository.UpdateUserPaid(memberDto);}
 }

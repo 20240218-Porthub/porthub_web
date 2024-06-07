@@ -17,4 +17,5 @@ public class MemberDto {
     private String backImage;
     private String PasswordHash;
     private String Role;
+    private String PaidProduct;
 }

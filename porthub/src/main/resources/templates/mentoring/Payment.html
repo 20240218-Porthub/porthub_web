@@ -24,11 +24,20 @@
                 <div class="goods shadow-sm">
                     <div class="goods-head">주문 내역</div>
                     <div class="goods-content">
-                        <img class="goods-thumbnail">
-                        <div class="goods-intro">
-                            <div class="goods-name" th:text="${mentoring.Title}">testtestest</div>
-                            <div class="goods-owner" th:text="${mentoring.UserName}">hongseob</div>
+                        <div class="content-div1">
+                            <img class="goods-thumbnail" th:src="${mentoring.Thumbnail}">
+                            <div class="goods-intro">
+                                <div class="goods-id" th:text="${mentoring.MentoringID}">id</div>
+                                <div class="goods-name" th:text="${mentoring.Title}">testtestest</div>
+                                <div class="goods-owner" th:text="${mentoring.UserName}">hongseob</div>
+                            </div>
                         </div>
+                        <div class="content-div2">
+                            <div class="buyer"><span>구매자 이름</span><span id="buyerName" th:text="${buyer.UserName}"></span></div>
+                            <div class="buyer"><span>구매자 이메일</span><span id="buyerEmail" th:text="${buyer.Email}"></span></div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -39,8 +48,8 @@
                 <div class="pay-col"><span class="pay-col-first">총금액</span><span class="goods-price" th:text="${mentoring.Price}">1000</span></div>
             </div>
             <div class="paymentButtons">
-                <button id="cartPay">신용카드</button>
-                <button id="kakaoPay">카카오페이</button>
+                <button id="cartPay" class="paybutton selected">신용카드</button>
+                <button id="kakaoPay" class="paybutton">카카오페이</button>
             </div>
             <button id="do-pay" type="button" class="btn btn-primary btn-lg">결제하기</button>
         </div>
@@ -51,4 +60,4 @@
 
 </body>
 <script th:src="@{/js/payment.js}" src="/static/js/payment.js"></script>
-</html>제발멈춰
+</html>

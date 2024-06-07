@@ -4,6 +4,7 @@ import hello.example.porthub.config.util.CookieUtils;
 import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.*;
 import hello.example.porthub.domain.MainPortViewDto;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.MentoService;
 import hello.example.porthub.service.PortfolioService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.Principal;
 import java.util.*;
 
 
@@ -26,6 +28,7 @@ public class IndexController {
 
     private final PortfolioService portfolioService;
     private final MentoService mentoService;
+    private final MemberRepository memberRepository;
 
     public Map<Integer, String> getCookie(HttpServletRequest request) {
         Map<String, String> recentPortfolios = CookieUtils.getCookieData(request.getCookies(), CookieUtils.COOKIE_NAME);
@@ -40,7 +43,7 @@ public class IndexController {
         return reverseRecentPort;
     }
 
-    @GetMapping(value = {"/", "/main","/All"})
+    @GetMapping(value = {"/main","/All"})
     public String index(@RequestParam(value = "order", defaultValue = "NewestOrder") String order,
                         @RequestParam(value = "page", defaultValue = "1") int page,
                         @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
@@ -315,10 +318,12 @@ public class IndexController {
     }
 
     @GetMapping("/mentoring")
-    public String Mento(Model model) {
+    public String Mento(Model model, Principal principal) {
+        MemberDto member = memberRepository.findByEmail(principal.getName());
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<MentoViewDto> mentorings=mentoService.allmentoring();
 
+        model.addAttribute("member",member);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("mentorings",mentorings);
         return "mentoring/mentoring";
@@ -369,7 +374,7 @@ public class IndexController {
         return "user/view";
     }
 
-    @GetMapping(value = {"/about"})
+    @GetMapping(value = {"/", "/about"})
     public String about() {
         return "user/about";
     }

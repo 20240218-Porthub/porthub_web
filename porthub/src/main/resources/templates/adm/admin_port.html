@@ -5,11 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/admin/admin.css}" href="/static/css/admin/admin.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
-
-
+    <style>
+        .mento-item {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            padding: 16px;
+        }
+        .mento-item p {
+            margin: 0;
+            padding: 4px 0;
+        }
+        .mento-item span {
+            font-weight: bold;
+        }
+        .mento-item .btn-group {
+            margin-top: 12px;
+        }
+        .mento-item .btn {
+            min-width: 100px;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,15 +40,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
-                <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+                <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu"
+                     aria-labelledby="sidebarMenuLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                data-bs-target="#sidebarMenu" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="/admin">
+                                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page"
+                                   href="/admin">
                                     Dashboard
                                 </a>
                             </li>
@@ -73,43 +97,49 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Mento</h1>
-                </div>
-                <div class="mentocontent">
-                    <div class="mento-box">
-                        <div class="request-header">
-                            <h4>멘토 요청 목록</h4>
-                        </div>
-                        <div id="request-mento" class="box-body">
-                            <div class="mento-item" th:if="${requestmentos}!=null" th:each="requestmento:${requestmentos}" th:id="${requestmento.ProcessID}">
-                                <div><span>id : </span><span id="mento-id" th:text="${requestmento.MentoID}"></span></div>
-                                <div class="buttons">
-                                    <button class="btn" id="accept">승인</button>
-                                    <button class="btn" id="deny">거절</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mento-box">
-                        <div class="mentobox-header">
-                            <h4>멘토 목록</h4>
-                        </div>
-                        <div id="accept-mento" class="box-body">
-                            <div class="mento-item" th:if="${allmento}!=null" th:each="mento:${allmento}" th:id="${mento.ProcessID}">
-                                <div><span>id : </span><span th:text="${mento.MentoID}"></span></div>
-                                <button class="btn" id="delete">삭제</button>
-                            </div>
-                        </div>
-                    </div>
+                    <h1 class="h2">Portfolio Management</h1>
                 </div>
 
+                <div class="mento-box">
+                    <div class="request-header">
+                        <h4>신고 요청 목록</h4>
+                    </div>
+                    <div class="box-body">
+                        <div th:each="dto : ${copyrightReportDtoList}" class="mento-item">
+                            <div>
+                                <p>
+                                    <span>포트폴리오 썸네일: </span>
+                                    <span><a th:href="@{'/profile/' + ${dto.reporterName}}" th:text="${dto.reporterName}">ReporterName</a></span>
+                                </p>
+                                <p>신고 내용: <span th:text="${dto.contents}">Contents</span></p>
+                            </div>
+                            <div class="btn-list" role="group" aria-label="Action buttons">
+                                <button type="button" class="btn" th:onclick="'deleteUser(' + ${dto.reportedID} + ')'">사용자 삭제</button>
+                                <button type="button" class="btn" th:onclick="'confirmDelete(' + ${dto.portfolioID} + ')'">포트폴리오 삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                </div>
             </main>
         </div>
     </div>
 </div>
 
-<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+<!--<footer th:replace="~{fragments/footer::footerFragment}"></footer>-->
 
+<script>
+    function confirmDelete(portfolioID) {
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            var form = document.getElementById('deletePortfolioForm_' + portfolioID);
+            if (form) {
+                form.submit();
+            } else {
+                console.error("폼 요소를 찾을 수 없습니다.");
+            }
+        }
+    }
+</script>
+<script th:src="@{/js/paymentconfirm.js}"></script>
 </body>
-<script th:src="@{/js/admin_mento.js}"></script>
 </html>
