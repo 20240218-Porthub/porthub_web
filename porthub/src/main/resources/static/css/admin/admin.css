@@ -25,7 +25,6 @@
     flex-direction: column;
     border:solid 1px;
     padding: 20px;
-    height:80%;
     gap:10px;
 }
 
@@ -75,4 +74,19 @@
 
 .navbar .form-control {
     padding: .75rem 1rem;
+}
+
+.btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    font-weight: 800;
+    transition: 0.25s;
+}
+a{
+    text-decoration: none;
 }

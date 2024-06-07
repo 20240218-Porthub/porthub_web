@@ -42,7 +42,7 @@ public class IndexController {
         return reverseRecentPort;
     }
 
-    @GetMapping(value = {"/", "/main","/All"})
+    @GetMapping(value = {"/main","/All"})
     public String index(@RequestParam(value = "order", defaultValue = "NewestOrder") String order,
                         @RequestParam(value = "page", defaultValue = "1") int page,
                         @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
@@ -373,7 +373,7 @@ public class IndexController {
         return "user/view";
     }
 
-    @GetMapping(value = {"/about"})
+    @GetMapping(value = {"/", "/about"})
     public String about() {
         return "user/about";
     }

@@ -1,6 +1,8 @@
 package hello.example.porthub.repository;
 
 
+import hello.example.porthub.domain.CopyrightReportDto;
+import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.MentoProcessDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,4 +23,21 @@ public class AdminRepository {
     public int UpdateMentoProcess(MentoProcessDto mentoProcessDto){ return sql.update("admin.UpdateMentoProcess", mentoProcessDto);}
 
     public int DeleteMentoProcess(MentoProcessDto mentoProcessDto){ return sql.delete("admin.DeleteMentoProcess",mentoProcessDto);}
+
+    public List<CopyrightReportDto> AllCopyRightList() {
+        return sql.selectList("admin.AllCopyRightList");
+    }
+
+    public List<MemberDto> AllUserList() {
+        return sql.selectList("admin.AllUserList");
+    }
+
+    public String findUserNameByEmail(String reporterEmail) {
+        return sql.selectOne("admin.findUserNameByEmail", reporterEmail);
+    }
+
+    public String findUserNameByID(int reportedID) {
+        return sql.selectOne("admin.findUserNameByID", reportedID);
+    }
+
 }
