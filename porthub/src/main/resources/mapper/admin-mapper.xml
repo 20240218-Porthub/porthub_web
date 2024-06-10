@@ -39,6 +39,7 @@
     <select id="AllUserList" resultType="hello.example.porthub.domain.AdminDto.UserAdminDto">
         SELECT UserID, UserName, Email, ProfileImage, backImage
         FROM Users
+        WHERE NOT Role = "BAN"
     </select>
 
     <select id="findAllPortList" resultType="hello.example.porthub.domain.AdminDto.PortAdminDto">
@@ -54,6 +55,30 @@
         update CopyrightReport
         set ReportState = true
         where ReportID = #{ReportID}
+    </update>
+    <select id="findUserRoleByUserID" parameterType="int" resultType="String">
+        SELECT Role
+        FROM Users
+        WHERE UserID = #{userID}
+    </select>
+
+    <update id="UserBanByUserID" parameterType="int">
+        update Users
+        set Role = "BAN"
+        where UserID = #{userID}
+    </update>
+
+
+    <select id="AllBannedUserList" resultType="hello.example.porthub.domain.AdminDto.UserAdminDto">
+        SELECT UserID, UserName, Email, ProfileImage, backImage
+        FROM Users
+        WHERE Role = "BAN"
+    </select>
+
+    <update id="UserLiftingbyUserID" parameterType="int">
+        update Users
+        set Role = "USER"
+        where UserID = #{userID}
     </update>
 
 </mapper>

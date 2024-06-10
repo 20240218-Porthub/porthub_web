@@ -56,4 +56,22 @@ public class AdminService {
     public int UpdateState(int ReportID) {
         return adminRepository.UpdateState(ReportID);
     }
+
+    public void UserBanbyUserID(int userID) {
+        String getRole = adminRepository.findUserRoleByUserID(userID);
+
+        if (getRole.equals("ADMIN")) {
+            System.out.println("해당 유저는 관리자 입니다.");
+        } else {
+            adminRepository.UserBanByUserID(userID);
+        }
+    }
+
+    public List<UserAdminDto> AllBannedUserList() {
+        return adminRepository.AllBannedUserList();
+    }
+
+    public void UserLiftingbyUserID(int userID) {
+        adminRepository.UserLiftingbyUserID(userID);
+    }
 }

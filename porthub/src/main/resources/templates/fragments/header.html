@@ -39,19 +39,19 @@
             <li class="list">
               <a href="#" class="nav-link">
                 <ion-icon name="stats-chart-outline" class="icon"></ion-icon>
-                <span class="link">Revenue</span>
+                <span class="link">About</span>
               </a>
             </li>
             <li class="list">
               <a href="#" class="nav-link">
                 <ion-icon name="mail-outline" class="icon"></ion-icon>
-                <span class="link">Messages</span>
+                <span class="link">Chatting</span>
               </a>
             </li>
             <li class="list">
               <a href="#" class="nav-link">
                 <ion-icon name="analytics-outline" class="icon"></ion-icon>
-                <span class="link">Analytics</span>
+                <span class="link">Views_all</span>
               </a>
             </li>
             <li class="list">
@@ -62,6 +62,12 @@
             </li>
           </ul>
           <div class="bottom-content">
+            <li th:if="${T(hello.example.porthub.config.util.SessionUtils).isAdminIn()}" class="list">
+              <a href="/admin" class="nav-link">
+                <ion-icon name="settings-outline" class="icon"></ion-icon>
+                <span class="link">Admin Setting</span>
+              </a>
+            </li>
             <li th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}" class="list">
               <a href="/profile/index" class="nav-link">
                 <ion-icon name="settings-outline" class="icon"></ion-icon>

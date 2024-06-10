@@ -10,6 +10,7 @@ import hello.example.porthub.service.PortfolioService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -84,8 +85,9 @@ public class AdminController {
         //삭제시 cascading 모두 삭제되도록 해야 합니다.
 
         List<UserAdminDto> userAdminDtoList = adminService.AllUserList();
-
+        List<UserAdminDto> userBanDtoList = adminService.AllBannedUserList();
         model.addAttribute("userAdminDtoList", userAdminDtoList);
+        model.addAttribute("userBanDtoList", userBanDtoList);
         return "adm/admin_user";
     }
 
@@ -138,10 +140,19 @@ public class AdminController {
     }
 
 
+    @DeleteMapping("/delete/user/{ReportID}/{UserID}")
+    public String UserReportDelete(@PathVariable("ReportID") int ReportID, @PathVariable("UserID") int UserID) {
+        adminService.UpdateState(ReportID);
+        adminService.UserBanbyUserID(UserID);
+        return "redirect:/admin/report";
+    }
+
+
     @DeleteMapping("/delete/user/{UserID}")
-    public String UserDelete(@PathVariable("UserID") String UserID) {
-//        삭제시 주의해야함!!!!
-        return "redirect:/";
+    public String UserDelete(@PathVariable("UserID") int UserID) {
+
+        adminService.UserBanbyUserID(UserID);
+        return "redirect:/admin/user";
     }
 
     @DeleteMapping("/delete/mentoring/{MentoID}")
@@ -151,4 +162,9 @@ public class AdminController {
         return "redirect:/";
     }
 
+    @PutMapping("/lifting/user/{UserID}")
+    public String LiftingUser(@PathVariable("UserID") int UserID) {
+        adminService.UserLiftingbyUserID(UserID);
+        return "redirect:/admin/user";
+    }
 }

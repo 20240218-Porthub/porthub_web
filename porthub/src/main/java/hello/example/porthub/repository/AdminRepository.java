@@ -4,15 +4,12 @@ package hello.example.porthub.repository;
 import hello.example.porthub.domain.AdminDto.PortAdminDto;
 import hello.example.porthub.domain.AdminDto.UserAdminDto;
 import hello.example.porthub.domain.CopyrightReportDto;
-import hello.example.porthub.domain.MemberDto;
 import hello.example.porthub.domain.MentoProcessDto;
 import hello.example.porthub.domain.MentoringDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -61,5 +58,21 @@ public class AdminRepository {
             e.printStackTrace();
             return 0; // 기타 예외 발생 시 0 반환
         }
+    }
+
+    public String findUserRoleByUserID(int userID) {
+        return sql.selectOne("admin.findUserRoleByUserID", userID);
+    }
+
+    public void UserBanByUserID(int userID) {
+        sql.update("admin.UserBanByUserID", userID);
+    }
+
+    public List<UserAdminDto> AllBannedUserList() {
+        return sql.selectList("admin.AllBannedUserList");
+    }
+
+    public void UserLiftingbyUserID(int userID) {
+        sql.update("admin.UserLiftingbyUserID", userID);
     }
 }

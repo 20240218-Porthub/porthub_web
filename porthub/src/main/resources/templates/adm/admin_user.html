@@ -102,26 +102,62 @@
 
                 <div class="mento-box">
                     <div class="request-header">
-                        <h4>사용자 목록</h4>
+                        <button type="button" class="btn btn-primary" onclick="showActiveUsers()">활성 사용자</button>
+                        <button type="button" class="btn btn-primary" onclick="showBlockedUsers()">제재된 사용자</button>
                     </div>
                     <div class="box-body">
-                        <div th:each="dto : ${userAdminDtoList}" class="mento-item">
-                            <div>
-                                <p>
-                                    <span>사용자: </span>
-                                    <span><a th:href="@{'/profile/' + ${dto.UserName}}" th:text="${dto.UserName}">ReporterName</a></span>
-                                    <span> Email: </span>
-                                    <span th:text="${dto.Email}">Email</span>
-                                </p>
-                                <p>
-                                    <span> Profile image </span>
-                                    <img th:src="${dto.profileImage}" class="image2">
-                                    <span> background image</span>
-                                    <img th:src="${dto.backImage}" class="image2">
-                                </p>
+                        <div id="activeUsers" style="display: block;">
+                            <h4>활성 사용자 목록</h4>
+                            <div th:each="dto : ${userAdminDtoList}" class="mento-item">
+                                <div>
+                                    <p>
+                                        <span>사용자: </span>
+                                        <span><a th:href="@{'/profile/' + ${dto.UserName}}" th:text="${dto.UserName}">ReporterName</a></span>
+                                        <span> Email: </span>
+                                        <span th:text="${dto.Email}">Email</span>
+                                    </p>
+                                    <p>
+                                        <span> Profile image </span>
+                                        <img th:src="${dto.profileImage}" class="image2">
+                                        <span> background image</span>
+                                        <img th:src="${dto.backImage}" class="image2">
+                                    </p>
+                                </div>
+                                <div class="btn-list" role="group" aria-label="Action buttons">
+                                    <form id="delete_form" th:action="@{'/admin/delete/user/' + ${dto.UserID}}" method="post">
+                                        <div class="port-delete-section">
+                                            <input type="hidden" name="_method" value="delete"/>
+                                            <button type="submit" onclick="confirmDelete(event)" class="btn">사용자 삭제</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="btn-list" role="group" aria-label="Action buttons">
-                                <button type="button" class="btn" th:onclick="'deleteUser(' + ${dto.UserID} + ')'">사용자 삭제</button>
+                        </div>
+                        <div id="blockedUsers" style="display: none;">
+                            <h4>제재된 사용자 목록</h4>
+                            <div th:each="dto : ${userBanDtoList}" class="mento-item">
+                                <div>
+                                    <p>
+                                        <span>사용자: </span>
+                                        <span><a th:href="@{'/profile/' + ${dto.UserName}}" th:text="${dto.UserName}">ReporterName</a></span>
+                                        <span> Email: </span>
+                                        <span th:text="${dto.Email}">Email</span>
+                                    </p>
+                                    <p>
+                                        <span> Profile image </span>
+                                        <img th:src="${dto.profileImage}" class="image2">
+                                        <span> background image</span>
+                                        <img th:src="${dto.backImage}" class="image2">
+                                    </p>
+                                </div>
+                                <div class="btn-list" role="group" aria-label="Action buttons">
+                                    <form id="delete_form2" th:action="@{'/admin/lifting/user/' + ${dto.UserID}}" method="post">
+                                        <div class="port-delete-section">
+                                            <input type="hidden" name="_method" value="put"/>
+                                            <button type="submit" onclick="confirmApprove(event)" class="btn">사용자 제재 풀기</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -135,15 +171,37 @@
 <!--<footer th:replace="~{fragments/footer::footerFragment}"></footer>-->
 
 <script>
-    function confirmDelete(portfolioID) {
+    function confirmDelete(event) {
+        event.preventDefault(); // 기본 이벤트(폼 제출) 방지
         if (confirm('정말로 삭제하시겠습니까?')) {
-            var form = document.getElementById('deletePortfolioForm_' + portfolioID);
+            var form = event.target.form; // 클릭된 버튼과 관련된 폼 요소를 찾음
             if (form) {
-                form.submit();
+                form.submit(); // 폼 제출
             } else {
                 console.error("폼 요소를 찾을 수 없습니다.");
             }
         }
+    }
+
+    function confirmApprove(event) {
+        event.preventDefault(); // 기본 이벤트(폼 제출) 방지
+        if (confirm('정말로 제재를 해제하시겠습니까?')) {
+            var form = event.target.form; // 클릭된 버튼과 관련된 폼 요소를 찾음
+            if (form) {
+                form.submit(); // 폼 제출
+            } else {
+                console.error("폼 요소를 찾을 수 없습니다.");
+            }
+        }
+    }
+    function showActiveUsers() {
+        document.getElementById("activeUsers").style.display = "block";
+        document.getElementById("blockedUsers").style.display = "none";
+    }
+
+    function showBlockedUsers() {
+        document.getElementById("activeUsers").style.display = "none";
+        document.getElementById("blockedUsers").style.display = "block";
     }
 </script>
 <script th:src="@{/js/paymentconfirm.js}"></script>
