@@ -17,16 +17,20 @@
             margin-bottom: 16px;
             padding: 16px;
         }
+
         .mento-item p {
             margin: 0;
             padding: 4px 0;
         }
+
         .mento-item span {
             font-weight: bold;
         }
+
         .mento-item .btn-group {
             margin-top: 12px;
         }
+
         .mento-item .btn {
             min-width: 100px;
         }
@@ -61,7 +65,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/mento">
+                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/mentoring">
                                     Mentoring Management
                                 </a>
                             </li>
@@ -102,20 +106,42 @@
 
                 <div class="mento-box">
                     <div class="request-header">
-                        <h4>신고 요청 목록</h4>
+                        <h4>포트폴리오 목록</h4>
                     </div>
                     <div class="box-body">
-                        <div th:each="dto : ${copyrightReportDtoList}" class="mento-item">
+                        <div th:each="dto : ${portAdminDtoList}" class="mento-item">
                             <div>
                                 <p>
-                                    <span>포트폴리오 썸네일: </span>
-                                    <span><a th:href="@{'/profile/' + ${dto.reporterName}}" th:text="${dto.reporterName}">ReporterName</a></span>
+                                    <span>작성자: </span>
+                                    <span><a th:href="@{'/profile/' + ${dto.UserName}}" th:text="${dto.UserName}">UserName</a></span>
+                                    <span>작성 제목: </span>
+                                    <span th:text="${dto.Title}">Title</span>
                                 </p>
-                                <p>신고 내용: <span th:text="${dto.contents}">Contents</span></p>
+                                <p>
+                                    <span> Thumbnail 이미지  </span>
+                                <div class="title-description">
+                                    <div class="text-wrapper-5"
+                                         th:data-src="${dto.Thumbnail_url}"
+                                         th:onclick="'goToDetailPage(\'' + ${dto.PortfolioID} + '\')'">
+                                    </div>
+                                </div>
+                                </p>
                             </div>
                             <div class="btn-list" role="group" aria-label="Action buttons">
-                                <button type="button" class="btn" th:onclick="'deleteUser(' + ${dto.reportedID} + ')'">사용자 삭제</button>
-                                <button type="button" class="btn" th:onclick="'confirmDelete(' + ${dto.portfolioID} + ')'">포트폴리오 삭제</button>
+
+                                <form th:action="@{'/admin/delete/user/' + ${dto.AuthorID}}" method="post">
+                                    <div class="port-delete-section">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button type="submit" onclick="confirmDelete(event)" class="btn">사용자 삭제</button>
+                                    </div>
+                                </form>
+
+                                <form id="delete_form" th:action="@{'/admin/delete/port/' + ${dto.PortfolioID}}" method="post">
+                                    <div class="port-delete-section">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button type="submit" onclick="confirmDelete(event)" class="btn">포트폴리오 삭제</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -129,17 +155,62 @@
 <!--<footer th:replace="~{fragments/footer::footerFragment}"></footer>-->
 
 <script>
-    function confirmDelete(portfolioID) {
+    function confirmDelete(event) {
+        event.preventDefault(); // 기본 이벤트(폼 제출) 방지
         if (confirm('정말로 삭제하시겠습니까?')) {
-            var form = document.getElementById('deletePortfolioForm_' + portfolioID);
+            var form = event.target.form; // 클릭된 버튼과 관련된 폼 요소를 찾음
             if (form) {
-                form.submit();
+                form.submit(); // 폼 제출
             } else {
                 console.error("폼 요소를 찾을 수 없습니다.");
             }
         }
     }
+
+    function goToDetailPage(portfolioId) {
+        // 클릭된 이미지의 포트폴리오 ID를 사용하여 상세 페이지로 이동
+        window.location.href = '/ports/views/' + portfolioId;
+    }
+
+    window.onload = function() {
+        // div 요소 가져오기
+        var divElements = document.querySelectorAll('.text-wrapper-5');
+
+        // 각 div 요소에 대해 실행
+        divElements.forEach(function(divElement) {
+            // data-src 속성 값 가져오기
+            var src = divElement.getAttribute('data-src');
+            if (divElement.getAttribute('data-src') == null) {
+                src = 'https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg';
+            }
+
+            // 파일 경로로부터 파일의 확장자를 추출하는 함수
+            function getFileExtension(url) {
+                // URL에서 마지막 슬래시(/) 뒤의 문자열을 가져옴
+                var filename = url.substring(url.lastIndexOf('/') + 1);
+                // 파일명에서 마지막 점(.) 뒤의 문자열을 가져와서 소문자로 변환하여 반환
+                return filename.split('.').pop().toLowerCase();
+            }
+
+            // 확장자에 따라 적절한 HTML 태그를 생성하는 함수
+            function createHTMLTag(src) {
+                var fileExtension = getFileExtension(src);
+                if (fileExtension === 'mp3' || fileExtension === 'wav' || fileExtension === 'ogg') {
+                    return '<audio controls class="image"><source src="' + src + '" type="audio/' + fileExtension + '"></audio>';
+                } else if (fileExtension === 'mp4' || fileExtension === 'avi' || fileExtension === 'mov') {
+                    return '<video controls class="image"><source src="' + src + '" type="video/' + fileExtension + '"></video>';
+                } else if (fileExtension === 'jpeg' || fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'avif') {
+                    return '<img src="' + src + '" class="image">';
+                } else {
+                    return '<img src="' + src + '" class="image">';
+                }
+            }
+
+            // 생성된 HTML 태그를 div 요소 안에 추가
+            divElement.innerHTML = createHTMLTag(src);
+        });
+    };
+
 </script>
-<script th:src="@{/js/paymentconfirm.js}"></script>
 </body>
 </html>
