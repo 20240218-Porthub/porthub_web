@@ -50,7 +50,7 @@
 
                         <script th:inline="javascript">
                             /*<![CDATA[*/
-                            var error = /*[[${error}]]*/ '';
+                            var error = [[${param.error}]];
                             if (error) {
                                 alert(decodeURIComponent(error));
                             }
