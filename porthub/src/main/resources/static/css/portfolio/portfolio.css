@@ -285,7 +285,7 @@ body, html {
     padding: 20px;
 }
 .fixed-section {
-    width: 25%; /* 고정된(Fixed) 너비 */
+    /*width: 25%; !* 고정된(Fixed) 너비 *!*/
     padding: 20px;
     background-color: #fff; /* 오른쪽 영역 배경색 */
     box-sizing: border-box;
@@ -584,4 +584,47 @@ a {
     float: left;
     border-radius: 5%;
     margin: 0 4px 1rem;
+}
+
+/* For smaller screens */
+@media screen and (max-width: 768px) {
+    .desktop .navbar {
+        width: 100%; /* Adjust navbar width for smaller screens */
+        padding: 20px; /* Adjust padding for smaller screens */
+        top: 0; /* Adjust top position */
+    }
+    .desktop .frame {
+        width: 100%; /* Adjust frame width for smaller screens */
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+    /* Add more responsive adjustments as needed */
+}
+
+/* For larger screens */
+@media screen and (max-width: 1200px) {
+
+    .fixed-section {
+        display: none; /* fixed-section 요소 숨기기 */
+    }
+    .desktop {
+        display: block;
+    }
+    .button-container {
+        display: block;
+    }
+    .search-bar {
+        display: block;
+    }
+    .second-container {
+        display: block;
+    }
+    .search-bar input[type="text"] {
+        width: 300px;
+    }
+    .scroll-section {
+        display: block;
+        padding: 0px;
+        overflow-y: hidden;
+    }
+
 }

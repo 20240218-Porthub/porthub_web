@@ -1,6 +1,8 @@
 package hello.example.porthub.config;
 
 import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.repository.MemberRepository;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +44,11 @@ public class PortDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
+        if (memberDto.getRole().equals("BAN")) {
+
+            throw new LockedException("The account is locked");
+        }
+
         return true;
     }
 

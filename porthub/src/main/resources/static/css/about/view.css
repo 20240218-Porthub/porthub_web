@@ -1,0 +1,135 @@
+
+body {
+    background-size: cover;
+}
+
+.wrap-container {
+    display: flex;
+    justify-content: center;
+}
+
+.home-container {
+    width: 90%;
+}
+
+.section-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.history-section-list, .likes-section-list {
+    margin-left: 1rem;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-container {
+    flex: 0 0 20%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin: 0 4px;
+    border-radius: 5%;
+}
+
+.text-wrapper-6 {
+    position: relative;
+    align-self: stretch;
+    font-family: "Poppins-Regular", Helvetica;
+    font-weight: 600;
+    color: var(--black);
+    font-size: 14px;
+    letter-spacing: 0;
+}
+
+.title-deco {
+    font-weight: bold;
+}
+
+.profile-wrapper {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 4px;
+    float: left;
+}
+
+.profile-wrapper:hover {
+    transform: scale(1.4);
+    transition: transform 0.3s ease;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+.text-wrapper-5 {
+    cursor: pointer;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.prev-button {
+    left: 0;
+}
+
+.next-button {
+    right: 0;
+}
+
+.list-title-deco {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.header-image-container {
+    text-align: center; /* 텍스트와 이미지를 가운데 정렬 */
+    position: relative;
+}
+
+.header-image {
+    width: 100%; /* 화면 너비에 맞게 이미지 크기 조정 */
+    height: auto;
+    display: block;
+}
+
+.wrap-container .image {
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 5%;
+}
+
+
+/*.image {*/
+/*    object-fit: contain;*/
+/*    border-radius: 10%;*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    display: block;*/
+/*}*/

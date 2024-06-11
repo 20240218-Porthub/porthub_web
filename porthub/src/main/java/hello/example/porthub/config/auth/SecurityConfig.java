@@ -33,7 +33,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
 //                        .requestMatchers("/mentoring/MentoAuth").hasRole("MENTO")
-//                        .requestMatchers("/about").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
 //                        .requestMatchers("/profile", "/views/report").hasRole("USER")
                         .requestMatchers("/profile", "/views/report").authenticated()
 //                        .requestMatchers("/chat","/ports/create").authenticated()

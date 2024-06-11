@@ -61,7 +61,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/mento">
+                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/mentoring">
                                     Mentoring Management
                                 </a>
                             </li>
@@ -110,7 +110,7 @@
                                 <p>
                                     <span>신고자: </span>
                                     <span><a th:href="@{'/profile/' + ${dto.reporterName}}" th:text="${dto.reporterName}">ReporterName</a></span>
-                                    <span> | </span>
+                                    <span>  </span>
                                     <span>신고된 자: </span>
                                     <span><a th:href="@{'/profile/' + ${dto.reportedName}}" th:text="${dto.reportedName}">ReportedName</a></span>
                                     <span>포트폴리오: </span>
@@ -119,9 +119,25 @@
                                 <p>신고 내용: <span th:text="${dto.contents}">Contents</span></p>
                             </div>
                             <div class="btn-list" role="group" aria-label="Action buttons">
-                                <button type="button" class="btn" th:onclick="'deleteUser(' + ${dto.reportedID} + ')'">사용자 삭제</button>
-                                <button type="button" class="btn" th:onclick="'confirmDelete(' + ${dto.portfolioID} + ')'">포트폴리오 삭제</button>
-                                <button type="button" class="btn" th:onclick="'markAsNoIssue(' + ${dto.portfolioID} + ')'">이상 없음</button>
+
+                                <form th:action="@{'/admin/delete/user/' + ${dto.ReportID} + '/'  + ${dto.reportedID}}" method="post">
+                                    <div class="port-delete-section">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button type="submit" onclick="confirmDelete(event)" class="btn">사용자 삭제</button>
+                                    </div>
+                                </form>
+
+                                <form id="delete_form" th:action="@{'/admin/delete/port/' + ${dto.ReportID} + '/' + ${dto.PortfolioID}}" method="post">
+                                    <div class="port-delete-section">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button type="submit" onclick="confirmDelete(event)" class="btn">포트폴리오 삭제</button>
+                                    </div>
+                                </form>
+
+                                <form id="put_form" th:action="@{'/admin/put/' + ${dto.ReportID}}" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="_method" value="put"/>
+                                    <button type="submit" class="btn" >이상 없음</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -135,16 +151,19 @@
 <!--<footer th:replace="~{fragments/footer::footerFragment}"></footer>-->
 
 <script>
-    function confirmDelete(portfolioID) {
+
+    function confirmDelete(event) {
+        event.preventDefault(); // 기본 이벤트(폼 제출) 방지
         if (confirm('정말로 삭제하시겠습니까?')) {
-            var form = document.getElementById('deletePortfolioForm_' + portfolioID);
+            var form = event.target.form; // 클릭된 버튼과 관련된 폼 요소를 찾음
             if (form) {
-                form.submit();
+                form.submit(); // 폼 제출
             } else {
                 console.error("폼 요소를 찾을 수 없습니다.");
             }
         }
     }
+
 </script>
 <script th:src="@{/js/paymentconfirm.js}"></script>
 </body>

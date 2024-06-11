@@ -84,10 +84,9 @@
 
         <!-- 반복되는 내용 -->
         <div class="portfolio-container div-section" th:each="FileViewDtoList: ${FileViewDtoList}">
+            <div class="File-container" th:data-src="${FileViewDtoList.Image_url}"></div>
             <div class="content-container">
                 <div class="markdown-view" th:text="${FileViewDtoList.contents}"></div>
-            </div>
-            <div class="File-container" th:data-src="${FileViewDtoList.Image_url}">
             </div>
         </div>
 

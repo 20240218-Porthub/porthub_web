@@ -61,7 +61,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/mento">
+                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/mentoring">
                                     Mentoring Management
                                 </a>
                             </li>
@@ -102,20 +102,26 @@
 
                 <div class="mento-box">
                     <div class="request-header">
-                        <h4>신고 요청 목록</h4>
+                        <h4>멘토링 목록</h4>
                     </div>
                     <div class="box-body">
-                        <div th:each="dto : ${copyrightReportDtoList}" class="mento-item">
+                        <div th:each="dto : ${mentoringDtoList}" class="mento-item">
                             <div>
                                 <p>
                                     <span>멘토링 썸네일: </span>
-                                    <span><a th:href="@{'/profile/' + ${dto.reporterName}}" th:text="${dto.reporterName}">ReporterName</a></span>
+                                    <img th:src="${dto.Thumbnail}" class="image2">
                                 </p>
-                                <p>신고 내용: <span th:text="${dto.contents}">Contents</span></p>
+                                <p>
+                                    <span>멘토링 제목: </span>
+                                    <span th:text="${dto.Title}"></span>
+                                    <span>  </span>
+                                    <span>멘토링 가격: </span>
+                                    <span th:text="${dto.Price}">Price</span>
+                                </p>
+                                <p>멘토링 내용: <span style="border: 1px solid #e0e0e0;" th:utext="${dto.Content}">Contents</span></p>
                             </div>
                             <div class="btn-list" role="group" aria-label="Action buttons">
-                                <button type="button" class="btn" th:onclick="'deleteUser(' + ${dto.reportedID} + ')'">사용자 삭제</button>
-                                <button type="button" class="btn" th:onclick="'confirmDelete(' + ${dto.portfolioID} + ')'">멘토링 삭제</button>
+                                <button type="button" class="btn" th:onclick="'confirmDelete(' + ${dto.MentoID} + ')'">멘토링 삭제</button>
                             </div>
                         </div>
                     </div>

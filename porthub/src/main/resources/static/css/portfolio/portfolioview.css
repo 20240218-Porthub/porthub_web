@@ -75,7 +75,7 @@
 }
 
 .portfolio-container {
-    display: flex;
+    /*display: flex;*/
     justify-content: space-between; /* 가로 중앙 정렬 */
     align-items: center;
     margin-left: 10%;
