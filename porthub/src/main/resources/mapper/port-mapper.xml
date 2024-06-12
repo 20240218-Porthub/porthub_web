@@ -374,4 +374,11 @@
         ORDER BY p.PortfolioID DESC
     </select>
 
+    <select id="findUserIDbyUserName" parameterType="String" resultType="int">
+        SELECT UserID
+        FROM Users
+        WHERE UserName = #{userName}
+    </select>
+
+
 </mapper>

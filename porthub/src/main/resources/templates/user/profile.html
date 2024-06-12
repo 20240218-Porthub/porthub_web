@@ -9,6 +9,116 @@
             /*background: url("/images/iim.png") no-repeat;*/
             background-size: cover;
         }
+        .follow-list {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .username {
+            font-size: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+            background: white;
+            padding: 1px 10px;
+            border-radius: 5px;
+        }
+        .follow-btn {
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 20px;
+            border: 0;
+        }
+
+        .port-wrapper {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: 0.25s;
+        }
+
+        .port-wrapper {
+            border: 1px solid #ccc;
+            padding: 4px;
+            margin-bottom: 20px;
+            width: calc(25% - 30px);
+            margin: 0 4px;
+            float: left;
+            border-radius: 5%;
+            height: 230px;
+            margin: 15px;
+        }
+
+        .title-deco {
+            font-weight: bold;
+            display: flex;
+            margin-top: 7px;
+            margin-left: 3px;
+        }
+
+        .wrap-container .text-wrapper-5 {
+            position: relative;
+            align-self: stretch;
+            margin-top: -1px;
+            font-family: "Poppins-SemiBold", Helvetica;
+            font-weight: bolder;
+            color: var(--black);
+            font-size: 16px;
+            letter-spacing: 0;
+        }
+        .wrap-container .title-description {
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            align-self: stretch;
+            width: 100%;
+            flex: 0 0 auto;
+            cursor: pointer;
+        }
+        .wrap-container .image {
+            position: relative;
+            align-self: stretch;
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 5%;
+        }
+        .profile-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-intro {
+            flex: 1;
+            margin-left: 20px; /* 필요에 따라 조정 */
+        }
+
+        .profile-section {
+            margin-bottom: 10px; /* 섹션 간의 간격 */
+        }
+
+        .profile-label {
+            font-weight: bold;
+        }
+
+        /*.olivia-untitledui {*/
+        /*    position: relative;*/
+        /*    align-self: stretch;*/
+        /*    font-family: "Poppins-Regular", Helvetica;*/
+        /*    font-weight: 400;*/
+        /*    color: var(--gray-600);*/
+        /*    font-size: 16px;*/
+        /*    letter-spacing: 0;*/
+        /*    line-height: 24px;*/
+        /*}*/
+
     </style>
 
     <link rel="stylesheet" th:href="@{/css/profile/profile.css}"/>
@@ -30,16 +140,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container" style="display: flex">
                     <div class="avatar-profile-photo">
                         <img th:src="${member.profileImage}">
                     </div>
                     <div class="content">
                         <div class="heading">
                             <div class="text-and-supporting">
-                                <div class="text col-2">
-                                    <div th:text="${member.UserName}"></div>
-                                    <div class="col-2">
+                                <div class="text col-2" style="margin-bottom: 10px;">
+
+                                    <div class="user-info">
+                                        <div class="username" th:text="${member.UserName}"></div>
+                                        <div th:if="${isLoggedIn}">
+                                            <form th:action="@{'/profile/unfollow/'+ ${member.UserName}}" th:method="post" th:if="${followCheck}">
+                                                <button class="follow-btn" onclick="checkLogin('follow')" style="background-color: #e2e8f0; color: #64748b;">Following</button>
+                                            </form>
+                                            <form th:action="@{'/profile/follow/'+ ${member.UserName}}" th:method="post" th:unless="${followCheck}">
+                                                <button class="follow-btn" onclick="checkLogin('follow')" style="background-color: black; color: #fff;">Follow</button>
+                                            </form>
+                                        </div>
+                                        <div th:unless="${isLoggedIn}">
+                                            <a class="follow-btn" onclick="checkLogin('follow')" style="background-color: black; color: #fff;">Follow</a>
+                                        </div>
+                                        <div> 대화</div>
+                                    </div>
+
+                                    <div class="col-2 follow-list" onclick="popuplist()">
                                         <div class="follow">
                                             <span>팔로워</span><span th:text="${follows.follower}">nn</span>
                                         </div>
@@ -48,17 +174,27 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="olivia-untitledui">
-                                    <div>
-                                        <span>소속 </span><span th:text="${UserMeta.aff}">aff</span>
+
+                                <div class="profile-container">
+                                    <div class="profile-details olivia-untitledui">
+                                        <div class="profile-section">
+                                            <span class="profile-label">소속 </span><span th:text="${UserMeta.aff}">aff</span>
+                                        </div>
+                                        <div class="profile-section">
+                                            <span class="profile-label">링크 </span><span th:text="${UserMeta.link}">link</span>
+                                        </div>
+                                        <div class="profile-section">
+                                            <span class="profile-label">경력 </span><span th:text="${UserMeta.career}">career</span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span>링크 </span><span th:text="${UserMeta.link}">link</span>
-                                    </div>
-                                    <div>
-                                        <span>경력 </span><span th:text="${UserMeta.career}">career</span>
+                                    <div class="profile-intro olivia-untitledui">
+                                        <div class="profile-section">
+                                            <span class="profile-label">자기 소개 </span><span th:text="${UserMeta.intro}">intro</span>
+                                        </div>
                                     </div>
                                 </div>
+
+
                             </div>
                             <div class="actions">
                                 <a th:if="${#authentication.name==member.email}" th:href="@{'/profile/'+${member.userName}+'/edit'}">
@@ -71,21 +207,23 @@
                 </div>
             </div>
             <div class="section">
-                <div>
-                    <div>자기소개</div>
-                    <div th:text="${UserMeta.intro}"></div>
-                </div>
                 <div class="container">
-                    <div>포트폴리오</div>
-                    <div class="cards-section">
-                        <div class="div-2" th:each="portfolio : ${mainPortView}" th:onclick="'goToDetailPage(\'' + ${portfolio.PortfolioID} + '\')'">
-                            <img class="image" th:src="@{${portfolio.Thumbnail_url}}" src="img/image-2.png" />
+
+                    <div th:each="portfolio : ${mainPortView}" class="port-wrapper">
+                        <div class="port-2">
                             <div class="title-description">
-                                <div class="text-wrapper-5" th:text="${portfolio.Title}">Project title</div>
-                                <div class="text-wrapper-6">UI, Art drection</div>
+                                <div class="text-wrapper-5" th:data-src="${portfolio.Thumbnail_url}"
+                                     th:onclick="'goToDetailPage(\'' + ${portfolio.PortfolioID} + '\')'"></div>
+
+                                <div class="title-deco">
+                                    <span class="title-deco" th:text="${portfolio.Title}"></span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -96,4 +234,21 @@
 
 </body>
 <script th:src="@{/js/profile.js}" src="/static/js/profile.js"></script>
+<script>
+    function checkLogin(check) {
+        var isLoggedIn = false; // 로그인 상태를 나타내는 변수 (임시로 false로 설정)
+        isLoggedIn = [[${isLoggedIn}]];
+        if (isLoggedIn) {
+            if (check === "report") {
+                showReportPopup();
+            }
+        } else {
+            // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
+            var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+            if (check_login) {
+                window.location.href = '/login';
+            }
+        }
+    }
+</script>
 </html>
