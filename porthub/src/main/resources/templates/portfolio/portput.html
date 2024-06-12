@@ -23,10 +23,13 @@
 
                     <input type="file" id="thumbnail" th:value="${PortViewDtoList.thumbnail_url}" name="Thumbnail_cast" onchange="previewMedia(this)">
                     <!-- 이미지를 위한 기본 미리보기 -->
-                    <img id="imagePreview" class="image-design-put imagePreview" th:src="${PortViewDtoList.thumbnail_url}" alt="미리보기">
-
+                    <!--                    <img id="imagePreview" class="image-design-put imagePreview" th:src="${PortViewDtoList.thumbnail_url}" alt="미리보기">-->
+                    <div class="mediaPreview" th:data-src="${PortViewDtoList.thumbnail_url}"></div>
                     <!-- 미리보기를 표시할 요소 -->
-                    <div id="mediaPreview" class="mediaPreview"></div>
+                    <div id="mediaPreview" class="mediaPreview">
+                        <img class="imagePreview image-design-put" style="display: none">
+                    </div>
+
 
                     <div class="select-thumbnail" style="display: none;"></div>
                 </div>
@@ -60,10 +63,15 @@
                         <label>파일 선택:</label>
                         <input type="file" class="input-file" th:value="${FileViewDtoList.image_url}" name="File" onchange="previewMedia(this)">
                         <!-- 이미지를 위한 기본 미리보기 -->
-                        <img id="imagePreview2" class="image-design-put imagePreview" th:src="${FileViewDtoList.image_url}" alt="미리보기">
-
+                        <!--                        <img id="imagePreview2" class="image-design-put imagePreview" th:src="${FileViewDtoList.image_url}" alt="미리보기">-->
                         <!-- 미리보기를 표시할 요소 -->
-                        <div id="mediaPreview2" class="mediaPreview"></div>
+                        <div class="mediaPreview" th:data-src="${FileViewDtoList.image_url}"></div>
+
+                        <div id="mediaPreview2" class="mediaPreview">
+                            <img class="imagePreview image-design-put" style="display: none">
+                        </div>
+                        <!-- 미리보기를 표시할 요소 -->
+
 
                         <div class="select-thumbnail" style="display: none;"></div>
                     </div>
@@ -114,6 +122,37 @@
 </body>
 
 <script>
+    window.onload = function() {
+        var divElements = document.querySelectorAll('.mediaPreview');
+
+        divElements.forEach(function(divElement) {
+            var src = divElement.getAttribute('data-src');
+            if (!src) {
+                src = '';
+            }
+
+            function getFileExtension(url) {
+                var filename = url.substring(url.lastIndexOf('/') + 1);
+                return filename.split('.').pop().toLowerCase();
+            }
+
+            function createHTMLTag(src) {
+                var fileExtension = getFileExtension(src);
+                if (fileExtension === 'mp3' || fileExtension === 'wav' || fileExtension === 'ogg') {
+                    return '<audio controls class="imagePreview image-design-put"><source src="' + src + '" type="audio/' + fileExtension + '"></audio>';
+                } else if (fileExtension === 'mp4' || fileExtension === 'avi' || fileExtension === 'mov') {
+                    return '<video controls class="imagePreview image-design-put"><source src="' + src + '" type="video/' + fileExtension + '"></video>';
+                } else if (fileExtension === 'jpeg' || fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'avif') {
+                    return '<img src="' + src + '" class="imagePreview image-design-put">';
+                } else {
+                    return '<img src="' + src + '" class="imagePreview image-design-put">';
+                }
+            }
+
+            divElement.innerHTML = createHTMLTag(src);
+        });
+    };
+
     document.querySelectorAll('.content-input').forEach(function(textarea) {
         textarea.addEventListener('input', function() {
             var markdown = this.value;
@@ -142,7 +181,6 @@
         textarea.focus();
         textarea.setSelectionRange(start + replacement.length, start + replacement.length);
 
-        // Update markdown preview
         var markdown = textarea.value;
         var html = marked(markdown);
         textarea.parentElement.querySelector('.markdown').innerHTML = html;
@@ -151,7 +189,7 @@
     document.getElementById('put_form').addEventListener('submit', function(event) {
         var confirmation = confirm("전송하시겠습니까?");
         if (!confirmation) {
-            event.preventDefault(); // 전송 취소
+            event.preventDefault();
         }
     });
 
@@ -159,7 +197,7 @@
         btn.addEventListener('click', function(event) {
             var confirmation = confirm("나가시겠습니까?");
             if (!confirmation) {
-                event.preventDefault(); // 링크 이동 취소
+                event.preventDefault();
             }
         });
     });
@@ -173,12 +211,10 @@
         reader.onload = function (e) {
             var mediaType = getFileType(file.type);
 
-            // 이미지 파일인 경우 기존 이미지 미리보기를 숨깁니다.
             if (mediaType === 'image') {
                 imagePreview.style.display = 'none';
             }
 
-            // 미리보기 요소를 생성하고 적절한 속성을 설정합니다.
             var previewElement;
             switch (mediaType) {
                 case 'image':
@@ -201,18 +237,17 @@
             }
 
             previewElement.src = e.target.result;
-            // 이전에 미리보기가 있으면 제거합니다.
+
             while (mediaPreview.firstChild) {
                 mediaPreview.removeChild(mediaPreview.firstChild);
             }
-            // 미리보기를 추가합니다.
+
             mediaPreview.appendChild(previewElement);
         };
 
         reader.readAsDataURL(file);
     }
 
-    // 파일 형식에 따라 미리보기 요소의 타입을 결정합니다.
     function getFileType(fileType) {
         if (fileType.startsWith('image')) {
             return 'image';
@@ -228,13 +263,12 @@
     function confirmPut(event) {
         if (confirm('정말로 수정 하시겠습니까?')) {
             var form = document.getElementById('put_form');
-            if (form) { // 폼 요소가 존재하는 경우에만 제출
+            if (form) {
                 form.submit();
             } else {
                 console.error("폼 요소를 찾을 수 없습니다.");
             }
         }
     }
-
 </script>
 </html>
