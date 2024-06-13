@@ -189,3 +189,44 @@ nav .logo {
     background: lightgray;
     color: white;
 }
+@media screen and (max-width: 1200px) {
+    body {
+        padding-top: 60px; /* Adjust body padding to accommodate fixed header */
+    }
+    header {
+        padding: 10px 20px; /* Reduce padding for smaller screens */
+    }
+    .menu-icon {
+        font-size: 1.5em; /* Decrease menu icon size for smaller screens */
+    }
+    /* Remove display: none; and replace it with display: flex; */
+    .navigation {
+        display: flex; /* Display navigation links on smaller screens */
+        align-content: center;
+        align-items: center;
+        align-self: center;
+    }
+    nav.open ~ .sidebar {
+        left: 0; /* Adjust sidebar position for smaller screens */
+    }
+    nav.open .sidebar {
+        left: 0; /* Adjust sidebar position for smaller screens */
+    }
+    nav .logo {
+        margin: 0; /* Remove margin for logo */
+    }
+    .sidebar {
+        width: 80%; /* Adjust sidebar width for smaller screens */
+        max-width: 260px; /* Set maximum width for sidebar */
+    }
+    .sidebar-content {
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+    .navigation a {
+        display: block;
+        padding: 10px 0;
+        text-align: center;
+        margin-left: 30px;
+    }
+}
+

@@ -48,7 +48,7 @@ public class ChatController {
 
     @GetMapping("/api/chat-messages/{sessionId}")
     @ResponseBody
-    public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable String sessionId) {
+    public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable("sessionId") String sessionId) {
         System.out.println("sessionId: " + sessionId);
         try {
             List<ChatMessageDto> chatMessages = chatService.getChatHistoryBySessionId(sessionId);

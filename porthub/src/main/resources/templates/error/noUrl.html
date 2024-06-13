@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+</head>
+<body>
+
+<header th:replace="~{fragments/header::headerFragment}"></header>
+
+<div class="wrap-container">
+    <br><br><br><br><br><br>
+    <div class="home-container" style="text-align: center; padding-top: 50px;">
+        <div style="font-size: 24px; color: #333; margin-bottom: 20px;">이미 삭제되었거나 존재하지 않은 페이지입니다.</div>
+        <a href="/main" style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">돌아가기</a>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+
+</body>
+</html>

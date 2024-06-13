@@ -80,6 +80,10 @@ public class PortfolioController {
 
         PortViewDto portViewDto = portfolioService.findportview(PortfolioID);
 
+        if (portViewDto == null) {
+            return "error/noUrl";
+        }
+
         model.addAttribute("PortViewDtoList", portViewDto);
         List<ImagesDto> fileDtoList = portfolioService.findportFiles(PortfolioID);
         model.addAttribute("FileViewDtoList", fileDtoList);
@@ -231,7 +235,6 @@ public class PortfolioController {
     public String portfolioput(@PathVariable("PortfolioID") int PortfolioID, @ModelAttribute PortfolioDto portfolioDto) {
 
         int uploadResult = portfolioService.UpdatePortfolio(portfolioDto);
-
 
         if (uploadResult > 0) {
             return "redirect:/ports/views/" + PortfolioID;

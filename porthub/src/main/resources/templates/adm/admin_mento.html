@@ -27,32 +27,32 @@
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
+                                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="/admin">
                                     Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                                    Orders
+                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/port">
+                                    Portfolio Management
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                                    Products
+                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/mentoring">
+                                    Mentoring Management
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                                    Customers
+                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/user">
+                                    User Management
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/report">
                                     Reports
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                <a class="nav-link d-flex align-items-center gap-2" href="/admin/mento">
                                     Mento
                                 </a>
                             </li>
@@ -81,6 +81,7 @@
                             <h4>멘토 요청 목록</h4>
                         </div>
                         <div id="request-mento" class="box-body">
+
                             <div class="accordion" id="accordionFlushExample" th:if="${requestmentos}!=null" th:each="requestmento:${requestmentos}">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
@@ -126,7 +127,7 @@
                         <div id="accept-mento" class="box-body">
                             <div class="mento-item" th:if="${allmento}!=null" th:each="mento:${allmento}" th:id="${mento.ProcessID}">
                                 <div><span>id : </span><span th:text="${mento.MentoID}"></span></div>
-                                <button id="delete">삭제</button>
+                                <button class="btn" id="delete">삭제</button>
                             </div>
                         </div>
                     </div>

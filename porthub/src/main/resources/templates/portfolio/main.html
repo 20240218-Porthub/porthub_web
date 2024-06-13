@@ -18,9 +18,11 @@
         align-items: center;
         margin-right: 10px;
     }
+
     .likes-text {
         color: #a6a6a6;
     }
+
     .views-all {
         color: #a6a6a6;
     }
@@ -52,7 +54,7 @@
          src="https://cdn.inflearn.com/public/files/posts/3dc171db-6fbb-4561-b0cd-d8f5577e9b87/roadmap_2.jpg"
          alt="Main Page Header Image">
     <!-- 이미지 가운데 텍스트 -->
-    <div class="centered-text">ngnix zero-downtime Deployment!</div>
+    <div class="centered-text">v1.0</div>
 </div>
 <div class="desktop">
     <div class="port">
@@ -121,7 +123,7 @@
                                 </form>
                             </div>
                             <div class="right-btn">
-                                <a href="ports/create" class="w-btn w-btn-indigo">
+                                <a href="/ports/create" class="w-btn w-btn-indigo">
                                     포트폴리오 올리기
                                 </a>
                             </div>
@@ -172,68 +174,73 @@
 
                 </div>
             </div>
-            <!-- 페이지네이션 -->
-            <div th:if="${CategoryNameCheck} == 0" class="pagination">
-                <ul>
-                    <li th:if="${currentPage > 1}">
-                        <a th:if="${checkSearchNum} == 1"
-                           th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
-                            Previous</a>
-                        <a th:unless="${checkSearchNum} == 1"
-                           th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
-                            Previous</a>
-                        <!--                        search 경로로 들어온 것들에 대한 a태그 경로 요청-->
-                    </li>
-                    <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                        th:classappend="${i == currentPage} ? ' active' : ''">
-                        <a th:if="${checkSearchNum} == 1"
-                           th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
-                           th:text="${i}"></a>
-                        <a th:unless="${checkSearchNum} == 1"
-                           th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
-                           th:text="${i}"></a>
-                    </li>
-                    <li th:if="${currentPage < totalPages}">
-                        <a th:if="${checkSearchNum} == 1"
-                           th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
-                            &raquo;</a>
-                        <a th:unless="${checkSearchNum} == 1"
-                           th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
-                            &raquo;</a>
-                    </li>
-                </ul>
+            <div th:if="${totalPages == 0}" class="pagination">
+                <p>No data available.</p>
             </div>
 
-            <div th:unless="${CategoryNameCheck} == 0" class="pagination">
-                <ul>
-                    <li th:if="${currentPage > 1}">
-                        <a th:if="${checkSearchNum} == 1"
-                           th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
-                            Previous</a>
-                        <a th:unless="${checkSearchNum} == 1"
-                           th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
-                            Previous</a>
-                    </li>
-                    <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                        th:classappend="${i == currentPage} ? ' active' : ''">
-                        <a th:if="${checkSearchNum} == 1"
-                           th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
-                           th:text="${i}"></a>
-                        <a th:unless="${checkSearchNum} == 1"
-                           th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
-                           th:text="${i}"></a>
-                    </li>
-                    <li th:if="${currentPage < totalPages}">
-                        <a th:if="${checkSearchNum} == 1"
-                           th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
-                            &raquo;</a>
-                        <a th:unless="${checkSearchNum} == 1"
-                           th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
-                            &raquo;</a>
-                    </li>
-                </ul>
-            </div>
+            <div th:unless="${totalPages == 0}">
+                <!-- 페이지네이션 -->
+                <div th:if="${CategoryNameCheck} == 0" class="pagination">
+                    <ul>
+                        <li th:if="${currentPage > 1}">
+                            <a th:if="${checkSearchNum} == 1"
+                               th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
+                                Previous</a>
+                            <a th:unless="${checkSearchNum} == 1"
+                               th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
+                                Previous</a>
+                            <!--                        search 경로로 들어온 것들에 대한 a태그 경로 요청-->
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${i == currentPage} ? ' active' : ''">
+                            <a th:if="${checkSearchNum} == 1"
+                               th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
+                               th:text="${i}"></a>
+                            <a th:unless="${checkSearchNum} == 1"
+                               th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
+                               th:text="${i}"></a>
+                        </li>
+                        <li th:if="${currentPage < totalPages}">
+                            <a th:if="${checkSearchNum} == 1"
+                               th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
+                                &raquo;</a>
+                            <a th:unless="${checkSearchNum} == 1"
+                               th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
+                                &raquo;</a>
+                        </li>
+                    </ul>
+                </div>
 
+                <div th:unless="${CategoryNameCheck} == 0" class="pagination">
+                    <ul>
+                        <li th:if="${currentPage > 1}">
+                            <a th:if="${checkSearchNum} == 1"
+                               th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
+                                Previous</a>
+                            <a th:unless="${checkSearchNum} == 1"
+                               th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
+                                Previous</a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${i == currentPage} ? ' active' : ''">
+                            <a th:if="${checkSearchNum} == 1"
+                               th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
+                               th:text="${i}"></a>
+                            <a th:unless="${checkSearchNum} == 1"
+                               th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
+                               th:text="${i}"></a>
+                        </li>
+                        <li th:if="${currentPage < totalPages}">
+                            <a th:if="${checkSearchNum} == 1"
+                               th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
+                                &raquo;</a>
+                            <a th:unless="${checkSearchNum} == 1"
+                               th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
+                                &raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -281,7 +288,9 @@
     </div>
     <div class="fixed-down">
         <div class="views_report">
-            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History<div class="likes-text">&Likes</div></h2>
+            <h2 style="font-size: 1em; margin-bottom: 1em; margin-top: 10px;">History
+                <div class="likes-text">&Likes</div>
+            </h2>
             <a class="views-all" href="/view" onclick="checkLogin(event)">views_all</a>
         </div>
         <div class="history_section" th:if="${#lists.isEmpty(recentPortfolios)}">

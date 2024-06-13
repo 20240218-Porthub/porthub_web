@@ -8,8 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CopyrightReportDto {
+    private int ReportID;
     private int PortfolioID;
     private String Contents;
     private String ReporterEmail;
+    private String ReporterName;
+    private String ReportedName;
     private int ReportedID;
 }

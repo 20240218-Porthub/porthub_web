@@ -35,4 +35,5 @@ public class MemberRepository {
     public MemberDto findByUserIDtoEmail(String Email) {
         return sql.selectOne("Member.findByUserIDtoEmail", Email);
     }
+
 }
