@@ -1,11 +1,21 @@
 $(function() {
-    $('#accept').click(function () {
-        let processid=$(this).parents(".mento-item").attr("id");
-        let mentoid=$(this).parent().prev().children("#mento-id").text()
-        console.log($(this).parent().prev().children("#mento-id").text())
+    $(document).on("click","#accept",function(){
+        let accordionitem=$(this).parents('.accordion-item')
+        let processid=accordionitem.children(".accordion-collapse").attr("id").replace('flush-collapse','');
+        let mentoid=accordionitem.find('.accordion_userid').text()
+        let company=accordionitem.find('.mentocompany').val()
+        let univ=accordionitem.find('.mentouniv').val()
+        let issue=accordionitem.find('.mentoissue').val()
+        let data={
+            company:company,
+            univ:univ,
+            issue:issue,
+        }
+        console.log(mentoid)
         $.ajax({
             method:"post",
             url:`/admin/mento/accept/${processid}`,
+            data:data,
             success:function(rsp){
                 console.log(rsp)
                 $("#accept-mento").append('<div class="mento-item" id="'+processid+'">\n' +
@@ -19,11 +29,12 @@ $(function() {
                 alert("수정 실패")
             }
         })
-        $(this).parents(".mento-item").remove();
+        accordionitem.parent().remove();
     })
 
     $('#deny').click(function () {
-        let processid=$(this).parents(".mento-item").attr("id");
+        let accordionitem=$(this).parents('.accordion-item')
+        let processid=accordionitem.children(".accordion-collapse").attr("id").replace('flush-collapse','');
         $.ajax({
             method: "post",
             url: `/admin/mento/deny/${processid}`,
@@ -51,4 +62,8 @@ $(function() {
             }
         })
     })
+
+    $('')
+
+
 })

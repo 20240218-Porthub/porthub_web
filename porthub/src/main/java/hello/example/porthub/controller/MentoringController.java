@@ -62,16 +62,16 @@ public class MentoringController {
     @PostMapping("/registermento/apply")
     public String MentoApply(@ModelAttribute MentoDto mentoDto, Principal principal) throws IOException {
         if(!mentoDto.getCareerCertification().isEmpty()) {
-            String CareerUrl = s3Service.uploadFiles(mentoDto.getCareerCertification());
-            mentoDto.setCareerUrl(CareerUrl);
+            String CareerUrl = s3Service.uploadFiles(mentoDto.getCareerFiles());
+            mentoDto.setCareerCertification(CareerUrl);
         }
         if(!mentoDto.getUnivCertification().isEmpty()) {
-            String UnivUrl = s3Service.uploadFiles(mentoDto.getUnivCertification());
-            mentoDto.setUnivUrl(UnivUrl);
+            String UnivUrl = s3Service.uploadFiles(mentoDto.getUnivFiles());
+            mentoDto.setUnivCertification(UnivUrl);
         }
         if(!mentoDto.getIssueCertification().isEmpty()) {
-            String IssueUrl = s3Service.uploadFiles(mentoDto.getIssueCertification());
-            mentoDto.setIssueUrl(IssueUrl);
+            String IssueUrl = s3Service.uploadFiles(mentoDto.getIssueFiles());
+            mentoDto.setIssueCertification(IssueUrl);
         }
 
         String loginId = principal.getName();
@@ -79,8 +79,14 @@ public class MentoringController {
 
         mentoDto.setUserID(member.getUserID());
 
-
-        int ApplyResult = mentoService.apply(mentoDto);
+        MentoDto mentocheck=mentoService.selectmento(mentoDto.getUserID());
+        int ApplyResult = 0;
+        if(mentocheck!=null){
+            ApplyResult = mentoService.updatemento(mentoDto);
+        }
+        else{
+            ApplyResult = mentoService.apply(mentoDto);
+        }
 //        예제입니다.
         if (ApplyResult > 0) {
             return "redirect:/mentoring/activity"; //가입 성공
@@ -100,10 +106,12 @@ public class MentoringController {
         mentoringDto.setThumbnail(s3Service.uploadFiles(mentoringDto.getThumbnailfile()));
         String fileurls=null;
 
+
         String loginId = principal.getName();
         MemberDto member = memberRepository.findByEmail(loginId);
 
         mentoringDto.setMentoID(member.getUserID());
+        mentoringDto.setCategoryID(portfolioService.getCategoryID(mentoringDto.getCategoryString()));
 
         for (MultipartFile file : mentoringDto.getMentofile()) {
             if(cnt==1) {
@@ -130,6 +138,7 @@ public class MentoringController {
     public @ResponseBody Map loadMentoring(@RequestParam("MentoringID") int id, Principal principal){
         MentoringDto result=mentoService.mentoring(id);
         MemberDto member=memberRepository.findmemberByUserID(result.getMentoID());
+        MentoDto mentoDto= mentoService.selectmento(member.getUserID());
 
         MemberDto currentusr=memberRepository.findByEmail(principal.getName());
 
@@ -154,7 +163,9 @@ public class MentoringController {
         }
 
 
-
+        map.put("company",mentoDto.getCompanyName());
+        map.put("univ",mentoDto.getUnivName());
+        map.put("certificate",mentoDto.getCertificationName());
         map.put("MentoringID",String.valueOf(id));
         map.put("MentoID",String.valueOf(result.getMentoID()));
         map.put("profileImage",member.getProfileImage());

@@ -6,7 +6,7 @@
 
     <insert id="apply" parameterType="Mento">
         insert into Mento(UserID, Introduction, Ability, CareerCertification, UnivCertification, IssueCertification)
-        values (#{UserID}, #{Introduction}, #{Ability}, #{CareerUrl}, #{UnivUrl}, #{IssueUrl})
+        values (#{UserID}, #{Introduction}, #{Ability}, #{CareerCertification}, #{UnivCertification}, #{IssueCertification})
     </insert>
 
     <insert id="upload" parameterType="Mentoring">
@@ -34,8 +34,6 @@
         select * from Mentoring where MentoID=#{MentoID}
     </select>
 
-
-
     <select id="checkmentoprocess" parameterType="int" resultType="String">
         select Process from MentoProcess where MentoID=#{MentoID}
     </select>
@@ -51,5 +49,14 @@
     <update id="deletementoring" parameterType="int">
         update Mentoring set mentoring_delete=1 where MentoringID=#{MentoringID}
     </update>
+
+    <select id="selectmento" parameterType="int" resultType="Mento">
+        select * from Mento where UserID=#{UserID}
+    </select>
+
+    <update id="updatemento" parameterType="Mento">
+        update Mento set Introduction=#{Introduction}, Ability=#{Ability}, CareerCertification=#{CareerCertification}, UnivCertification=#{UnivCertification}, IssueCertification=#{IssueCertification} where UserID=#{UserID}
+    </update>
+
 
 </mapper>
