@@ -25,11 +25,15 @@ $(function(){
     dataType:"json",
     success: function (data) {
      console.log(data.alreadypay)
+     $('.company').text(data.company)
+     $('.univ').text(data.univ)
+     $('.certificate').text(data.certificate)
      $('.mentoimg').attr('src',data.profileImage)
      $('.mentoname').text(data.MentoName);
      $('.postname').text(data.Title);
      $('.post-con').html(data.Contents);
-     $('.mentoprice').text(data.Price)
+     $('.mentoprice').text(data.Price);
+     $('#mentoringpostid').attr('value',data.MentoringID);
      if(data.MentoisMe=="Y"){
       $('#locatebutton').empty()
       $('#locatebutton').append('<button type="submit" form="paymentdata" class="btn btn-primary pay go-pay" disabled>Its mine</button>')

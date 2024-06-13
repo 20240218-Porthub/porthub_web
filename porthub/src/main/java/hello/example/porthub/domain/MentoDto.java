@@ -14,20 +14,12 @@ public class MentoDto {
     private String Introduction;
     private String Ability;
     private String CompanyName;
-    private String Department;
-    private String CompanyPosition;
-    private String CompanyLocation;
-    private String CompanyDuration;
-    private MultipartFile CareerCertification;
-    private String CareerUrl;
+    private MultipartFile CareerFiles;
+    private String CareerCertification;
     private String UnivName;
-    private String Major;
-    private String Status;
-    private MultipartFile UnivCertification;
-    private String UnivUrl;
+    private MultipartFile UnivFiles;
+    private String UnivCertification;
     private String CertificationName;
-    private String IssueDate;
-    private String IssuingAuthority;
-    private MultipartFile IssueCertification;
-    private String IssueUrl;
+    private MultipartFile IssueFiles;
+    private String IssueCertification;
 }

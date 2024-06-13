@@ -31,7 +31,7 @@ logs/
 !appspec.yml
 
 # IntelliJ IDEA
-.idea/*
+.idea/
 *.iws
 *.iml
 *.ipr

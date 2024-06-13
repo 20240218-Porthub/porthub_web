@@ -3,12 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="admin">
-    <select id="selectAllMento" resultType="MentoProcess">
-        select * from MentoProcess where Process="1"
+    <select id="selectprocess" parameterType="int" resultType="MentoProcess">
+        select * from MentoProcess where ProcessID=#{ProcessID}
     </select>
 
-    <select id="selectAllRequestMentoProcess" resultType="MentoProcess">
-        select * from MentoProcess where Process="0"
+    <select id="selectAllMento" resultType="MentoProcess">
+        select * from MentoProcess where Process='1'
+    </select>
+
+    <select id="selectAllRequestMento" resultType="Mento">
+        select * from Mento inner join MentoProcess on Mento.UserID=MentoProcess.MentoID where MentoProcess.Process='0'
     </select>
 
     <update id="UpdateMentoProcess" parameterType="MentoProcess">
@@ -18,4 +22,12 @@
     <delete id="DeleteMentoProcess" parameterType="MentoProcess">
         delete from MentoProcess where ProcessID=#{ProcessID}
     </delete>
+
+    <update id="UpdateMentoInfo" parameterType="Mento">
+        update Mento set CompanyName=#{CompanyName}, UnivName=#{UnivName}, CertificationName=#{CertificationName} where MentoID=#{MentoID}
+    </update>
+
+    <update id="setUserRole" parameterType="Member">
+        update Users set Role=#{Role} where UserID=#{UserID}
+    </update>
 </mapper>

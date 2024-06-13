@@ -42,13 +42,13 @@
             </div>
             <div>마이 멘토링</div>
             <div class="mymento-container">
-                <div class="mymento-item" th:id="${mymentoring.mentoringID}" th:if="${mymentoring.mentoring_delete}==0" th:each="mymentoring : ${mymentorings}">
+                <div class="mymento-item" th:id="${mymentoring.mentoringID}" th:if="${mymentorings}!=null and ${mymentoring.mentoring_delete}==0" th:each="mymentoring : ${mymentorings}">
                     <span th:text="${mymentoring.title}">제목</span><button class="delete-mentoring">삭제</button>
                 </div>
             </div>
             <div>멘토링 결제 내역</div>
             <div class="payment-item">
-                <div class="accordion" id="accordionExample" th:each="mentoringcontent : ${mentoringcontents}">
+                <div class="accordion" id="accordionExample" th:if="${mentoringcontents}!=null" th:each="mentoringcontent : ${mentoringcontents}">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed direction" type="button" data-bs-toggle="collapse" th:data-bs-target="'#collapse'+${mentoringcontent.MentoringID}" aria-expanded="false" aria-controls="collapseTwo" th:text="${mentoringcontent.Title}">
