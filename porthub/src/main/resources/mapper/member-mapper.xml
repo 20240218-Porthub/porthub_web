@@ -5,8 +5,8 @@
 <mapper namespace="Member">
 
     <insert id="save" parameterType="Member">
-        insert into Users(UserName, Email, PasswordHash,RegistrationDate)
-        values (#{UserName}, #{Email}, #{PasswordHash}, NOW())
+        insert into Users(UserName, Email, PasswordHash, Role, RegistrationDate)
+        values (#{UserName}, #{Email}, #{PasswordHash}, #{Role}, NOW())
     </insert>
 
     <select id="findByUserName" parameterType="String" resultType="member">
