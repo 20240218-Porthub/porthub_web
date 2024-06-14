@@ -54,41 +54,38 @@ public class ProfileController {
 
         List<MainPortViewDto> mainPortView=profileService.findPortByUserID(userid);
 
+
+        List<Integer> getfolloweruserList = profileRepository.getUserFollowerListbyID(userid);
+
+        List<Integer> getfollowinguserList = profileRepository.getUserFollowingListbyID(userid);
+
+        List<PopularDto> follwerDataList = portfolioService.getFollowList(getfolloweruserList);
+
+        List<PopularDto> follwingDataList = portfolioService.getFollowList(getfollowinguserList);
+
         if (SessionUtils.isLoggedIn()) {
             model.addAttribute("isLoggedIn", true);
             boolean followCheck = portfolioService.checkFollow(userid, SessionUtils.getCurrentUsername());
             model.addAttribute("followCheck", followCheck);
+            for (PopularDto dto : follwerDataList) {
+                dto.setFollowCheck(portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername()));
+            }
+            for (PopularDto dto : follwingDataList) {
+                dto.setFollowCheck(portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername()));
+            }
             //로그인 되어있는 경우 사용자 아이디
         } else {
             model.addAttribute("isLoggedIn", false);
         }
 
-//        List<PopularDto> popularDtoList = portfolioService.findByPopular();
-//        if (SessionUtils.isLoggedIn()) {
-//            model.addAttribute("isLoggedIn", true);
-//            boolean followCheck = false;
-//
-//            for (PopularDto dto : popularDtoList) {
-//                followCheck = portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername());
-//                if (followCheck) {
-//                    dto.setFollowCheck(true);
-//                } else {
-//                    dto.setFollowCheck(false);
-//                }
-//            }
-//        } else {
-//            model.addAttribute("isLoggedIn", false);
-//        }
 
+//        int following=profileRepository.cntFollower(userid);
+//        int follower=profileRepository.cntFollowing(userid);
+        map.put("follower", String.valueOf(getfolloweruserList.size()));
+        map.put("following",String.valueOf(getfollowinguserList.size()));
 
-//        followList
-
-//        followingList
-
-        int follower=profileRepository.cntFollower(userid);
-        int following=profileRepository.cntFollowing(userid);
-        map.put("follower",Integer.toString(follower));
-        map.put("following",Integer.toString(following));
+        model.addAttribute("follwerDataList", follwerDataList);
+        model.addAttribute("follwingDataList", follwingDataList);
 
         modelMap.addAttribute("follows",map);
         modelMap.addAttribute("mainPortView", mainPortView);

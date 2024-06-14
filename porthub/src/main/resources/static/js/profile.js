@@ -3,9 +3,6 @@ function goToDetailPage(portfolioId) {
     window.location.href = '/ports/views/' + portfolioId;
 }
 
-function popuplist() {
-    alert("hi");
-}
 
 window.onload = function() {
     // div 요소 가져오기

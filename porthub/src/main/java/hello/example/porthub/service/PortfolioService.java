@@ -362,5 +362,9 @@ public class PortfolioService {
     public int findUserIDbyUserName(String userName) {
         return portfolioRepository.findUserIDbyUserName(userName);
     }
+
+    public List<PopularDto> getFollowList(List<Integer> userid) {
+        return portfolioRepository.findgetFollowListbyUserID(userid);
+    }
 }
 

@@ -202,4 +202,9 @@ public class PortfolioRepository {
     public int findUserIDbyUserName(String userName) {
         return sql.selectOne("Portfolio.findUserIDbyUserName", userName);
     }
+
+    public List<PopularDto> findgetFollowListbyUserID(List<Integer> userid) {
+        return sql.selectList("Portfolio.findgetFollowListbyUserID", userid);
+    }
+
 }
