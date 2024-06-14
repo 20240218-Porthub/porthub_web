@@ -87,7 +87,7 @@
     width: 90%;
     min-width:1100px;
     align-items: flex-start;
-    display: flex;
+    /*display: flex;*/
     gap: 24px;
     padding: 0px 32px;
     position: relative;
@@ -175,6 +175,7 @@
     font-size: 16px;
     letter-spacing: 0;
     line-height: 24px;
+    width: 400px;
 }
 
 .actions {

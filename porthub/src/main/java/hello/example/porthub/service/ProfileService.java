@@ -17,8 +17,8 @@ public class ProfileService {
     private final ProfileRepository profileRepository;
     public List<MainPortViewDto> findPortByUserID(int UserID){ return profileRepository.findportByUserID(UserID);}
 
-    public int cntFollower(int id){return profileRepository.cntFollower(id);}
-
-    public int cntFollowing(int id){return profileRepository.cntFollowing(id);}
+//    public int cntFollower(int id){return profileRepository.cntFollower(id);}
+//
+//    public int cntFollowing(int id){return profileRepository.cntFollowing(id);}
 
 }
