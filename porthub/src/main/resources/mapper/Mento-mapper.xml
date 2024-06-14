@@ -34,6 +34,14 @@
         select * from Mentoring where MentoID=#{MentoID}
     </select>
 
+    <insert id="newmentoprocess" parameterType="MentoProcess">
+        insert into MentoProcess(MentoID, Process) values(#{MentoID},#{Process})
+    </insert>
+
+    <update id="updatementoprocess" parameterType="MentoProcess">
+        update MentoProcess set ProcessID=#{ProcessID} where ProcessID=#{ProcessID}
+    </update>
+
     <select id="checkmentoprocess" parameterType="int" resultType="String">
         select Process from MentoProcess where MentoID=#{MentoID}
     </select>

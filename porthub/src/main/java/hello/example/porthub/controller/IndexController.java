@@ -319,11 +319,14 @@ public class IndexController {
 
     @GetMapping("/mentoring")
     public String Mento(Model model, Principal principal) {
-        MemberDto member = memberRepository.findByEmail(principal.getName());
+        if(principal!=null){
+            MemberDto member = memberRepository.findByEmail(principal.getName());
+            model.addAttribute("member",member);
+        }
+
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<MentoViewDto> mentorings=mentoService.allmentoring();
 
-        model.addAttribute("member",member);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("mentorings",mentorings);
         return "mentoring/mentoring";
