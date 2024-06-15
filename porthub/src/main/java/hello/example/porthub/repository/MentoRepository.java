@@ -1,10 +1,8 @@
 package hello.example.porthub.repository;
 
-import hello.example.porthub.domain.ActivityViewDto;
-import hello.example.porthub.domain.MentoDto;
-import hello.example.porthub.domain.MentoViewDto;
-import hello.example.porthub.domain.MentoringDto;
+import hello.example.porthub.domain.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -53,4 +51,13 @@ public class MentoRepository {
     public List<MentoringDto> mymentoring(int MentoID){return sql.selectList("Mento.mymentoring",MentoID);}
 
     public int deletementoring(int MentoringID){return sql.update("Mento.deletementoring",MentoringID);}
+
+    public MentoDto selectmento(int UserID){return sql.selectOne("Mento.selectmento", UserID);}
+
+    public int updatemento(MentoDto mentoDto){return sql.update("Mento.updatemento",mentoDto);}
+
+    public int newmentoprocess(MentoProcessDto mentoProcessDto){return sql.insert("Mento.newmentoprocess",mentoProcessDto);}
+
+    public int updatementoprocess(MentoProcessDto mentoProcessDto){return sql.update("Mento.updatementoprocess",mentoProcessDto);}
+
 }

@@ -1,6 +1,8 @@
 package hello.example.porthub.repository;
 
 
+import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.domain.MentoDto;
 import hello.example.porthub.domain.AdminDto.PortAdminDto;
 import hello.example.porthub.domain.AdminDto.UserAdminDto;
 import hello.example.porthub.domain.CopyrightReportDto;
@@ -17,7 +19,11 @@ import java.util.List;
 public class AdminRepository {
     private final SqlSessionTemplate sql;
 
-    public List<MentoProcessDto> AllRequestMentoProcess(){return sql.selectList("admin.selectAllRequestMentoProcess");}
+    public MentoProcessDto selectProcess(int ProcessID){return sql.selectOne("admin.selectprocess",ProcessID);}
+
+    public int UpdateMentoInfo(MentoDto mentoDto){return sql.update("admin.UpdateMentoInfo",mentoDto);}
+
+    public List<MentoDto> AllRequestMento(){return sql.selectList("admin.selectAllRequestMento");}
 
     public List<MentoProcessDto> AllMento(){return sql.selectList("admin.selectAllMento");}
 
@@ -25,6 +31,8 @@ public class AdminRepository {
 
     public int DeleteMentoProcess(MentoProcessDto mentoProcessDto){ return sql.delete("admin.DeleteMentoProcess",mentoProcessDto);}
 
+    public int setUserRole(MemberDto memberDto){return sql.update("admin.setUserRole",memberDto);}
+  
     public List<CopyrightReportDto> AllCopyRightList() {
         return sql.selectList("admin.AllCopyRightList");
     }

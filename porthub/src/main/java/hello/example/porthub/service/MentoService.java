@@ -74,4 +74,13 @@ public class MentoService {
     public List<MentoringDto> mymentoring(int MentoID){ return mentoRepository.mymentoring(MentoID);}
 
     public int deletementoring(int MentoringID){return mentoRepository.deletementoring(MentoringID);}
+
+    public MentoDto selectmento(int UserID){return mentoRepository.selectmento(UserID);}
+
+    public int updatemento(MentoDto mentoDto){return mentoRepository.updatemento(mentoDto);}
+
+    public int newmentoprocess(MentoProcessDto mentoProcessDto){return mentoRepository.newmentoprocess(mentoProcessDto);}
+
+    public int updatementoprocess(MentoProcessDto mentoProcessDto){return mentoRepository.updatementoprocess(mentoProcessDto);}
+
 }

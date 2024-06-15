@@ -319,11 +319,14 @@ public class IndexController {
 
     @GetMapping("/mentoring")
     public String Mento(Model model, Principal principal) {
-        MemberDto member = memberRepository.findByEmail(principal.getName());
+        if(principal!=null){
+            MemberDto member = memberRepository.findByEmail(principal.getName());
+            model.addAttribute("member",member);
+        }
+
         List<CategoryDto> categoryDtoList = portfolioService.findByCategory();
         List<MentoViewDto> mentorings=mentoService.allmentoring();
 
-        model.addAttribute("member",member);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("mentorings",mentorings);
         return "mentoring/mentoring";
@@ -386,18 +389,31 @@ public class IndexController {
 
 
     @PostMapping("/follow/{followingID}")
-    public String portsFollowInsert(@PathVariable("followingID") int followingID) {
+    public String portsFollowInsert(@PathVariable("followingID") int followingID, HttpServletRequest request) {
         String CurrentUseremail = SessionUtils.getCurrentUsername();
         portfolioService.following(followingID, CurrentUseremail);
 
-        return "redirect:/main";
+        String referer = request.getHeader("Referer"); // 이전 페이지의 URL을 가져옴
+        return "redirect:" + referer; // 이전 페이지로 리디렉션
     }
 
     @PostMapping("/unfollow/{followingID}")
-    public String portsFollowDelete(@PathVariable("followingID") int followingID) {
+    public String portsFollowDelete(@PathVariable("followingID") int followingID, HttpServletRequest request) {
         String CurrentUseremail = SessionUtils.getCurrentUsername();
         portfolioService.unfollow(followingID, CurrentUseremail);
-        return "redirect:/main";
+
+        String referer = request.getHeader("Referer"); // 이전 페이지의 URL을 가져옴
+        return "redirect:" + referer; // 이전 페이지로 리디렉션
+    }
+
+    @GetMapping("/session-expired")
+    public String sessionExpired() {
+        return "SessionHandler/session_Expired";
+    }
+
+    @GetMapping("/logout-success")
+    public String logoutSuccess() {
+        return "SessionHandler/logout-success";
     }
 
 }

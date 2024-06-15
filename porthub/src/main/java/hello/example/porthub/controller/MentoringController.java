@@ -42,13 +42,17 @@ public class MentoringController {
 
         List<MentoringDto> myMentoring=mentoService.mymentoring(userid);
         String paidproducts=mentoService.PaidMentoringID(userid);
-        List<ActivityViewDto> mentoringcontent=mentoService.MentoringContent(paidproducts);
+        if(paidproducts!=null){
+            List<ActivityViewDto> mentoringcontent=mentoService.MentoringContent(paidproducts);
+            model.addAttribute("mentoringcontents", mentoringcontent);
+        }
+
         log.info("mymento="+myMentoring);
 
 
         model.addAttribute("mymentorings", myMentoring);
         model.addAttribute("mentoprocess", mentoprocess);
-        model.addAttribute("mentoringcontents", mentoringcontent);
+
 
 
         return "mentoring/activitymanage";
@@ -61,17 +65,17 @@ public class MentoringController {
 
     @PostMapping("/registermento/apply")
     public String MentoApply(@ModelAttribute MentoDto mentoDto, Principal principal) throws IOException {
-        if(!mentoDto.getCareerCertification().isEmpty()) {
-            String CareerUrl = s3Service.uploadFiles(mentoDto.getCareerCertification());
-            mentoDto.setCareerUrl(CareerUrl);
+        if(!mentoDto.getCareerFiles().isEmpty()) {
+            String CareerUrl = s3Service.uploadFiles(mentoDto.getCareerFiles());
+            mentoDto.setCareerCertification(CareerUrl);
         }
-        if(!mentoDto.getUnivCertification().isEmpty()) {
-            String UnivUrl = s3Service.uploadFiles(mentoDto.getUnivCertification());
-            mentoDto.setUnivUrl(UnivUrl);
+        if(!mentoDto.getUnivFiles().isEmpty()) {
+            String UnivUrl = s3Service.uploadFiles(mentoDto.getUnivFiles());
+            mentoDto.setUnivCertification(UnivUrl);
         }
-        if(!mentoDto.getIssueCertification().isEmpty()) {
-            String IssueUrl = s3Service.uploadFiles(mentoDto.getIssueCertification());
-            mentoDto.setIssueUrl(IssueUrl);
+        if(!mentoDto.getIssueFiles().isEmpty()) {
+            String IssueUrl = s3Service.uploadFiles(mentoDto.getIssueFiles());
+            mentoDto.setIssueCertification(IssueUrl);
         }
 
         String loginId = principal.getName();
@@ -79,10 +83,26 @@ public class MentoringController {
 
         mentoDto.setUserID(member.getUserID());
 
+        MentoDto mentocheck=mentoService.selectmento(mentoDto.getUserID());
+        int ApplyResult = 0;
+        if(mentocheck!=null){
+            ApplyResult = mentoService.updatemento(mentoDto);
+        }
+        else{
+            ApplyResult = mentoService.apply(mentoDto);
+        }
 
-        int ApplyResult = mentoService.apply(mentoDto);
+        MentoProcessDto mentoProcess= new MentoProcessDto();
+        mentoProcess.setMentoID(mentoDto.getUserID());
+        mentoProcess.setProcess("0");
 //        예제입니다.
         if (ApplyResult > 0) {
+            if(mentoService.CheckMentoProcess(mentoDto.getUserID())!=null){
+                mentoService.updatementoprocess(mentoProcess);
+            }
+            else{
+                mentoService.newmentoprocess(mentoProcess);
+            }
             return "redirect:/mentoring/activity"; //가입 성공
         } else {
             return "redirect:/mentoring/registermento"; //가입 실패
@@ -100,10 +120,12 @@ public class MentoringController {
         mentoringDto.setThumbnail(s3Service.uploadFiles(mentoringDto.getThumbnailfile()));
         String fileurls=null;
 
+
         String loginId = principal.getName();
         MemberDto member = memberRepository.findByEmail(loginId);
 
         mentoringDto.setMentoID(member.getUserID());
+        mentoringDto.setCategoryID(portfolioService.getCategoryID(mentoringDto.getCategoryString()));
 
         for (MultipartFile file : mentoringDto.getMentofile()) {
             if(cnt==1) {
@@ -130,31 +152,38 @@ public class MentoringController {
     public @ResponseBody Map loadMentoring(@RequestParam("MentoringID") int id, Principal principal){
         MentoringDto result=mentoService.mentoring(id);
         MemberDto member=memberRepository.findmemberByUserID(result.getMentoID());
-
-        MemberDto currentusr=memberRepository.findByEmail(principal.getName());
-
-        String usrpay=currentusr.getPaidProduct();
+        MentoDto mentoDto= mentoService.selectmento(member.getUserID());
 
         Map<String,String> map= new HashMap<String, String>();
 
-        if(currentusr.getUserID()==result.getMentoID()){
-            map.put("MentoisMe","Y");
-        }else{
-            map.put("MentoisMe","N");
-        }
+        if(principal!=null){
+            MemberDto currentusr=memberRepository.findByEmail(principal.getName());
 
-        if(usrpay!=null){
-            if(Arrays.asList(usrpay.split(",")).contains(Integer.toString(id))){
-                map.put("alreadypay","Y");
+            String usrpay=currentusr.getPaidProduct();
+
+
+            if(currentusr.getUserID()==result.getMentoID()){
+                map.put("MentoisMe","Y");
+            }else{
+                map.put("MentoisMe","N");
+            }
+
+            if(usrpay!=null){
+                if(Arrays.asList(usrpay.split(",")).contains(Integer.toString(id))){
+                    map.put("alreadypay","Y");
+                }else{
+                    map.put("alreadypay","N");
+                }
             }else{
                 map.put("alreadypay","N");
             }
-        }else{
-            map.put("alreadypay","N");
         }
 
 
 
+        map.put("company",mentoDto.getCompanyName());
+        map.put("univ",mentoDto.getUnivName());
+        map.put("certificate",mentoDto.getCertificationName());
         map.put("MentoringID",String.valueOf(id));
         map.put("MentoID",String.valueOf(result.getMentoID()));
         map.put("profileImage",member.getProfileImage());

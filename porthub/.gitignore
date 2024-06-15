@@ -18,6 +18,7 @@ logs/
 
 # IDE files
 .idea/
+.idea/workspace.xml
 *.iws
 *.iml
 *.ipr
@@ -31,7 +32,7 @@ logs/
 !appspec.yml
 
 # IntelliJ IDEA
-.idea/*
+.idea/
 *.iws
 *.iml
 *.ipr

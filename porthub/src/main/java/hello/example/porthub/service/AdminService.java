@@ -1,6 +1,8 @@
 package hello.example.porthub.service;
 
 
+
+import hello.example.porthub.domain.MentoDto;
 import hello.example.porthub.domain.AdminDto.PortAdminDto;
 import hello.example.porthub.domain.AdminDto.UserAdminDto;
 import hello.example.porthub.domain.CopyrightReportDto;
@@ -21,13 +23,20 @@ import java.util.List;
 public class AdminService {
     private final AdminRepository adminRepository;
 
-    public List<MentoProcessDto> AllRequestMentoProcess(){return adminRepository.AllRequestMentoProcess();}
+    public MentoProcessDto selectProcess(int ProcessID){return adminRepository.selectProcess(ProcessID);}
+
+    public int UpdateMentoInfo(MentoDto mentoDto){return adminRepository.UpdateMentoInfo(mentoDto);}
+
+    public List<MentoDto> AllRequestMento(){return adminRepository.AllRequestMento();}
 
     public List<MentoProcessDto> AllMento(){return adminRepository.AllMento();}
 
     public int UpdateMentoProcess(MentoProcessDto mentoProcessDto){return adminRepository.UpdateMentoProcess(mentoProcessDto);}
 
     public int DeleteMentoProcess(MentoProcessDto mentoProcessDto){ return adminRepository.DeleteMentoProcess(mentoProcessDto);}
+
+
+    public int setUserRole(MemberDto memberDto){return adminRepository.setUserRole(memberDto);}
 
     public List<CopyrightReportDto> AllCopyRightList() {
         return adminRepository.AllCopyRightList();

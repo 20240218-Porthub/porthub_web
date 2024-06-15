@@ -21,7 +21,15 @@ public class ProfileRepository {
 
     public List<MainPortViewDto> findportByUserID(int UserID){ return sql.selectList("Portfolio.findPortsByUserID", UserID);}
 
-    public int cntFollower(int id){return sql.selectOne("Member.countfollower",id);}
+//    public int cntFollower(int id){return sql.selectOne("Member.countfollower",id);}
+//
+//    public int cntFollowing(int id){return sql.selectOne("Member.countfollowing",id);}
 
-    public int cntFollowing(int id){return sql.selectOne("Member.countfollowing",id);}
+    public List<Integer> getUserFollowerListbyID(int userid) {
+        return sql.selectList("Member.getUserFollowerListbyID", userid);
+    }
+
+    public List<Integer> getUserFollowingListbyID(int userid) {
+        return sql.selectList("Member.getUserFollowingListbyID", userid);
+    }
 }
