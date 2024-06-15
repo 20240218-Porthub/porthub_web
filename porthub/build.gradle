@@ -46,6 +46,8 @@ dependencies {
 	implementation 'com.vladsch.flexmark:flexmark-all:0.62.2'
 	implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
 
+
+
 	allprojects{
 		repositories{
 			maven{ url 'https://jitpack.io'}

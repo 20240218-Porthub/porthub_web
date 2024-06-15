@@ -403,5 +403,15 @@ public class IndexController {
         return "redirect:" + referer; // 이전 페이지로 리디렉션
     }
 
+    @GetMapping("/session-expired")
+    public String sessionExpired() {
+        return "SessionHandler/session_Expired";
+    }
+
+    @GetMapping("/logout-success")
+    public String logoutSuccess() {
+        return "SessionHandler/logout-success";
+    }
+
 }
 

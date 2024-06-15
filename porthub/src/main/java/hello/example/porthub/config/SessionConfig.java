@@ -13,7 +13,7 @@ public class SessionConfig {
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> containerCustomizer() {
         return factory -> {
-            factory.getSession().setTimeout(Duration.ofSeconds(1800)); // 세션 만료 시간을 30분으로 설정
+            factory.getSession().setTimeout(Duration.ofSeconds(180)); // 세션 만료 시간을 30분으로 설정
         };
     }
 }
