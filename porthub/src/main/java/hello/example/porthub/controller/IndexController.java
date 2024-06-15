@@ -386,18 +386,21 @@ public class IndexController {
 
 
     @PostMapping("/follow/{followingID}")
-    public String portsFollowInsert(@PathVariable("followingID") int followingID) {
+    public String portsFollowInsert(@PathVariable("followingID") int followingID, HttpServletRequest request) {
         String CurrentUseremail = SessionUtils.getCurrentUsername();
         portfolioService.following(followingID, CurrentUseremail);
 
-        return "redirect:/main";
+        String referer = request.getHeader("Referer"); // 이전 페이지의 URL을 가져옴
+        return "redirect:" + referer; // 이전 페이지로 리디렉션
     }
 
     @PostMapping("/unfollow/{followingID}")
-    public String portsFollowDelete(@PathVariable("followingID") int followingID) {
+    public String portsFollowDelete(@PathVariable("followingID") int followingID, HttpServletRequest request) {
         String CurrentUseremail = SessionUtils.getCurrentUsername();
         portfolioService.unfollow(followingID, CurrentUseremail);
-        return "redirect:/main";
+
+        String referer = request.getHeader("Referer"); // 이전 페이지의 URL을 가져옴
+        return "redirect:" + referer; // 이전 페이지로 리디렉션
     }
 
 }
