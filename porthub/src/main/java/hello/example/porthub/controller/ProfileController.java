@@ -59,19 +59,31 @@ public class ProfileController {
 
         List<Integer> getfollowinguserList = profileRepository.getUserFollowingListbyID(userid);
 
-        List<PopularDto> follwerDataList = portfolioService.getFollowList(getfolloweruserList);
+        List<PopularDto> follwerDataList = null, follwingDataList = null;
 
-        List<PopularDto> follwingDataList = portfolioService.getFollowList(getfollowinguserList);
+        if (!getfolloweruserList.isEmpty()) {
+            follwerDataList = portfolioService.getFollowList(getfolloweruserList);
+        }
+        if (!getfollowinguserList.isEmpty()) {
+            follwingDataList = portfolioService.getFollowList(getfollowinguserList);
+        }
+
 
         if (SessionUtils.isLoggedIn()) {
             model.addAttribute("isLoggedIn", true);
             boolean followCheck = portfolioService.checkFollow(userid, SessionUtils.getCurrentUsername());
             model.addAttribute("followCheck", followCheck);
-            for (PopularDto dto : follwerDataList) {
-                dto.setFollowCheck(portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername()));
+
+            if (follwerDataList != null) {
+                for (PopularDto dto : follwerDataList) {
+                    dto.setFollowCheck(portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername()));
+                }
             }
-            for (PopularDto dto : follwingDataList) {
-                dto.setFollowCheck(portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername()));
+
+            if (follwingDataList != null) {
+                for (PopularDto dto : follwingDataList) {
+                    dto.setFollowCheck(portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername()));
+                }
             }
             //로그인 되어있는 경우 사용자 아이디
         } else {
@@ -79,8 +91,6 @@ public class ProfileController {
         }
 
 
-//        int following=profileRepository.cntFollower(userid);
-//        int follower=profileRepository.cntFollowing(userid);
         map.put("follower", String.valueOf(getfolloweruserList.size()));
         map.put("following",String.valueOf(getfollowinguserList.size()));
 
