@@ -79,4 +79,8 @@ public class MentoService {
 
     public int updatemento(MentoDto mentoDto){return mentoRepository.updatemento(mentoDto);}
 
+    public int newmentoprocess(MentoProcessDto mentoProcessDto){return mentoRepository.newmentoprocess(mentoProcessDto);}
+
+    public int updatementoprocess(MentoProcessDto mentoProcessDto){return mentoRepository.updatementoprocess(mentoProcessDto);}
+
 }

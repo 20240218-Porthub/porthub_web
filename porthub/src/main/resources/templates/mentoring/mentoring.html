@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="right">
-                                <a href="mentoring/activity" class="w-btn w-btn-indigo">
+                                <a th:if="${member}!=null" href="mentoring/activity" class="w-btn w-btn-indigo">
                                     활동 관리하기
                                 </a>
                             </div>
@@ -60,12 +60,12 @@
                         </div>
 
                         <div class="third-container">
-                            <div th:if="${member.Role=='USER'}" class="mento-btn-container">
+                            <div th:if="${member}!=null and ${member.Role=='USER'}" class="mento-btn-container">
                                 <a href="mentoring/registermento" class="w-btn w-btn-indigo mento-btn">
                                     멘토 등록하기
                                 </a>
                             </div>
-                            <div th:if="${member.Role=='MENTO' or member.Role=='ADMIN' }" class="mento-btn-container">
+                            <div th:if="${member}!=null and ${member.Role=='MENTO' or member.Role=='ADMIN' }" class="mento-btn-container">
                                 <a href="mentoring/createmento" class="w-btn w-btn-indigo mento-btn">
                                     활동 등록하기
                                 </a>
@@ -81,7 +81,7 @@
                 <div class="gallery-section">
                     <div class="cards-section">
                         <!-- 반복되는 요소 -->
-                        <div th:if="${mentoring.mentoring_delete}==0" th:id="${mentoring.MentoringID}" onclick="mentorpopup(this)" th:each="mentoring : ${mentorings}"  class="mento-wrapper pop">
+                        <div th:if="${mentoring.mentoring_delete}==0" th:id="${mentoring.MentoringID}" th:each="mentoring : ${mentorings}"  class="mento-wrapper pop">
                             <div class="port-2">
                                 <div class="title-description">
                                     <div class="text-wrapper-5">

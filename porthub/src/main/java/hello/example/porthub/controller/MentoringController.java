@@ -42,13 +42,17 @@ public class MentoringController {
 
         List<MentoringDto> myMentoring=mentoService.mymentoring(userid);
         String paidproducts=mentoService.PaidMentoringID(userid);
-        List<ActivityViewDto> mentoringcontent=mentoService.MentoringContent(paidproducts);
+        if(paidproducts!=null){
+            List<ActivityViewDto> mentoringcontent=mentoService.MentoringContent(paidproducts);
+            model.addAttribute("mentoringcontents", mentoringcontent);
+        }
+
         log.info("mymento="+myMentoring);
 
 
         model.addAttribute("mymentorings", myMentoring);
         model.addAttribute("mentoprocess", mentoprocess);
-        model.addAttribute("mentoringcontents", mentoringcontent);
+
 
 
         return "mentoring/activitymanage";
@@ -61,15 +65,15 @@ public class MentoringController {
 
     @PostMapping("/registermento/apply")
     public String MentoApply(@ModelAttribute MentoDto mentoDto, Principal principal) throws IOException {
-        if(!mentoDto.getCareerCertification().isEmpty()) {
+        if(!mentoDto.getCareerFiles().isEmpty()) {
             String CareerUrl = s3Service.uploadFiles(mentoDto.getCareerFiles());
             mentoDto.setCareerCertification(CareerUrl);
         }
-        if(!mentoDto.getUnivCertification().isEmpty()) {
+        if(!mentoDto.getUnivFiles().isEmpty()) {
             String UnivUrl = s3Service.uploadFiles(mentoDto.getUnivFiles());
             mentoDto.setUnivCertification(UnivUrl);
         }
-        if(!mentoDto.getIssueCertification().isEmpty()) {
+        if(!mentoDto.getIssueFiles().isEmpty()) {
             String IssueUrl = s3Service.uploadFiles(mentoDto.getIssueFiles());
             mentoDto.setIssueCertification(IssueUrl);
         }
@@ -87,8 +91,18 @@ public class MentoringController {
         else{
             ApplyResult = mentoService.apply(mentoDto);
         }
+
+        MentoProcessDto mentoProcess= new MentoProcessDto();
+        mentoProcess.setMentoID(mentoDto.getUserID());
+        mentoProcess.setProcess("0");
 //        예제입니다.
         if (ApplyResult > 0) {
+            if(mentoService.CheckMentoProcess(mentoDto.getUserID())!=null){
+                mentoService.updatementoprocess(mentoProcess);
+            }
+            else{
+                mentoService.newmentoprocess(mentoProcess);
+            }
             return "redirect:/mentoring/activity"; //가입 성공
         } else {
             return "redirect:/mentoring/registermento"; //가입 실패
@@ -140,27 +154,31 @@ public class MentoringController {
         MemberDto member=memberRepository.findmemberByUserID(result.getMentoID());
         MentoDto mentoDto= mentoService.selectmento(member.getUserID());
 
-        MemberDto currentusr=memberRepository.findByEmail(principal.getName());
-
-        String usrpay=currentusr.getPaidProduct();
-
         Map<String,String> map= new HashMap<String, String>();
 
-        if(currentusr.getUserID()==result.getMentoID()){
-            map.put("MentoisMe","Y");
-        }else{
-            map.put("MentoisMe","N");
-        }
+        if(principal!=null){
+            MemberDto currentusr=memberRepository.findByEmail(principal.getName());
 
-        if(usrpay!=null){
-            if(Arrays.asList(usrpay.split(",")).contains(Integer.toString(id))){
-                map.put("alreadypay","Y");
+            String usrpay=currentusr.getPaidProduct();
+
+
+            if(currentusr.getUserID()==result.getMentoID()){
+                map.put("MentoisMe","Y");
+            }else{
+                map.put("MentoisMe","N");
+            }
+
+            if(usrpay!=null){
+                if(Arrays.asList(usrpay.split(",")).contains(Integer.toString(id))){
+                    map.put("alreadypay","Y");
+                }else{
+                    map.put("alreadypay","N");
+                }
             }else{
                 map.put("alreadypay","N");
             }
-        }else{
-            map.put("alreadypay","N");
         }
+
 
 
         map.put("company",mentoDto.getCompanyName());
