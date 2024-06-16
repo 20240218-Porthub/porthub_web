@@ -7,6 +7,7 @@ import hello.example.porthub.repository.UserMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +52,9 @@ public class ChatService {
                         sessionKey));
             }
         }
+        // Sort chatSummaries by timestamp in descending order so that the most recent chats appear first
+        chatSummaries.sort(Comparator.comparing(ChatMessageDto::getTimestamp).reversed());
+
         return chatSummaries;
     }
 

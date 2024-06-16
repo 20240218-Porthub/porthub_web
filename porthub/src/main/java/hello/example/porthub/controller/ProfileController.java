@@ -100,6 +100,7 @@ public class ProfileController {
         modelMap.addAttribute("follows",map);
         modelMap.addAttribute("mainPortView", mainPortView);
         modelMap.addAttribute("member", member);
+        modelMap.addAttribute("userId", userid);
         modelMap.addAttribute("UserMeta",UserMeta);
 
         return "user/profile";
