@@ -45,15 +45,15 @@
                 </a>
             </li>
         </ul>
-        <div class="followers-list">
-            <h4>Followers</h4>
-            <ul id="followersList">
-                <li th:each="following : ${followings}">
-                    <span th:text="${following.username}"></span>
-                    <button class="s" th:data-user-id="${following.id}">Start Chat</button>
-                </li>
-            </ul>
-        </div>
+<!--        <div class="followers-list">-->
+<!--            <h4>Followers</h4>-->
+<!--            <ul id="followersList">-->
+<!--                <li th:each="following : ${followings}">-->
+<!--                    <span th:text="${following.username}"></span>-->
+<!--                    <button class="s" th:data-user-id="${following.id}">Start Chat</button>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
     </div>
     <div class="chat-area">
         <div th:if="${isNewUser}">

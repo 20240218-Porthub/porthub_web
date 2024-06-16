@@ -49,7 +49,6 @@ public class ChatController {
     @GetMapping("/api/chat-messages/{sessionId}")
     @ResponseBody
     public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable("sessionId") String sessionId) {
-        System.out.println("sessionId: " + sessionId);
         try {
             List<ChatMessageDto> chatMessages = chatService.getChatHistoryBySessionId(sessionId);
             return ResponseEntity.ok(chatMessages);
@@ -73,17 +72,26 @@ public class ChatController {
         try {
             String currentUserEmail = principal.getName();
             int currentUserId = userService.findUserIDByEmail(currentUserEmail);
+
             String sessionId = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId());
+
+            // Check if a session already exists
+            boolean isExistingSessionId = chatService.isSessionParticipant(sessionId, chatSession.getRecipientUserId());
+            if (isExistingSessionId == true) {
+                return ResponseEntity.ok(sessionId);
+            }
+
+            // If no existing session, create a new one
             sessionParticipantService.addParticipantToSession(sessionId, currentUserId);
             sessionParticipantService.addParticipantToSession(sessionId, chatSession.getRecipientUserId());
-            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(),
-                    sessionId);
+            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(), sessionId);
             return ResponseEntity.ok(sessionId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error sending message: " + e.getMessage());
         }
     }
+
 
     @GetMapping("/user/chat/{sessionId}")
     public String chatPage(@PathVariable("sessionId") String sessionId, Model model, Principal principal) {
@@ -119,9 +127,4 @@ public class ChatController {
         model.addAttribute("chatSessions", chatSessions);
         return "user/chat";
     }
-
-    //! 새로운 채팅방 만드는 API Start
-
-    //! 새로운 채팅방 만드는 API End
-
 }
