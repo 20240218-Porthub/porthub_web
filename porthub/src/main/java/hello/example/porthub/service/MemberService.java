@@ -22,6 +22,8 @@ public class MemberService {
 
     public int save(MemberDto memberDto) {
         memberDto.setRole("USER");
+        memberDto.setBackImage("https://porthub2.s3.ap-northeast-2.amazonaws.com/nonbackinage.jpeg");
+        memberDto.setProfileImage("https://porthub2.s3.ap-northeast-2.amazonaws.com/blank-profile-picture-973460_1280.png");
         memberDto.setPasswordHash(bCryptPasswordEncoder.encode(memberDto.getPasswordHash()));
         if(memberRepository.save(memberDto)>0){
             memberDto=memberRepository.findByUserName(memberDto.getUserName());

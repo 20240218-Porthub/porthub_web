@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/profile/profile.css}"/>
     <link rel="stylesheet" th:href="@{/css/profile/profileguide.css}"/>
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -35,6 +36,7 @@
 
                                     <div class="user-info">
                                         <div class="username" th:text="${member.UserName}"></div>
+<!--                                        <div class="username" th:text="${userId}"></div>-->
                                         <div th:if="${isLoggedIn}">
                                             <form th:action="@{'/profile/unfollow/'+ ${member.UserName}}"
                                                   th:method="post" th:if="${followCheck}">
@@ -55,7 +57,7 @@
                                         </div>
 
                                         <div th:if="${isLoggedIn}">
-                                            <button class="message-button">
+                                            <button class="message-button" th:attr="data-user-id=${userId}">
                                                 <ion-icon name="mail-outline" class="icon"></ion-icon>
                                                 <span class="tw-text-ellipsis tw-line-clamp-1 tw-ml-1">메시지</span>
                                             </button>
@@ -241,7 +243,39 @@
 
 
 <footer th:replace="~{fragments/footer::footerFragment}"></footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var messageButton = document.querySelector('.message-button');
 
+        messageButton.addEventListener('click', function () {
+            var profileOwnerId = this.getAttribute('data-user-id');
+            if (profileOwnerId) {
+                var requestData = JSON.stringify({
+                    recipientUserId: profileOwnerId,
+                    content: "Initiating chat"
+                });
+                console.log("Sending request data:", requestData); // Log request data
+
+                $.ajax({
+                    url: '/chats/new',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: requestData,
+                    success: function (response) {
+                        console.log("Server response:", response); // Log server response
+                        var sessionId = response;
+                        window.location.href = '/user/chat/' + sessionId;
+                    },
+                    error: function (xhr) {
+                        console.error('Failed to initiate chat session. Please try again.', xhr.responseText);
+                    }
+                });
+            } else {
+                console.error('Profile owner ID is not defined.');
+            }
+        });
+    });
+</script>
 </body>
 <script th:src="@{/js/profile.js}" src="/static/js/profile.js"></script>
 <script>
