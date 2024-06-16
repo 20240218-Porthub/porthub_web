@@ -101,11 +101,13 @@ public class ChatController {
         String currentUserEmail = principal.getName();
         int currentUserId = userService.findUserIDByEmail(currentUserEmail);
         int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
+        String recipientUsername = userService.findUsernameById(recipientUserId);
         List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
         List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
         model.addAttribute("recipientUserId", recipientUserId);
+        model.addAttribute("recipientUsername", recipientUsername);
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
         model.addAttribute("sessionId", sessionId);

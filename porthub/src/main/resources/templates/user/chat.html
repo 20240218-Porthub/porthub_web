@@ -63,7 +63,7 @@
             <div class="user-info">
                 <img th:src="@{/images/user-avatar.png}" alt="User Avatar">
                 <div>
-                    <span class="username" th:text="${recipientUserId}"></span>
+                    <span class="username" th:text="${recipientUsername}"></span>
                     <!--<span class="status" th:text="${partnerStatus}"></span>-->
                 </div>
             </div>
@@ -84,8 +84,6 @@
         </div>
     </div>
 </div>
-
-<!-- ! 보여질 모달 Start -->
 <div class="modal">
     <div class="modal_popup">
         <div class="modal_header">
@@ -109,8 +107,6 @@
         </div>
     </div>
 </div>
-<!-- ! 보여질 모달 End -->
-
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script th:inline="javascript">
@@ -166,9 +162,6 @@
             });
         });
     });
-
-
-    <!--! 모달에서 화면 이동 JS END !-->
 </script>
 <script th:src="@{/js/chat.js}" src="/static/js/chat.js"></script>
 </body>
