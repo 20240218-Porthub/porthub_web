@@ -35,11 +35,11 @@ public class SecurityConfig {
         //특정한 경로의 접근을 제한
         http
                 .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/mentoring/MentoAuth").hasRole("MENTO")
+//                        .requestMatchers("/mentoring/createmento/**").hasRole("MENTO")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("/profile", "/views/report").hasRole("USER")
-                        .requestMatchers("/profile", "/views/report").authenticated()
-//                        .requestMatchers("/chat","/ports/create").authenticated()
+                        .requestMatchers("/ports/views/put/**", "/ports/views/report","/order/**","/payment/**","/mentoring/registermento/apply").authenticated()
+                        .requestMatchers("/ports/views/delete/**","/ports/views/follow/**", "/ports/views/unfollow/**","/ports/uploads","/ports/create").authenticated()
+                        .requestMatchers("/user/chat/**","mentoring/activity").authenticated()
                         .anyRequest().permitAll() //전체 권한 열어놓고 특정 경로들을 요청받음 -> 자잘한 기능도 막힘
                 );
         http.formLogin((auth) -> auth
