@@ -39,7 +39,7 @@ public class MentoRepository {
 
     public MentoViewDto SelectMentoView(int MentoringID){ return sql.selectOne("Mento.selectmentoview",MentoringID);}
 
-    public MentoringDto mentoring(int MentoID){return sql.selectOne("Mento.mentoring", MentoID);}
+    public MentoringDto mentoring(int MentoringID){return sql.selectOne("Mento.mentoring", MentoringID);}
 
 
     public String CheckMentoProcess(int MentoID){ return sql.selectOne("Mento.checkmentoprocess",MentoID);}
@@ -59,5 +59,7 @@ public class MentoRepository {
     public int newmentoprocess(MentoProcessDto mentoProcessDto){return sql.insert("Mento.newmentoprocess",mentoProcessDto);}
 
     public int updatementoprocess(MentoProcessDto mentoProcessDto){return sql.update("Mento.updatementoprocess",mentoProcessDto);}
+
+    public int updatecredit(MentoDto mentoDto){return sql.update("Mento.updatecredit",mentoDto);}
 
 }

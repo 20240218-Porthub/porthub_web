@@ -83,4 +83,6 @@ public class AdminRepository {
     public void UserLiftingbyUserID(int userID) {
         sql.update("admin.UserLiftingbyUserID", userID);
     }
+
+    public int deletementoring(int mentoringid){return sql.update("admin.deletementoring",mentoringid);}
 }

@@ -41,9 +41,7 @@ public class MentoService {
         return mentoRepository.SelectMentoView(MentoringID);
     }
 
-    public MentoringDto mentoring(int MentoID){
-        return mentoRepository.mentoring(MentoID);
-    }
+    public MentoringDto mentoring(int MentoringID) { return mentoRepository.mentoring(MentoringID); }
 
     public List<MentoViewDto> searchMentoring(String searchString){ return mentoRepository.searchMentoring(searchString);}
 
@@ -82,5 +80,7 @@ public class MentoService {
     public int newmentoprocess(MentoProcessDto mentoProcessDto){return mentoRepository.newmentoprocess(mentoProcessDto);}
 
     public int updatementoprocess(MentoProcessDto mentoProcessDto){return mentoRepository.updatementoprocess(mentoProcessDto);}
+
+    public int updatecredit(MentoDto mentoDto){return mentoRepository.updatecredit(mentoDto);}
 
 }

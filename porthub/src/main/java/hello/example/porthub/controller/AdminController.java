@@ -183,15 +183,15 @@ public class AdminController {
         return "redirect:/admin/user";
     }
 
-    @DeleteMapping("/delete/mentoring/{MentoID}")
-    public String MentoringDelete(@PathVariable("MentoID") String MentoID) {
-//        일단 냅두기
-
-        return "redirect:/";
+    @DeleteMapping("/delete/mentoring/{MentoringID}")
+    public String MentoringDelete(@PathVariable("MentoringID") int MentoringID) {
+        adminService.deletementoring(MentoringID);
+        return "redirect:/admin/mentoring";
     }
 
     @PutMapping("/lifting/user/{UserID}")
     public String LiftingUser(@PathVariable("UserID") int UserID) {
+        log.info("id="+UserID);
         adminService.UserLiftingbyUserID(UserID);
         return "redirect:/admin/user";
     }

@@ -47,6 +47,7 @@ $(() =>{
             pg: pg,
             pay_method : payMethod,
             merchant_uid : orderNumber,
+            goods_id: parseInt(goodsid),
             name : name,
             amount: parseInt($(".goods-price").text()), // 결제 가격
             buyer_name : buyername,

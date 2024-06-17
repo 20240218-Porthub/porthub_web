@@ -46,4 +46,24 @@ $(function(){
             alert("취소했습니다.")
         }
     })
+    $('.settlement_btn').click(function(){
+        var result=prompt("정산받을 계좌를 입력하세요(예:농협1234567123456")
+        if(result==null){
+            alert("취소했습니다.")
+        }
+        else{
+            if(result!=""){
+                alert("신청되었습니다")
+            }
+            else{
+                alert("신청 실패: 계좌를 입력해주세요")
+            }
+        }
+    })
+
+    $(document).on('click','.mentofile',function(e){
+        e.stopImmediatePropagation();
+        location.href=$(e.currentTarget).attr('data-src');
+        console.log($(e.currentTarget).attr('data-src'));
+    })
 })

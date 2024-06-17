@@ -66,5 +66,9 @@
         update Mento set Introduction=#{Introduction}, Ability=#{Ability}, CareerCertification=#{CareerCertification}, UnivCertification=#{UnivCertification}, IssueCertification=#{IssueCertification} where UserID=#{UserID}
     </update>
 
+    <update id="updatecredit" parameterType="Mento">
+        update Mento set credit=#{credit} where MentoID=#{MentoID}
+    </update>
+
 
 </mapper>

@@ -83,4 +83,6 @@ public class AdminService {
     public void UserLiftingbyUserID(int userID) {
         adminRepository.UserLiftingbyUserID(userID);
     }
+
+    public int deletementoring(int mentoringid){return adminRepository.deletementoring(mentoringid);}
 }
