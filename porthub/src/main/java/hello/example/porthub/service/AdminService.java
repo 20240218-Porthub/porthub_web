@@ -23,7 +23,7 @@ import java.util.List;
 public class AdminService {
     private final AdminRepository adminRepository;
 
-    public MentoProcessDto selectProcess(int ProcessID){return adminRepository.selectProcess(ProcessID);}
+    public MentoProcessDto selectProcess(int MentoID){return adminRepository.selectProcess(MentoID);}
 
     public int UpdateMentoInfo(MentoDto mentoDto){return adminRepository.UpdateMentoInfo(mentoDto);}
 

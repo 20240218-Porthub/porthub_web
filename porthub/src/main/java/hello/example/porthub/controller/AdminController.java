@@ -53,10 +53,12 @@ public class AdminController {
 
     @PostMapping("/mento/{status}/{id}")
     @ResponseBody
-    public MentoProcessDto AcceptMento(@PathVariable String status, @PathVariable int id, @RequestParam("company") String company, @RequestParam("univ") String univ, @RequestParam("issue") String issue){
+    public MentoProcessDto AcceptMento(@PathVariable("status") String status, @PathVariable("id") int id, @RequestParam("company") String company, @RequestParam("univ") String univ, @RequestParam("issue") String issue){
+        log.info("status="+status);
+        log.info("id="+id);
         MentoProcessDto mentoProcessDto = adminService.selectProcess(id);
-        MentoDto mentoDto=mentoService.selectmento(mentoProcessDto.getMentoID());
-        MemberDto memberDto=memberRepository.findmemberByUserID(mentoDto.getUserID());
+        MentoDto mentoDto=mentoService.selectmento(id);
+        MemberDto memberDto=memberRepository.findmemberByUserID(id);
 
         log.info("company="+company+",univ="+univ+",issue="+issue);
 

@@ -4,7 +4,7 @@
 
 <mapper namespace="admin">
     <select id="selectprocess" parameterType="int" resultType="MentoProcess">
-        select * from MentoProcess where ProcessID=#{ProcessID}
+        select * from MentoProcess where MentoID=#{UserID}
     </select>
 
     <select id="selectAllMento" resultType="MentoProcess">
