@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="feat: Profile message-button redirection implementation">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/20d3944b-a99b-4f6b-958d-ff508a6ee42b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/20d3944b-a99b-4f6b-958d-ff508a6ee42b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/repository/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/chat/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/chat/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/header2.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/header2.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/js/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/fragments/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,6 +111,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "DefaultHtmlFileTemplate": "HTML File",
     "Gradle.Build porthub.executor": "Run",
+    "Gradle.porthub [dependencies].executor": "Run",
     "Gradle.porthub 빌드.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -145,7 +151,29 @@
       <recent name="C:\Users\hong\IdeaProjects\porthub_web\porthub\src\main\resources\templates\profile" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.PorthubApplication">
+    <configuration name="porthub [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/porthub" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="PorthubApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="porthub.main" />
       <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
@@ -160,6 +188,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.porthub [dependencies]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

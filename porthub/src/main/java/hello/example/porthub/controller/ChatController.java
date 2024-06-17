@@ -3,6 +3,8 @@ package hello.example.porthub.controller;
 import hello.example.porthub.config.util.ChatSessionUtil;
 import hello.example.porthub.domain.ChatMessageDto;
 import hello.example.porthub.domain.ChatUsersDto;
+import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.ChatService;
 import hello.example.porthub.service.SessionParticipantService;
 import hello.example.porthub.service.UserService;
@@ -17,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,12 +29,15 @@ public class ChatController {
     private final ChatService chatService;
     private final UserService userService;
     private final SessionParticipantService sessionParticipantService;
+
+    private final MemberRepository memberRepository;
     @Autowired
     public ChatController(ChatService chatService, UserService userService,
-                          SessionParticipantService sessionParticipantService) {
+                          SessionParticipantService sessionParticipantService, MemberRepository memberRepository) {
         this.chatService = chatService;
         this.userService = userService;
         this.sessionParticipantService = sessionParticipantService;
+        this.memberRepository = memberRepository;
     }
 
     @MessageMapping("/chat.sendMessage")
@@ -69,7 +75,6 @@ public class ChatController {
             return ResponseEntity.badRequest().body("Recipient ID is required");
         }
         if (chatSession.getContent() == null || chatSession.getContent().isEmpty()) {
-            System.out.println("here!!!");
             return ResponseEntity.badRequest().body("Message content is required");
         }
         try {
@@ -77,10 +82,7 @@ public class ChatController {
             String currentUserEmail = principal.getName();
 
             int currentUserId = userService.findUserIDByEmail(currentUserEmail);
-            System.out.println(currentUserId);
             String sessionId = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId());
-            int recipientId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
-            System.out.println("Recipient ID: " + recipientId);
             sessionParticipantService.addParticipantToSession(sessionId, currentUserId);
             sessionParticipantService.addParticipantToSession(sessionId, chatSession.getRecipientUserId());
             chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(),
@@ -102,6 +104,12 @@ public class ChatController {
         List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
         List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
 
+        List<MemberDto> followingUserInfos = new ArrayList<>();
+        for (ChatUsersDto following : followings) {
+            MemberDto followingUserInfo = memberRepository.findmemberByUserID(following.getId());
+            followingUserInfos.add(followingUserInfo);
+        }
+
         int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
         String recipientUsername = userService.findUsernameById(recipientUserId);
         String recipientUserProfileImg = userService.findUserProfileImageById(recipientUserId);
@@ -115,7 +123,7 @@ public class ChatController {
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
         model.addAttribute("sessionId", sessionId);
-
+        model.addAttribute("followingUserInfos", followingUserInfos);
         return "user/chat";
     }
 

@@ -75,9 +75,9 @@ $(document).ready(function () {
         var contentElement = document.createElement('div');
         contentElement.className = 'message-content';
 
-        var senderElement = document.createElement('span');
-        senderElement.className = 'message-sender';
-        senderElement.textContent = message.senderUserId + ': ';
+        // var senderElement = document.createElement('span');
+        // senderElement.className = 'message-sender';
+        // senderElement.textContent = message.senderUserId + ': ';
 
         var textElement = document.createElement('span');
         textElement.textContent = message.content;
@@ -86,10 +86,9 @@ $(document).ready(function () {
         timestampElement.className = 'message-timestamp';
         timestampElement.textContent = formatTimestamp(message.timestamp);
 
-        contentElement.appendChild(senderElement);
+        // contentElement.appendChild(senderElement);
         contentElement.appendChild(textElement);
         contentElement.appendChild(timestampElement);
-
         messageElement.appendChild(contentElement);
 
         return messageElement;

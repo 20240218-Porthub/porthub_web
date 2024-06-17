@@ -14,7 +14,8 @@ body {
     display: flex;
     width: 100%;
     height: 100%;
-    margin: 0 auto;
+    margin: auto;
+    margin-top: 3rem;
     background-color: #fff;
     overflow: hidden;
 }
@@ -28,6 +29,7 @@ body {
     padding: 1rem;
     align-items: center;
     flex-shrink: 0;
+    overflow-y: auto;
 }
 
 .sidebar .header, .sidebar .chat-list, .sidebar .chat-item, .sidebar .chat-link, .sidebar .chat-avatar, .sidebar .chat-details, .sidebar .chat-username, .sidebar .chat-message, .sidebar .chat-timestamp, .chat-area, .chat-area .header, .chat-area .header .user-info, .chat-area .header .user-info img, .chat-area .header .user-info .username, .chat-area .header .user-info .status, .leave-chat-button, .message-item, .message-item.sent, .message-item.received, .message-content, .message-item.sent .message-content, .message-item.received .message-content, .message-sender, .message-timestamp, .chat-area .input-area, .chat-area .input-area input, .chat-area .input-area button, .search-bar, .search-bar input[type="text"], .modal, .modal .modal_popup, .modal .modal_popup .close_btn, .modal_popup, .modal_header, .modal_header h3, .modal_header .before_btn, .screen, .modal_follow_list, .startChatButton, #send_message_btn, #select_follower_screen, #message_input_screen {
@@ -113,24 +115,24 @@ button#addChatButton {
 
 .chat-area {
     height: 95%;
+    width: 100%;
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    width: 90%;
     padding: 1.5rem;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 0.5rem;
     flex-shrink: 0;
 }
 
 .chat-area .header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem;
     border-bottom: 0.0625rem solid #ddd;
-    width: 90%;
 }
 
 .chat-area .header .user-info {
@@ -221,9 +223,12 @@ button#addChatButton {
 }
 
 .chat-area .input-area input {
-    flex: 1;
-    height: 2rem;
+    display: flex;
+    height: 3rem;
     padding: 0.625rem 1.25rem;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 0 0;
     border-radius: 0.75rem;
     border: 2px solid #E2E8F0;
     background: #FFF;
