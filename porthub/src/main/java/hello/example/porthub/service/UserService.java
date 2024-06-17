@@ -21,6 +21,10 @@ public class UserService {
         return userMapper.findUserIDByEmail(email);
     }
 
+    public String findUserProfileImageById(int UserId) {
+        return userMapper.findUserProfileImageById(UserId);
+    }
+
     public String findUsernameById(int recipientUserId) { return userMapper.findUsernameById(recipientUserId); }
 
     public List<ChatUsersDto> getFollowings(int currentUserID) {

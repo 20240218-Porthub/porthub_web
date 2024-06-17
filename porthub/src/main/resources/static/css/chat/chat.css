@@ -1,7 +1,8 @@
-/* ! 모달창의 팔로우 고르는 부분에서 메세지 입력  !*/
+* {
+    font-family: 'Poppins', sans-serif;
+}
 
 body {
-    font-family: 'Poppins', sans-serif;
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
@@ -27,6 +28,10 @@ body {
     padding: 1rem;
     align-items: center;
     flex-shrink: 0;
+}
+
+.sidebar .header, .sidebar .chat-list, .sidebar .chat-item, .sidebar .chat-link, .sidebar .chat-avatar, .sidebar .chat-details, .sidebar .chat-username, .sidebar .chat-message, .sidebar .chat-timestamp, .chat-area, .chat-area .header, .chat-area .header .user-info, .chat-area .header .user-info img, .chat-area .header .user-info .username, .chat-area .header .user-info .status, .leave-chat-button, .message-item, .message-item.sent, .message-item.received, .message-content, .message-item.sent .message-content, .message-item.received .message-content, .message-sender, .message-timestamp, .chat-area .input-area, .chat-area .input-area input, .chat-area .input-area button, .search-bar, .search-bar input[type="text"], .modal, .modal .modal_popup, .modal .modal_popup .close_btn, .modal_popup, .modal_header, .modal_header h3, .modal_header .before_btn, .screen, .modal_follow_list, .startChatButton, #send_message_btn, #select_follower_screen, #message_input_screen {
+    font-family: 'Poppins', sans-serif;
 }
 
 .sidebar .header {
@@ -147,6 +152,21 @@ button#addChatButton {
 .chat-area .header .user-info .status {
     font-size: 0.75rem;
     color: #888;
+}
+
+.leave-chat-button {
+    border: none;
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+    padding: 0.625rem 1.25rem;
+    border-radius: 1.25rem;
+    background-color: #000000;
+    color: #fff;
+}
+
+.leave-chat-button:hover {
+    background-color: darkred;
 }
 
 .message-item {
@@ -395,5 +415,3 @@ button#addChatButton {
     transform: translateX(150%);
     top : -91%
 }
-
-/* ! 보여질 모달 CSS End */

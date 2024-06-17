@@ -33,7 +33,7 @@
                 <!-- Still not sure what it should be, but I thought it should be /user/chat/{ChatSession.sessionId} -->
                 <a th:href="@{'/user/chat/' + ${ChatSession.sessionId}}" class="chat-link">
                     <div class="chat-avatar">
-                        <!--                        <img th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" th:src="@{/images/following.avatarUrl}" alt="User Avatar">-->
+                        <img th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" th:src="${recipientUserProfileImage}" alt="User Avatar">
                     </div>
                     <div class="chat-details">
                         <span th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" class="chat-username">
@@ -45,15 +45,6 @@
                 </a>
             </li>
         </ul>
-<!--        <div class="followers-list">-->
-<!--            <h4>Followers</h4>-->
-<!--            <ul id="followersList">-->
-<!--                <li th:each="following : ${followings}">-->
-<!--                    <span th:text="${following.username}"></span>-->
-<!--                    <button class="s" th:data-user-id="${following.id}">Start Chat</button>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
     </div>
     <div class="chat-area">
         <div th:if="${isNewUser}">
@@ -61,10 +52,19 @@
         </div>
         <div class="header">
             <div class="user-info">
-                <img th:src="@{/images/user-avatar.png}" alt="User Avatar">
+                <img th:src="${currentUserProfileImage}" alt="User Avatar">
                 <div>
                     <span class="username" th:text="${recipientUsername}"></span>
                     <!--<span class="status" th:text="${partnerStatus}"></span>-->
+                </div>
+            </div>
+            <button id="leaveChatButton" class="leave-chat-button"> <a th:href="@{'/user/leave/' + ${sessionId}}">Leave</a> </button>
+            <!-- 나가기 버튼 클릭 시 확인 요청 모달 -->
+            <div id="leaveChatConfirm" class="modal">
+                <div class="modal_popup">
+                    <h3>채팅방을 나가시겠습니까?</h3>
+                    <button id="confirmLeave">나가기</button>
+                    <button onclick="closeModal('leaveChatConfirm')">취소</button>
                 </div>
             </div>
         </div>
@@ -161,6 +161,23 @@
                 document.querySelector('.before_btn').style.display = 'none';
             });
         });
+    });
+</script>
+<script>
+    // 나가기 버튼 클릭 이벤트
+    document.getElementById('leaveChatButton').addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 이벤트 차단
+        document.getElementById('leaveChatConfirm').style.display = 'block'; // 확인 모달 표시
+    });
+
+    // 모달 닫기 함수
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // 나가기 모달에서 나가기 확정
+    document.getElementById('confirmLeave').addEventListener('click', function() {
+        window.location.href = document.querySelector('#leaveChatButton a').href; // 실제 나가기 처리
     });
 </script>
 <script th:src="@{/js/chat.js}" src="/static/js/chat.js"></script>
