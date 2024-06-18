@@ -8,6 +8,7 @@ body {
     padding: 0;
     display: flex;
     height: 100vh;
+    overflow-y: unset;
 }
 
 .container {
@@ -17,7 +18,8 @@ body {
     margin: auto;
     margin-top: 3rem;
     background-color: #fff;
-    overflow: hidden;
+    overflow: unset;
+    position: fixed;
 }
 
 .sidebar {
@@ -32,7 +34,48 @@ body {
     overflow-y: auto;
 }
 
-.sidebar .header, .sidebar .chat-list, .sidebar .chat-item, .sidebar .chat-link, .sidebar .chat-avatar, .sidebar .chat-details, .sidebar .chat-username, .sidebar .chat-message, .sidebar .chat-timestamp, .chat-area, .chat-area .header, .chat-area .header .user-info, .chat-area .header .user-info img, .chat-area .header .user-info .username, .chat-area .header .user-info .status, .leave-chat-button, .message-item, .message-item.sent, .message-item.received, .message-content, .message-item.sent .message-content, .message-item.received .message-content, .message-sender, .message-timestamp, .chat-area .input-area, .chat-area .input-area input, .chat-area .input-area button, .search-bar, .search-bar input[type="text"], .modal, .modal .modal_popup, .modal .modal_popup .close_btn, .modal_popup, .modal_header, .modal_header h3, .modal_header .before_btn, .screen, .modal_follow_list, .startChatButton, #send_message_btn, #select_follower_screen, #message_input_screen {
+.sidebar .header,
+.sidebar .chat-list,
+.sidebar .chat-item,
+.sidebar .chat-link,
+.sidebar .chat-avatar,
+.sidebar .chat-details,
+.sidebar .chat-username,
+.sidebar .chat-message,
+.sidebar .chat-timestamp,
+.chat-area,
+.chat-area .header,
+.chat-area .header .user-info,
+.chat-area .header .user-info img,
+.chat-area .header .user-info .username,
+.chat-area .header .user-info .status,
+.leave-chat-button,
+.message-item,
+.message-item.sent,
+.message-item.received,
+.message-content,
+.message-item.sent .message-content,
+.message-item.received .message-content,
+.message-sender,
+.message-timestamp,
+.chat-area .input-area,
+.chat-area .input-area input,
+.chat-area .input-area button,
+.search-bar,
+.search-bar input[type="text"],
+.modal,
+.modal .modal_popup,
+.modal .modal_popup .close_btn,
+.modal_popup,
+.modal_header,
+.modal_header h3,
+.modal_header .before_btn,
+.screen,
+.modal_follow_list,
+.startChatButton,
+#send_message_btn,
+#select_follower_screen,
+#message_input_screen {
     font-family: 'Poppins', sans-serif;
 }
 
@@ -114,15 +157,19 @@ button#addChatButton {
 }
 
 .chat-area {
-    height: calc(100% - 3rem); /* Subtract the margin from the top */
-    width: calc(100% - 29rem); /* Subtract the sidebar width */
+    height: calc(100% - 3rem);
+    /* Subtract the margin from the top */
+    width: calc(100% - 29rem);
+    /* Subtract the sidebar width */
     display: flex;
+    flex: 1;
     flex-direction: column;
     overflow-y: auto;
     padding: 1.5rem;
     gap: 0.5rem;
     background-color: #fff;
-    margin-left: auto; /* Ensure it aligns to the right of the sidebar */
+    margin-left: auto;
+    /* Ensure it aligns to the right of the sidebar */
 }
 
 .chat-area .header {
@@ -132,6 +179,9 @@ button#addChatButton {
     align-items: center;
     padding: 1.25rem;
     border-bottom: 0.0625rem solid #ddd;
+    position: fixed;
+    top: 3rem;
+    background-color: white;
 }
 
 .chat-area .header .user-info {
@@ -153,6 +203,13 @@ button#addChatButton {
 .chat-area .header .user-info .status {
     font-size: 0.75rem;
     color: #888;
+}
+
+.chat-area .msg-area {
+    width: auto;
+    overflow-y: unset;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 }
 
 .leave-chat-button {
@@ -219,12 +276,16 @@ button#addChatButton {
     margin-left: 5px;
 }
 
+
 .chat-area .input-area {
     display: flex;
     padding: 1.5rem;
     align-items: center;
     gap: 1.5rem;
-    width: 100%;
+    width: -webkit-fill-available;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
 }
 
 .chat-area .input-area input {

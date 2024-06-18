@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="feat: Add MOTD for /user/chat endpoint">
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/UserService.java" afterDir="false" />
+    <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="fix: Remove redundant implementation statements in build.gradle">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/porthub.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/chat/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/chat/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -334,7 +337,31 @@
       <option name="project" value="LOCAL" />
       <updated>1718684358452</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix: Exclude myself from the followings list in Chat">
+      <option name="closed" value="true" />
+      <created>1718684956426</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718684956426</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix: Remove redundant implementation statements in build.gradle">
+      <option name="closed" value="true" />
+      <created>1718691953062</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1718691953062</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix: Remove redundant implementation statements in build.gradle">
+      <option name="closed" value="true" />
+      <created>1718692015473</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1718692015473</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +388,9 @@
     <MESSAGE value="fix: Minor fixes regarding empty messages being displayed and some cleanups" />
     <MESSAGE value="style: Header CSS adjustments" />
     <MESSAGE value="feat: Add MOTD for /user/chat endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add MOTD for /user/chat endpoint" />
+    <MESSAGE value="fix: Exclude myself from the followings list in Chat" />
+    <MESSAGE value="fix: Remove redundant implementation statements in build.gradle" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Remove redundant implementation statements in build.gradle" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

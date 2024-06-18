@@ -22,6 +22,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class ChatController {
@@ -85,8 +86,8 @@ public class ChatController {
             String sessionId = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId());
             sessionParticipantService.addParticipantToSession(sessionId, currentUserId);
             sessionParticipantService.addParticipantToSession(sessionId, chatSession.getRecipientUserId());
-            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(),
-                    sessionId);
+            if (!Objects.equals(chatSession.getContent(), "Initiating chat"))
+                chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(), sessionId);
             return ResponseEntity.ok(sessionId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

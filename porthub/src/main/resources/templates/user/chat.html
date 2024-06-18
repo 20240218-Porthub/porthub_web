@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="chat-area" id="msgArea" th:unless="${isNewUser}">
+            <div class="chat-area msg-area" id="msgArea" th:unless="${isNewUser}">
                 <div class="message-item" th:each="message : ${chatMessages}">
                     <span class="message-sender" th:text="${message.senderUserId}"></span>
                     <span class="message-content" th:text="${message.content}"></span>
