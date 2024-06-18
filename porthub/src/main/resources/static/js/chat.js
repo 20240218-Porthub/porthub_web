@@ -46,11 +46,11 @@ $(document).ready(function () {
     $('#send_message_btn').on('click', function () {
         var followingUserId = $(this).data('user-id');
         console.log("button USerID")
-        var content = $('#message_input').val();
-        // if (content.trim() === '') {
-        //     alert('Please type a message to start the chat.');
-        //     return;
-        // }
+        var content = $('#message_input').val().trim();
+        if (content === '') {
+            alert('Please type a message to start the chat.');
+            return;
+        }
         startNewChat(followingUserId, content);
         $('#message_input').val('');
     });
@@ -188,24 +188,32 @@ $(document).ready(function () {
             var senderId = $('#senderId').val();
             var recipientId = $('#recipientId').val();
             var sessionId = $('#sessionId').val();
+            var content = messageInput.val().trim();
 
-            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
-                'senderUserId': senderId,
-                'recipientUserId': recipientId,
-                'content': messageInput.val(),
-                'timestamp': new Date().toISOString(),
-                'sessionId': sessionId
-            }));
+            if (content === '') {
+                alert('Please type a message.');
+                return;
+            }
 
-            var sentMessage = {
-                senderUserId: senderId,
-                content: messageInput.val(),
-                timestamp: new Date().toISOString()
-            };
-            var messageElement = createMessageElement(sentMessage);
-            // $msgArea.append(messageElement);
-            $msgArea.scrollTop($msgArea[0].scrollHeight);
-            messageInput.val('');
+            if (messageInput) {
+                stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+                    'senderUserId': senderId,
+                    'recipientUserId': recipientId,
+                    'content': content,
+                    'timestamp': new Date().toISOString(),
+                    'sessionId': sessionId
+                }));
+
+                var sentMessage = {
+                    senderUserId: senderId,
+                    content: content,
+                    timestamp: new Date().toISOString()
+                };
+                var messageElement = createMessageElement(sentMessage);
+                // $msgArea.append(messageElement);
+                $msgArea.scrollTop($msgArea[0].scrollHeight);
+                messageInput.val('');
+            }
         } else {
             console.error('WebSocket connection is not active. Cannot send message.');
         }

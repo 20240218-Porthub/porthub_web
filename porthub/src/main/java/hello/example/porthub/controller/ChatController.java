@@ -104,12 +104,6 @@ public class ChatController {
         List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
         List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
 
-        List<MemberDto> followingUserInfos = new ArrayList<>();
-        for (ChatUsersDto following : followings) {
-            MemberDto followingUserInfo = memberRepository.findmemberByUserID(following.getId());
-            followingUserInfos.add(followingUserInfo);
-        }
-
         int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
         String recipientUsername = userService.findUsernameById(recipientUserId);
         String recipientUserProfileImg = userService.findUserProfileImageById(recipientUserId);
@@ -123,7 +117,6 @@ public class ChatController {
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
         model.addAttribute("sessionId", sessionId);
-        model.addAttribute("followingUserInfos", followingUserInfos);
         return "user/chat";
     }
 

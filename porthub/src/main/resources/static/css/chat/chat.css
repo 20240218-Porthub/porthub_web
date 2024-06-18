@@ -163,12 +163,33 @@ button#addChatButton {
     margin-right: 10px;
     padding: 0.625rem 1.25rem;
     border-radius: 1.25rem;
-    background-color: #000000;
+    background-color: #333333;
     color: #fff;
+    display: flex;
+    width: 7.5625rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    /*border: 2px solid var(--black);*/
+    outline: none;
+    /*border-radius: 6px;*/
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: 0.5s;
 }
 
 .leave-chat-button:hover {
-    background-color: darkred;
+    background: var(--black);
+    color: var(--white);
+    display: flex;
+    width: 7.5625rem;
+    padding: 0.625rem 1.25rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
 }
 
 .message-item {
@@ -192,7 +213,7 @@ button#addChatButton {
 }
 
 .message-item.sent .message-content {
-    background-color: #615EF0;
+    background-color: #333333;
     color: #FFFFFF;
     align-self: flex-end;
 }
@@ -238,7 +259,7 @@ button#addChatButton {
     padding: 0.625rem 1.25rem;
     border: none;
     border-radius: 1.25rem;
-    background-color: #4CAF50;
+    background-color: #333333;
     color: #fff;
     cursor: pointer;
 }
@@ -254,8 +275,8 @@ button#addChatButton {
 
 .search-bar input[type="text"] {
     display: flex;
-    width: 90%;
-    height: 2rem;
+    width: 100%;
+    height: 3rem;
     padding: 0.625rem 1.25rem;
     align-items: center;
     gap: 0.625rem;
@@ -271,9 +292,6 @@ button#addChatButton {
     font-weight: 400;
     font-size: 0.75rem;
 }
-
-
-/* ! 보여질 모달 CSS Start */
 
 .modal.on {
     display: block;
@@ -318,7 +336,7 @@ button#addChatButton {
     /* 좌우 중앙 정렬 */
     width: auto;
     padding: 10px 20px;
-    background-color: rgb(65, 147, 239);
+    background-color: #333333;
     border: none;
     border-radius: 5px;
     color: #fff;

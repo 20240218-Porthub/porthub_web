@@ -32,7 +32,7 @@
             <!--            <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Search messages...">-->
             <input type="text" id="searchInput" placeholder="Search messages..." aria-label="Search for messages">
         </div>
-        <ul class="chat-list">
+        <ul class="chat-list" id="chatList">
             <li th:each="ChatSession : ${chatSessions}" class="chat-item">
                 <!-- I also changed this part right below from /chat/{ChatSession.sessionId} to /user/chat/{ChatSession.sessionId} -->
                 <!-- Still not sure what it should be, but I thought it should be /user/chat/{ChatSession.sessionId} -->
@@ -192,6 +192,22 @@
     });
     <!-- leaveChatButton 모달 JS End -->
 
+    // 검색 기능
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        let filter = this.value.toLowerCase();
+        let chatItems = document.querySelectorAll('.chat-item');
+
+        chatItems.forEach(function (item) {
+            let username = item.querySelector('.chat-username').textContent.toLowerCase();
+            let message = item.querySelector('.chat-message').textContent.toLowerCase();
+
+            if (username.includes(filter) || message.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
 </script>
 <script th:src="@{/js/chat.js}" src="/static/js/chat.js"></script>
 </body>
