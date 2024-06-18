@@ -28,6 +28,14 @@ public class UserService {
     public String findUsernameById(int recipientUserId) { return userMapper.findUsernameById(recipientUserId); }
 
     public List<ChatUsersDto> getFollowings(int currentUserID) {
-        return userMapper.findFollowingsByID(currentUserID);
+        // Loop through the followings list to exclude myself from the list of followings
+        List<ChatUsersDto> followings = userMapper.findFollowingsByID(currentUserID);
+        for (int i = 0; i < followings.size(); i++) {
+            if (followings.get(i).getId() == currentUserID) {
+                followings.remove(i);
+                break;
+            }
+        }
+        return followings;
     }
 }

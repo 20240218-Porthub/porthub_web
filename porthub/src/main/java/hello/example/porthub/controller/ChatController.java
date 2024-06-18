@@ -96,7 +96,9 @@ public class ChatController {
 
     @GetMapping("/user/chat/{sessionId}")
     public String chatPage(@PathVariable("sessionId") String sessionId, Model model, Principal principal) {
-        if (principal == null) { return "redirect:/login"; }
+        if (principal == null) {
+            return "redirect:/login";
+        }
 
         String currentUserEmail = principal.getName();
         int currentUserId = userService.findUserIDByEmail(currentUserEmail);
@@ -132,18 +134,18 @@ public class ChatController {
         List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
         List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
 
-        List<MemberDto> followingUserInfos = new ArrayList<>();
-        for (ChatUsersDto following : followings) {
-            MemberDto followingUserInfo = memberRepository.findmemberByUserID(following.getId());
-            followingUserInfos.add(followingUserInfo);
-        }
+//        List<MemberDto> followingUserInfos = new ArrayList<>();
+//        for (ChatUsersDto following : followings) {
+//            MemberDto followingUserInfo = memberRepository.findmemberByUserID(following.getId());
+//            followingUserInfos.add(followingUserInfo);
+//        }
 
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
         model.addAttribute("currentUserProfileImage", currentUserProfileImg);
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
-        model.addAttribute("followingUserInfos", followingUserInfos);
+//        model.addAttribute("followingUserInfos", followingUserInfos);
         model.addAttribute("motd", "팔로워에게 비공개 메세지를 보내보세요");
 
         return "user/chat";
