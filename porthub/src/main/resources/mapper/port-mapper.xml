@@ -374,4 +374,21 @@
         ORDER BY p.PortfolioID DESC
     </select>
 
+    <select id="findUserIDbyUserName" parameterType="String" resultType="int">
+        SELECT UserID
+        FROM Users
+        WHERE UserName = #{userName}
+    </select>
+
+    <select id="findgetFollowListbyUserID" parameterType="java.util.List" resultType="hello.example.porthub.domain.PopularDto">
+        SELECT u.UserID, u.UserName, u.Email, u.ProfileImage, um.aff
+        FROM Users u
+        JOIN Usermeta um ON u.UserID = um.UserID
+        WHERE u.UserID IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
 </mapper>

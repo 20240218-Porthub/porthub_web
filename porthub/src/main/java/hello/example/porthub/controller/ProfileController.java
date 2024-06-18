@@ -1,15 +1,21 @@
 package hello.example.porthub.controller;
 
+import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.MainPortViewDto;
 import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.domain.PopularDto;
 import hello.example.porthub.domain.ProfileDto;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.ProfileRepository;
+import hello.example.porthub.service.PortfolioService;
 import hello.example.porthub.service.ProfileService;
 import hello.example.porthub.service.S3Service;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +34,7 @@ public class ProfileController {
     private final ProfileService profileService;
     private final MemberRepository memberRepository;
     private final ProfileRepository profileRepository;
+    private final PortfolioService portfolioService;
     private final S3Service s3Service;
 
     @GetMapping("/index")
@@ -38,22 +45,62 @@ public class ProfileController {
     }
 
     @GetMapping("/{name}")
-    public String memberInfo(@PathVariable("name") String name, ModelMap modelMap){
+    public String memberInfo(@PathVariable("name") String name, ModelMap modelMap, Model model){
         Map<String,String> map= new HashMap<String, String>();
 
         MemberDto member = memberRepository.findByUserName(name);
         int userid=member.getUserID();
         ProfileDto UserMeta=profileRepository.findByUserID(userid);
+
         List<MainPortViewDto> mainPortView=profileService.findPortByUserID(userid);
 
-        int follower=profileRepository.cntFollower(userid);
-        int following=profileRepository.cntFollowing(userid);
-        map.put("follower",Integer.toString(follower));
-        map.put("following",Integer.toString(following));
+
+        List<Integer> getfolloweruserList = profileRepository.getUserFollowerListbyID(userid);
+
+        List<Integer> getfollowinguserList = profileRepository.getUserFollowingListbyID(userid);
+
+        List<PopularDto> follwerDataList = null, follwingDataList = null;
+
+        if (!getfolloweruserList.isEmpty()) {
+            follwerDataList = portfolioService.getFollowList(getfolloweruserList);
+        }
+        if (!getfollowinguserList.isEmpty()) {
+            follwingDataList = portfolioService.getFollowList(getfollowinguserList);
+        }
+
+
+        if (SessionUtils.isLoggedIn()) {
+            model.addAttribute("isLoggedIn", true);
+            boolean followCheck = portfolioService.checkFollow(userid, SessionUtils.getCurrentUsername());
+            model.addAttribute("followCheck", followCheck);
+
+            if (follwerDataList != null) {
+                for (PopularDto dto : follwerDataList) {
+                    dto.setFollowCheck(portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername()));
+                }
+            }
+
+            if (follwingDataList != null) {
+                for (PopularDto dto : follwingDataList) {
+                    dto.setFollowCheck(portfolioService.checkFollow(dto.getUserID(), SessionUtils.getCurrentUsername()));
+                }
+            }
+            //로그인 되어있는 경우 사용자 아이디
+        } else {
+            model.addAttribute("isLoggedIn", false);
+        }
+
+
+        map.put("follower", String.valueOf(getfolloweruserList.size()));
+        map.put("following",String.valueOf(getfollowinguserList.size()));
+
+        model.addAttribute("follwerDataList", follwerDataList);
+        model.addAttribute("follwingDataList", follwingDataList);
 
         modelMap.addAttribute("follows",map);
         modelMap.addAttribute("mainPortView", mainPortView);
         modelMap.addAttribute("member", member);
+        modelMap.addAttribute("userId", userid);
         modelMap.addAttribute("UserMeta",UserMeta);
 
         return "user/profile";
@@ -93,4 +140,28 @@ public class ProfileController {
         memberRepository.imagesave(memberDto);
         return "redirect:/profile/"+name;
     }
+
+    @PostMapping("/follow/{UserName}")
+    public String portsFollowInsert(@PathVariable("UserName") String UserName) {
+
+        int authorID = portfolioService.findUserIDbyUserName(UserName);
+        String CurrentUseremail = SessionUtils.getCurrentUsername();
+        portfolioService.following(authorID, CurrentUseremail);
+        System.out.println("nohi");
+
+        return "redirect:/profile/" + UserName;
+    }
+
+    @PostMapping("/unfollow/{UserName}")
+    public String portsFollowDelete(@PathVariable("UserName") String UserName) {
+
+        int authorID = portfolioService.findUserIDbyUserName(UserName);
+        String CurrentUseremail = SessionUtils.getCurrentUsername();
+        portfolioService.unfollow(authorID, CurrentUseremail);
+        System.out.println("hi");
+
+        return "redirect:/profile/" + UserName;
+    }
+
+
 }

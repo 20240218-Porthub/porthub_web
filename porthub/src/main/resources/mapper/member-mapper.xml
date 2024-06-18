@@ -5,8 +5,8 @@
 <mapper namespace="Member">
 
     <insert id="save" parameterType="Member">
-        insert into Users(UserName, Email, PasswordHash,RegistrationDate)
-        values (#{UserName}, #{Email}, #{PasswordHash}, NOW())
+        insert into Users(UserName, Email, PasswordHash, Role, RegistrationDate, backImage, ProfileImage)
+        values (#{UserName}, #{Email}, #{PasswordHash}, #{Role}, NOW(), #{backImage}, #{ProfileImage})
     </insert>
 
     <select id="findByUserName" parameterType="String" resultType="member">
@@ -58,13 +58,20 @@
         WHERE Email = #{currentEmail}
     </select>
 
-    <select id="countfollower" parameterType="int" resultType="int">
-        select count(*) from Follows where FollowerID=#{id}
+<!--    <select id="countfollower" parameterType="int" resultType="int">-->
+<!--        select count(*) from Follows where FollowerID=#{id}-->
+<!--    </select>-->
+
+<!--    <select id="countfollowing" parameterType="int" resultType="int">-->
+<!--        select count(*) from Follows where FollowingID=#{id}-->
+<!--    </select>-->
+
+    <select id="getUserFollowerListbyID" parameterType="int" resultType="java.lang.Integer">
+        SELECT FollowerID FROM Follows WHERE FollowingID = #{userid}
     </select>
 
-    <select id="countfollowing" parameterType="int" resultType="int">
-        select count(*) from Follows where FollowingID=#{id}
+    <select id="getUserFollowingListbyID" parameterType="int" resultType="java.lang.Integer">
+        SELECT FollowingID FROM Follows WHERE FollowerID = #{userid}
     </select>
-
 
 </mapper>

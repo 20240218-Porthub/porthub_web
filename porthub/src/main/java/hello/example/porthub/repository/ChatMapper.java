@@ -1,7 +1,8 @@
 package hello.example.porthub.repository;
 
 import hello.example.porthub.domain.ChatMessageDto;
-import hello.example.porthub.domain.ChatSessionDto;
+
+//? param import
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -18,9 +19,9 @@ public interface ChatMapper {
             @Result(property = "recipientUserId", column = "ReceiverID"),
             @Result(property = "content", column = "Content"),
             @Result(property = "timestamp", column = "DateTime"),
-            @Result(property = "sessionId", column = "SessionID")
+            @Result(property = "sessionId", column = "SessionID"),
     })
-    ChatMessageDto getLatestMessageForSession(String sessionId);
+    ChatMessageDto getLatestMessageForSession(@Param("sessionId") String sessionId);
 
     /* Fetch the last message and the timestamp of the ChatMessageDto between the current user and the given recipient userID.
         SELECT c.Content AS lastMessage, c.DateTime AS lastMessageTimestamp
@@ -30,12 +31,13 @@ public interface ChatMapper {
         ORDER BY c.DateTime DESC
         LIMIT 1;
      */
-    @Select("SELECT * FROM Chats " +
+    /* @Select("SELECT * FROM Chats " +
             "WHERE (SenderID = #{currentUserId} AND ReceiverID = #{recipientUserId}) " +
             "   OR (SenderID = #{recipientUserId} AND ReceiverID = #{currentUserId}) " +
             "ORDER BY DateTime DESC " +
             "LIMIT 1")
     ChatMessageDto findLastChatSessionBetweenUsers(@Param("currentUserId") int currentUserId, @Param("recipientUserId") int recipientUserId);
+     */
 
     @Select("SELECT * FROM Chats WHERE SessionID = #{sessionId} ORDER BY DateTime ASC")
     @Results({
@@ -44,11 +46,10 @@ public interface ChatMapper {
             @Result(property = "recipientUserId", column = "ReceiverID"),
             @Result(property = "content", column = "Content"),
             @Result(property = "timestamp", column = "DateTime"),
-            @Result(property = "sessionId", column = "SessionID")
+            @Result(property = "sessionId", column = "SessionID"),
     })
-    List<ChatMessageDto> getChatHistoryBySessionId(String sessionId);
+    List<ChatMessageDto> getChatHistoryBySessionId(@Param("sessionId") String sessionId);
 
-    // Insert a new chat session into the database
     @Insert("INSERT INTO Chats (SenderID, ReceiverID, Content, DateTime, SessionID) " +
             "VALUES (#{senderUserId}, #{recipientUserId}, #{content}, #{timestamp}, #{sessionId})")
     @Results({
@@ -60,4 +61,9 @@ public interface ChatMapper {
             @Result(property = "sessionId", column = "SessionID")
     })
     void insertChatMessage(ChatMessageDto chatMessage);
+
+    @Update("UPDATE Chats SET SenderID = CASE WHEN SenderID = #{userId} THEN -1 ELSE SenderID END, " +
+            "ReceiverID = CASE WHEN ReceiverID = #{userId} THEN -1 ELSE ReceiverID END " +
+            "WHERE SessionID = #{sessionId}")
+    void updateUserToLeft(@Param("sessionId") String sessionId, @Param("userId") int userId);
 }
