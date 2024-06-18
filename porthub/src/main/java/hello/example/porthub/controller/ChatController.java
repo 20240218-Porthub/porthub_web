@@ -125,14 +125,27 @@ public class ChatController {
         if (principal == null) {
             return "redirect:/login";
         }
+
         String currentUserEmail = principal.getName();
         int currentUserId = userService.findUserIDByEmail(currentUserEmail);
+        String currentUserProfileImg = userService.findUserProfileImageById(currentUserId);
         List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
         List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
+
+        List<MemberDto> followingUserInfos = new ArrayList<>();
+        for (ChatUsersDto following : followings) {
+            MemberDto followingUserInfo = memberRepository.findmemberByUserID(following.getId());
+            followingUserInfos.add(followingUserInfo);
+        }
+
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
+        model.addAttribute("currentUserProfileImage", currentUserProfileImg);
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
+        model.addAttribute("followingUserInfos", followingUserInfos);
+        model.addAttribute("motd", "팔로워에게 비공개 메세지를 보내보세요");
+
         return "user/chat";
     }
 

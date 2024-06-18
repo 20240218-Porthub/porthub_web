@@ -13,7 +13,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <div class="top-header" th:replace="~{fragments/header::headerFragment}"></div>
 <br><br><br>
 <div class="container">
@@ -52,40 +51,42 @@
         </ul>
     </div>
     <div class="chat-area">
-        <div th:if="${isNewUser}">
-            <p>You're starting a new conversation.</p>
+        <div th:if="${motd != null}">
+            <p th:text="${motd}" style="text-align: center; margin-top: 50px; font-size: 1.2em; color: gray;"></p>
         </div>
-        <div class="header">
-            <div class="user-info">
-                <img th:src="${recipientUserProfileImage}" alt="User Avatar">
-                <div>
-                    <span class="username" th:text="${recipientUsername}"></span>
-                    <!--<span class="status" th:text="${partnerStatus}"></span>-->
+        <div th:if="${motd == null}">
+            <div class="header">
+                <div class="user-info">
+                    <img th:src="${recipientUserProfileImage}" alt="User Avatar">
+                    <div>
+                        <span class="username" th:text="${recipientUsername}"></span>
+                        <!--<span class="status" th:text="${partnerStatus}"></span>-->
+                    </div>
+                </div>
+                <button id="leaveChatButton" class="leave-chat-button"> <a th:href="@{'/user/leave/' + ${sessionId}}">Leave</a> </button>
+                <!-- 나가기 버튼 클릭 시 확인 요청 모달 -->
+                <div id="leaveChatConfirm" class="modal leave-chat-modal">
+                    <div class="modal_popup">
+                        <h3>채팅방을 나가시겠습니까?</h3>
+                        <button id="confirmLeave">나가기</button>
+                        <button onclick="closeModal('leaveChatConfirm')">취소</button>
+                    </div>
                 </div>
             </div>
-            <button id="leaveChatButton" class="leave-chat-button"> <a th:href="@{'/user/leave/' + ${sessionId}}">Leave</a> </button>
-            <!-- 나가기 버튼 클릭 시 확인 요청 모달 -->
-            <div id="leaveChatConfirm" class="modal leave-chat-modal">
-                <div class="modal_popup">
-                    <h3>채팅방을 나가시겠습니까?</h3>
-                    <button id="confirmLeave">나가기</button>
-                    <button onclick="closeModal('leaveChatConfirm')">취소</button>
+            <div class="chat-area" id="msgArea" th:unless="${isNewUser}">
+                <div class="message-item" th:each="message : ${chatMessages}">
+                    <span class="message-sender" th:text="${message.senderUserId}"></span>
+                    <span class="message-content" th:text="${message.content}"></span>
+                    <span class="message-timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
                 </div>
             </div>
-        </div>
-        <div class="chat-area" id="msgArea" th:unless="${isNewUser}">
-            <div class="message-item" th:each="message : ${chatMessages}">
-                <span class="message-sender" th:text="${message.senderUserId}"></span>
-                <span class="message-content" th:text="${message.content}"></span>
-                <span class="message-timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+            <div class="input-area">
+                <label for="msg"></label><input type="text" id="msg" placeholder="Type a message...">
+                <button id="button-send">Send</button>
+                <input type="hidden" id="senderId" th:value="${userID}"/>
+                <input type="hidden" id="recipientId" th:value="${recipientUserId}"/>
+                <input type="hidden" id="sessionId" th:value="${sessionId}"/>
             </div>
-        </div>
-        <div class="input-area">
-            <label for="msg"></label><input type="text" id="msg" placeholder="Type a message...">
-            <button id="button-send">Send</button>
-            <input type="hidden" id="senderId" th:value="${userID}"/>
-            <input type="hidden" id="recipientId" th:value="${recipientUserId}"/>
-            <input type="hidden" id="sessionId" th:value="${sessionId}"/>
         </div>
     </div>
 </div>
