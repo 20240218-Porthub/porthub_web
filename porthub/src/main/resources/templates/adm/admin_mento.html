@@ -85,11 +85,11 @@
                             <div class="accordion" id="accordionFlushExample" th:if="${requestmentos}!=null" th:each="requestmento:${requestmentos}">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:data-bs-target="'#flush-collapse'+${requestmento.MentoID}" aria-expanded="false" th:aria-controls="'flush-collapse'+${requestmento.MentoID}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:data-bs-target="'#flush-collapse'+${requestmento.UserID}" aria-expanded="false" th:aria-controls="'flush-collapse'+${requestmento.UserID}">
                                             <span>유저 id</span><span class="accordion_userid" th:text="${requestmento.UserID}"></span>
                                         </button>
                                     </h2>
-                                    <div th:id="'flush-collapse'+${requestmento.MentoID}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                    <div th:id="'flush-collapse'+${requestmento.UserID}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                             <div class="mentoproofbody">
                                                 <div class="mentofiles">

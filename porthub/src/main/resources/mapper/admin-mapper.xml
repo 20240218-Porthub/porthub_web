@@ -4,7 +4,7 @@
 
 <mapper namespace="admin">
     <select id="selectprocess" parameterType="int" resultType="MentoProcess">
-        select * from MentoProcess where ProcessID=#{ProcessID}
+        select * from MentoProcess where MentoID=#{UserID}
     </select>
 
     <select id="selectAllMento" resultType="MentoProcess">
@@ -62,7 +62,7 @@
 
     <select id="findAllMentoringList" resultType="hello.example.porthub.domain.MentoringDto">
         SELECT *
-        FROM Mentoring
+        FROM Mentoring where mentoring_delete='0'
     </select>
     <update id="UpdateState" parameterType="int">
         update CopyrightReport
@@ -92,6 +92,10 @@
         update Users
         set Role = "USER"
         where UserID = #{userID}
+    </update>
+
+    <update id="deletementoring" parameterType="int">
+        update Mentoring set mentoring_delete='1' where MentoringID=#{MentoringID}
     </update>
 
 </mapper>
