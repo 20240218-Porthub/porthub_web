@@ -7,7 +7,10 @@ $(function(){
  // })
 
  $('.mentoprofile').click(function(e){
-  location.href='profile/'+e.target.innerText
+  if(e.target.parentElement.className==='mentoprofile'){
+   location.href='profile/'+e.target.parentElement.innerText
+  }
+  // location.href='profile/'+e.target.innerText
  })
 
  $(document).on("click",".mento-wrapper",function(e){
@@ -156,4 +159,10 @@ $(function(){
    },
   })
  })
+})
+
+$(document).on('click','.layer1',function(e){
+ if(!$(e.target).hasClass('layer2') && $(e.target).parents('.layer2').length===0){
+  $('.layer1').css('display','none');
+ }
 })

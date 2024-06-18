@@ -35,13 +35,16 @@
                     <div th:style="${mentoprocess=='2' ? 'color:black;' : '' }">승인 취소</div>
                 </div>
             </div>
-            <div class="tag">
-                <div>개발</div>
+<!--            <div class="tag">-->
+<!--                <div>개발</div>-->
+<!--            </div>-->
+            <div class="mymento-head">
+                <div>마이 멘토링</div>
+                <div th:if="${mentoinfo!=null}" class="settlement"><div>크레딧 : <span th:text="${mentoinfo.credit}"></span></div><button class="settlement_btn activity-btn">정산신청</button></div>
             </div>
-            <div>마이 멘토링</div>
             <div class="mymento-container">
                 <div class="mymento-item" th:id="${mymentoring.mentoringID}" th:if="${mymentorings}!=null and ${mymentoring.mentoring_delete}==0" th:each="mymentoring : ${mymentorings}">
-                    <span th:text="${mymentoring.title}">제목</span><button class="delete-mentoring">삭제</button>
+                    <span th:text="${mymentoring.title}">제목</span><button class="delete-mentoring activity-btn">삭제</button>
                 </div>
             </div>
             <div>멘토링 결제 내역</div>
@@ -72,11 +75,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-<footer th:replace="~{fragments/footer::footerFragment}"></footer>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

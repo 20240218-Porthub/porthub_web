@@ -52,18 +52,27 @@ public class ChatService {
                         sessionKey));
             }
         }
+
         // Sort chatSummaries by timestamp in descending order so that the most recent chats appear first
         chatSummaries.sort(Comparator.comparing(ChatMessageDto::getTimestamp).reversed());
 
         return chatSummaries;
     }
 
+
     private boolean isValidUser(Integer userID) {
         return userMapper.findUsernameById(userID) != null;
     }
 
-    public List<ChatMessageDto> getChatHistoryBySessionId(String sessionId) {
-        return chatMapper.getChatHistoryBySessionId(sessionId);
+    public List<ChatMessageDto> getChatHistoryBySessionId(String sessionId, int currentUserId) {
+        List<ChatMessageDto> preprocessChatMessage =  chatMapper.getChatHistoryBySessionId(sessionId);
+        List<ChatMessageDto> chatMessages = new ArrayList<>();
+        for (ChatMessageDto chatMessage : preprocessChatMessage) {
+            if (chatMessage.getSenderUserId() == currentUserId || chatMessage.getRecipientUserId() == currentUserId) {
+                chatMessages.add(chatMessage);
+            }
+        }
+        return chatMessages;
     }
 
     public int getRecipientUserIdBySessionId(String sessionId, int currentUserId) {
@@ -73,5 +82,9 @@ public class ChatService {
 
     public boolean isSessionParticipant(String sessionId, int userId) {
         return sessionParticipantMapper.isSessionParticipant(sessionId, userId);
+    }
+
+    public void leaveChatSession(String sessionId, int currentUserId) {
+        chatMapper.updateUserToLeft(sessionId, currentUserId);
     }
 }

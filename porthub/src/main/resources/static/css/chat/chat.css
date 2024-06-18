@@ -1,21 +1,25 @@
-/* ! 모달창의 팔로우 고르는 부분에서 메세지 입력  !*/
+* {
+    font-family: 'Poppins', sans-serif;
+}
 
 body {
-    font-family: 'Poppins', sans-serif;
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
     display: flex;
     height: 100vh;
+    overflow-y: unset;
 }
 
 .container {
     display: flex;
     width: 100%;
     height: 100%;
-    margin: 0 auto;
+    margin: auto;
+    margin-top: 3rem;
     background-color: #fff;
-    overflow: hidden;
+    overflow: unset;
+    position: fixed;
 }
 
 .sidebar {
@@ -27,6 +31,52 @@ body {
     padding: 1rem;
     align-items: center;
     flex-shrink: 0;
+    overflow-y: auto;
+}
+
+.sidebar .header,
+.sidebar .chat-list,
+.sidebar .chat-item,
+.sidebar .chat-link,
+.sidebar .chat-avatar,
+.sidebar .chat-details,
+.sidebar .chat-username,
+.sidebar .chat-message,
+.sidebar .chat-timestamp,
+.chat-area,
+.chat-area .header,
+.chat-area .header .user-info,
+.chat-area .header .user-info img,
+.chat-area .header .user-info .username,
+.chat-area .header .user-info .status,
+.leave-chat-button,
+.message-item,
+.message-item.sent,
+.message-item.received,
+.message-content,
+.message-item.sent .message-content,
+.message-item.received .message-content,
+.message-sender,
+.message-timestamp,
+.chat-area .input-area,
+.chat-area .input-area input,
+.chat-area .input-area button,
+.search-bar,
+.search-bar input[type="text"],
+.modal,
+.modal .modal_popup,
+.modal .modal_popup .close_btn,
+.modal_popup,
+.modal_header,
+.modal_header h3,
+.modal_header .before_btn,
+.screen,
+.modal_follow_list,
+.startChatButton,
+#send_message_btn,
+#select_follower_screen,
+#message_input_screen {
+    font-family: 'Poppins', sans-serif;
 }
 
 .sidebar .header {
@@ -107,25 +157,31 @@ button#addChatButton {
 }
 
 .chat-area {
-    height: 95%;
-    flex: 1;
+    height: calc(100% - 3rem);
+    /* Subtract the margin from the top */
+    width: calc(100% - 29rem);
+    /* Subtract the sidebar width */
     display: flex;
+    flex: 1;
     flex-direction: column;
     overflow-y: auto;
-    width: 90%;
     padding: 1.5rem;
-    align-items: flex-start;
-    gap: 2rem;
-    flex-shrink: 0;
+    gap: 0.5rem;
+    background-color: #fff;
+    margin-left: auto;
+    /* Ensure it aligns to the right of the sidebar */
 }
 
 .chat-area .header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem;
     border-bottom: 0.0625rem solid #ddd;
-    width: 90%;
+    position: fixed;
+    top: 3rem;
+    background-color: white;
 }
 
 .chat-area .header .user-info {
@@ -149,6 +205,36 @@ button#addChatButton {
     color: #888;
 }
 
+.chat-area .msg-area {
+    width: auto;
+    overflow-y: unset;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.leave-chat-button {
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 0.625rem 1.25rem;
+    border-radius: 1.25rem;
+    background-color: #333333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.leave-chat-button:hover {
+    background: var(--black);
+    color: var(--white);
+}
+
 .message-item {
     display: flex;
     width: 100%;
@@ -170,15 +256,13 @@ button#addChatButton {
 }
 
 .message-item.sent .message-content {
-    background-color: #615EF0;
+    background-color: #333333;
     color: #FFFFFF;
-    align-self: flex-end;
 }
 
 .message-item.received .message-content {
     background-color: #F1F1F1;
     color: #000000;
-    align-self: flex-start;
 }
 
 .message-sender {
@@ -192,18 +276,22 @@ button#addChatButton {
     margin-left: 5px;
 }
 
+
 .chat-area .input-area {
     display: flex;
     padding: 1.5rem;
     align-items: center;
     gap: 1.5rem;
-    align-self: stretch;
+    width: -webkit-fill-available;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
 }
 
 .chat-area .input-area input {
-    flex: 1;
-    height: 2rem;
+    height: 3rem;
     padding: 0.625rem 1.25rem;
+    flex-grow: 1;
     border-radius: 0.75rem;
     border: 2px solid #E2E8F0;
     background: #FFF;
@@ -213,7 +301,7 @@ button#addChatButton {
     padding: 0.625rem 1.25rem;
     border: none;
     border-radius: 1.25rem;
-    background-color: #4CAF50;
+    background-color: #333333;
     color: #fff;
     cursor: pointer;
 }
@@ -228,13 +316,9 @@ button#addChatButton {
 }
 
 .search-bar input[type="text"] {
-    display: flex;
-    width: 90%;
-    height: 2rem;
+    width: 100%;
+    height: 3rem;
     padding: 0.625rem 1.25rem;
-    align-items: center;
-    gap: 0.625rem;
-    align-self: stretch;
     border-radius: 0.75rem;
     background: #F3F3F3;
     border: 0.0625rem solid #dddddd;
@@ -247,19 +331,13 @@ button#addChatButton {
     font-size: 0.75rem;
 }
 
-
-/* ! 보여질 모달 CSS Start */
-
 .modal.on {
     display: block;
 }
 
 .modal {
-    /* 팝업 배경 */
     display: none;
-    /* 평소에는 보이지 않도록 */
     position: fixed;
-    /* fixed로 변경 */
     top: 0;
     left: 0;
     width: 100%;
@@ -269,7 +347,6 @@ button#addChatButton {
 }
 
 .modal .modal_popup {
-    /* 팝업 */
     top: 25%;
     left: 25%;
     position: absolute;
@@ -284,16 +361,12 @@ button#addChatButton {
 
 .modal .modal_popup .close_btn {
     position: absolute;
-    /* 절대 위치 */
     bottom: 20px;
-    /* 하단에서 20px 위로 */
     left: 50%;
-    /* 좌우 중앙 정렬 */
     transform: translateX(-50%);
-    /* 좌우 중앙 정렬 */
     width: auto;
     padding: 10px 20px;
-    background-color: rgb(65, 147, 239);
+    background-color: #333333;
     border: none;
     border-radius: 5px;
     color: #fff;
@@ -311,33 +384,23 @@ button#addChatButton {
 .modal_header {
     display: flex;
     justify-content: center;
-    /* 중앙 정렬 */
     align-items: center;
     height: 50px;
-    /* 고정된 높이 설정 */
     margin-bottom: 10px;
-    /* 하단 마진 추가 */
     position: relative;
-    /* 이전 버튼을 절대 위치로 배치할 수 있도록 설정 */
 }
 
 .modal_header h3 {
     margin: 0;
-    /* 제목의 기본 마진 제거 */
     font-size: 1.5em;
-    /* 제목 폰트 크기 설정 */
     text-align: center;
-    /* 텍스트 중앙 정렬 */
     flex: 1;
-    /* 제목이 중앙에 위치하도록 설정 */
 }
 
 .modal_header .before_btn {
     display: none;
-    /* 초기에는 보이지 않도록 설정 */
     position: absolute;
     right: 10px;
-    /* 오른쪽 상단에 위치 */
     padding: 10px 20px;
     background-color: rgb(65, 147, 239);
     border: none;
@@ -351,31 +414,21 @@ button#addChatButton {
     position: relative;
     width: 100%;
     height: 90%;
-    /* header의 높이를 제외한 높이 설정 */
     transition: transform 0.5s ease;
-    /* padding: 10px; */
-    /* 화면 내용의 패딩 */
     box-sizing: border-box;
-    /* 패딩을 포함한 박스 모델 설정 */
 }
 
-.modal_follow_list{
+.modal_follow_list {
     list-style-type: none;
 }
 
-.startChatButton{
-
-}
+.startChatButton {}
 
 #send_message_btn {
     position: absolute;
-    /* 절대 위치 */
     bottom: 20px;
-    /* 하단에서 20px 위로 */
     left: 50%;
-    /* 좌우 중앙 정렬 */
     transform: translateX(-50%);
-    /* 좌우 중앙 정렬 */
     width: auto;
     padding: 10px 20px;
     background-color: rgb(65, 147, 239);
@@ -388,12 +441,10 @@ button#addChatButton {
 
 #select_follower_screen {
     transform: translateX(0);
-    top : -1%
+    top: -1%;
 }
 
 #message_input_screen {
     transform: translateX(150%);
-    top : -91%
+    top: -91%;
 }
-
-/* ! 보여질 모달 CSS End */

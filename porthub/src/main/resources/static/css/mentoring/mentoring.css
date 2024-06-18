@@ -44,63 +44,132 @@ body {
     top:0;
     left:0;
     display:none;
+    justify-content: center;
+    align-items: center;
 }
 
 .layer2{
-    position:absolute;
+    position:relative;
     margin:0 auto;
     width:60%;
     height: 90%;
+    min-width:700px;
+    min-height:666px;
     background-color: white;
     top:5%;
-    left:20%;
+    padding: 2rem;
+    border-radius:1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: #999;
+    text-align: right;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close:hover {
+    color: #333;
 }
 
 .layer_con{
     display:flex;
     flex-direction: column;
-    padding:50px;
+    padding:20px;
     gap:10px;
+    height:100%
 }
 
 .mento-header{
-    display:flex;
+    display: flex;
     justify-content: space-between;
-    padding:10px;
+    align-items: flex-start;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mento-header > div {
+    flex: 1;
+    display: flex;
     align-items: center;
 }
 
-.mentoprofile{
-    display:flex;
-    gap:10px;
+.mentoprofile {
+    justify-content: flex-start;
+}
+
+.mentoimg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-right: 1rem;
+}
+
+.mentoname {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.postname {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.mentospc {
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.mentospc div {
+    display: flex;
+    justify-content: center;
     align-items: center;
-}
-.mentoimg{
-    border:solid 1px;
-    border-radius:1rem;
-    width:30px;
-    height:30px;
+    gap: 0.5rem;
 }
 
-.postname{
-    border:solid 1px;
-    padding: 20px 10px;
+.mentospc span {
+    font-weight: bold;
 }
 
-.mentospc{
-    border:solid 1px;
-    padding: 20px 10px;
+.post-con {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    height:65%;
+    min-height:300px;
+    overflow-y: scroll;
 }
 
-.post-con{
-    border:solid 1px;
-    padding:20px 10px;
+.post-con::-webkit-scrollbar{
+    width:10px;
 }
 
-.mentoapply{
-    width:100%;
-    display:flex;
+.post-con::-webkit-scrollbar-thumb{
+    background-color:gray;
+    border-radius: 10px;
+}
+
+.post-con::-webkit-scrollbar-track{
+    background-color:#ccc;
+    border-radius: 10px;
+}
+
+.mentoapply {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .mentoapply button{
@@ -134,4 +203,14 @@ body {
 
 .text-wrapper-6{
     width:fit-content;
+}
+
+.mentoprice {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+#locatebutton {
+    margin-left: auto;
 }

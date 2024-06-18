@@ -3,6 +3,8 @@ package hello.example.porthub.controller;
 import hello.example.porthub.config.util.ChatSessionUtil;
 import hello.example.porthub.domain.ChatMessageDto;
 import hello.example.porthub.domain.ChatUsersDto;
+import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.service.ChatService;
 import hello.example.porthub.service.SessionParticipantService;
 import hello.example.porthub.service.UserService;
@@ -17,8 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class ChatController {
@@ -27,12 +31,14 @@ public class ChatController {
     private final UserService userService;
     private final SessionParticipantService sessionParticipantService;
 
+    private final MemberRepository memberRepository;
     @Autowired
     public ChatController(ChatService chatService, UserService userService,
-                          SessionParticipantService sessionParticipantService) {
+                          SessionParticipantService sessionParticipantService, MemberRepository memberRepository) {
         this.chatService = chatService;
         this.userService = userService;
         this.sessionParticipantService = sessionParticipantService;
+        this.memberRepository = memberRepository;
     }
 
     @MessageMapping("/chat.sendMessage")
@@ -48,9 +54,12 @@ public class ChatController {
 
     @GetMapping("/api/chat-messages/{sessionId}")
     @ResponseBody
-    public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable("sessionId") String sessionId) {
+    public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable String sessionId, Principal principal) {
+        System.out.println("sessionId: " + sessionId);
         try {
-            List<ChatMessageDto> chatMessages = chatService.getChatHistoryBySessionId(sessionId);
+            String currentUserEmail = principal.getName();
+            int currentUserId = userService.findUserIDByEmail(currentUserEmail);
+            List<ChatMessageDto> chatMessages = chatService.getChatHistoryBySessionId(sessionId, currentUserId);
             return ResponseEntity.ok(chatMessages);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -70,21 +79,15 @@ public class ChatController {
             return ResponseEntity.badRequest().body("Message content is required");
         }
         try {
+            System.out.println(chatSession);
             String currentUserEmail = principal.getName();
+
             int currentUserId = userService.findUserIDByEmail(currentUserEmail);
-
             String sessionId = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId());
-
-            // Check if a session already exists
-            boolean isExistingSessionId = chatService.isSessionParticipant(sessionId, chatSession.getRecipientUserId());
-            if (isExistingSessionId == true) {
-                return ResponseEntity.ok(sessionId);
-            }
-
-            // If no existing session, create a new one
             sessionParticipantService.addParticipantToSession(sessionId, currentUserId);
             sessionParticipantService.addParticipantToSession(sessionId, chatSession.getRecipientUserId());
-            chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(), sessionId);
+            if (!Objects.equals(chatSession.getContent(), "Initiating chat"))
+                chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(), sessionId);
             return ResponseEntity.ok(sessionId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -92,22 +95,28 @@ public class ChatController {
         }
     }
 
-
     @GetMapping("/user/chat/{sessionId}")
     public String chatPage(@PathVariable("sessionId") String sessionId, Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
+
         String currentUserEmail = principal.getName();
         int currentUserId = userService.findUserIDByEmail(currentUserEmail);
-        int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
-        String recipientUsername = userService.findUsernameById(recipientUserId);
+        String currentUserProfileImg = userService.findUserProfileImageById(currentUserId);
         List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
         List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
+
+        int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
+        String recipientUsername = userService.findUsernameById(recipientUserId);
+        String recipientUserProfileImg = userService.findUserProfileImageById(recipientUserId);
+
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
+        model.addAttribute("currentUserProfileImage", currentUserProfileImg);
         model.addAttribute("recipientUserId", recipientUserId);
         model.addAttribute("recipientUsername", recipientUsername);
+        model.addAttribute("recipientUserProfileImage", recipientUserProfileImg);
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
         model.addAttribute("sessionId", sessionId);
@@ -119,14 +128,38 @@ public class ChatController {
         if (principal == null) {
             return "redirect:/login";
         }
+
         String currentUserEmail = principal.getName();
         int currentUserId = userService.findUserIDByEmail(currentUserEmail);
+        String currentUserProfileImg = userService.findUserProfileImageById(currentUserId);
         List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
         List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
+
+//        List<MemberDto> followingUserInfos = new ArrayList<>();
+//        for (ChatUsersDto following : followings) {
+//            MemberDto followingUserInfo = memberRepository.findmemberByUserID(following.getId());
+//            followingUserInfos.add(followingUserInfo);
+//        }
+
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
+        model.addAttribute("currentUserProfileImage", currentUserProfileImg);
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
+//        model.addAttribute("followingUserInfos", followingUserInfos);
+        model.addAttribute("motd", "팔로워에게 비공개 메세지를 보내보세요");
+
         return "user/chat";
+    }
+
+    @GetMapping("/user/leave/{sessionId}")
+    public String leaveChat(@PathVariable("sessionId") String sessionId, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        Integer currentUserId = userService.findUserIDByEmail(principal.getName());
+        System.out.println(currentUserId);
+        chatService.leaveChatSession(sessionId, currentUserId);
+        return "redirect:/user/chat";
     }
 }
