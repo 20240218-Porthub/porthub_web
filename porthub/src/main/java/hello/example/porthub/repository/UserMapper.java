@@ -16,4 +16,7 @@ public interface UserMapper {
 
     @Select("SELECT UserName FROM Users WHERE UserID = #{recipientUserId}")
     String findUsernameById(int recipientUserId);
+
+    @Select("SELECT ProfileImage FROM Users WHERE UserID = #{userId}")
+    String findUserProfileImageById(int userId);
 }

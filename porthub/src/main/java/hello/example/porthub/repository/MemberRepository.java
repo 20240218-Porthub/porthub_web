@@ -22,7 +22,6 @@ public class MemberRepository {
         return sql.update("Member.imageupdate",memberDto);
     }
 
-
     public MemberDto findByUserName(String UserName) {
         return sql.selectOne("Member.findByUserName", UserName);
     }
@@ -32,6 +31,7 @@ public class MemberRepository {
     }
 
     public MemberDto findmemberByUserID(int UserID){ return sql.selectOne("Member.findmemberByUserID", UserID); }
+
     public MemberDto findByUserIDtoEmail(String Email) {
         return sql.selectOne("Member.findByUserIDtoEmail", Email);
     }

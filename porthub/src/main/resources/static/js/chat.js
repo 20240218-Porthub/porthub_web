@@ -2,7 +2,7 @@ $(document).ready(function () {
     const API_ENDPOINTS = {
         FOLLOWINGS: '/api/followings',
         NEW_CHAT: '/chats/new',
-        USER_DETAILS: '/api/user-details' // Assuming this endpoint exists
+        USER_DETAILS: '/api/user-details'
     };
 
     const $sendButton = $('#button-send');
@@ -16,41 +16,17 @@ $(document).ready(function () {
     var sessionId = window.location.pathname.split('/').pop();
     var stompClient = null;
 
-    loadChatMessages(sessionId);
-
-    // Fetch the logged-in user's details
-    // $.ajax({
-    //     url: '/api/user',
-    //     method: 'GET',
-    //     success: function (response) {
-    //         loggedInUsername = response.username;
-    //         loggedInUserId = response.userID // Parse the userId as an integer
-    //     },
-    //     error: function () {
-    //         console.error('Failed to fetch logged-in user. Please try again.');
-    //     }
-    // });
-
-    // $('.startChatButton').on('click', function() {
-    //     var followingUserId = $(this).data('user-id');
-    //     var content = $('#msg').val();
-    //     // if (content.trim() === '') {
-    //     //     alert('Please type a message to start the chat.');
-    //     //     return;
-    //     // }
-    //     startNewChat(followingUserId, content);
-    //     $('#msg').val('');
-    // });
-
+    if (sessionId && sessionId !== "chat") {
+        loadChatMessages(sessionId);
+    }
 
     $('#send_message_btn').on('click', function () {
         var followingUserId = $(this).data('user-id');
-        console.log("button USerID")
-        var content = $('#message_input').val();
-        // if (content.trim() === '') {
-        //     alert('Please type a message to start the chat.');
-        //     return;
-        // }
+        var content = $('#message_input').val().trim();
+        if (content === '') {
+            alert('Please type a message to start the chat.');
+            return;
+        }
         startNewChat(followingUserId, content);
         $('#message_input').val('');
     });
@@ -64,32 +40,22 @@ $(document).ready(function () {
         var messageElement = document.createElement('div');
         messageElement.className = 'message-item';
 
-        // Check if the senderUserId matches the current user's ID
         if (message.senderUserId == loggedInUserId) {
             messageElement.classList.add('sent');
         } else {
             messageElement.classList.add('received');
         }
-        console.log(messageElement.classList);
 
         var contentElement = document.createElement('div');
         contentElement.className = 'message-content';
-
-        var senderElement = document.createElement('span');
-        senderElement.className = 'message-sender';
-        senderElement.textContent = message.senderUserId + ': ';
-
         var textElement = document.createElement('span');
         textElement.textContent = message.content;
-
         var timestampElement = document.createElement('span');
         timestampElement.className = 'message-timestamp';
         timestampElement.textContent = formatTimestamp(message.timestamp);
 
-        contentElement.appendChild(senderElement);
         contentElement.appendChild(textElement);
         contentElement.appendChild(timestampElement);
-
         messageElement.appendChild(contentElement);
 
         return messageElement;
@@ -142,7 +108,6 @@ $(document).ready(function () {
 
     function loadChatMessages(sessionId) {
         $msgArea.empty();
-
         $.ajax({
             url: '/api/chat-messages/' + sessionId,
             method: 'GET',
@@ -175,7 +140,7 @@ $(document).ready(function () {
             data: JSON.stringify({ recipientUserId: followingUserId, content: content }),
             success: function (sessionId) {
                 console.log('New chat started successfully. Session ID:', sessionId);
-                window.location.href = '/user/chat/' + sessionId; // 새로운 URL로 이동
+                window.location.href = '/user/chat/' + sessionId;
             },
             error: function (xhr) {
                 console.error('Failed to start a new chat. Please try again.', xhr.responseText);
@@ -189,24 +154,31 @@ $(document).ready(function () {
             var senderId = $('#senderId').val();
             var recipientId = $('#recipientId').val();
             var sessionId = $('#sessionId').val();
+            var content = messageInput.val().trim();
 
-            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
-                'senderUserId': senderId,
-                'recipientUserId': recipientId,
-                'content': messageInput.val(),
-                'timestamp': new Date().toISOString(),
-                'sessionId': sessionId
-            }));
+            if (content === '') {
+                alert('Please type a message.');
+                return;
+            }
 
-            var sentMessage = {
-                senderUserId: senderId,
-                content: messageInput.val(),
-                timestamp: new Date().toISOString()
-            };
-            var messageElement = createMessageElement(sentMessage);
-            // $msgArea.append(messageElement);
-            $msgArea.scrollTop($msgArea[0].scrollHeight);
-            messageInput.val('');
+            if (messageInput) {
+                stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+                    'senderUserId': senderId,
+                    'recipientUserId': recipientId,
+                    'content': content,
+                    'timestamp': new Date().toISOString(),
+                    'sessionId': sessionId
+                }));
+
+                var sentMessage = {
+                    senderUserId: senderId,
+                    content: content,
+                    timestamp: new Date().toISOString()
+                };
+                var messageElement = createMessageElement(sentMessage);
+                $msgArea.scrollTop($msgArea[0].scrollHeight);
+                messageInput.val('');
+            }
         } else {
             console.error('WebSocket connection is not active. Cannot send message.');
         }
