@@ -158,7 +158,6 @@ public class ChatController {
             return "redirect:/login";
         }
         Integer currentUserId = userService.findUserIDByEmail(principal.getName());
-        System.out.println(currentUserId);
         chatService.leaveChatSession(sessionId, currentUserId);
         return "redirect:/user/chat";
     }

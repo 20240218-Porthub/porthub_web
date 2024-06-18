@@ -164,7 +164,7 @@ button#addChatButton {
     display: flex;
     flex: 1;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: unset;
     padding: 1.5rem;
     gap: 0.5rem;
     background-color: #fff;
@@ -179,7 +179,7 @@ button#addChatButton {
     align-items: center;
     padding: 1.25rem;
     border-bottom: 0.0625rem solid #ddd;
-    position: fixed;
+    position: static;
     top: 3rem;
     background-color: white;
 }
@@ -205,11 +205,12 @@ button#addChatButton {
     color: #888;
 }
 
-.chat-area .msg-area {
-    width: auto;
-    overflow-y: unset;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+.msg-area-container{
+    overflow-y: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-height: 38rem;
+    min-height: 38rem;
 }
 
 .leave-chat-button {
@@ -279,12 +280,16 @@ button#addChatButton {
 
 .chat-area .input-area {
     display: flex;
-    padding: 1.5rem;
+    /* padding: 1.5rem; */
+    padding-top: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1.5rem;
     align-items: center;
     gap: 1.5rem;
-    width: -webkit-fill-available;
-    position: fixed;
-    bottom: 0;
+    width: 100%;
+    position: static;
+    bottom: 1rem;
     background-color: white;
 }
 

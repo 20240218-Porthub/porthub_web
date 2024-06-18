@@ -73,11 +73,13 @@
                     </div>
                 </div>
             </div>
-            <div class="chat-area msg-area" id="msgArea" th:unless="${isNewUser}">
-                <div class="message-item" th:each="message : ${chatMessages}">
-                    <span class="message-sender" th:text="${message.senderUserId}"></span>
-                    <span class="message-content" th:text="${message.content}"></span>
-                    <span class="message-timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+            <div class="msg-area-container">
+                <div class="msg-area" id="msgArea" th:unless="${isNewUser}">
+                    <div class="message-item" th:each="message : ${chatMessages}">
+                        <span class="message-sender" th:text="${message.senderUserId}"></span>
+                        <span class="message-content" th:text="${message.content}"></span>
+                        <span class="message-timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+                    </div>
                 </div>
             </div>
             <div class="input-area">
