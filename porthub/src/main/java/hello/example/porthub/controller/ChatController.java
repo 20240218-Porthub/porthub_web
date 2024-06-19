@@ -76,7 +76,7 @@ public class ChatController {
 
     @GetMapping("/api/chat-messages/{sessionId}")
     @ResponseBody
-    public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable String sessionId, Principal principal) {
+    public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable("sessionId") String sessionId, Principal principal) {
         System.out.println("sessionId: " + sessionId);
         try {
             String currentUserEmail = principal.getName();
