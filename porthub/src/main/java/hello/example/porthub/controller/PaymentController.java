@@ -57,8 +57,13 @@ public class PaymentController {
             mentoDto.setCredit(mentoDto.getCredit()+orderSaveDto.getAmount());
             mentoService.updatecredit(mentoDto);
             MemberDto buyer=memberRepository.findByEmail(orderSaveDto.getBuyer_email());
-            String newpaid=buyer.getPaidProduct()+","+orderSaveDto.getGoods_id();
-            buyer.setPaidProduct(newpaid);
+            String curpaid=buyer.getPaidProduct();
+            if(curpaid==null){
+                buyer.setPaidProduct(orderSaveDto.getGoods_id(););
+            }
+            else{
+                buyer.setPaidProduct(curpaid+","+orderSaveDto.getGoods_id());
+            }
             paymentService.UpdateUserPaid(buyer);
             log.info("orderID="+orderID);
             log.info("결제 성공 : 주문 번호 {}", orderNumber);
