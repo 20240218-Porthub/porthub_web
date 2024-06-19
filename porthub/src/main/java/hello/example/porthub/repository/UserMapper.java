@@ -11,6 +11,9 @@ public interface UserMapper {
     @Select("SELECT UserID as id, UserName as username, Email, ProfileImage FROM Users WHERE Email = #{currentUserEmail}")
     int findUserIDByEmail(String currentUserEmail);
 
+    @Select("SELECT UserID as id, UserName as username, Email, ProfileImage FROM Users WHERE UserID = #{UserID}")
+    ChatUsersDto findChatUserDtoByUserID(int UserID);
+
     @Select("SELECT UserID as id, UserName as username, Email, ProfileImage FROM Users WHERE UserID IN (SELECT FollowingID FROM Follows WHERE FollowerID = #{id})")
     List<ChatUsersDto> findFollowingsByID(int id);
 
