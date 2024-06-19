@@ -1,11 +1,13 @@
 package hello.example.porthub.service;
 
+import hello.example.porthub.domain.ChatMessageDto;
 import hello.example.porthub.domain.ChatUsersDto;
 import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,7 +43,15 @@ public class UserService {
                 break;
             }
         }
-        System.out.println(followings);
         return followings;
+    }
+
+    public List<ChatUsersDto> getSessionParticipants(List<ChatMessageDto> chatSessions) {
+        // Loop through chatSessions to get the list of recipients of the session that the current user is included in
+        List<ChatUsersDto> sessionParticipants = new ArrayList<>();
+        for (ChatMessageDto chatSession : chatSessions) {
+            sessionParticipants.add(userMapper.findChatUserDtoByUserID(chatSession.getRecipientUserId()));
+        }
+        return sessionParticipants;
     }
 }

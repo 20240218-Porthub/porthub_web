@@ -77,7 +77,6 @@ public class ChatController {
     @GetMapping("/api/chat-messages/{sessionId}")
     @ResponseBody
     public ResponseEntity<Object> getChatMessagesBySessionId(@PathVariable("sessionId") String sessionId, Principal principal) {
-        System.out.println("sessionId: " + sessionId);
         try {
             String currentUserEmail = principal.getName();
             int currentUserId = userService.findUserIDByEmail(currentUserEmail);
@@ -99,21 +98,14 @@ public class ChatController {
             return ResponseEntity.badRequest().body("Recipient ID is required");
         }
         if (chatSession.getContent() == null || chatSession.getContent().isEmpty()) {
-            System.out.println("here!!!");
             return ResponseEntity.badRequest().body("Message content is required");
         }
         try {
-            System.out.println(chatSession);
             String currentUserEmail = principal.getName();
 
             int currentUserId = userService.findUserIDByEmail(currentUserEmail); // 이메일로부터 현재 사용자 ID를 가져옴
-            System.out.println(currentUserId);
             String sessionId = ChatSessionUtil.generateSessionKey(currentUserId, chatSession.getRecipientUserId()); // 세션 ID 생성
-            System.out.println("Session ID: " + sessionId);
             Integer recipientId = chatSession.getRecipientUserId();
-
-
-            System.out.println("Recipient ID: " + recipientId);
             sessionParticipantService.addParticipantToSession(sessionId, currentUserId);
             sessionParticipantService.addParticipantToSession(sessionId, chatSession.getRecipientUserId());
 
@@ -156,6 +148,7 @@ public class ChatController {
         int recipientUserId = chatService.getRecipientUserIdBySessionId(sessionId, currentUserId);
         String recipientUsername = userService.findUsernameById(recipientUserId);
         String recipientUserProfileImg = userService.findUserProfileImageById(recipientUserId);
+        List<ChatUsersDto> sessionParticipants = userService.getSessionParticipants(chatSessions);
 
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
@@ -166,6 +159,7 @@ public class ChatController {
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
         model.addAttribute("sessionId", sessionId);
+        model.addAttribute("sessionParticipants", sessionParticipants);
         return "user/chat";
     }
 
@@ -181,11 +175,15 @@ public class ChatController {
         List<ChatUsersDto> followings = userService.getFollowings(currentUserId);
         List<ChatMessageDto> chatSessions = chatService.getFullChatHistoryForUser(currentUserId);
 
+        // Gotta add all the attributes regardless of the following status of the user in the chat history
+        List<ChatUsersDto> sessionParticipants = userService.getSessionParticipants(chatSessions);
+
         model.addAttribute("email", currentUserEmail);
         model.addAttribute("userID", currentUserId);
         model.addAttribute("currentUserProfileImage", currentUserProfileImg);
         model.addAttribute("followings", followings);
         model.addAttribute("chatSessions", chatSessions);
+        model.addAttribute("sessionParticipants", sessionParticipants);
         model.addAttribute("motd", "팔로워에게 비공개 메세지를 보내보세요");
 
         return "user/chat";
