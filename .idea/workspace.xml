@@ -135,12 +135,12 @@
     "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
     "vue.rearranger.settings.migration": "true"
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mariadb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/porthub/src/main/resources" />
@@ -150,29 +150,7 @@
       <recent name="C:\Users\hong\IdeaProjects\porthub_web\porthub\src\main\resources\templates\profile" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.PorthubApplication">
-    <configuration name="porthub [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/porthub" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="dependencies" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="PorthubApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="porthub.main" />
       <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
@@ -187,11 +165,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.porthub [dependencies]" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -284,7 +257,7 @@
       <workItem from="1718607169235" duration="1083000" />
       <workItem from="1718635923920" duration="14161000" />
       <workItem from="1718757171718" duration="1124000" />
-      <workItem from="1718783007540" duration="301000" />
+      <workItem from="1718783007540" duration="6749000" />
     </task>
     <task id="LOCAL-00001" summary="fix: Comment out unnecessary getUserIdFromPrincipal method">
       <option name="closed" value="true" />
@@ -399,6 +372,7 @@
       <updated>1718766750783</updated>
     </task>
     <option name="localTasksCounter" value="15" />
+
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -418,6 +392,9 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="fix: Comment out unnecessary getUserIdFromPrincipal method" />
+
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Comment out unnecessary getUserIdFromPrincipal method" />
+
     <MESSAGE value="fix: Sort and display the chat sessions in the sidebar in descending order by the timestamp of their last message, ensuring the most recent conversations are listed at the top" />
     <MESSAGE value="refactor: Minor error resolutions and cleanup" />
     <MESSAGE value="feat: Profile message-button redirection implementation" />
@@ -431,6 +408,7 @@
     <MESSAGE value="fix: WebSocket shutdown handling" />
     <MESSAGE value="feat: Add GPT chatbot integration and improve error handling&#10;&#10;- Integrated GPT chatbot in ChatGptService with error handling for OpenAI API server errors&#10;- Prevented saving of null or empty GPT responses in the database&#10;- Modified ChatMessageDto to include `isClientEcho` flag to differentiate client and server messages&#10;- Updated client-side JavaScript to handle duplicate messages and server errors&#10;- Ensured that messages are not displayed twice in the chat UI&#10;- Improved WebSocket message handling by checking `isClientEcho` flag before appending messages to the UI&#10;- Adjusted error handling in the ChatController to handle null or empty GPT responses" />
     <option name="LAST_COMMIT_MESSAGE" value="feat: Add GPT chatbot integration and improve error handling&#10;&#10;- Integrated GPT chatbot in ChatGptService with error handling for OpenAI API server errors&#10;- Prevented saving of null or empty GPT responses in the database&#10;- Modified ChatMessageDto to include `isClientEcho` flag to differentiate client and server messages&#10;- Updated client-side JavaScript to handle duplicate messages and server errors&#10;- Ensured that messages are not displayed twice in the chat UI&#10;- Improved WebSocket message handling by checking `isClientEcho` flag before appending messages to the UI&#10;- Adjusted error handling in the ChatController to handle null or empty GPT responses" />
+
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

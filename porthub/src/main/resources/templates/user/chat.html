@@ -40,6 +40,7 @@
                 <a th:href="@{'/user/chat/' + ${ChatSession.sessionId}}" class="chat-link">
                     <div class="chat-avatar">
                         <img th:each="sessionParticipant : ${sessionParticipants}" th:if="${sessionParticipant.id == ChatSession.recipientUserId}" th:src="${sessionParticipant.getProfileImage()}" alt="User Avatar">
+
                     </div>
                     <div class="chat-details">
                         <span th:each="sessionParticipant : ${sessionParticipants}" th:if="${sessionParticipant.id == ChatSession.recipientUserId}" class="chat-username">
