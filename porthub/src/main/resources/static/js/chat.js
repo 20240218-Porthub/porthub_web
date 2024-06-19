@@ -70,9 +70,13 @@ $(document).ready(function () {
                 var chatMessage = JSON.parse(message.body);
                 var messageElement = createMessageElement(chatMessage);
                 $msgArea.append(messageElement);
-                $msgArea.scrollTop($msgArea[0].scrollHeight);
+                scrollToBottom();
             });
         });
+    }
+
+    function scrollToBottom() {
+        $msgArea[0].scrollTop = $msgArea[0].scrollHeight;
     }
 
     function fetchFollowings() {
@@ -119,7 +123,7 @@ $(document).ready(function () {
                         var messageElement = createMessageElement(message);
                         $msgArea.append(messageElement);
                     });
-                    $msgArea.scrollTop($msgArea[0].scrollHeight);
+                    scrollToBottom(); // 메시지를 로드한 후 스크롤을 맨 아래로 이동
                 } else {
                     console.error('Unexpected response format:', response);
                 }
@@ -170,13 +174,6 @@ $(document).ready(function () {
                     'sessionId': sessionId
                 }));
 
-                var sentMessage = {
-                    senderUserId: senderId,
-                    content: content,
-                    timestamp: new Date().toISOString()
-                };
-                var messageElement = createMessageElement(sentMessage);
-                $msgArea.scrollTop($msgArea[0].scrollHeight);
                 messageInput.val('');
             }
         } else {

@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="msg-area-container">
-                <div class="msg-area" id="msgArea" th:unless="${isNewUser}">
+                <div class="msg-area" id="msgArea" th:unless="${isNewUser}" style="overflow-y: auto; flex-grow: 1;">
                     <div class="message-item" th:each="message : ${chatMessages}">
                         <span class="message-sender" th:text="${message.senderUserId}"></span>
                         <span class="message-content" th:text="${message.content}"></span>

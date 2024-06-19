@@ -205,12 +205,19 @@ button#addChatButton {
     color: #888;
 }
 
-.msg-area-container{
+.msg-area-container {
     overflow-y: auto;
     margin-top: 1rem;
-    margin-bottom: 1rem;
-    max-height: 38rem;
-    min-height: 38rem;
+    margin-bottom: 0.5rem;
+    max-height: 37rem;
+    min-height: 37rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.msg-area {
+    overflow-y: scroll;
+    flex-grow: 1;
 }
 
 .leave-chat-button {
