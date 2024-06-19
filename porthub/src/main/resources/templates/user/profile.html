@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <style>
-        body {
-            /*background: url("/images/iim.png") no-repeat;*/
-            background-size: cover;
-        }
-    </style>
 
     <link rel="stylesheet" th:href="@{/css/profile/profile.css}"/>
-    <link rel="stylesheet" th:href="@{/css/profile/profileguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/profile/profileguide.css}"/>
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -30,16 +25,49 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container" style="display: flex">
                     <div class="avatar-profile-photo">
                         <img th:src="${member.profileImage}">
                     </div>
                     <div class="content">
                         <div class="heading">
                             <div class="text-and-supporting">
-                                <div class="text col-2">
-                                    <div th:text="${member.UserName}"></div>
-                                    <div class="col-2">
+                                <div class="text col-2" style="margin-bottom: 10px;">
+
+                                    <div class="user-info">
+                                        <div class="username" th:text="${member.UserName}"></div>
+<!--                                        <div class="username" th:text="${userId}"></div>-->
+                                        <div th:if="${isLoggedIn}">
+                                            <form th:action="@{'/profile/unfollow/'+ ${member.UserName}}"
+                                                  th:method="post" th:if="${followCheck}">
+                                                <button class="follow-btn" onclick="checkLogin('follow')"
+                                                        style="background-color: #e2e8f0; color: #64748b;">Following
+                                                </button>
+                                            </form>
+                                            <form th:action="@{'/profile/follow/'+ ${member.UserName}}" th:method="post"
+                                                  th:unless="${followCheck}">
+                                                <button class="follow-btn" onclick="checkLogin('follow')"
+                                                        style="background-color: black; color: #fff;">Follow
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div th:unless="${isLoggedIn}">
+                                            <a class="follow-btn" onclick="checkLogin('follow')"
+                                               style="background-color: black; color: #fff;">Follow</a>
+                                        </div>
+
+                                        <div th:if="${isLoggedIn}">
+                                            <button class="message-button" th:attr="data-user-id=${userId}">
+                                                <ion-icon name="mail-outline" class="icon"></ion-icon>
+                                                <span class="tw-text-ellipsis tw-line-clamp-1 tw-ml-1">메시지</span>
+                                            </button>
+                                        </div>
+                                        <div th:unless="${isLoggedIn}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2 follow-list" onclick="Showpopuplist()">
                                         <div class="follow">
                                             <span>팔로워</span><span th:text="${follows.follower}">nn</span>
                                         </div>
@@ -48,20 +76,32 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="olivia-untitledui">
-                                    <div>
-                                        <span>소속 </span><span th:text="${UserMeta.aff}">aff</span>
+
+                                <div class="profile-container">
+                                    <div class="profile-details olivia-untitledui">
+                                        <div class="profile-section">
+                                            <span class="profile-label">소속 </span><span
+                                                th:text="${UserMeta.aff}">aff</span>
+                                        </div>
+                                        <div class="profile-section">
+                                            <span class="profile-label">링크 </span><span
+                                                th:text="${UserMeta.link}">link</span>
+                                        </div>
+                                        <div class="profile-section">
+                                            <span class="profile-label">경력 </span><span th:text="${UserMeta.career}">career</span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span>링크 </span><span th:text="${UserMeta.link}">link</span>
-                                    </div>
-                                    <div>
-                                        <span>경력 </span><span th:text="${UserMeta.career}">career</span>
+                                    <div class="profile-intro olivia-untitledui">
+                                        <div class="profile-section">
+                                            <span class="profile-label">자기 소개 </span><span th:text="${UserMeta.intro}">intro</span>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="actions">
-                                <a th:if="${#authentication.name==member.email}" th:href="@{'/profile/'+${member.userName}+'/edit'}">
+                                <a th:if="${#authentication.name==member.email}"
+                                   th:href="@{'/profile/'+${member.userName}+'/edit'}">
                                     <ion-icon name="settings-outline"></ion-icon>
                                 </a>
 
@@ -71,29 +111,219 @@
                 </div>
             </div>
             <div class="section">
-                <div>
-                    <div>자기소개</div>
-                    <div th:text="${UserMeta.intro}"></div>
-                </div>
                 <div class="container">
-                    <div>포트폴리오</div>
-                    <div class="cards-section">
-                        <div class="div-2" th:each="portfolio : ${mainPortView}" th:onclick="'goToDetailPage(\'' + ${portfolio.PortfolioID} + '\')'">
-                            <img class="image" th:src="@{${portfolio.Thumbnail_url}}" src="img/image-2.png" />
+
+                    <div th:each="portfolio : ${mainPortView}" class="port-wrapper">
+                        <div class="port-2">
                             <div class="title-description">
-                                <div class="text-wrapper-5" th:text="${portfolio.Title}">Project title</div>
-                                <div class="text-wrapper-6">UI, Art drection</div>
+                                <div class="text-wrapper-5" th:data-src="${portfolio.Thumbnail_url}"
+                                     th:onclick="'goToDetailPage(\'' + ${portfolio.PortfolioID} + '\')'"></div>
+
+                                <div class="title-deco">
+                                    <span class="title-deco" th:text="${portfolio.Title}"></span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+<div id="followPopup" class="popup-overlay" onclick="closePopup(event)">
+    <div class="popup-content" onclick="event.stopPropagation()">
+        <div class="popup-header">
+            <span id="popupTitle" class="popup-title">목록</span>
 
+            <span class="popup-close" onclick="closePopup(event, true)">&times;</span>
+        </div>
+
+        <div class="request-header">
+            <button type="button" id="followerBtn" class="btn btn-primary-left btn-default" onclick="showActiveUsers()">Follower
+                <br><span th:text="${follows.follower}">nn</span>
+            </button>
+            <button type="button" id="followingBtn" class="btn btn-primary-right" onclick="showBlockedUsers()">Following
+                <br><span th:text="${follows.following}">nn</span>
+            </button>
+        </div>
+
+
+        <div id="activeUsers" style="display: block;">
+            <div id="followList" class="popup-list">
+                <!--            프로필 사진 유저 이름 유저 번호 팔로우 버튼 소속이 들어가도록 만들기 -->
+                <!-- 팔로워 및 팔로잉 버튼 클릭 목록이 여기에 동적으로 추가됩니다. -->
+                <div th:each="follwerDataList: ${follwerDataList}" class="Popularity">
+                    <div class="profile-wrapper" style="width: 50px; height: 50px;">
+                        <img class="profile-image" th:src="${follwerDataList.profileImage}"
+                             src="/static/images/profiletest.jpeg" th:attr="data-user-name=${follwerDataList.userName}"
+                             onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name" th:text="${follwerDataList.userName}">UserName</div>
+                        <div class="user-affiliation" th:text="${follwerDataList.aff}">소속</div>
+                    </div>
+
+                    <div th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
+                        <form th:action="@{'/unfollow/' + ${follwerDataList.UserID}}" th:method="post"
+                              th:if="${follwerDataList.followCheck}">
+                            <button type="submit" class="popup-follow-btn"
+                                    style="background-color: #e2e8f0; color: #64748b;">
+                                Following
+                            </button>
+                        </form>
+
+                        <!-- Follow form -->
+                        <form th:action="@{'/follow/' + ${follwerDataList.UserID}}" th:method="post"
+                              th:unless="${follwerDataList.followCheck}">
+                            <button type="submit" class="popup-follow-btn"
+                                    style="background-color: black; color: #fff;">Follow
+                            </button>
+                        </form>
+                    </div>
+                    <div th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
+                        <a class="popup-follow-btn" onclick="checkLogin()"
+                           style="background-color: black; color: #fff;">Follow</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div id="blockedUsers" style="display: none;">
+            <div id="followingList" class="popup-list">
+                <!--            프로필 사진 유저 이름 유저 번호 팔로우 버튼 소속이 들어가도록 만들기 -->
+                <!-- 팔로워 및 팔로잉 버튼 클릭 목록이 여기에 동적으로 추가됩니다. -->
+                <div th:each="follwingDataList: ${follwingDataList}" class="Popularity">
+                    <div class="profile-wrapper" style="width: 50px; height: 50px;">
+                        <img class="profile-image" th:src="${follwingDataList.profileImage}"
+                             src="/static/images/profiletest.jpeg"
+                             th:attr="data-user-name=${follwingDataList.userName}"
+                             onclick="goToProfilePage(this.getAttribute('data-user-name'))"/>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name" th:text="${follwingDataList.userName}">UserName</div>
+                        <div class="user-affiliation" th:text="${follwingDataList.aff}">소속</div>
+                    </div>
+
+                    <div th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
+                        <form th:action="@{'/unfollow/' + ${follwingDataList.UserID}}" th:method="post"
+                              th:if="${follwingDataList.followCheck}">
+                            <button type="submit" class="popup-follow-btn"
+                                    style="background-color: #e2e8f0; color: #64748b;">
+                                Following
+                            </button>
+                        </form>
+
+                        <!-- Follow form -->
+                        <form th:action="@{'/follow/' + ${follwingDataList.UserID}}" th:method="post"
+                              th:unless="${follwingDataList.followCheck}">
+                            <button type="submit" class="popup-follow-btn"
+                                    style="background-color: black; color: #fff;">Follow
+                            </button>
+                        </form>
+                    </div>
+                    <div th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
+                        <a class="popup-follow-btn" onclick="checkLogin()"
+                           style="background-color: black; color: #fff;">Follow</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<footer th:replace="~{fragments/footer::footerFragment}"></footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var messageButton = document.querySelector('.message-button');
+
+        messageButton.addEventListener('click', function () {
+            var profileOwnerId = this.getAttribute('data-user-id');
+            if (profileOwnerId) {
+                var requestData = JSON.stringify({
+                    recipientUserId: profileOwnerId,
+                    content: "Initiating chat"
+                });
+                console.log("Sending request data:", requestData); // Log request data
+
+                $.ajax({
+                    url: '/chats/new',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: requestData,
+                    success: function (response) {
+                        console.log("Server response:", response); // Log server response
+                        var sessionId = response;
+                        window.location.href = '/user/chat/' + sessionId;
+                    },
+                    error: function (xhr) {
+                        console.error('Failed to initiate chat session. Please try again.', xhr.responseText);
+                    }
+                });
+            } else {
+                console.error('Profile owner ID is not defined.');
+            }
+        });
+    });
+</script>
 </body>
 <script th:src="@{/js/profile.js}" src="/static/js/profile.js"></script>
+<script>
+    function checkLogin(check) {
+        var isLoggedIn = false; // 로그인 상태를 나타내는 변수 (임시로 false로 설정)
+        isLoggedIn = [[${isLoggedIn}]];
+        if (isLoggedIn) {
+            if (check === "report") {
+                showReportPopup();
+            }
+        } else {
+            // 로그인되어 있지 않으면 로그인 요청 팝업을 보여줍니다.
+            var check_login = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+            if (check_login) {
+                window.location.href = '/login';
+            }
+        }
+    }
+
+    function Showpopuplist() {
+        document.getElementById('followPopup').style.display = 'flex';
+    }
+
+    function closePopup(event, forceClose = false) {
+        if (forceClose || event.target === event.currentTarget) {
+            document.getElementById('followPopup').style.display = 'none';
+        }
+    }
+
+    function goToProfilePage(UserName) {
+        window.location.href = '/profile/' + UserName;
+    }
+
+    function showActiveUsers() {
+
+        document.getElementById('followerBtn').classList.add('active');
+        document.getElementById('followingBtn').classList.remove('active');
+        document.getElementById("activeUsers").style.display = "block";
+        document.getElementById("blockedUsers").style.display = "none";
+
+        document.getElementById('followerBtn').classList.remove('btn-default');
+    }
+
+    function showBlockedUsers() {
+        document.getElementById("activeUsers").style.display = "none";
+        document.getElementById("blockedUsers").style.display = "block";
+        document.getElementById('followerBtn').classList.remove('active');
+        document.getElementById('followingBtn').classList.add('active');
+
+        document.getElementById('followerBtn').classList.remove('btn-default');
+    }
+
+</script>
 </html>

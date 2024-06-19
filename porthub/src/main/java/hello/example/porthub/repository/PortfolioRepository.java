@@ -198,4 +198,13 @@ public class PortfolioRepository {
     public List<MainPortViewDto> findSelectListPorts(List<Integer> iDs) {
         return sql.selectList("Portfolio.findSelectListPorts", iDs);
     }
+
+    public int findUserIDbyUserName(String userName) {
+        return sql.selectOne("Portfolio.findUserIDbyUserName", userName);
+    }
+
+    public List<PopularDto> findgetFollowListbyUserID(List<Integer> userid) {
+        return sql.selectList("Portfolio.findgetFollowListbyUserID", userid);
+    }
+
 }

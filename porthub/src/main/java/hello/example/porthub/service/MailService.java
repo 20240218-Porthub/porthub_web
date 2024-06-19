@@ -38,7 +38,7 @@ public class MailService {
     public int sendMail(String mail) {
         MimeMessage message = CreateMail(mail);
         javaMailSender.send(message);
-
+//        System.out.println(number);
         return number;
     }
 }

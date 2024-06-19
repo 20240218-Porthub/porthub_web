@@ -8,9 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <th:block th:replace="~{fragments/config::configFragment}"></th:block>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="top-header" th:replace="~{fragments/header::headerFragment}"></div>
+<br><br><br>
 <div class="container">
     <div class="sidebar">
         <div class="header">
@@ -27,13 +31,13 @@
             <!--            <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Search messages...">-->
             <input type="text" id="searchInput" placeholder="Search messages..." aria-label="Search for messages">
         </div>
-        <ul class="chat-list">
+        <ul class="chat-list" id="chatList">
             <li th:each="ChatSession : ${chatSessions}" class="chat-item">
                 <!-- I also changed this part right below from /chat/{ChatSession.sessionId} to /user/chat/{ChatSession.sessionId} -->
                 <!-- Still not sure what it should be, but I thought it should be /user/chat/{ChatSession.sessionId} -->
                 <a th:href="@{'/user/chat/' + ${ChatSession.sessionId}}" class="chat-link">
                     <div class="chat-avatar">
-                        <!--                        <img th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" th:src="@{/images/following.avatarUrl}" alt="User Avatar">-->
+                        <img th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" th:src="${following.getProfileImage()}" alt="User Avatar">
                     </div>
                     <div class="chat-details">
                         <span th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" class="chat-username">
@@ -45,48 +49,48 @@
                 </a>
             </li>
         </ul>
-        <div class="followers-list">
-            <h4>Followers</h4>
-            <ul id="followersList">
-                <li th:each="following : ${followings}">
-                    <span th:text="${following.username}"></span>
-                    <button class="s" th:data-user-id="${following.id}">Start Chat</button>
-                </li>
-            </ul>
-        </div>
     </div>
     <div class="chat-area">
-        <div th:if="${isNewUser}">
-            <p>You're starting a new conversation.</p>
+        <div th:if="${motd != null}">
+            <p th:text="${motd}" style="text-align: center; margin-top: 50px; font-size: 1.2em; color: gray;"></p>
         </div>
-        <div class="header">
-            <div class="user-info">
-                <img th:src="@{/images/user-avatar.png}" alt="User Avatar">
-                <div>
-                    <span class="username" th:text="${recipientUserId}"></span>
-                    <!--<span class="status" th:text="${partnerStatus}"></span>-->
+        <div th:if="${motd == null}">
+            <div class="header">
+                <div class="user-info">
+                    <img th:src="${recipientUserProfileImage}" alt="User Avatar">
+                    <div>
+                        <span class="username" th:text="${recipientUsername}"></span>
+                        <!--<span class="status" th:text="${partnerStatus}"></span>-->
+                    </div>
+                </div>
+                <button id="leaveChatButton" class="leave-chat-button"> <a th:href="@{'/user/leave/' + ${sessionId}}">Leave</a> </button>
+                <!-- 나가기 버튼 클릭 시 확인 요청 모달 -->
+                <div id="leaveChatConfirm" class="modal leave-chat-modal">
+                    <div class="modal_popup">
+                        <h3>채팅방을 나가시겠습니까?</h3>
+                        <button id="confirmLeave">나가기</button>
+                        <button onclick="closeModal('leaveChatConfirm')">취소</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="chat-area" id="msgArea" th:unless="${isNewUser}">
-            <div class="message-item" th:each="message : ${chatMessages}">
-                <span class="message-sender" th:text="${message.senderUserId}"></span>
-                <span class="message-content" th:text="${message.content}"></span>
-                <span class="message-timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+            <div class="chat-area msg-area" id="msgArea" th:unless="${isNewUser}">
+                <div class="message-item" th:each="message : ${chatMessages}">
+                    <span class="message-sender" th:text="${message.senderUserId}"></span>
+                    <span class="message-content" th:text="${message.content}"></span>
+                    <span class="message-timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+                </div>
             </div>
-        </div>
-        <div class="input-area">
-            <label for="msg"></label><input type="text" id="msg" placeholder="Type a message...">
-            <button id="button-send">Send</button>
-            <input type="hidden" id="senderId" th:value="${userID}"/>
-            <input type="hidden" id="recipientId" th:value="${recipientUserId}"/>
-            <input type="hidden" id="sessionId" th:value="${sessionId}"/>
+            <div class="input-area">
+                <label for="msg"></label><input type="text" id="msg" placeholder="Type a message...">
+                <button id="button-send">Send</button>
+                <input type="hidden" id="senderId" th:value="${userID}"/>
+                <input type="hidden" id="recipientId" th:value="${recipientUserId}"/>
+                <input type="hidden" id="sessionId" th:value="${sessionId}"/>
+            </div>
         </div>
     </div>
 </div>
-
-<!-- ! 보여질 모달 Start -->
-<div class="modal">
+<div class="modal add-chat-modal">
     <div class="modal_popup">
         <div class="modal_header">
             <h3 style="text-align: center">새로운 메세지</h3>
@@ -109,8 +113,6 @@
         </div>
     </div>
 </div>
-<!-- ! 보여질 모달 End -->
-
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script th:inline="javascript">
@@ -118,22 +120,23 @@
     console.log(`Logged-in User ID: ${loggedInUserId}`);
 
     <!--! 보여질 모달 JS Start-->
-    // 모달 열기
+    // addChatButton 모달 열기
     document.getElementById('addChatButton').addEventListener('click', function () {
-        document.querySelector('.modal').style.display = 'block';
+        document.querySelector('.add-chat-modal').style.display = 'block';
     });
 
-    // 모달 닫기
+    // addChatButton 모달 닫기
     document.querySelector('.close_btn').addEventListener('click', function () {
-        document.querySelector('.modal').style.display = 'none';
+        document.querySelector('.add-chat-modal').style.display = 'none';
     });
 
-    // 모달 외부 클릭 시 닫기
+    // 모달 외부 클릭 시 addChatButton 모달 닫기
     window.addEventListener('click', function (event) {
-        if (event.target.classList.contains('modal')) {
-            document.querySelector('.modal').style.display = 'none';
+        if (event.target.classList.contains('add-chat-modal')) {
+            document.querySelector('.add-chat-modal').style.display = 'none';
         }
     });
+
     <!-- ! 보여질 모달 JS End -->
 
     <!--! 모달에서 화면 이동 JS START !-->
@@ -149,8 +152,6 @@
             document.getElementById("send_message_btn").setAttribute('data-user-id', userId);
             // 이전 버튼 표시
             document.querySelector('.before_btn').style.display = 'inline-block';
-
-
         });
     });
 
@@ -167,8 +168,47 @@
         });
     });
 
+    <!-- leaveChatButton 모달 JS Start -->
+    // leaveChatButton 클릭 이벤트
+    document.getElementById('leaveChatButton').addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 이벤트 차단
+        document.getElementById('leaveChatConfirm').style.display = 'block'; // 확인 모달 표시
+    });
 
-    <!--! 모달에서 화면 이동 JS END !-->
+    // leaveChatButton 모달 닫기 함수
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // 나가기 모달에서 나가기 확정
+    document.getElementById('confirmLeave').addEventListener('click', function() {
+        window.location.href = document.querySelector('#leaveChatButton a').href; // 실제 나가기 처리
+    });
+
+    // 모달 외부 클릭 시 leaveChatButton 모달 닫기
+    window.addEventListener('click', function (event) {
+        if (event.target.classList.contains('leave-chat-modal')) {
+            document.querySelector('.leave-chat-modal').style.display = 'none';
+        }
+    });
+    <!-- leaveChatButton 모달 JS End -->
+
+    // 검색 기능
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        let filter = this.value.toLowerCase();
+        let chatItems = document.querySelectorAll('.chat-item');
+
+        chatItems.forEach(function (item) {
+            let username = item.querySelector('.chat-username').textContent.toLowerCase();
+            let message = item.querySelector('.chat-message').textContent.toLowerCase();
+
+            if (username.includes(filter) || message.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
 </script>
 <script th:src="@{/js/chat.js}" src="/static/js/chat.js"></script>
 </body>
