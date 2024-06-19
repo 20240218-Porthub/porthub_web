@@ -157,7 +157,6 @@ public class ProfileController {
         int authorID = portfolioService.findUserIDbyUserName(UserName);
         String CurrentUseremail = SessionUtils.getCurrentUsername();
         portfolioService.unfollow(authorID, CurrentUseremail);
-        System.out.println("hi");
 
         return "redirect:/profile/" + UserName;
     }

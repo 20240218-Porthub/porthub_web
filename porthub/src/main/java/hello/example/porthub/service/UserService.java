@@ -43,7 +43,6 @@ public class UserService {
                 break;
             }
         }
-        System.out.println(followings);
         return followings;
     }
 
