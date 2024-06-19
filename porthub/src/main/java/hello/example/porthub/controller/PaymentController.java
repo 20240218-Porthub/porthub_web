@@ -5,8 +5,10 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import hello.example.porthub.domain.MemberDto;
+import hello.example.porthub.domain.MentoDto;
 import hello.example.porthub.domain.OrderSaveDto;
 import hello.example.porthub.repository.MemberRepository;
+import hello.example.porthub.service.MentoService;
 import hello.example.porthub.service.PaymentService;
 import hello.example.porthub.service.RefundService;
 import jakarta.annotation.PostConstruct;
@@ -29,6 +31,7 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final RefundService refundService;
     private final MemberRepository memberRepository;
+    private final MentoService mentoService;
 
     private IamportClient iamportClient;
 
@@ -50,6 +53,9 @@ public class PaymentController {
         String orderNumber=String.valueOf(orderSaveDto.getMerchant_uid());
         try {
             int orderID=paymentService.saveOrder(orderSaveDto);
+            MentoDto mentoDto= mentoService.selectmento(mentoService.mentoring(orderSaveDto.getGoods_id()).getMentoID());
+            mentoDto.setCredit(mentoDto.getCredit()+orderSaveDto.getAmount());
+            mentoService.updatecredit(mentoDto);
             MemberDto buyer=memberRepository.findByEmail(orderSaveDto.getBuyer_email());
             String newpaid=buyer.getPaidProduct()+","+orderSaveDto.getGoods_id();
             buyer.setPaidProduct(newpaid);

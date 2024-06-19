@@ -37,6 +37,14 @@ public class MentoringController {
         MemberDto member=memberRepository.findByEmail(principal.getName());
         int userid=member.getUserID();
 
+        if(!Objects.equals(member.getRole(), "USER")){
+            MentoDto mentoDto = mentoService.selectmento(userid);
+            model.addAttribute("mentoinfo",mentoDto);
+        }
+        else{
+            model.addAttribute("mentoinfo",null);
+        }
+
         String mentoprocess=mentoService.CheckMentoProcess(userid);
 
 
