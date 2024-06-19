@@ -56,7 +56,7 @@
   position: absolute;
   top: 0;
   left: 2px;
-  font-family: "Poppins-Medium", Helvetica;
+  font-family: "Poppins-Medium", sans-serif;
   font-weight: 500;
   color: #000000;
   font-size: 31px;
@@ -69,7 +69,7 @@
   top: 46px;
   left: 0;
   -webkit-text-stroke: 1.5px #1e1e1e;
-  font-family: "Poppins-Thin", Helvetica;
+  font-family: "Poppins-Thin", sans-serif;
   font-weight: 100;
   color: #1e1e1e;
   font-size: 40px;
@@ -82,7 +82,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  font-family: "Poppins-Light", Helvetica;
+  font-family: "Poppins-Light", sans-serif;
   font-weight: 300;
   color: #000000;
   font-size: 25px;
@@ -111,7 +111,7 @@
   width: 390px;
   top: -1px;
   left: 0;
-  font-family: "Poppins-Regular", Helvetica;
+  font-family: "Poppins-Regular", sans-serif;
   font-weight: 400;
   color: #000000;
   font-size: 16px;
@@ -135,7 +135,7 @@
   position: absolute;
   top: 17px;
   left: 26px;
-  font-family: "Poppins-Light", Helvetica;
+  font-family: "Poppins-Light", sans-serif;
   font-weight: 300;
   color: #ababab;
   font-size: 14px;
@@ -188,7 +188,7 @@
   position: absolute;
   top: 0;
   left: 22px;
-  font-family: "Poppins-Light", Helvetica;
+  font-family: "Poppins-Light", sans-serif;
   font-weight: 300;
   color: #000000;
   font-size: 12px;
@@ -200,7 +200,7 @@
   position: absolute;
   top: 0;
   left: 315px;
-  font-family: "Poppins-Light", Helvetica;
+  font-family: "Poppins-Light", sans-serif;
   font-weight: 300;
   color: #4c4c4c;
   font-size: 12px;
@@ -228,7 +228,7 @@
   position: absolute;
   top: 17px;
   left: 190px;
-  font-family: "Poppins-Medium", Helvetica;
+  font-family: "Poppins-Medium", sans-serif;
   font-weight: 500;
   color: #ffffff;
   font-size: 16px;
@@ -240,7 +240,7 @@
   position: absolute;
   top: 601px;
   left: 77px;
-  font-family: "Poppins-Light", Helvetica;
+  font-family: "Poppins-Light", sans-serif;
   font-weight: 400;
   color: transparent;
   font-size: 16px;
@@ -254,7 +254,7 @@
 }
 
 .login .text-wrapper-9 {
-  font-family: "Poppins-SemiBold", Helvetica;
+  font-family: "Poppins-SemiBold", sans-serif;
   font-weight: 600;
   color: #000000;
 }
