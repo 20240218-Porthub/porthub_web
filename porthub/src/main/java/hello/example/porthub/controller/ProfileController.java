@@ -147,7 +147,6 @@ public class ProfileController {
         int authorID = portfolioService.findUserIDbyUserName(UserName);
         String CurrentUseremail = SessionUtils.getCurrentUsername();
         portfolioService.following(authorID, CurrentUseremail);
-        System.out.println("nohi");
 
         return "redirect:/profile/" + UserName;
     }

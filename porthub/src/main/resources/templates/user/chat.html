@@ -39,11 +39,11 @@
                 <!-- Still not sure what it should be, but I thought it should be /user/chat/{ChatSession.sessionId} -->
                 <a th:href="@{'/user/chat/' + ${ChatSession.sessionId}}" class="chat-link">
                     <div class="chat-avatar">
-                        <img th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" th:src="${following.getProfileImage()}" alt="User Avatar">
+                        <img th:each="sessionParticipant : ${sessionParticipants}" th:if="${sessionParticipant.id == ChatSession.recipientUserId}" th:src="${sessionParticipant.getProfileImage()}" alt="User Avatar">
                     </div>
                     <div class="chat-details">
-                        <span th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" class="chat-username">
-                            <span th:text="${following.username}"></span>
+                        <span th:each="sessionParticipant : ${sessionParticipants}" th:if="${sessionParticipant.id == ChatSession.recipientUserId}" class="chat-username">
+                            <span th:text="${sessionParticipant.username}"></span>
                         </span>
                         <p class="chat-message" th:text="${ChatSession.content}"></p>
                         <p class="chat-timestamp"><small th:text="${ChatSession.timestamp}"></small></p>
