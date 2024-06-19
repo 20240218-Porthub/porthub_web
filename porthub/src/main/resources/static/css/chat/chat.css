@@ -19,7 +19,7 @@ body {
     margin-top: 3rem;
     background-color: #fff;
     overflow: unset;
-    position: fixed;
+    /*position: fixed;*/
 }
 
 .sidebar {
@@ -295,8 +295,8 @@ button#addChatButton {
     align-items: center;
     gap: 1.5rem;
     width: 65%;
-    position: fixed;
-    bottom: 1rem;
+    /*position: fixed;*/
+    /*bottom: 1rem;*/
     background-color: white;
 }
 
