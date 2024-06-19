@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project</title>
+    <title>PortfolioHub</title>
     <link th:href="@{/css/chat/chat.css}" href="/static/css/chat/chat.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="icon" href="https://porthub2.s3.ap-northeast-2.amazonaws.com/favicon.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <th:block th:replace="~{fragments/config::configFragment}"></th:block>
@@ -37,11 +39,12 @@
                 <!-- Still not sure what it should be, but I thought it should be /user/chat/{ChatSession.sessionId} -->
                 <a th:href="@{'/user/chat/' + ${ChatSession.sessionId}}" class="chat-link">
                     <div class="chat-avatar">
-                        <img th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" th:src="${following.ProfileImage}" alt="User Avatar">
+                        <img th:each="sessionParticipant : ${sessionParticipants}" th:if="${sessionParticipant.id == ChatSession.recipientUserId}" th:src="${sessionParticipant.getProfileImage()}" alt="User Avatar">
+
                     </div>
                     <div class="chat-details">
-                        <span th:each="following : ${followings}" th:if="${following.id == ChatSession.recipientUserId}" class="chat-username">
-                            <span th:text="${following.username}"></span>
+                        <span th:each="sessionParticipant : ${sessionParticipants}" th:if="${sessionParticipant.id == ChatSession.recipientUserId}" class="chat-username">
+                            <span th:text="${sessionParticipant.username}"></span>
                         </span>
                         <p class="chat-message" th:text="${ChatSession.content}"></p>
                         <p class="chat-timestamp"><small th:text="${ChatSession.timestamp}"></small></p>
@@ -73,11 +76,13 @@
                     </div>
                 </div>
             </div>
-            <div class="chat-area msg-area" id="msgArea" th:unless="${isNewUser}">
-                <div class="message-item" th:each="message : ${chatMessages}">
-                    <span class="message-sender" th:text="${message.senderUserId}"></span>
-                    <span class="message-content" th:text="${message.content}"></span>
-                    <span class="message-timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+            <div class="msg-area-container">
+                <div class="msg-area" id="msgArea" th:unless="${isNewUser}" style="overflow-y: auto; flex-grow: 1;">
+                    <div class="message-item" th:each="message : ${chatMessages}">
+                        <span class="message-sender" th:text="${message.senderUserId}"></span>
+                        <span class="message-content" th:text="${message.content}"></span>
+                        <span class="message-timestamp" th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+                    </div>
                 </div>
             </div>
             <div class="input-area">

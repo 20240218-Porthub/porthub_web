@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="" />
+    <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="fix: WebSocket shutdown handling">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -98,37 +104,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Gradle.Build porthub.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Gradle 종속성 로드.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Gradle 종속성 빌드 중.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.porthub 빌드.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.PorthubApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/kim2&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hong/Desktop/proker&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;전역 라이브러리&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Gradle.Build porthub.executor": "Run",
+    "Gradle.porthub [dependencies].executor": "Run",
+    "Gradle.porthub 빌드.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.PorthubApplication.executor": "Run",
+    "git-widget-placeholder": "feature/Lee2",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/hong/Desktop/proker",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "전역 라이브러리",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "vue.rearranger.settings.migration": "true"
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -262,7 +267,112 @@
       <option name="project" value="LOCAL" />
       <updated>1715656226062</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix: Sort and display the chat sessions in the sidebar in descending order by the timestamp of their last message, ensuring the most recent conversations are listed at the top">
+      <option name="closed" value="true" />
+      <created>1718526222907</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718526222907</updated>
+    </task>
+    <task id="LOCAL-00003" summary="refactor: Minor error resolutions and cleanup">
+      <option name="closed" value="true" />
+      <created>1718526343533</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718526343533</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: Profile message-button redirection implementation">
+      <option name="closed" value="true" />
+      <created>1718526427841</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1718526427841</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix: Update user profile image and cleanup css">
+      <option name="closed" value="true" />
+      <created>1718601122999</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718601122999</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix: Minor fixes regarding empty messages being displayed and some cleanups">
+      <option name="closed" value="true" />
+      <created>1718679038854</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718679038854</updated>
+    </task>
+    <task id="LOCAL-00007" summary="style: Header CSS adjustments">
+      <option name="closed" value="true" />
+      <created>1718679058769</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1718679058769</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: Add MOTD for /user/chat endpoint">
+      <option name="closed" value="true" />
+      <created>1718684358452</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1718684358452</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix: Exclude myself from the followings list in Chat">
+      <option name="closed" value="true" />
+      <created>1718684956426</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718684956426</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix: Remove redundant implementation statements in build.gradle">
+      <option name="closed" value="true" />
+      <created>1718691953062</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1718691953062</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix: Remove redundant implementation statements in build.gradle">
+      <option name="closed" value="true" />
+      <created>1718692015473</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1718692015473</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix: Resize input-area and fix scrolling issues">
+      <option name="closed" value="true" />
+      <created>1718764762786</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1718764762786</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fix: WebSocket shutdown handling">
+      <option name="closed" value="true" />
+      <created>1718764798414</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1718764798414</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: Add GPT chatbot integration and improve error handling&#10;&#10;- Integrated GPT chatbot in ChatGptService with error handling for OpenAI API server errors&#10;- Prevented saving of null or empty GPT responses in the database&#10;- Modified ChatMessageDto to include `isClientEcho` flag to differentiate client and server messages&#10;- Updated client-side JavaScript to handle duplicate messages and server errors&#10;- Ensured that messages are not displayed twice in the chat UI&#10;- Improved WebSocket message handling by checking `isClientEcho` flag before appending messages to the UI&#10;- Adjusted error handling in the ChatController to handle null or empty GPT responses">
+      <option name="closed" value="true" />
+      <created>1718766750783</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1718766750783</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -282,7 +392,23 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="fix: Comment out unnecessary getUserIdFromPrincipal method" />
+
     <option name="LAST_COMMIT_MESSAGE" value="fix: Comment out unnecessary getUserIdFromPrincipal method" />
+
+    <MESSAGE value="fix: Sort and display the chat sessions in the sidebar in descending order by the timestamp of their last message, ensuring the most recent conversations are listed at the top" />
+    <MESSAGE value="refactor: Minor error resolutions and cleanup" />
+    <MESSAGE value="feat: Profile message-button redirection implementation" />
+    <MESSAGE value="fix: Update user profile image and cleanup css" />
+    <MESSAGE value="fix: Minor fixes regarding empty messages being displayed and some cleanups" />
+    <MESSAGE value="style: Header CSS adjustments" />
+    <MESSAGE value="feat: Add MOTD for /user/chat endpoint" />
+    <MESSAGE value="fix: Exclude myself from the followings list in Chat" />
+    <MESSAGE value="fix: Remove redundant implementation statements in build.gradle" />
+    <MESSAGE value="fix: Resize input-area and fix scrolling issues" />
+    <MESSAGE value="fix: WebSocket shutdown handling" />
+    <MESSAGE value="feat: Add GPT chatbot integration and improve error handling&#10;&#10;- Integrated GPT chatbot in ChatGptService with error handling for OpenAI API server errors&#10;- Prevented saving of null or empty GPT responses in the database&#10;- Modified ChatMessageDto to include `isClientEcho` flag to differentiate client and server messages&#10;- Updated client-side JavaScript to handle duplicate messages and server errors&#10;- Ensured that messages are not displayed twice in the chat UI&#10;- Improved WebSocket message handling by checking `isClientEcho` flag before appending messages to the UI&#10;- Adjusted error handling in the ChatController to handle null or empty GPT responses" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Add GPT chatbot integration and improve error handling&#10;&#10;- Integrated GPT chatbot in ChatGptService with error handling for OpenAI API server errors&#10;- Prevented saving of null or empty GPT responses in the database&#10;- Modified ChatMessageDto to include `isClientEcho` flag to differentiate client and server messages&#10;- Updated client-side JavaScript to handle duplicate messages and server errors&#10;- Ensured that messages are not displayed twice in the chat UI&#10;- Improved WebSocket message handling by checking `isClientEcho` flag before appending messages to the UI&#10;- Adjusted error handling in the ChatController to handle null or empty GPT responses" />
+
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -144,7 +144,7 @@ public class AdminController {
     @PutMapping("/put/{ReportID}")
     public String ReportPut(@PathVariable("ReportID") int ReportID) {
 
-        System.out.println(ReportID);
+//        System.out.println(ReportID);
         int ChangeState = adminService.UpdateState(ReportID);
         if (ChangeState > 0) {
             return "redirect:/admin/report";
