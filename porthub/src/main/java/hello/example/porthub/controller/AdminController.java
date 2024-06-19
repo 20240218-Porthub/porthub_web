@@ -53,10 +53,12 @@ public class AdminController {
 
     @PostMapping("/mento/{status}/{id}")
     @ResponseBody
-    public MentoProcessDto AcceptMento(@PathVariable String status, @PathVariable int id, @RequestParam("company") String company, @RequestParam("univ") String univ, @RequestParam("issue") String issue){
+    public MentoProcessDto AcceptMento(@PathVariable("status") String status, @PathVariable("id") int id, @RequestParam("company") String company, @RequestParam("univ") String univ, @RequestParam("issue") String issue){
+        log.info("status="+status);
+        log.info("id="+id);
         MentoProcessDto mentoProcessDto = adminService.selectProcess(id);
-        MentoDto mentoDto=mentoService.selectmento(mentoProcessDto.getMentoID());
-        MemberDto memberDto=memberRepository.findmemberByUserID(mentoDto.getUserID());
+        MentoDto mentoDto=mentoService.selectmento(id);
+        MemberDto memberDto=memberRepository.findmemberByUserID(id);
 
         log.info("company="+company+",univ="+univ+",issue="+issue);
 
@@ -181,15 +183,15 @@ public class AdminController {
         return "redirect:/admin/user";
     }
 
-    @DeleteMapping("/delete/mentoring/{MentoID}")
-    public String MentoringDelete(@PathVariable("MentoID") String MentoID) {
-//        일단 냅두기
-
-        return "redirect:/";
+    @DeleteMapping("/delete/mentoring/{MentoringID}")
+    public String MentoringDelete(@PathVariable("MentoringID") int MentoringID) {
+        adminService.deletementoring(MentoringID);
+        return "redirect:/admin/mentoring";
     }
 
     @PutMapping("/lifting/user/{UserID}")
     public String LiftingUser(@PathVariable("UserID") int UserID) {
+        log.info("id="+UserID);
         adminService.UserLiftingbyUserID(UserID);
         return "redirect:/admin/user";
     }

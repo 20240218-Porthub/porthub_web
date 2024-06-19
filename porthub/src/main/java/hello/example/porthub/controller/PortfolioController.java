@@ -201,7 +201,7 @@ public class PortfolioController {
             return "redirect:/403";
         }
 
-        return "redirect:/";
+        return "redirect:/main";
     }
 
     @GetMapping("/views/put/{userName}/{PortfolioID}")

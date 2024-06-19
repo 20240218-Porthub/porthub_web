@@ -19,7 +19,7 @@ import java.util.List;
 public class AdminRepository {
     private final SqlSessionTemplate sql;
 
-    public MentoProcessDto selectProcess(int ProcessID){return sql.selectOne("admin.selectprocess",ProcessID);}
+    public MentoProcessDto selectProcess(int MentoID){return sql.selectOne("admin.selectprocess",MentoID);}
 
     public int UpdateMentoInfo(MentoDto mentoDto){return sql.update("admin.UpdateMentoInfo",mentoDto);}
 
@@ -83,4 +83,6 @@ public class AdminRepository {
     public void UserLiftingbyUserID(int userID) {
         sql.update("admin.UserLiftingbyUserID", userID);
     }
+
+    public int deletementoring(int mentoringid){return sql.update("admin.deletementoring",mentoringid);}
 }

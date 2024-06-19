@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project</title>
+    <title>PortfolioHub</title>
     <link th:href="@{/css/login.css}" rel="stylesheet">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <!---->
+
+    <link rel="icon" href="https://porthub2.s3.ap-northeast-2.amazonaws.com/favicon.ico" />
     <link th:href="@{/css/header2.css}" rel="stylesheet">
     <link th:href="@{/css/footer.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/about/main.css}" href="/static/css/about/main.css">
@@ -71,13 +73,14 @@
                     <div>
                         <div class="box">
                             <div class="image fit">
-                                <img th:src="@{/images/pic02.jpg}" src="/static/images/pic02.jpg" alt="" width="600" height="300">
+                                <img th:src="@{/images/th1.png}" src="/static/images/th1.png" alt="" width="600" height="300">
                             </div>
                             <div class="content">
-                                <header class="align-center"><p>다양한 분야의 포트폴리오를 보고 최신 트랜드를 파악하세요!</p>
-                                    <h2>Step1. 다양한 분야의 포트폴리오</h2>
+                                <header class="align-center"><p>로그인 상태에서만 글을 등록할 수 있습니다.</p>
+                                    <h2>Step1. 썸네일을 등록하고 분야를 선택하세요!.</h2>
                                 </header>
-                                <p> 여러분의 포트폴리오를 분야별로 작성하세요!</p>
+                                <p> 썸네일은 동영상, 오디오, 사진 모두 가능합니다.</p>
+                                <p> 썸네일은 메인 화면에 보여집니다.</p>
                             </div>
                         </div>
                     </div>
@@ -85,13 +88,14 @@
                     <div>
                         <div class="box">
                             <div class="image fit">
-                                <img th:src="@{/images/pic03.jpg}" src="/static/images/pic03.jpg" alt="" width="600" height="300">
+                                <img th:src="@{/images/th2.png}" src="/static/images/th2.png" alt="" width="600" height="300">
                             </div>
                             <div class="content">
-                                <header class="align-center"><p>mattis elementum sapien pretium tellus</p>
-                                    <h2>Step2. 각 분야를 파악하고 글을 작성해 보세요</h2>
+                                <header class="align-center"><p>생성 버튼을 클릭하면 섹션이 나타납니다!</p>
+                                    <h2>Step2. 생성 버튼을 클릭하여 여러 섹션을 사용 하세요!</h2>
                                 </header>
-                                <p> 로그인 상태에서만 글을 작성할 수 있습니다!</p>
+                                <p>섹션의 파일 또한 동영상, 오디오, 사진 모두 가능합니다.</p>
+                                <p>각 섹션의 파일에 일정 용량 초과시 글이 등록되지 않을 수 있습니다!</p>
                             </div>
                         </div>
                     </div>
@@ -99,28 +103,27 @@
                     <div>
                         <div class="box">
                             <div class="image fit">
-                                <img th:src="@{/images/pic03.jpg}" src="/static/images/pic03.jpg" alt="" width="600" height="300">
+                                <img th:src="@{/images/th3.png}" src="/static/images/th3.png" alt="" width="600" height="300">
                             </div>
                             <div class="content">
-                                <header class="align-center"><p>mattis elementum sapien pretium tellus</p>
-                                    <h2>Step3. 글 작성 방법!</h2>
+                                <header class="align-center"><p>등록한 썸네일이 포트폴리오에 포함됩니다!</p>
+                                    <h2>Step3. 글이 잘 작성되었는지 확인하세요!</h2>
                                 </header>
-                                <p> 생성 버튼을 클릭하고 볼 수 있습니다.</p>
+                                <p> 등록한 글은 프로필에서도 확인이 가능합니다!</p>
                             </div>
                         </div>
                     </div>
                     <div>
                         <div class="box">
                             <div class="image fit">
-                                <img th:src="@{/images/pic03.jpg}" src="/static/images/pic03.jpg" alt="" width="600" height="300">
+                                <img th:src="@{/images/th4.png}" src="/static/images/th4.png" alt="" width="600" height="300">
                             </div>
                             <div class="content">
-                                <header class="align-center"><p>자신이 등록한 포트폴리오를 정리해서 다운로드 할 수 있습니다!</p>
-                                    <h2>Step4. 글이 잘 작성되었는지 확인하세요!</h2>
+                                <header class="align-center"><p>자기 자신이 등록한 파일의 경우에만 수정 및 삭제가 가능합니다!</p>
+                                    <h2>Step4. 글 수정 및 삭제하기</h2>
                                 </header>
-                                <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet
-                                    tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus,
-                                    quis volutpat lacus placerat malesuada.</p>
+                                <p> 이미 존재하는 섹션의 경우에만 수정이 가능합니다.</p>
+                                <p> 삭제를 원하는 경우 삭제하기 버튼을 클릭하여 삭제하세요!</p>
                             </div>
                         </div>
                     </div>
@@ -137,29 +140,53 @@
         </section><!-- Three -->
         <section id="three" class="wrapper style2">
             <div class="inner">
-                <header class="align-center"><p class="special">Nam vel ante sit amet libero scelerisque facilisis eleifend
-                    vitae urna</p>
-                    <h2>Morbi maximus justo</h2>
+                <header class="align-center"><p class="special">멘토 등록하기를 진행하셔야 멘토 권한을 얻으실 수 있습니다!</p>
+                    <h2>관리자의 승인이 떨어져야 수익 활동이 가능합니다!</h2>
+                    <div th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}" class="mento-btn">
+                        <a href="/mentoring/activity">멘토 지원하기</a>
+                    </div>
+                    <a href="#" onclick="confirmLogin(event)" th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}" class="mento-btn">멘토 지원하기</a>
+
                 </header>
                 <div class="gallery">
                     <div>
                         <div class="image fit">
-                            <a href="#"><img th:src="@{/images/pic01.jpg}" src="/static/images/pic01.jpg" alt="" width="600" height="300"></a>
+                            <img th:src="@{/images/mento1.png}" src="/static/images/mento1.png" alt="" width="600" height="300"></a>
+                        </div>
+                        <div class="content">
+                            <header class="align-center">
+                                <h2>Step1. 멘토 승인을 관리자에게 요청하기 위한 폼을 작성하세요!</h2>
+                            </header>
                         </div>
                     </div>
                     <div>
                         <div class="image fit">
-                            <a href="#"><img th:src="@{/images/pic02.jpg}" src="/static/images/pic02.jpg" alt="" width="600" height="300"></a>
+                            <img th:src="@{/images/mento2.png}" src="/static/images/mento2.png" alt="" width="600" height="300"></a>
+                        </div>
+                        <div class="content">
+                            <header class="align-center">
+                                <h2>Step2. 전송이 완료되면 활동 상태에서 확인이 가능합니다.</h2>
+                            </header>
                         </div>
                     </div>
                     <div>
                         <div class="image fit">
-                            <a href="#"><img th:src="@{/images/pic03.jpg}" src="/static/images/pic03.jpg" alt="" width="600" height="300"></a>
+                            <img th:src="@{/images/mento3.png}" src="/static/images/mento3.png" alt="" width="600" height="300"></a>
+                        </div>
+                        <div class="content">
+                            <header class="align-center">
+                                <h2>Step3. 승인이 되었다면 활동을 등록하세요!</h2>
+                            </header>
                         </div>
                     </div>
                     <div>
                         <div class="image fit">
-                            <a href="#"><img th:src="@{/images/pic04.jpg}" src="/static/images/pic04.jpg" alt="" width="600" height="300"></a>
+                            <img th:src="@{/images/mento4.png}" src="/static/images/mento4.png" alt="" width="600" height="300"></a>
+                        </div>
+                        <div class="content">
+                            <header class="align-center">
+                                <h2>Step4. 활동 등록시 자료를 같이 등재해야 합니다!</h2>
+                            </header>
                         </div>
                     </div>
                 </div>

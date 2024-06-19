@@ -22,4 +22,5 @@ public class MentoDto {
     private String CertificationName;
     private MultipartFile IssueFiles;
     private String IssueCertification;
+    private int credit;
 }

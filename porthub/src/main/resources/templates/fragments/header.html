@@ -31,7 +31,12 @@
               </a>
             </li>
             <li class="list">
-              <a href="/mentoring/activity" class="nav-link">
+              <a href="/mentoring/activity" class="nav-link" th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
+                <ion-icon name="notifications-outline" class="icon"></ion-icon>
+                <span class="link">MentoProcess</span>
+              </a>
+
+              <a href="/mentoring/activity" class="nav-link" id="mento-no-login" onclick="confirmLogin(event)" th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
                 <ion-icon name="notifications-outline" class="icon"></ion-icon>
                 <span class="link">MentoProcess</span>
               </a>
@@ -43,22 +48,22 @@
               </a>
             </li>
             <li class="list">
-              <a href="/chat" class="nav-link" th:if="${T(hello.example.porthub.config.util.SessionUtils).isAdminIn()}">
+              <a href="/chat" class="nav-link" th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
                 <ion-icon name="mail-outline" class="icon"></ion-icon>
                 <span class="link">Chatting</span>
               </a>
-              <a href="#" class="nav-link" id="chat2-alert-link" onclick="confirmLogin(event)" th:unless="${T(hello.example.porthub.config.util.SessionUtils).isAdminIn()}">
+              <a href="#" class="nav-link" id="chat2-alert-link" onclick="confirmLogin(event)" th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
                 <ion-icon name="mail-outline" class="icon"></ion-icon>
                 <span class="link">Chatting</span>
               </a>
             </li>
 
             <li class="list">
-              <a href="/view" class="nav-link" th:if="${T(hello.example.porthub.config.util.SessionUtils).isAdminIn()}">
+              <a href="/view" class="nav-link" th:if="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
                 <ion-icon name="folder-outline" class="icon"></ion-icon>
                 <span class="link">Views_all</span>
               </a>
-              <a href="#" id="view-alert-link" class="nav-link" onclick="confirmLogin(event)" th:unless="${T(hello.example.porthub.config.util.SessionUtils).isAdminIn()}">
+              <a href="#" id="view-alert-link" class="nav-link" onclick="confirmLogin(event)" th:unless="${T(hello.example.porthub.config.util.SessionUtils).isLoggedIn()}">
                 <ion-icon name="folder-outline" class="icon"></ion-icon>
                 <span class="link">Views_all</span>
               </a>
@@ -147,10 +152,10 @@
 
       document.addEventListener("DOMContentLoaded", function() {
         var chatAlertLink = document.getElementById('chat-alert-link');
-
+        var mento = document.getElementById("mento-no-login");
         var chat2 = document.getElementById('chat2-alert-link');
         var view = document.getElementById('view-alert-link');
-        if (chatAlertLink || chat2 || view) {
+        if (chatAlertLink || chat2 || view || mento) {
           chatAlertLink.addEventListener('click', function(event) {
             event.preventDefault();
             if (confirm('로그인 페이지로 이동하시겠습니까?')) {
