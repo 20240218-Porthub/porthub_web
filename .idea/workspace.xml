@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/porthub.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" afterDir="false" />
-    </list>
+    <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -257,7 +252,7 @@
       <workItem from="1718607169235" duration="1083000" />
       <workItem from="1718635923920" duration="14161000" />
       <workItem from="1718757171718" duration="1124000" />
-      <workItem from="1718783007540" duration="5794000" />
+      <workItem from="1718783007540" duration="6749000" />
     </task>
     <task id="LOCAL-00001" summary="fix: Comment out unnecessary getUserIdFromPrincipal method">
       <option name="closed" value="true" />

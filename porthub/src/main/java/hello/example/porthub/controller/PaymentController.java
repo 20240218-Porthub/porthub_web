@@ -59,7 +59,7 @@ public class PaymentController {
             MemberDto buyer=memberRepository.findByEmail(orderSaveDto.getBuyer_email());
             String curpaid=buyer.getPaidProduct();
             if(curpaid==null){
-                buyer.setPaidProduct(orderSaveDto.getGoods_id(););
+                buyer.setPaidProduct(Integer.toString(orderSaveDto.getGoods_id()));
             }
             else{
                 buyer.setPaidProduct(curpaid+","+orderSaveDto.getGoods_id());
