@@ -294,8 +294,8 @@ button#addChatButton {
     padding-bottom: 1.5rem;
     align-items: center;
     gap: 1.5rem;
-    width: 100%;
-    position: static;
+    width: 65%;
+    position: fixed;
     bottom: 1rem;
     background-color: white;
 }
