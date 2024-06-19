@@ -174,6 +174,17 @@ $(document).ready(function () {
                     'sessionId': sessionId
                 }));
 
+                var sentMessage = {
+                    senderUserId: senderId,
+                    content: content,
+                    timestamp: new Date().toISOString()
+                };
+                var messageElement = createMessageElement(sentMessage);
+                console.log('Message element:', sentMessage);
+                if (recipientId == -2){
+                    $msgArea.append(messageElement);  // 메시지를 즉시 표시
+                }
+                $msgArea.scrollTop($msgArea[0].scrollHeight);
                 messageInput.val('');
             }
         } else {
