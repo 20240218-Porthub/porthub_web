@@ -35,8 +35,8 @@ public class SecurityConfig {
         //특정한 경로의 접근을 제한
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/mentoring/createmento/**").hasRole("MENTO")
-                        .requestMatchers("/mentoring/createmento/**").hasRole("ADMIN")
+//                        .requestMatchers("/mentoring/createmento/**").hasRole("MENTO")
+//                        .requestMatchers("/mentoring/createmento/**").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/ports/views/put/**", "/ports/views/report","/order/**","/payment/**","/mentoring/registermento/apply").authenticated()
                         .requestMatchers("/ports/views/delete/**","/ports/views/follow/**", "/ports/views/unfollow/**","/ports/uploads","/ports/create").authenticated()
