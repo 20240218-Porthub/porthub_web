@@ -111,17 +111,17 @@ public class ChatController {
 
             // 메시지를 GPT-4로 보내고 응답을 받아옴
             if (Objects.equals(chatSession.getRecipientUserId(), -2)) {
-                System.out.println("GPT-4");
+//                System.out.println("GPT-4");
                 String gptResponse = chatGptService.sendGpt(chatSession.getContent());
-                System.out.println("GPT-4 response: " + gptResponse);
+//                System.out.println("GPT-4 response: " + gptResponse);
                 chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(),
                         sessionId);
-                System.out.println("Saved message");
+//                System.out.println("Saved message");
                 chatService.saveMessages(chatSession.getRecipientUserId(), currentUserId, gptResponse, sessionId);
-                System.out.println("Saved GPT-4 response");
+//                System.out.println("Saved GPT-4 response");
                 return ResponseEntity.ok(sessionId);
             } else {
-                System.out.println("Normal message");
+//                System.out.println("Normal message");
                 if (!Objects.equals(chatSession.getContent(), "Initiating chat"))
                     chatService.saveMessages(currentUserId, chatSession.getRecipientUserId(), chatSession.getContent(),
                             sessionId);
