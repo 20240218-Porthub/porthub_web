@@ -31,3 +31,7 @@
     flex-direction: column;
     gap:10px;
 }
+
+.category-btn{
+    height:9rem;
+}
