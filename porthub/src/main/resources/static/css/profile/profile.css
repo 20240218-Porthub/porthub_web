@@ -1092,7 +1092,7 @@
 
 .message-button {
     font-weight: 700;
-    font-size: 1rem;
+    /*font-size: 1rem;*/
     /*padding: .75rem 1rem;*/
     padding: 5px 10px;
     border-style: solid;
