@@ -101,7 +101,7 @@
    </details>
    
  - <details>
-   <summary>application.yml 파일을 src/main/resources에 생성</summary>
+   <summary>Database</summary>
    <div markdown="1">
    
    ```
