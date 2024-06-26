@@ -100,11 +100,10 @@
    </div>
    </details>
    
-- <details>
-<summary>데이타베이스</summary>
-<div>
-
-
+ - <details>
+   <summary>application.yml 파일을 src/main/resources에 생성</summary>
+   <div markdown="2">
+   
   ```
   
   CREATE TABLE `Categories` (
@@ -301,8 +300,7 @@
     KEY `PortfolioID` (`PortfolioID`),
     CONSTRAINT `PortfolioTags_ibfk_1` FOREIGN KEY (`PortfolioID`) REFERENCES `Portfolios` (`PortfolioID`)
   ) 
-  ```
-
-
-</div>
-</details>
+   ```
+   </div>
+   </details>
+   
