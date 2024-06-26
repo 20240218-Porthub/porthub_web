@@ -100,9 +100,12 @@
    </div>
    </details>
    
-- databses
+- <details>
+<summary>데이타베이스</summary>
+<div>
+
+
   ```
-  -- porthub.Categories definition
   
   CREATE TABLE `Categories` (
     `CategoryID` int(11) NOT NULL AUTO_INCREMENT,
@@ -299,3 +302,7 @@
     CONSTRAINT `PortfolioTags_ibfk_1` FOREIGN KEY (`PortfolioID`) REFERENCES `Portfolios` (`PortfolioID`)
   ) 
   ```
+
+
+</div>
+</details>
