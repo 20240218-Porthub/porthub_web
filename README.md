@@ -8,6 +8,7 @@
 
 ## domain구조, layer 구조
 <img width="610" alt="스크린샷 2024-06-27 오전 1 43 18" src="https://github.com/20240218-Porthub/porthub_web/assets/99077276/cd62ff34-2a92-49c3-b191-97f148f1244b">
+
 - 계층형 구조를 사용: 패키지 구조를 이해하기 수월함, 기업과 같이 상대적으로 큰 규모가 아니기 때문에 프로젝트에 적합한 layer 구조를 선택
 
 ## spring security 설정
@@ -32,7 +33,10 @@
 ## 로그인 세션 사용
 
 ## 시연 방법
- - application.yml 파일을 src/main/resources에 생성
+ - <details>
+   <summary>application.yml 파일을 src/main/resources에 생성</summary>
+   <div markdown="1">
+   
    ```
      server:
       port: 8080
@@ -93,6 +97,9 @@
       key: /* */
     
    ```
+   </div>
+   </details>
+   
 - databses
   ```
   -- porthub.Categories definition
