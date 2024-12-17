@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="fix: WebSocket shutdown handling">
+    <list default="true" id="ea3a19b4-c8aa-4e26-8be4-9022b5b519db" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/porthub_web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/porthub_web.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/controller/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/java/hello/example/porthub/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/user/chat.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,135 +20,37 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <task path="$PROJECT_DIR$/porthub">
-          <activation />
-        </task>
-        <projects_view>
-          <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="porthub" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="porthub" type="f1a62948:ProjectNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-              </path>
-            </expand>
-            <select />
-          </tree_state>
-        </projects_view>
-      </state>
-    </system>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="spring-beans.schema" />
-        <option value="CSS File" />
-        <option value="HTML File" />
-        <option value="JavaScript File" />
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;history&quot;: [
-    {
-      &quot;state&quot;: &quot;OPEN&quot;,
-      &quot;assignee&quot;: &quot;CISXO&quot;
-    }
-  ],
-  &quot;lastFilter&quot;: {
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="e81afb18-7d61-4eb3-a5cd-894c7db82bee" />
-        <option name="url" value="https://github.com/20240218-Porthub/porthub_web.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
-  <component name="KubernetesApiProvider">{
-  &quot;isMigrated&quot;: true
-}</component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="2dwR3i3nHDKqi6zqJ2jv0ybyF4N" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2qKhkppGxpDxEUZaxBnHXNvHbCP" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Gradle.Build porthub.executor": "Run",
-    "Gradle.porthub [dependencies].executor": "Run",
-    "Gradle.porthub 빌드.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.PorthubApplication.executor": "Run",
-    "git-widget-placeholder": "feature/Lee2",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/hong/Desktop/proker",
-    "list.type.of.created.stylesheet": "CSS",
+    "last_opened_file_path": "C:/Users/jeonghyeon/Desktop/porthub_web",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "전역 라이브러리",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mariadb&quot;
-    ]
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/porthub/src/main/resources" />
-      <recent name="$PROJECT_DIR$/porthub/src" />
-      <recent name="C:\Users\hong\IdeaProjects\porthub_web\porthub\src\main\resources\static\css" />
-      <recent name="C:\Users\hong\IdeaProjects\porthub_web\porthub\src\main\resources\static\js" />
-      <recent name="C:\Users\hong\IdeaProjects\porthub_web\porthub\src\main\resources\templates\profile" />
-    </key>
-  </component>
+}]]></component>
   <component name="RunManager">
     <configuration name="PorthubApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="porthub.main" />
@@ -169,259 +70,24 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e9c6cfca-e39a-4118-8802-683d24d552b8" name="Changes" comment="" />
-      <created>1710916957384</created>
+      <changelist id="ea3a19b4-c8aa-4e26-8be4-9022b5b519db" name="Changes" comment="" />
+      <created>1734417319889</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1710916957384</updated>
-      <workItem from="1710916960419" duration="1000000" />
-      <workItem from="1710917975306" duration="1289000" />
-      <workItem from="1711047085783" duration="1409000" />
-      <workItem from="1711052972103" duration="3311000" />
-      <workItem from="1711063076936" duration="3697000" />
-      <workItem from="1711173942521" duration="6887000" />
-      <workItem from="1711271746535" duration="603000" />
-      <workItem from="1711445220769" duration="678000" />
-      <workItem from="1711510309856" duration="4673000" />
-      <workItem from="1711610881232" duration="8427000" />
-      <workItem from="1711712015058" duration="610000" />
-      <workItem from="1711713474429" duration="369000" />
-      <workItem from="1711799670169" duration="32671000" />
-      <workItem from="1711858331720" duration="11436000" />
-      <workItem from="1711950536851" duration="8116000" />
-      <workItem from="1712037617921" duration="34835000" />
-      <workItem from="1712111848771" duration="5970000" />
-      <workItem from="1712298390661" duration="6560000" />
-      <workItem from="1712385581521" duration="6235000" />
-      <workItem from="1712430383598" duration="15574000" />
-      <workItem from="1712560673063" duration="2649000" />
-      <workItem from="1712592990880" duration="713000" />
-      <workItem from="1712645595798" duration="18464000" />
-      <workItem from="1712685650137" duration="3663000" />
-      <workItem from="1712767747657" duration="19244000" />
-      <workItem from="1712996787790" duration="13374000" />
-      <workItem from="1713085185866" duration="3314000" />
-      <workItem from="1713153697847" duration="15280000" />
-      <workItem from="1713255435728" duration="14562000" />
-      <workItem from="1713323007854" duration="7272000" />
-      <workItem from="1713346784250" duration="31967000" />
-      <workItem from="1713602506727" duration="3223000" />
-      <workItem from="1714469797490" duration="6903000" />
-      <workItem from="1714525411085" duration="8393000" />
-      <workItem from="1714732887745" duration="605000" />
-      <workItem from="1715016973003" duration="21371000" />
-      <workItem from="1715136346509" duration="669000" />
-      <workItem from="1715150216218" duration="824000" />
-      <workItem from="1715278295869" duration="2981000" />
-      <workItem from="1715406734356" duration="6002000" />
-      <workItem from="1715497049897" duration="1690000" />
-      <workItem from="1715579923626" duration="27891000" />
-      <workItem from="1715647929788" duration="673000" />
-      <workItem from="1715762204916" duration="4597000" />
-      <workItem from="1715843956327" duration="6147000" />
-      <workItem from="1715933927818" duration="596000" />
-      <workItem from="1715995494223" duration="962000" />
-      <workItem from="1715579923626" duration="27133000" />
-      <workItem from="1715650506799" duration="11141000" />
-      <workItem from="1715833378634" duration="11229000" />
-      <workItem from="1716466686446" duration="3640000" />
-      <workItem from="1716573638747" duration="606000" />
-      <workItem from="1716621300038" duration="1975000" />
-      <workItem from="1716651820460" duration="598000" />
-      <workItem from="1716728345712" duration="400000" />
-      <workItem from="1716824202757" duration="9990000" />
-      <workItem from="1716883198909" duration="220000" />
-      <workItem from="1716893532343" duration="1205000" />
-      <workItem from="1716955050597" duration="100000" />
-      <workItem from="1716956738356" duration="5107000" />
-      <workItem from="1717263487870" duration="1260000" />
-      <workItem from="1717362351829" duration="4433000" />
-      <workItem from="1717691180448" duration="14052000" />
-      <workItem from="1718184698180" duration="3071000" />
-      <workItem from="1718207124032" duration="21594000" />
-      <workItem from="1718299002964" duration="2815000" />
-      <workItem from="1718370299128" duration="3742000" />
-      <workItem from="1718438279040" duration="1398000" />
-      <workItem from="1718474493304" duration="603000" />
-      <workItem from="1718533958120" duration="3860000" />
-      <workItem from="1718548536145" duration="57000" />
-      <workItem from="1718553928533" duration="4952000" />
-      <workItem from="1718594667106" duration="9340000" />
-      <workItem from="1718607169235" duration="1083000" />
-      <workItem from="1718635923920" duration="14161000" />
-      <workItem from="1718757171718" duration="1124000" />
-      <workItem from="1718783007540" duration="6749000" />
+      <updated>1734417319889</updated>
+      <workItem from="1734417320944" duration="501000" />
     </task>
-    <task id="LOCAL-00001" summary="fix: Comment out unnecessary getUserIdFromPrincipal method">
-      <option name="closed" value="true" />
-      <created>1715656226062</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1715656226062</updated>
-    </task>
-    <task id="LOCAL-00002" summary="fix: Sort and display the chat sessions in the sidebar in descending order by the timestamp of their last message, ensuring the most recent conversations are listed at the top">
-      <option name="closed" value="true" />
-      <created>1718526222907</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1718526222907</updated>
-    </task>
-    <task id="LOCAL-00003" summary="refactor: Minor error resolutions and cleanup">
-      <option name="closed" value="true" />
-      <created>1718526343533</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1718526343533</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat: Profile message-button redirection implementation">
-      <option name="closed" value="true" />
-      <created>1718526427841</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1718526427841</updated>
-    </task>
-    <task id="LOCAL-00005" summary="fix: Update user profile image and cleanup css">
-      <option name="closed" value="true" />
-      <created>1718601122999</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1718601122999</updated>
-    </task>
-    <task id="LOCAL-00006" summary="fix: Minor fixes regarding empty messages being displayed and some cleanups">
-      <option name="closed" value="true" />
-      <created>1718679038854</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1718679038854</updated>
-    </task>
-    <task id="LOCAL-00007" summary="style: Header CSS adjustments">
-      <option name="closed" value="true" />
-      <created>1718679058769</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1718679058769</updated>
-    </task>
-    <task id="LOCAL-00008" summary="feat: Add MOTD for /user/chat endpoint">
-      <option name="closed" value="true" />
-      <created>1718684358452</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1718684358452</updated>
-    </task>
-    <task id="LOCAL-00009" summary="fix: Exclude myself from the followings list in Chat">
-      <option name="closed" value="true" />
-      <created>1718684956426</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1718684956426</updated>
-    </task>
-    <task id="LOCAL-00010" summary="fix: Remove redundant implementation statements in build.gradle">
-      <option name="closed" value="true" />
-      <created>1718691953062</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1718691953062</updated>
-    </task>
-    <task id="LOCAL-00011" summary="fix: Remove redundant implementation statements in build.gradle">
-      <option name="closed" value="true" />
-      <created>1718692015473</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1718692015473</updated>
-    </task>
-    <task id="LOCAL-00012" summary="fix: Resize input-area and fix scrolling issues">
-      <option name="closed" value="true" />
-      <created>1718764762786</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1718764762786</updated>
-    </task>
-    <task id="LOCAL-00013" summary="fix: WebSocket shutdown handling">
-      <option name="closed" value="true" />
-      <created>1718764798414</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1718764798414</updated>
-    </task>
-    <task id="LOCAL-00014" summary="feat: Add GPT chatbot integration and improve error handling&#10;&#10;- Integrated GPT chatbot in ChatGptService with error handling for OpenAI API server errors&#10;- Prevented saving of null or empty GPT responses in the database&#10;- Modified ChatMessageDto to include `isClientEcho` flag to differentiate client and server messages&#10;- Updated client-side JavaScript to handle duplicate messages and server errors&#10;- Ensured that messages are not displayed twice in the chat UI&#10;- Improved WebSocket message handling by checking `isClientEcho` flag before appending messages to the UI&#10;- Adjusted error handling in the ChatController to handle null or empty GPT responses">
-      <option name="closed" value="true" />
-      <created>1718766750783</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1718766750783</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
-
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix: Comment out unnecessary getUserIdFromPrincipal method" />
-
-    <option name="LAST_COMMIT_MESSAGE" value="fix: Comment out unnecessary getUserIdFromPrincipal method" />
-
-    <MESSAGE value="fix: Sort and display the chat sessions in the sidebar in descending order by the timestamp of their last message, ensuring the most recent conversations are listed at the top" />
-    <MESSAGE value="refactor: Minor error resolutions and cleanup" />
-    <MESSAGE value="feat: Profile message-button redirection implementation" />
-    <MESSAGE value="fix: Update user profile image and cleanup css" />
-    <MESSAGE value="fix: Minor fixes regarding empty messages being displayed and some cleanups" />
-    <MESSAGE value="style: Header CSS adjustments" />
-    <MESSAGE value="feat: Add MOTD for /user/chat endpoint" />
-    <MESSAGE value="fix: Exclude myself from the followings list in Chat" />
-    <MESSAGE value="fix: Remove redundant implementation statements in build.gradle" />
-    <MESSAGE value="fix: Resize input-area and fix scrolling issues" />
-    <MESSAGE value="fix: WebSocket shutdown handling" />
-    <MESSAGE value="feat: Add GPT chatbot integration and improve error handling&#10;&#10;- Integrated GPT chatbot in ChatGptService with error handling for OpenAI API server errors&#10;- Prevented saving of null or empty GPT responses in the database&#10;- Modified ChatMessageDto to include `isClientEcho` flag to differentiate client and server messages&#10;- Updated client-side JavaScript to handle duplicate messages and server errors&#10;- Ensured that messages are not displayed twice in the chat UI&#10;- Improved WebSocket message handling by checking `isClientEcho` flag before appending messages to the UI&#10;- Adjusted error handling in the ChatController to handle null or empty GPT responses" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add GPT chatbot integration and improve error handling&#10;&#10;- Integrated GPT chatbot in ChatGptService with error handling for OpenAI API server errors&#10;- Prevented saving of null or empty GPT responses in the database&#10;- Modified ChatMessageDto to include `isClientEcho` flag to differentiate client and server messages&#10;- Updated client-side JavaScript to handle duplicate messages and server errors&#10;- Ensured that messages are not displayed twice in the chat UI&#10;- Improved WebSocket message handling by checking `isClientEcho` flag before appending messages to the UI&#10;- Adjusted error handling in the ChatController to handle null or empty GPT responses" />
-
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.ClassCastException" package="java.lang" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
