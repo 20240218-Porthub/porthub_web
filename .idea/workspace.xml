@@ -7,8 +7,23 @@
     <list default="true" id="ea3a19b4-c8aa-4e26-8be4-9022b5b519db" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/porthub_web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/porthub_web.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolio.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolio.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolioguide.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/portfolio/portfolioguide.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/css/register/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/css/register/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/html/portfolio.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/html/portfolio.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/js/about/jquery.scrollex.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/about/jquery.scrollex.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/js/about/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/about/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/js/about/skel.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/about/skel.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/static/js/about/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/static/js/about/util.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/fragments/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/register/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/register/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/porthub/src/main/resources/templates/register/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/porthub/src/main/resources/templates/register/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +98,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734417319889</updated>
-      <workItem from="1734417320944" duration="501000" />
+      <workItem from="1734417320944" duration="821000" />
     </task>
     <servers />
   </component>
