@@ -3,8 +3,10 @@ package hello.example.porthub.repository;
 
 import hello.example.porthub.domain.*;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Test;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -104,7 +106,18 @@ public class PortfolioRepository {
     }
 
     public void updateViewsCount(int portfolioID) {
+
+
+        try {
+            Thread.sleep(10); // 동시성 문제를 유발하기 위한 대기 시간
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         sql.update("Portfolio.updateViewsCount", portfolioID);
+    }
+
+    public int getViewsCount(int portfolioID) {
+        return sql.selectOne("Portfolio.selectViewsCount", portfolioID);
     }
 
     public void deletePortfolio(int portfolioID) {
@@ -149,6 +162,12 @@ public class PortfolioRepository {
     }
 
     public void portfolioIncreLikes(int portfolioID) {
+
+        try {
+            Thread.sleep(10); // 동시성 문제를 유발하기 위한 대기 시간
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         sql.update("Portfolio.portfolioIncreLikes", portfolioID);
     }
     public void portfolioDecreLikes(int portfolioID) {
