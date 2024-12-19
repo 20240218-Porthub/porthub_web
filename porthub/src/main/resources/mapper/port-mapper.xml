@@ -155,11 +155,18 @@
           AND FollowingID = #{authorID}
 
     </delete>
+
     <update id="updateViewsCount" parameterType="int">
         UPDATE Portfolios
         SET Views_count = Views_count + 1
         WHERE PortfolioID = #{portfolioID};
     </update>
+
+    <select id="selectViewsCount" parameterType="int" resultType="int">
+        SELECT Views_count
+        FROM Portfolios
+        WHERE PortfolioID= #{portfolioID};
+    </select>
 
     <delete id="deletePortfolioData" parameterType="int">
         DELETE
