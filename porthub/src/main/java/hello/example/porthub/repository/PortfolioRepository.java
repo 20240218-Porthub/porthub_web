@@ -20,8 +20,6 @@ public class PortfolioRepository {
 //    //동시성 문제 해결하기 위함 ConcurrntHashMap, AtomicLong
 //    private static final AtomicLong sequence = new AtomicLong(0);
 
-
-
     private final SqlSessionTemplate sql;
 
     public List<CategoryDto> findByCategory() {
@@ -206,10 +204,6 @@ public class PortfolioRepository {
         return sql.selectOne("Portfolio.findUserByAuthor", getUserID);
     }
 
-    public void updateByRank(PopularDto resetPopulars) {
-        sql.update("Portfolio.updateByRank",resetPopulars);
-    }
-
     public List<Integer> findLikesByEmail(String userEmail) {
         return sql.selectList("Portfolio.findLikesByEmail",userEmail);
     }
@@ -226,4 +220,14 @@ public class PortfolioRepository {
         return sql.selectList("Portfolio.findgetFollowListbyUserID", userid);
     }
 
+    public void saveOrUpdateRank(PopularDto popularDto) {
+        Integer existingId = sql.selectOne("Portfolio.checkExistsByPopularID", popularDto.getPopularID());
+        if (existingId != null) {
+            // 데이터가 존재하면 UPDATE 실행
+            sql.update("Portfolio.updateByRank", popularDto);
+        } else {
+            // 데이터가 없으면 INSERT 실행
+            sql.insert("Portfolio.insertByRank", popularDto);
+        }
+    }
 }
