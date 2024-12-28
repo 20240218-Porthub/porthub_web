@@ -16,7 +16,7 @@ function goToProfilePage(UserName) {
     // data-src 속성 값 가져오기
     var src = divElement.getAttribute('data-src');
     if (divElement.getAttribute('data-src') == null) {
-    src = 'https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg';
+    src = '/images/None_Thumbnail.jpeg';
 }
 
     // 파일 경로로부터 파일의 확장자를 추출하는 함수
