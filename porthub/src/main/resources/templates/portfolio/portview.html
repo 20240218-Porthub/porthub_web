@@ -123,7 +123,7 @@
             <div class="user-portfolio" th:each="portuserList: ${portuserList}">
                 <div class="thumb-nail">
                     <img th:if="${portuserList.Thumbnail_url != null and (portuserList.Thumbnail_url.endsWith('.mp3') or portuserList.Thumbnail_url.endsWith('.mp4'))}"
-                         src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_File.jpeg"
+                         src="/images/None_File.jpeg"
                          class="thumb-nail-container"
                          th:onclick="'redirectToPortfolio(\'' + ${portuserList.PortfolioID} + '\')'">
                     <img th:unless="${portuserList.Thumbnail_url == null or portuserList.Thumbnail_url.endsWith('.mp3') or portuserList.Thumbnail_url.endsWith('.mp4')}"
@@ -223,7 +223,7 @@
             // data-src 속성 값 가져오기
             var src = divElement.getAttribute('data-src');
             if (divElement.getAttribute('data-src') == null) {
-                src = 'https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg';
+                src = '/images/None_Thumbnail.jpeg';
             }
 
             // 파일 경로로부터 파일의 확장자를 추출하는 함수
@@ -244,7 +244,7 @@
                 } else if (fileExtension === 'jpeg' || fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'gif') {
                     return '<img src="' + src + '" class="image">';
                 } else {
-                    return '<img src="https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg" class="image">';
+                    return '<img src="/images/None_Thumbnail.jpeg" class="image">';
                 }
             }
 

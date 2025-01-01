@@ -3,8 +3,10 @@ package hello.example.porthub.repository;
 
 import hello.example.porthub.domain.*;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Test;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +19,6 @@ public class PortfolioRepository {
 //    private static final Map<Long, PortfolioDto> portfolioItem = new ConcurrentHashMap<>();
 //    //동시성 문제 해결하기 위함 ConcurrntHashMap, AtomicLong
 //    private static final AtomicLong sequence = new AtomicLong(0);
-
-
 
     private final SqlSessionTemplate sql;
 
@@ -104,7 +104,18 @@ public class PortfolioRepository {
     }
 
     public void updateViewsCount(int portfolioID) {
+
+
+        try {
+            Thread.sleep(10); // 동시성 문제를 유발하기 위한 대기 시간
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         sql.update("Portfolio.updateViewsCount", portfolioID);
+    }
+
+    public int getViewsCount(int portfolioID) {
+        return sql.selectOne("Portfolio.selectViewsCount", portfolioID);
     }
 
     public void deletePortfolio(int portfolioID) {
@@ -149,6 +160,12 @@ public class PortfolioRepository {
     }
 
     public void portfolioIncreLikes(int portfolioID) {
+
+        try {
+            Thread.sleep(10); // 동시성 문제를 유발하기 위한 대기 시간
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         sql.update("Portfolio.portfolioIncreLikes", portfolioID);
     }
     public void portfolioDecreLikes(int portfolioID) {
@@ -187,10 +204,6 @@ public class PortfolioRepository {
         return sql.selectOne("Portfolio.findUserByAuthor", getUserID);
     }
 
-    public void updateByRank(PopularDto resetPopulars) {
-        sql.update("Portfolio.updateByRank",resetPopulars);
-    }
-
     public List<Integer> findLikesByEmail(String userEmail) {
         return sql.selectList("Portfolio.findLikesByEmail",userEmail);
     }
@@ -207,4 +220,14 @@ public class PortfolioRepository {
         return sql.selectList("Portfolio.findgetFollowListbyUserID", userid);
     }
 
+    public void saveOrUpdateRank(PopularDto popularDto) {
+        Integer existingId = sql.selectOne("Portfolio.checkExistsByPopularID", popularDto.getPopularID());
+        if (existingId != null) {
+            // 데이터가 존재하면 UPDATE 실행
+            sql.update("Portfolio.updateByRank", popularDto);
+        } else {
+            // 데이터가 없으면 INSERT 실행
+            sql.insert("Portfolio.insertByRank", popularDto);
+        }
+    }
 }

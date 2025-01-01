@@ -155,11 +155,18 @@
           AND FollowingID = #{authorID}
 
     </delete>
+
     <update id="updateViewsCount" parameterType="int">
         UPDATE Portfolios
         SET Views_count = Views_count + 1
         WHERE PortfolioID = #{portfolioID};
     </update>
+
+    <select id="selectViewsCount" parameterType="int" resultType="int">
+        SELECT Views_count
+        FROM Portfolios
+        WHERE PortfolioID= #{portfolioID};
+    </select>
 
     <delete id="deletePortfolioData" parameterType="int">
         DELETE
@@ -341,6 +348,16 @@
     WHERE u.UserID = #{getUserID};
     </select>
 
+    <select id="checkExistsByPopularID" parameterType="int" resultType="int">
+        SELECT PopularID FROM PopularUser WHERE PopularID = #{PopularID}
+    </select>
+
+    <insert id="insertByRank" parameterType="hello.example.porthub.domain.PopularDto">
+        INSERT INTO PopularUser (PopularID, UserID, UserName, Email, ProfileImage, aff)
+        VALUES (#{PopularID}, #{UserID}, #{UserName}, #{Email}, #{ProfileImage}, #{aff});
+    </insert>
+
+
     <update id="updateByRank" parameterType="hello.example.porthub.domain.PopularDto">
         UPDATE PopularUser
         SET UserID = #{UserID},
@@ -350,6 +367,7 @@
             aff = #{aff}
         WHERE PopularID = #{PopularID};
     </update>
+
     <select id="findLikesByEmail" parameterType="String" resultType="Integer">
         SELECT PortfolioID
         FROM PortfolioLikes

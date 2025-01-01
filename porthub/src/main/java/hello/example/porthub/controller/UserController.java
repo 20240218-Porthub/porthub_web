@@ -27,7 +27,9 @@ public class UserController {
 //        int userId = chatUser.getId();
 //        String name = principal.getName();
 //        return userService.getFollowings(name);
+
 //    }
+
     @GetMapping("/user")
     @ResponseBody
     public ResponseEntity<Map<String, String>> getLoggedInUser(Principal principal) {

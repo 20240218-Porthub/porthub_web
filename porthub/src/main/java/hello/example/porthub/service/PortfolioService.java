@@ -25,7 +25,7 @@ public class PortfolioService {
             String Category = portfolioDto.getCategoryString();
             String thumbnailUrl;
             if (portfolioDto.getThumbnail_cast() == null) {
-                thumbnailUrl = "https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg";
+                thumbnailUrl = "/images/None_Thumbnail.jpeg";
             } else {
                 thumbnailUrl = s3Service.uploadFiles(portfolioDto.getThumbnail_cast());
             }
@@ -294,26 +294,27 @@ public class PortfolioService {
     public void updatePopularTask() {
         // 모든 포트폴리오를 가져옴
         List<CalculatePopularDto> portfolios = portfolioRepository.findAllCalcultePorts();
-
         if (portfolios == null || portfolios.isEmpty()) {
-            return;
+            return; // 데이터가 없으면 작업 중단
         }
-        PopularDto resetPopulars;
-        // 포트폴리오의 순위를 계산하여 매핑할 맵
+
+        // 순위 계산
         Map<Integer, Integer> portfolioRankMap = calculatePortfolioRank(portfolios);
+
         for (Map.Entry<Integer, Integer> entry : portfolioRankMap.entrySet()) {
             int getUserID = entry.getKey();
             int rank = entry.getValue();
-            resetPopulars = portfolioRepository.findUserByAuthor(getUserID);
-            resetPopulars.setPopularID(rank);
-            portfolioRepository.updateByRank(resetPopulars);
-        }
 
+            PopularDto resetPopulars = portfolioRepository.findUserByAuthor(getUserID);
+            resetPopulars.setPopularID(rank);
+
+            portfolioRepository.saveOrUpdateRank(resetPopulars);
+        }
     }
 
 
     private Map<Integer, Integer> calculatePortfolioRank(List<CalculatePopularDto> portfolios) {
-        // Hearts_count와 Views_count의 총합을 계산
+        // Hearts_count와 Views_count의 총합 계산
         long totalHeartsCount = portfolios.stream()
                 .mapToLong(CalculatePopularDto::getHearts_count)
                 .sum();
@@ -321,20 +322,31 @@ public class PortfolioService {
                 .mapToLong(CalculatePopularDto::getViews_count)
                 .sum();
 
-        if (totalHeartsCount == 0 || totalViewsCount == 0) {
-            throw new RuntimeException("Hearts_count 또는 Views_count가 0입니다.");
+        // 총합이 0인 경우 1로 설정
+        long safeHeartsCount;
+        if (totalHeartsCount == 0) {
+            safeHeartsCount = 1;
+        } else {
+            safeHeartsCount = totalHeartsCount;
         }
 
-        // 포트폴리오를 Hearts_count의 80%와 Views_count의 20% 비율로 가중치를 부여하여 점수를 계산
+        long safeViewsCount;
+        if (totalViewsCount == 0) {
+            safeViewsCount = 1;
+        } else {
+            safeViewsCount = totalViewsCount;
+        }
+
+        // 포트폴리오 점수 계산 (가중치: Hearts 80%, Views 20%)
         Map<Integer, Double> portfolioScoreMap = portfolios.stream()
                 .collect(Collectors.toMap(
                         CalculatePopularDto::getAuthorID,
-                        portfolio -> 0.8 * portfolio.getHearts_count() / (double) totalHeartsCount +
-                                0.2 * portfolio.getViews_count() / (double) totalViewsCount,
-                        Double::sum // 충돌 시 점수를 합산
+                        portfolio -> 0.8 * portfolio.getHearts_count() / (double) safeHeartsCount +
+                                0.2 * portfolio.getViews_count() / (double) safeViewsCount,
+                        Double::sum
                 ));
 
-        // 중복되는 AuthorID를 처리하고 포트폴리오의 순위를 재배열
+        // 점수를 기준으로 순위 매핑
         List<Map.Entry<Integer, Double>> sortedPortfolios = new ArrayList<>(portfolioScoreMap.entrySet());
         sortedPortfolios.sort(Map.Entry.<Integer, Double>comparingByValue().reversed());
 
@@ -344,8 +356,6 @@ public class PortfolioService {
         for (Map.Entry<Integer, Double> entry : sortedPortfolios) {
             portfolioRankMap.put(entry.getKey(), rank++);
         }
-
-        // 상위 3개 랭크 반환
         return portfolioRankMap.entrySet().stream()
                 .limit(3)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

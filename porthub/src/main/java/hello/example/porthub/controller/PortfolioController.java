@@ -91,7 +91,7 @@ public class PortfolioController {
         model.addAttribute("portuserList", portuserList);
 
         if (portViewDto.getThumbnail_url()==null) {
-            portViewDto.setThumbnail_url("https://porthub2.s3.ap-northeast-2.amazonaws.com/None_Thumbnail.jpeg");
+            portViewDto.setThumbnail_url("/images/None_Thumbnail.jpeg");
         }
         CookieUtils.addPortfolioData(request.getCookies(), response, CookieUtils.COOKIE_NAME, String.valueOf(PortfolioID), portViewDto.getThumbnail_url());
 
