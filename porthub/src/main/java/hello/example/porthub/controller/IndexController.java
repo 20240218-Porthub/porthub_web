@@ -83,9 +83,12 @@ public class IndexController {
                 break;
         }
 
-
         // 전체 페이지 수 계산
         int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+        int buttonPerPage = 10;
+        int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
+        int groupStart = (currentGroup - 1) * buttonPerPage + 1;
+        int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
 
         // 페이지 범위 계산
         int fromIndex = (page - 1) * pageSize;
@@ -96,7 +99,8 @@ public class IndexController {
 
         model.addAttribute("recentPortfolios", reverseRecentPort);
 
-
+        model.addAttribute("groupStart", groupStart);
+        model.addAttribute("groupEnd", groupEnd);
 
         model.addAttribute("CategoryNameCheck", 0);
         model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
@@ -173,6 +177,10 @@ public class IndexController {
 
         int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
 
+        int buttonPerPage = 10;
+        int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
+        int groupStart = (currentGroup - 1) * buttonPerPage + 1;
+        int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
         // 페이지 범위 계산
         int fromIndex = (page - 1) * pageSize;
         int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
@@ -182,6 +190,9 @@ public class IndexController {
 
         model.addAttribute("recentPortfolios", reverseRecentPort);
 
+
+        model.addAttribute("groupStart", groupStart);
+        model.addAttribute("groupEnd", groupEnd);
         model.addAttribute("CategoryNameCheck", checkNum);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("CategoryName", CategoryName);
@@ -262,11 +273,18 @@ public class IndexController {
             mainPortViewDtoList = selectedPortViewDtoList;
 
             int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+            int buttonPerPage = 10;
+            int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
+            int groupStart = (currentGroup - 1) * buttonPerPage + 1;
+            int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
             int fromIndex = (page - 1) * pageSize;
             int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
 
             List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
             model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
+
+            model.addAttribute("groupStart", groupStart);
+            model.addAttribute("groupEnd", groupEnd);
             model.addAttribute("CategoryNameCheck", checkNum);
             model.addAttribute("Category", categoryDtoList);
             model.addAttribute("CategoryName", CategoryName);
@@ -278,10 +296,18 @@ public class IndexController {
         } else {
 
             int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+            int buttonPerPage = 10;
+            int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
+            int groupStart = (currentGroup - 1) * buttonPerPage + 1;
+            int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
             // 페이지 범위 계산
             int fromIndex = (page - 1) * pageSize;
             int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
             List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
+
+
+            model.addAttribute("groupStart", groupStart);
+            model.addAttribute("groupEnd", groupEnd);
 
             model.addAttribute("CategoryNameCheck", 0);
             model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
