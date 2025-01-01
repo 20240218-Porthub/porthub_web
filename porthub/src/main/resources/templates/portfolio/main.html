@@ -183,6 +183,7 @@
                 <!-- 페이지네이션 -->
                 <div th:if="${CategoryNameCheck} == 0" class="pagination">
                     <ul>
+
                         <li th:if="${currentPage > 1}">
                             <a th:if="${checkSearchNum} == 1"
                                th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
@@ -192,7 +193,7 @@
                                 Previous</a>
                             <!--                        search 경로로 들어온 것들에 대한 a태그 경로 요청-->
                         </li>
-                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                        <li th:each="i : ${#numbers.sequence(groupStart, groupEnd)}"
                             th:classappend="${i == currentPage} ? ' active' : ''">
                             <a th:if="${checkSearchNum} == 1"
                                th:href="@{'/main?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
@@ -209,6 +210,7 @@
                                th:href="@{'/main/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} + 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">Next
                                 &raquo;</a>
                         </li>
+
                     </ul>
                 </div>
 
@@ -222,7 +224,7 @@
                                th:href="@{'/' + ${CategoryName} + '/search?SearchQuery=' + ${encodedSearchQuery} + '&page=' + (${currentPage} - 1) + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}">&laquo;
                                 Previous</a>
                         </li>
-                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                        <li th:each="i : ${#numbers.sequence(groupStart, groupEnd)}"
                             th:classappend="${i == currentPage} ? ' active' : ''">
                             <a th:if="${checkSearchNum} == 1"
                                th:href="@{'/'+${CategoryName} + '?categoryName=' + ${CategoryName} + '&page=' + ${i} + '&pageSize=' + ${pageSize} + '&order=' + ${selectedOrder}}"
