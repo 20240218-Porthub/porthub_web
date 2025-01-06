@@ -66,34 +66,17 @@ public class IndexController {
             model.addAttribute("isLoggedIn", false);
         }
 
-        List<MainPortViewDto> mainPortViewDtoList;
-        switch (order) {
-            case "PopularityOrder":
-                mainPortViewDtoList = portfolioService.findAllPortsOrderByPopularity();
-                break;
-            case "ViewsOrder":
-                mainPortViewDtoList = portfolioService.findAllPortsOrderByViews();
-                break;
-            case "OldestOrder":
-                mainPortViewDtoList = portfolioService.findAllPortsOrderByOldest();
-                break;
-            case "NewestOrder":
-            default:
-                mainPortViewDtoList = portfolioService.findAllPorts();
-                break;
-        }
+
+        int mainPortfolioSize = portfolioService.getPortfolioSize();
+        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllPorts(page, pageSize, order);
+
 
         // 전체 페이지 수 계산
-        int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+        int totalPages = (int) Math.ceil((double) mainPortfolioSize / pageSize);
         int buttonPerPage = 10;
         int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
         int groupStart = (currentGroup - 1) * buttonPerPage + 1;
         int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
-
-        // 페이지 범위 계산
-        int fromIndex = (page - 1) * pageSize;
-        int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
-        List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
 
         Map<Integer, String> reverseRecentPort = getCookie(request);
 
@@ -103,7 +86,7 @@ public class IndexController {
         model.addAttribute("groupEnd", groupEnd);
 
         model.addAttribute("CategoryNameCheck", 0);
-        model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
+        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("CategoryName", "All");
         model.addAttribute("selectedOrder", order);
@@ -156,48 +139,26 @@ public class IndexController {
             checkNum = 8;
         }
 
-        List<MainPortViewDto> mainPortViewDtoList;
-        switch (order) {
-            case "PopularityOrder":
-                mainPortViewDtoList = portfolioService.findAllPortsOrderByPopularity();
-                break;
-            case "ViewsOrder":
-                mainPortViewDtoList = portfolioService.findAllPortsOrderByViews();
-                break;
-            case "OldestOrder":
-                mainPortViewDtoList = portfolioService.findAllPortsOrderByOldest();
-                break;
-            case "NewestOrder":
-            default:
-                mainPortViewDtoList = portfolioService.findAllPorts();
-                break;
-        }
-        List<MainPortViewDto> selectedPortViewDtoList = portfolioService.findPortsByCategory(mainPortViewDtoList, checkNum);
-        mainPortViewDtoList = selectedPortViewDtoList;
+        int mainPortfolioSize = portfolioService.getPortfolioSize();
 
-        int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
+        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findCategoryPorts(page, pageSize, order, checkNum);
 
+        int totalPages = (int) Math.ceil((double) mainPortfolioSize / pageSize);
         int buttonPerPage = 10;
         int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
         int groupStart = (currentGroup - 1) * buttonPerPage + 1;
         int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
-        // 페이지 범위 계산
-        int fromIndex = (page - 1) * pageSize;
-        int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
-        List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
 
         Map<Integer, String> reverseRecentPort = getCookie(request);
 
         model.addAttribute("recentPortfolios", reverseRecentPort);
-
-
         model.addAttribute("groupStart", groupStart);
         model.addAttribute("groupEnd", groupEnd);
         model.addAttribute("CategoryNameCheck", checkNum);
         model.addAttribute("Category", categoryDtoList);
         model.addAttribute("CategoryName", CategoryName);
         model.addAttribute("selectedOrder", order);
-        model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
+        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
         model.addAttribute("currentPage", page); // 현재 페이지 추가
         model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
         model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
@@ -250,76 +211,27 @@ public class IndexController {
         } else if (CategoryName.equals("Other")) {
             checkNum = 8;
         }
+        int mainPortfolioSize = portfolioService.getPortfolioSize();
 
-        List<MainPortViewDto> mainPortViewDtoList;
-        switch (order) {
-            case "PopularityOrder":
-                mainPortViewDtoList = portfolioService.findAllSearchPortsOrderByPopularity(SearchQuery);
-                break;
-            case "ViewsOrder":
-                mainPortViewDtoList = portfolioService.findAllSearchPortsOrderByViews(SearchQuery);
-                break;
-            case "OldestOrder":
-                mainPortViewDtoList = portfolioService.findAllSearchPortsOrderByOldest(SearchQuery);
-                break;
-            case "NewestOrder":
-            default:
-                mainPortViewDtoList = portfolioService.findAllSearchPorts(SearchQuery);
-                break;
-        }
+        List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllSearchPorts(page, pageSize, order, SearchQuery, checkNum);
 
-        if (!CategoryName.equals("main")) {
-            List<MainPortViewDto> selectedPortViewDtoList = portfolioService.findPortsByCategory(mainPortViewDtoList, checkNum);
-            mainPortViewDtoList = selectedPortViewDtoList;
+        int totalPages = (int) Math.ceil((double) mainPortfolioSize / pageSize);
+        int buttonPerPage = 10;
+        int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
+        int groupStart = (currentGroup - 1) * buttonPerPage + 1;
+        int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
 
-            int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
-            int buttonPerPage = 10;
-            int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
-            int groupStart = (currentGroup - 1) * buttonPerPage + 1;
-            int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
-            int fromIndex = (page - 1) * pageSize;
-            int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
-
-            List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
-            model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
-
-            model.addAttribute("groupStart", groupStart);
-            model.addAttribute("groupEnd", groupEnd);
-            model.addAttribute("CategoryNameCheck", checkNum);
-            model.addAttribute("Category", categoryDtoList);
-            model.addAttribute("CategoryName", CategoryName);
-            model.addAttribute("selectedOrder", order);
-            model.addAttribute("currentPage", page);
-            model.addAttribute("pageSize", pageSize);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("SearchQuery", SearchQuery);
-        } else {
-
-            int totalPages = (int) Math.ceil((double) mainPortViewDtoList.size() / pageSize);
-            int buttonPerPage = 10;
-            int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
-            int groupStart = (currentGroup - 1) * buttonPerPage + 1;
-            int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
-            // 페이지 범위 계산
-            int fromIndex = (page - 1) * pageSize;
-            int toIndex = Math.min(fromIndex + pageSize, mainPortViewDtoList.size());
-            List<MainPortViewDto> pagedMainPortViewDtoList = mainPortViewDtoList.subList(fromIndex, toIndex);
-
-
-            model.addAttribute("groupStart", groupStart);
-            model.addAttribute("groupEnd", groupEnd);
-
-            model.addAttribute("CategoryNameCheck", 0);
-            model.addAttribute("mainPortViewDtoList", pagedMainPortViewDtoList);
-            model.addAttribute("Category", categoryDtoList);
-            model.addAttribute("CategoryName", CategoryName);
-            model.addAttribute("CategoryNameCheck", checkNum);
-            model.addAttribute("selectedOrder", order);
-            model.addAttribute("currentPage", page); // 현재 페이지 추가
-            model.addAttribute("pageSize", pageSize); // 페이지 사이즈 추가
-            model.addAttribute("totalPages", totalPages); // 전체 페이지 수 추가
-            model.addAttribute("SearchQuery", SearchQuery);
-        }
+        model.addAttribute("mainPortViewDtoList", mainPortViewDtoList);
+        model.addAttribute("groupStart", groupStart);
+        model.addAttribute("groupEnd", groupEnd);
+        model.addAttribute("CategoryNameCheck", checkNum);
+        model.addAttribute("Category", categoryDtoList);
+        model.addAttribute("CategoryName", CategoryName);
+        model.addAttribute("selectedOrder", order);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("SearchQuery", SearchQuery);
 
         Map<Integer, String> reverseRecentPort = getCookie(request);
 
