@@ -54,7 +54,7 @@ public class PortfolioRepository {
     }
 
     public boolean checkHeart(int portfolioID, String authorID) {
-        ConcurrentHashMap<String, Object> params = new ConcurrentHashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("portfolioID", portfolioID);
         params.put("authorID", authorID);
         return sql.selectOne("Portfolio.findBycheckHeart", params);
@@ -72,7 +72,7 @@ public class PortfolioRepository {
         sql.update("Portfolio.updatePortLikes", portLikeDto);
     }
     public boolean checkFollow(int authorID, int currentID) {
-        ConcurrentHashMap<String, Object> checkFollow = new ConcurrentHashMap<>();
+        Map<String, Object> checkFollow = new HashMap<>();
         checkFollow.put("authorID", authorID);
         checkFollow.put("currentID", currentID);
         return sql.selectOne("Portfolio.findByCheckFollow", checkFollow);
@@ -159,7 +159,7 @@ public class PortfolioRepository {
     }
 
     public List<MainPortViewDto> findAllSearchPorts(String order, int pageSize, int offset, String searchQuery, int checkNum) {
-        ConcurrentHashMap<String, Object> params = new ConcurrentHashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("pageSize", pageSize);
         params.put("offset", offset);
@@ -209,7 +209,7 @@ public class PortfolioRepository {
     }
 
     public List<MainPortViewDto> findAllPorts(String order, int pageSize, int offset) {
-        ConcurrentHashMap<String, Object> params = new ConcurrentHashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("pageSize", pageSize);
         params.put("offset", offset);
@@ -222,7 +222,7 @@ public class PortfolioRepository {
     }
 
     public List<MainPortViewDto> findCategoryPorts(String order, int pageSize, int offset, int checkNum) {
-        ConcurrentHashMap<String, Object> params = new ConcurrentHashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("pageSize", pageSize);
         params.put("offset", offset);
