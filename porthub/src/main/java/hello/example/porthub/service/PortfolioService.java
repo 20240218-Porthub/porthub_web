@@ -106,8 +106,9 @@ public class PortfolioService {
 
     public int getCategoryID(String CategoryName){ return portfolioRepository.getCategoryID(CategoryName);}
 
-    public List<MainPortViewDto> findAllPorts() {
-        return portfolioRepository.findAllPorts();
+    public List<MainPortViewDto> findAllPorts(int page, int pageSize, String order) {
+        int offset = (page - 1) * pageSize;
+        return portfolioRepository.findAllPorts(order, pageSize, offset);
     }
 
     public PortViewDto findportview(int portfolioID) {
@@ -225,20 +226,6 @@ public class PortfolioService {
         }
     }
 
-    public List<MainPortViewDto> findAllPortsOrderByOldest() {
-
-        return portfolioRepository.findAllPortsOrderByOldest();
-
-    }
-
-    public List<MainPortViewDto> findAllPortsOrderByPopularity() {
-        return portfolioRepository.findAllPortsOrderByPopularity();
-    }
-
-    public List<MainPortViewDto> findAllPortsOrderByViews() {
-        return portfolioRepository.findAllPortsOrderByViews();
-    }
-
     public void portfolioIncreLikes(int portfolioID) {
         portfolioRepository.portfolioIncreLikes(portfolioID);
     }
@@ -255,35 +242,11 @@ public class PortfolioService {
         }
     }
 
-    public List<MainPortViewDto> findPortsByCategory(List<MainPortViewDto> mainPortViewDtoList, int checkNum) {
-
-        List<MainPortViewDto> selectedPortViewDtoList = new ArrayList<>(); // 선택된 포트폴리오를 저장할 리스트
-
-        // 카테고리 넘버가 checkNum과 일치하는 포트폴리오만 selectedPortViewDtoList에 추가
-        for (MainPortViewDto portViewDto : mainPortViewDtoList) {
-            if (portViewDto.getCategoryID() == checkNum) {
-                selectedPortViewDtoList.add(portViewDto);
-            }
-        }
-
-        return selectedPortViewDtoList;
+    public List<MainPortViewDto> findAllSearchPorts(int page, int pageSize, String order, String searchQuery, int checkNum) {
+        int offset = (page - 1) * pageSize;
+        return portfolioRepository.findAllSearchPorts(order, pageSize, offset, searchQuery, checkNum);
     }
 
-    public List<MainPortViewDto> findAllSearchPorts(String searchQuery) {
-        return portfolioRepository.findAllSearchPorts(searchQuery);
-    }
-
-    public List<MainPortViewDto> findAllSearchPortsOrderByPopularity(String searchQuery) {
-        return portfolioRepository.findAllSearchPortsOrderByPopularity(searchQuery);
-    }
-
-    public List<MainPortViewDto> findAllSearchPortsOrderByViews(String searchQuery) {
-        return portfolioRepository.findAllSearchPortsOrderByViews(searchQuery);
-    }
-
-    public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
-        return portfolioRepository.findAllSearchPortsOrderByOldest(searchQuery);
-    }
 
 
     public List<PopularDto> findByPopular() {
@@ -376,5 +339,16 @@ public class PortfolioService {
     public List<PopularDto> getFollowList(List<Integer> userid) {
         return portfolioRepository.findgetFollowListbyUserID(userid);
     }
+
+    public int getPortfolioSize() {
+        return portfolioRepository.getPortfolioSize();
+    }
+
+    public List<MainPortViewDto> findCategoryPorts(int page, int pageSize, String order, int checkNum) {
+
+        int offset = (page - 1) * pageSize;
+        return portfolioRepository.findCategoryPorts(order, pageSize, offset, checkNum);
+    }
+
 }
 
