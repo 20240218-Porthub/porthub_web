@@ -10,6 +10,10 @@
     white-space: nowrap; /* 가로 스크롤을 위한 설정 */
 }
 
+li {
+    list-style-position: inside;
+}
+
 .title-container {
     text-align: center;
     margin-top: 20px;
