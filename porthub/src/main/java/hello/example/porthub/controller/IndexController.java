@@ -1,5 +1,6 @@
 package hello.example.porthub.controller;
 
+import hello.example.porthub.config.util.CategoryConstants;
 import hello.example.porthub.config.util.CookieUtils;
 import hello.example.porthub.config.util.SessionUtils;
 import hello.example.porthub.domain.*;
@@ -122,22 +123,8 @@ public class IndexController {
             model.addAttribute("isLoggedIn", false);
         }
 
-        int checkNum = 0;
-        if (CategoryName.equals("Development")) {
-            checkNum = 2;
-        } else if (CategoryName.equals("Music")) {
-            checkNum = 3;
-        } else if (CategoryName.equals("Design")) {
-            checkNum = 4;
-        } else if (CategoryName.equals("Editing")) {
-            checkNum = 5;
-        } else if (CategoryName.equals("Film")) {
-            checkNum = 6;
-        } else if (CategoryName.equals("Marketing")) {
-            checkNum = 7;
-        } else if (CategoryName.equals("Other")) {
-            checkNum = 8;
-        }
+        int checkNum = CategoryConstants.getCheckNum(CategoryName);
+
 
         int mainPortfolioSize = portfolioService.getPortfolioSize();
 
@@ -195,22 +182,9 @@ public class IndexController {
         if (CategoryName==null) {
             CategoryName = "main";
         }
-        int checkNum = 0;
-        if (CategoryName.equals("Development")) {
-            checkNum = 2;
-        } else if (CategoryName.equals("Music")) {
-            checkNum = 3;
-        } else if (CategoryName.equals("Design")) {
-            checkNum = 4;
-        } else if (CategoryName.equals("Editing")) {
-            checkNum = 5;
-        } else if (CategoryName.equals("Film")) {
-            checkNum = 6;
-        } else if (CategoryName.equals("Marketing")) {
-            checkNum = 7;
-        } else if (CategoryName.equals("Other")) {
-            checkNum = 8;
-        }
+
+        int checkNum = CategoryConstants.getCheckNum(CategoryName);
+
         int mainPortfolioSize = portfolioService.getPortfolioSize();
 
         List<MainPortViewDto> mainPortViewDtoList = portfolioService.findAllSearchPorts(page, pageSize, order, SearchQuery, checkNum);
