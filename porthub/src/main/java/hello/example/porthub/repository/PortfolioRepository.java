@@ -3,22 +3,19 @@ package hello.example.porthub.repository;
 
 import hello.example.porthub.domain.*;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Test;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 @RequiredArgsConstructor
 public class PortfolioRepository {
 
-//    private static final Map<Long, PortfolioDto> portfolioItem = new ConcurrentHashMap<>();
-//    //동시성 문제 해결하기 위함 ConcurrntHashMap, AtomicLong
-//    private static final AtomicLong sequence = new AtomicLong(0);
+//    //동시성 문제 해결하기 위함 ConcurrntHashMap 현재 서비스는 단일 스레드 환경이긴 함
 
     private final SqlSessionTemplate sql;
 
@@ -38,10 +35,6 @@ public class PortfolioRepository {
 
     public int PortID() {
         return sql.selectOne("Portfolio.selectPortfolioID");
-    }
-
-    public List<MainPortViewDto> findAllPorts() {
-        return sql.selectList("Portfolio.findAllPorts");
     }
 
     public PortViewDto findportview(int portfolioID) {
@@ -74,10 +67,10 @@ public class PortfolioRepository {
     public void createLikedata(PortLikeDto portLikeDto) {
         sql.insert("Portfolio.insertPortLikes", portLikeDto);
     }
+
     public void updateLikedate(PortLikeDto portLikeDto) {
         sql.update("Portfolio.updatePortLikes", portLikeDto);
     }
-
     public boolean checkFollow(int authorID, int currentID) {
         Map<String, Object> checkFollow = new HashMap<>();
         checkFollow.put("authorID", authorID);
@@ -147,18 +140,6 @@ public class PortfolioRepository {
         }
     }
 
-    public List<MainPortViewDto> findAllPortsOrderByOldest() {
-        return sql.selectList("Portfolio.findAllPortsOrderByOldest");
-    }
-
-    public List<MainPortViewDto> findAllPortsOrderByPopularity() {
-        return sql.selectList("Portfolio.findAllPortsOrderByPopularity");
-    }
-
-    public List<MainPortViewDto> findAllPortsOrderByViews() {
-        return sql.selectList("Portfolio.findAllPortsOrderByViews");
-    }
-
     public void portfolioIncreLikes(int portfolioID) {
 
         try {
@@ -168,28 +149,24 @@ public class PortfolioRepository {
         }
         sql.update("Portfolio.portfolioIncreLikes", portfolioID);
     }
+
     public void portfolioDecreLikes(int portfolioID) {
+
         sql.update("Portfolio.portfolioDecreLikes", portfolioID);
     }
-
     public int checkCategoryNum(int checkNum) {
         return sql.selectOne("Portfolio.checkCategoryNum", checkNum);
     }
 
-    public List<MainPortViewDto> findAllSearchPorts(String searchQuery) {
-        return sql.selectList("Portfolio.findAllSearchPorts", searchQuery);
-    }
+    public List<MainPortViewDto> findAllSearchPorts(String order, int pageSize, int offset, String searchQuery, int checkNum) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("order", order);
+        params.put("pageSize", pageSize);
+        params.put("offset", offset);
+        params.put("checkNum", checkNum);
+        params.put("searchQuery", searchQuery);
 
-    public List<MainPortViewDto> findAllSearchPortsOrderByPopularity(String searchQuery) {
-        return sql.selectList("Portfolio.findAllSearchPortsOrderByPopularity", searchQuery);
-    }
-
-    public List<MainPortViewDto> findAllSearchPortsOrderByViews(String searchQuery) {
-        return sql.selectList("Portfolio.findAllSearchPortsOrderByViews", searchQuery);
-    }
-
-    public List<MainPortViewDto> findAllSearchPortsOrderByOldest(String searchQuery) {
-        return sql.selectList("Portfolio.findAllSearchPortsOrderByOldest", searchQuery);
+        return sql.selectList("Portfolio.findAllSearchPorts", params);
     }
 
     public List<PopularDto> findByPopular()  {
@@ -229,5 +206,27 @@ public class PortfolioRepository {
             // 데이터가 없으면 INSERT 실행
             sql.insert("Portfolio.insertByRank", popularDto);
         }
+    }
+
+    public List<MainPortViewDto> findAllPorts(String order, int pageSize, int offset) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("order", order);
+        params.put("pageSize", pageSize);
+        params.put("offset", offset);
+
+        return sql.selectList("Portfolio.findAllPorts", params);
+    }
+
+    public int getPortfolioSize() {
+        return sql.selectOne("Portfolio.getPortfolioSize");
+    }
+
+    public List<MainPortViewDto> findCategoryPorts(String order, int pageSize, int offset, int checkNum) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("order", order);
+        params.put("pageSize", pageSize);
+        params.put("offset", offset);
+        params.put("checkNum", checkNum);
+        return sql.selectList("Portfolio.findCategoryPorts", params);
     }
 }
