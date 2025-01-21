@@ -14,7 +14,7 @@ public class ScheduledTasks {
         this.portfolioService = portfolioService;
     }
 
-//    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     @PostConstruct
     public void PopularTask() {
 //      정각 12시마다 업데이트

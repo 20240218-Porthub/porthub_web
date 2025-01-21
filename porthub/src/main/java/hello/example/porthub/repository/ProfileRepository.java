@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -19,11 +21,22 @@ public class ProfileRepository {
 
     public ProfileDto findByUserID(int UserID){ return sql.selectOne("Member.findByUserID", UserID); }
 
-    public List<MainPortViewDto> findportByUserID(int UserID){ return sql.selectList("Portfolio.findPortsByUserID", UserID);}
+    public List<MainPortViewDto> findportByUserID(int UserID, int pageSize, int offset){
+        Map<String, Object> params = new HashMap<>();
+        params.put("UserID", UserID);
+        params.put("pageSize", pageSize);
+        params.put("offset", offset);
+        return sql.selectList("Portfolio.findPortsByUserID", params);
+    }
 
-//    public int cntFollower(int id){return sql.selectOne("Member.countfollower",id);}
-//
-//    public int cntFollowing(int id){return sql.selectOne("Member.countfollowing",id);}
+    public List<MainPortViewDto> findAllPorts(String order, int pageSize, int offset) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("order", order);
+        params.put("pageSize", pageSize);
+        params.put("offset", offset);
+
+        return sql.selectList("Portfolio.findAllPorts", params);
+    }
 
     public List<Integer> getUserFollowerListbyID(int userid) {
         return sql.selectList("Member.getUserFollowerListbyID", userid);
@@ -31,5 +44,9 @@ public class ProfileRepository {
 
     public List<Integer> getUserFollowingListbyID(int userid) {
         return sql.selectList("Member.getUserFollowingListbyID", userid);
+    }
+
+    public int countPortfoliosByUserID(int userid) {
+        return sql.selectOne("Member.countPortfoliosByUserID", userid);
     }
 }
