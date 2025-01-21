@@ -96,7 +96,7 @@
     </select>
 
 
-    <select id="findPortsByUserID" parameterType="int" resultType="hello.example.porthub.domain.MainPortViewDto">
+    <select id="findPortsByUserID" resultType="hello.example.porthub.domain.MainPortViewDto">
         SELECT p.PortfolioID,
                p.AuthorID AS UserID,
                p.Thumbnail_url,
@@ -107,7 +107,8 @@
                  JOIN
              Users u ON p.AuthorID = u.UserID
         where u.UserID=#{UserID}
-        ORDER BY p.PortfolioID DESC;
+        ORDER BY p.PortfolioID DESC
+        LIMIT #{pageSize} OFFSET #{offset};
     </select>
 
     <select id="findPortfolioByPortfolioID" resultType="hello.example.porthub.domain.PortViewDto">
