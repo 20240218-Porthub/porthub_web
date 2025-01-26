@@ -16,7 +16,11 @@
     <select id="findByEmail" parameterType="String" resultType="member">
         select * from Users where Email=#{Email}
     </select>
-
+    <select id="countPortfoliosByUserID" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM Portfolios
+        WHERE AuthorID = #{userid}
+    </select>
     <select id="findByUserIDtoEmail" parameterType="String" resultType="member">
         SELECT UserID
         FROM Users

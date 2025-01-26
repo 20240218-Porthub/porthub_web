@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 @RequiredArgsConstructor
@@ -158,6 +157,17 @@ public class PortfolioRepository {
         return sql.selectOne("Portfolio.checkCategoryNum", checkNum);
     }
 
+    public List<MainPortViewDto> findAllSearchPorts2(String order, int pageSize, int offset, String searchQuery, int checkNum) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("order", order);
+        params.put("pageSize", pageSize);
+        params.put("offset", offset);
+        params.put("checkNum", checkNum);
+        params.put("searchQuery", searchQuery);
+
+        return sql.selectList("Portfolio.findAllSearchPorts2", params);
+    }
+
     public List<MainPortViewDto> findAllSearchPorts(String order, int pageSize, int offset, String searchQuery, int checkNum) {
         Map<String, Object> params = new HashMap<>();
         params.put("order", order);
@@ -229,4 +239,32 @@ public class PortfolioRepository {
         params.put("checkNum", checkNum);
         return sql.selectList("Portfolio.findCategoryPorts", params);
     }
+
+
+    public List<MainPortViewDto> findAllSearchPortsExplain(Map<String, Object> params) {
+
+        return sql.selectList("Portfolio.findAllSearchPortsExplain", params);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsExplain2(Map<String, Object> params) {
+
+        return sql.selectList("Portfolio.findAllSearchPortsExplain2", params);
+    }
+
+    public List<MainPortViewDto> findAllSearchPorts3(String order, int pageSize, int offset, String searchQuery, int checkNum) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("order", order);
+        params.put("pageSize", pageSize);
+        params.put("offset", offset);
+        params.put("checkNum", checkNum);
+        params.put("searchQuery", searchQuery);
+
+        return sql.selectList("Portfolio.findAllSearchPorts3", params);
+    }
+
+    public List<MainPortViewDto> findAllSearchPortsExplain3(Map<String, Object> params) {
+
+        return sql.selectList("Portfolio.findAllSearchPortsExplain3", params);
+    }
+
 }

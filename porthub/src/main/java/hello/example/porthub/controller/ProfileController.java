@@ -10,10 +10,8 @@ import hello.example.porthub.repository.ProfileRepository;
 import hello.example.porthub.service.PortfolioService;
 import hello.example.porthub.service.ProfileService;
 import hello.example.porthub.service.S3Service;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -45,14 +43,16 @@ public class ProfileController {
     }
 
     @GetMapping("/{name}")
-    public String memberInfo(@PathVariable("name") String name, ModelMap modelMap, Model model){
-        Map<String,String> map= new HashMap<String, String>();
+    public String memberInfo(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
+            @PathVariable("name") String name, ModelMap modelMap, Model model) {
 
+        Map<String,String> map= new HashMap<String, String>();
         MemberDto member = memberRepository.findByUserName(name);
         int userid=member.getUserID();
         ProfileDto UserMeta=profileRepository.findByUserID(userid);
 
-        List<MainPortViewDto> mainPortView=profileService.findPortByUserID(userid);
 
 
         List<Integer> getfolloweruserList = profileRepository.getUserFollowerListbyID(userid);
@@ -90,13 +90,28 @@ public class ProfileController {
             model.addAttribute("isLoggedIn", false);
         }
 
+        int totalPortfolios = profileService.countPortfoliosByUserID(userid);
+
+        int totalPages = (int) Math.ceil((double) totalPortfolios / pageSize);
+        List<MainPortViewDto> mainPortView = profileService.findPortByUserID(userid, page, pageSize);
+        int buttonPerPage = 10;
+        int currentGroup = (int) Math.ceil((double) page / buttonPerPage);
+        int groupStart = (currentGroup - 1) * buttonPerPage + 1;
+        int groupEnd = Math.min(currentGroup * buttonPerPage, totalPages);
+
 
         map.put("follower", String.valueOf(getfolloweruserList.size()));
         map.put("following",String.valueOf(getfollowinguserList.size()));
 
+        model.addAttribute("groupStart", groupStart);
+        model.addAttribute("groupEnd", groupEnd);
+
         model.addAttribute("follwerDataList", follwerDataList);
         model.addAttribute("follwingDataList", follwingDataList);
 
+        modelMap.addAttribute("pageSize", pageSize);
+        modelMap.addAttribute("totalPages", totalPages);
+        modelMap.addAttribute("currentPage", page);
         modelMap.addAttribute("follows",map);
         modelMap.addAttribute("mainPortView", mainPortView);
         modelMap.addAttribute("member", member);

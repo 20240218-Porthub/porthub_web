@@ -2,9 +2,6 @@ package hello.example.porthub.service;
 
 
 import hello.example.porthub.domain.MainPortViewDto;
-import hello.example.porthub.domain.MemberDto;
-import hello.example.porthub.domain.ProfileDto;
-import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,10 +12,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProfileService {
     private final ProfileRepository profileRepository;
-    public List<MainPortViewDto> findPortByUserID(int UserID){ return profileRepository.findportByUserID(UserID);}
+    public List<MainPortViewDto> findPortByUserID(int UserID, int page, int pageSize){
+        int offset = (page - 1) * pageSize;
+        return profileRepository.findportByUserID(UserID, pageSize, offset);
+    }
 
-//    public int cntFollower(int id){return profileRepository.cntFollower(id);}
-//
-//    public int cntFollowing(int id){return profileRepository.cntFollowing(id);}
+    public int countPortfoliosByUserID(int userid) {
+        return profileRepository.countPortfoliosByUserID(userid);
+    }
 
 }
