@@ -365,6 +365,42 @@
         LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
+    <select id="findAllSearchPorts2" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT
+        p.PortfolioID,
+        p.AuthorID AS UserID,
+        p.Thumbnail_url,
+        p.Title,
+        p.CategoryID,
+        u.UserName,
+        u.ProfileImage
+        FROM Portfolios p
+        JOIN Users u ON p.AuthorID = u.UserID
+        <where>
+            <if test="searchQuery != null and searchQuery != ''">
+                MATCH(p.Title) AGAINST(#{searchQuery} IN BOOLEAN MODE)
+            </if>
+            <if test="checkNum > 1">
+                AND p.CategoryID = #{checkNum}
+            </if>
+        </where>
+        <choose>
+            <when test="order == 'PopularityOrder'">
+                ORDER BY p.Hearts_count DESC, p.PortfolioID DESC
+            </when>
+            <when test="order == 'ViewsOrder'">
+                ORDER BY p.Views_count DESC, p.PortfolioID DESC
+            </when>
+            <when test="order == 'OldestOrder'">
+                ORDER BY p.PortfolioID ASC
+            </when>
+            <otherwise>
+                ORDER BY p.PortfolioID DESC
+            </otherwise>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
     <select id="findAllSearchPortsOrderByPopularity" resultType="hello.example.porthub.domain.MainPortViewDto" parameterType="String">
         SELECT p.PortfolioID,
                p.AuthorID AS UserID,
@@ -480,6 +516,164 @@
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
+    </select>
+
+    <select id="findAllSearchPortsExplain" resultType="java.util.Map">
+        EXPLAIN
+        SELECT
+        p.PortfolioID,
+        p.AuthorID AS UserID,
+        p.Thumbnail_url,
+        p.Title,
+        p.CategoryID,
+        u.UserName,
+        u.ProfileImage
+        FROM Portfolios p
+        JOIN Users u ON p.AuthorID = u.UserID
+        <where>
+            <if test="searchQuery != null and searchQuery != ''">
+                p.Title LIKE CONCAT('%', #{searchQuery}, '%')
+            </if>
+            <if test="checkNum > 1">
+                AND p.CategoryID = #{checkNum}
+            </if>
+        </where>
+        <choose>
+            <when test="order == 'PopularityOrder'">
+                ORDER BY p.Hearts_count DESC, p.PortfolioID DESC
+            </when>
+            <when test="order == 'ViewsOrder'">
+                ORDER BY p.Views_count DESC, p.PortfolioID DESC
+            </when>
+            <when test="order == 'OldestOrder'">
+                ORDER BY p.PortfolioID ASC
+            </when>
+            <otherwise>
+                ORDER BY p.PortfolioID DESC
+            </otherwise>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="findAllSearchPortsExplain2" resultType="java.util.Map">
+        EXPLAIN
+        SELECT
+        p.PortfolioID,
+        p.AuthorID AS UserID,
+        p.Thumbnail_url,
+        p.Title,
+        p.CategoryID,
+        u.UserName,
+        u.ProfileImage
+        FROM Portfolios p
+        JOIN Users u ON p.AuthorID = u.UserID
+        <where>
+            <if test="searchQuery != null and searchQuery != ''">
+                MATCH(p.Title) AGAINST(#{searchQuery} IN BOOLEAN MODE)
+            </if>
+            <if test="checkNum > 1">
+                AND p.CategoryID = #{checkNum}
+            </if>
+        </where>
+        <choose>
+            <when test="order == 'PopularityOrder'">
+                ORDER BY p.Hearts_count DESC, p.PortfolioID DESC
+            </when>
+            <when test="order == 'ViewsOrder'">
+                ORDER BY p.Views_count DESC, p.PortfolioID DESC
+            </when>
+            <when test="order == 'OldestOrder'">
+                ORDER BY p.PortfolioID ASC
+            </when>
+            <otherwise>
+                ORDER BY p.PortfolioID DESC
+            </otherwise>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+    <select id="findAllSearchPorts3" resultType="hello.example.porthub.domain.MainPortViewDto">
+        SELECT
+        filtered_ports.PortfolioID,
+        filtered_ports.AuthorID AS UserID,
+        filtered_ports.Thumbnail_url,
+        filtered_ports.Title,
+        filtered_ports.CategoryID,
+        u.UserName,
+        u.ProfileImage
+        FROM (
+        SELECT
+        p.PortfolioID,
+        p.AuthorID,
+        p.Thumbnail_url,
+        p.Title,
+        p.CategoryID,
+        p.Hearts_count,  <!-- 추가된 컬럼 -->
+        p.Views_count   <!-- 추가된 컬럼 -->
+        FROM Portfolios p
+        WHERE p.CategoryID = #{checkNum}
+        <if test="searchQuery != null and searchQuery != ''">
+            AND MATCH(p.Title) AGAINST (#{searchQuery} IN NATURAL LANGUAGE MODE)
+        </if>
+        ) AS filtered_ports
+        JOIN Users u ON filtered_ports.AuthorID = u.UserID
+        <choose>
+            <when test="order == 'PopularityOrder'">
+                ORDER BY filtered_ports.Hearts_count DESC, filtered_ports.PortfolioID DESC
+            </when>
+            <when test="order == 'ViewsOrder'">
+                ORDER BY filtered_ports.Views_count DESC, filtered_ports.PortfolioID DESC
+            </when>
+            <when test="order == 'OldestOrder'">
+                ORDER BY filtered_ports.PortfolioID ASC
+            </when>
+            <otherwise>
+                ORDER BY filtered_ports.PortfolioID DESC
+            </otherwise>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="findAllSearchPortsExplain3" resultType="java.util.Map">
+        EXPLAIN
+        SELECT
+        filtered_ports.PortfolioID,
+        filtered_ports.AuthorID AS UserID,
+        filtered_ports.Thumbnail_url,
+        filtered_ports.Title,
+        filtered_ports.CategoryID,
+        u.UserName,
+        u.ProfileImage
+        FROM (
+        SELECT
+        p.PortfolioID,
+        p.AuthorID,
+        p.Thumbnail_url,
+        p.Title,
+        p.CategoryID,
+        p.Hearts_count,  <!-- 추가된 컬럼 -->
+        p.Views_count   <!-- 추가된 컬럼 -->
+        FROM Portfolios p
+        WHERE p.CategoryID = #{checkNum}
+        <if test="searchQuery != null and searchQuery != ''">
+            AND MATCH(p.Title) AGAINST (#{searchQuery} IN NATURAL LANGUAGE MODE)
+        </if>
+        ) AS filtered_ports
+        JOIN Users u ON filtered_ports.AuthorID = u.UserID
+        <choose>
+            <when test="order == 'PopularityOrder'">
+                ORDER BY filtered_ports.Hearts_count DESC, filtered_ports.PortfolioID DESC
+            </when>
+            <when test="order == 'ViewsOrder'">
+                ORDER BY filtered_ports.Views_count DESC, filtered_ports.PortfolioID DESC
+            </when>
+            <when test="order == 'OldestOrder'">
+                ORDER BY filtered_ports.PortfolioID ASC
+            </when>
+            <otherwise>
+                ORDER BY filtered_ports.PortfolioID DESC
+            </otherwise>
+        </choose>
+        LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
 
