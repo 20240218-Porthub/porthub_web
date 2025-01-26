@@ -5,6 +5,7 @@ import hello.example.porthub.repository.MemberRepository;
 import hello.example.porthub.repository.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class PortfolioService {
     private final MemberService memberService;
     private final ImagesDto imagesDto;
 
+    @Transactional
     public int upload(PortfolioDto portfolioDto) {
         try {
             String Category = portfolioDto.getCategoryString();
