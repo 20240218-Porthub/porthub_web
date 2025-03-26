@@ -204,7 +204,8 @@ pre {
     border-radius: 10px;
     background: whitesmoke;
     padding: 10px;
-    white-space: normal;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 code {
