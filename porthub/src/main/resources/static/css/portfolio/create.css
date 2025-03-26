@@ -37,7 +37,9 @@ pre {
     border-radius: 10px;
     background: whitesmoke;
     padding: 10px;
-    white-space: break-spaces;
+    /*white-space: break-spaces;*/
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 code {
