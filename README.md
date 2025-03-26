@@ -1,42 +1,66 @@
 
-## 다이어그램 및 문서
-
-## 프로젝트 기술 스택
-<img width="665" alt="스크린샷 2024-06-27 오전 1 41 35" src="https://github.com/20240218-Porthub/porthub_web/assets/99077276/29e083dc-51ae-46ce-9fa6-6305069c6e7b">
-
-## 프로젝트 구조 (dto, controller, service, repository)
-
-## domain구조, layer 구조
-<img width="610" alt="스크린샷 2024-06-27 오전 1 43 18" src="https://github.com/20240218-Porthub/porthub_web/assets/99077276/cd62ff34-2a92-49c3-b191-97f148f1244b">
-
-- 계층형 구조를 사용: 패키지 구조를 이해하기 수월함, 기업과 같이 상대적으로 큰 규모가 아니기 때문에 프로젝트에 적합한 layer 구조를 선택
-
-## spring security 설정
-- 스프링 시큐리티
-- 
-## 클래스 다이어그램, uml 구조
-
-## 무중단 배포 과정
-
-## Travis CI 및 AWS 배포 셋팅 과정
- - github관리 (main → push할 때 배포 자동화)
-
-## 무중단 배포 셋팅
 
 
-## 레지스터(로그인&회원가입)
+# 🚀 PortfolioHub
 
-## 포트폴리오 등록(마크다운, 오디오 및 이미지 태그)
+> 통합 포트폴리오 웹 서비스
 
-## 세션, 쿠키 등
 
-## Import 결제 서비스, 멘토링
+---
 
-## 채팅 서비스
 
-## 로그인 세션 사용
+## 📜 프로젝트 개요
+> 이 프로젝트는 각 분야 별로 흩어진 포트폴리오 및 작업물을 하나의 플랫폼으로
+관리하고, 협업을 촉진하는 웹 서비스입니다.
 
-## 시연 방법
+- `주요 기능`: 포트폴리오, 채팅, 멘토링
+- `아키텍처`: 무중단 배포 지원
+- `인원` : 개발 3인
+
+---
+
+## 🛠 기술 스택
+
+### 📌 Backend && Frontend
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white) ![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=spring-security&logoColor=white) 
+
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white)
+
+### 📌 Database
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white) ![MyBatis](https://img.shields.io/badge/MyBatis-DC382D?style=for-the-badge&logo=&logoColor=white) ![AWS RDS](https://img.shields.io/badge/AWS%20RDS-527FFF?style=for-the-badge&logo=amazon-aws&logoColor=white)
+
+### 📌 CI/CD & DevOps
+![AWS EC2](https://img.shields.io/badge/AWS%20EC2-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white) ![AWS S3](https://img.shields.io/badge/AWS%20S3-569A31?style=for-the-badge&logo=amazon-aws&logoColor=white) ![AWS CodeDeploy](https://img.shields.io/badge/AWS%20CodeDeploy-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+
+![Travis CI](https://img.shields.io/badge/TravisCI-3EAAAF?style=for-the-badge&logo=travisci&logoColor=white)  ![Nginx](https://img.shields.io/badge/Nginx-269539?style=for-the-badge&logo=nginx&logoColor=white)
+
+### 📌 협업 도구
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)  ![WBS](https://img.shields.io/badge/WBS-007ACC?style=for-the-badge&logo=&logoColor=white)
+
+---
+
+
+## 🎥 미리 보기
+
+| ![메인홈](https://github.com/user-attachments/assets/e027c63c-f43c-44c6-a04b-d1025662da83) | ![검색](https://github.com/user-attachments/assets/93210e8d-2ae8-46c4-9329-c9d4698f31c7) |
+|:----------:|:----------:|
+| **메인 홈** | **검색 기능** |
+| ![결제](https://github.com/user-attachments/assets/628bc065-e48b-4cfc-a278-90877c90c6fa) | ![멘토 인증](https://github.com/user-attachments/assets/8be2310f-2b1d-4670-9599-6901142aa910) |
+| **결제 시스템** | **멘토 인증** |
+| ![멘토 등록](https://github.com/user-attachments/assets/834d71a0-a3dd-412e-bc4d-9a94ae1a2ab2) | ![무중단 배포](https://github.com/user-attachments/assets/9b1db388-87b6-4cb5-8c51-7ee7c742d321) |
+| **멘토 등록** | **무중단 배포** |
+| ![사용자 제재](https://github.com/user-attachments/assets/977801a0-5982-436c-8717-4ed18701b922) | ![어드민](https://github.com/user-attachments/assets/9fe5d1d3-5ad8-49e0-b64a-ca7d79ea68e8) |
+| **사용자 제재** | **어드민 페이지** |
+| ![채팅](https://github.com/user-attachments/assets/ce4ce4fc-8c3e-41bb-980e-4d3ac082282e) | ![챗봇](https://github.com/user-attachments/assets/2ca102ce-7d34-4eb5-931a-71d21d52dfa0) |
+| **채팅 기능** | **챗봇 시스템** |
+| ![포트폴리오 등록](https://github.com/user-attachments/assets/9cb2f41d-9baf-4e1a-86a1-27980e6a0c27) | ![포트폴리오 기능](https://github.com/user-attachments/assets/32879e86-7b29-43aa-9017-d691ece1459c) |
+| **포트폴리오 관리** | **포트폴리오 기능** |
+| ![프로필 수정](https://github.com/user-attachments/assets/27532d7c-583d-4e13-8a29-b7bfbf52ef0e) | ![회원가입](https://github.com/user-attachments/assets/982e14ea-beba-44c1-ba0d-fbb80e019ceb) |
+| **프로필 수정** | **회원가입** |
+
+---
+
+## YML && DataBase
  - <details>
    <summary>application.yml 파일을 src/main/resources에 생성</summary>
    <div markdown="1">
