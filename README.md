@@ -49,7 +49,9 @@
 
 ## 🎥 미리 보기
 
-| ![메인홈](https://github.com/user-attachments/assets/e027c63c-f43c-44c6-a04b-d1025662da83) | ![검색](https://github.com/user-attachments/assets/93210e8d-2ae8-46c4-9329-c9d4698f31c7) |
+
+
+| ![메인홈](https://github.com/user-attachments/assets/b6b5db71-f636-4b59-a2a9-f32f04603ecc) | ![검색](https://github.com/user-attachments/assets/93210e8d-2ae8-46c4-9329-c9d4698f31c7) |
 |:----------:|:----------:|
 | **메인 홈** | **검색 기능** |
 | ![결제](https://github.com/user-attachments/assets/628bc065-e48b-4cfc-a278-90877c90c6fa) | ![멘토 인증](https://github.com/user-attachments/assets/8be2310f-2b1d-4670-9599-6901142aa910) |

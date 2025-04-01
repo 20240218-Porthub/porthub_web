@@ -13,6 +13,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -34,6 +40,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //특정한 경로의 접근을 제한
         http
+
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((auth) -> auth
 //                        .requestMatchers("/mentoring/createmento/**").hasRole("MENTO")
 //                        .requestMatchers("/mentoring/createmento/**").hasRole("ADMIN")
@@ -69,6 +77,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+
     //security로 인해 css 적용 안되는 부분이 있을 경우 해제 시킴
 
     @Bean
@@ -84,6 +93,18 @@ public class SecurityConfig {
         return (request, response, authentication) -> {
             response.sendRedirect("/logout-success");
         };
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(List.of("http://localhost:8080", "https://unpkg.com/")); // 필요한 도메인 추가
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
     @Bean
